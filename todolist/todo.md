@@ -6,8 +6,9 @@ A simple todo list for the initial stages. In no particular order.
 
 * Formalize iOS & android appstore publication rights.
 
-* Consider & Prioritize design and feature revisions such as: Editing saved records, Viewing all records from a single site, Revisiting Sites, Image bundle exports (?), Optionally clear data upon export or export single trips.
+* Consider & Prioritize design and feature revisions such as: Editing saved records, Viewing all records from a single site, Revisiting Sites, Image bundle exports (?), Optionally clear data upon export or export single trips. Compass / Headding indicator on site level page (for locality string writing).
 
 * UX/UI, icon, theme revisions (if appropriate)
 
 * a **Name!**
+
