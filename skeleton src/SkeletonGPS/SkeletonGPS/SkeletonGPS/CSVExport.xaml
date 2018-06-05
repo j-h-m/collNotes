@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SkeletonGPS.CSVExport">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="lbl_CSVTitle" Text="Export your location data to CSV."
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="btn_CSVExport" Text="Export to CSV"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="OnClick_CSV"/>
+            <Label x:Name="lbl_CSVStatus" Text="status"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
