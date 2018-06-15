@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PDSkeleton"
+             x:Class="PDSkeleton.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Label Text="Go To Trip Page" 
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+        <Button x:Name="btnTrip"
+                Text="Trip"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="Trip_OnClick"/>
+        <Label Text="Settings" 
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+        <Button x:Name="btnSettings"
+                Text="Settings"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="Settings_OnClick"/>
+        <Label Text="A Cry For Help" 
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+        <Button x:Name="btnHelp"
+                Text="Help!"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="Help_OnClick"/>
+    </StackLayout>
+
+</ContentPage>
