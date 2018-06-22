@@ -1,12 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PDSkeleton.Trip">
+             x:Class="PDSkeleton.TripPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Trip Page"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
             <Label Text="Primary Collector"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
@@ -47,7 +44,12 @@
                     Text="Save Trip"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Clicked="SaveTrip_OnClick"/>            
+                    Clicked="SaveTrip_OnClick"/>
+            <Button x:Name="btnNewSite"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Text="New Site"
+                    Clicked="NewSite_OnClick" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

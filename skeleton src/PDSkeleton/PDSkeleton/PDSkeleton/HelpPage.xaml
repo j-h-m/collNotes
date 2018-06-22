@@ -7,6 +7,11 @@
             <Label Text="A cry for help!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Help!"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    x:Name="btnHelp"
+                    Clicked="btnHelp_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

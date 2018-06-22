@@ -16,57 +16,61 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Help.xaml.cs">
-      <DependentUpon>Help.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ORM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Project.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Site.xaml.cs">
-      <DependentUpon>Site.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Site.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SitePage.xaml.cs">
+      <DependentUpon>SitePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Specimen.xaml.cs">
-      <DependentUpon>Specimen.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Specimen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpecimenPage.xaml.cs">
+      <DependentUpon>SpecimenPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Trip.xaml.cs">
-      <DependentUpon>Trip.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Trip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TripPage.xaml.cs">
+      <DependentUpon>TripPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Trip.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)TripPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Site.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SitePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Specimen.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SpecimenPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Settings.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Help.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

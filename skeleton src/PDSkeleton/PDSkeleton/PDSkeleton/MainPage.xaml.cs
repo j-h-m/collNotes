@@ -16,7 +16,7 @@ namespace PDSkeleton
 
         public async void Trip_OnClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Trip());
+            await Navigation.PushModalAsync(new TripPage());
         }
 
         public async void Settings_OnClick(object sender, EventArgs e)

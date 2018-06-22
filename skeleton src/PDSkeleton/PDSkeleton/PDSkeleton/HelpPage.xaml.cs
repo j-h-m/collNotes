@@ -10,11 +10,17 @@ using Xamarin.Forms.Xaml;
 namespace PDSkeleton
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Specimen : ContentPage
+	public partial class Help : ContentPage
 	{
-		public Specimen ()
+		public Help ()
 		{
 			InitializeComponent ();
 		}
-	}
+
+        public void btnHelp_Clicked(object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri(@"https://j-h-m.github.io/pd-project-xamarin/"));
+        }
+
+    }
 }

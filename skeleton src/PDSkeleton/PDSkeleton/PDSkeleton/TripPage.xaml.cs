@@ -10,14 +10,14 @@ using Xamarin.Forms.Xaml;
 namespace PDSkeleton
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Trip : ContentPage
+	public partial class TripPage : ContentPage
 	{
         private string primaryCollector = "";
         private string additionalCollectors = "";
         private string projectName = "";
         private DateTime collectionDate;
 
-		public Trip ()
+		public TripPage()
 		{
 			InitializeComponent ();
 		}
@@ -46,12 +46,19 @@ namespace PDSkeleton
         public void GroupPhoto_OnClick(object sender, EventArgs e)
         {
             // open camera
-            // save photo
+            // popup photo save, or just save to DB, or setting for this?
         }
 
-        public void SaveTrip_OnClick(object sender, EventArgs e)
+        public async void SaveTrip_OnClick(object sender, EventArgs e)
         {
             // save trip data
+            // go to site page?
+            // await Navigation.PushModalAsync(new SitePage());
+        }
+
+        public async void NewSite_OnClick(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new SitePage());
         }
     }
 }

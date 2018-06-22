@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PDSkeleton.SitePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Set Site GPS"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center"
+                    x:Name="btnSetSiteGPS"
+                    Clicked="SetSiteGPS_OnClick" />
+            <Label Text="GPS location hasn't been searched yet"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   x:Name="lblSiteGPSLocation" />
+            <Label Text="Locality"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Entry Placeholder="10km from trail head, south facing hill."
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Completed="Locality_EntryCompleted"
+                   x:Name="entryLocality"/>
+            <Label Text="Habitat"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Entry Placeholder="Pine Forest"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Completed="Habitat_EntryCompleted"
+                   x:Name="entryHabitat" />
+            <Label Text="Associated Taxa"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Entry Placeholder="Site wide 'field calls'"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Completed="AssociatedTaxa_EntryCompleted"
+                   x:Name="entryAssocTaxa" />
+            <Label Text="Location Notes"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+            <Entry Placeholder="popular campground"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Completed="LocationNotes_EntryCompleted"
+                   x:Name="entryLocationNotes" />
+            <Button x:Name="btnSitePhoto"
+                    Text="Site Photo"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="SitePhoto_OnClick"/>
+            <Button x:Name="btnSaveSite"
+                    Text="Save Site"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="SaveSite_OnClick"/>
+            <Button x:Name="btnNewSpecimen"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Text="New Specimen"
+                    Clicked="NewSpecimen_OnClick" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -5,12 +5,11 @@
              x:Class="PDSkeleton.MainPage">
 
     <StackLayout>
-        <!-- Place new controls here -->
         <Label Text="Go To Trip Page" 
            HorizontalOptions="Center"
            VerticalOptions="Center" />
         <Button x:Name="btnTrip"
-                Text="Trip"
+                Text="Record Data"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 Clicked="Trip_OnClick"/>
