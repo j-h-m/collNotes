@@ -16,9 +16,11 @@ namespace PDSkeleton
         private string additionalCollectors = "";
         private string projectName = "";
         private DateTime collectionDate;
+        private Trip trip;
 
 		public TripPage()
 		{
+            trip = new Trip();
 			InitializeComponent ();
 		}
 
@@ -54,11 +56,15 @@ namespace PDSkeleton
             // save trip data
             // go to site page?
             // await Navigation.PushModalAsync(new SitePage());
+            trip.AdditionalCollectors = additionalCollectors;
+            trip.CollectionDate = collectionDate;
+            trip.PrimaryCollector = primaryCollector;
+            trip.Sites = new List<Site>();
         }
 
         public async void NewSite_OnClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new SitePage());
+            await Navigation.PushModalAsync(new SitePage(trip));
         }
     }
 }

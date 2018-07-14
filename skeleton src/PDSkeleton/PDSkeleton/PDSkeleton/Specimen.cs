@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PDSkeleton
 {
-    class Specimen
+    public class Specimen
     {
         private Dictionary<string, double> specimenGPS = new Dictionary<string, double>();
         public Dictionary<string, double> SpecimenGPS { get; set; }

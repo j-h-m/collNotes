@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CurrentGPS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -39,6 +40,7 @@
       <DependentUpon>SpecimenPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)TakePhoto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TripPage.xaml.cs">
       <DependentUpon>TripPage.xaml</DependentUpon>

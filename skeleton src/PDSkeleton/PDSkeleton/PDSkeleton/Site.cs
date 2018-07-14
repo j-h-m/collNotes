@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PDSkeleton
 {
-    class Site
+    public class Site
     {
         private List<Specimen> specimen = new List<Specimen>();
         public List<Specimen> Specimen { get; set; }

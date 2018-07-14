@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+// using Xamarin.Forms;
 
 namespace PDSkeleton
 {
-    class Trip
+    public class Trip
     {
         private string primaryCollector = "";
         public string PrimaryCollector { get; set; }
