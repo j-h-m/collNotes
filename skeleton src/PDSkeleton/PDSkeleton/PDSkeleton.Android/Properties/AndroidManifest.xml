@@ -3,5 +3,13 @@
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<application android:label="PDSkeleton.Android" android:icon="@mipmap/pd_launcher_icon"></application>
+	<application android:label="PDSkeleton.Android" android:icon="@mipmap/pd_launcher_icon">
+    <provider android:name="android.support.v4.content.FileProvider" 
+				android:authorities="${applicationId}.fileprovider" 
+				android:exported="false" 
+				android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" 
+				android:resource="@xml/file_paths"></meta-data>
+   </provider>
+  </application>
 </manifest>

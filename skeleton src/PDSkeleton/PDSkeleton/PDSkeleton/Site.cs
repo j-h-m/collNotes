@@ -18,8 +18,7 @@ namespace PDSkeleton
         public string AssociatedTaxa { get; set; }
         private string locationNotes = "";
         public string LocationNotes { get; set; }
-        // how to save image? may have to save what we get as a byte array <--- byte array is usually what you store in a database.
-        // private ?Image? sitePhoto = new ?Image?
-        // public ?Image? SitePhoto {get; set; }
+        public Plugin.Media.Abstractions.MediaFile photo;
+
     }
 }

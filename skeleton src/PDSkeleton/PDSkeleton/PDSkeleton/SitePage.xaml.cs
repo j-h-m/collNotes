@@ -17,6 +17,8 @@ namespace PDSkeleton
         private string habitat = "";
         private string associatedTaxa = "";
         private string locationNotes = "";
+        private Dictionary<string, double> locationInfo;
+        private Plugin.Media.Abstractions.MediaFile photo;
 
         public SitePage (Trip trip)
 		{
@@ -45,14 +47,14 @@ namespace PDSkeleton
             locationNotes = ((Entry)sender).Text;
         }
 
-        public void SetSiteGPS_OnClick(object sender, EventArgs e)
+        public async void SetSiteGPS_OnClick(object sender, EventArgs e)
         {
-
+            locationInfo = await CurrentGPS.CurrentLocation();
         }        
 
-        public void SitePhoto_OnClick(object sender, EventArgs e)
+        public async void SitePhoto_OnClick(object sender, EventArgs e)
         {
-
+            photo = await TakePhoto.CallCamera();
         }
 
         public void SaveSite_OnClick(object sender, EventArgs e)
@@ -61,6 +63,8 @@ namespace PDSkeleton
             site.Habitat = habitat;
             site.Locality = locality;
             site.LocationNotes = locationNotes;
+            site.SiteGPS = locationInfo;
+            site.photo = this.photo;
             site.Specimen = new List<Specimen>();
             trip.Sites.Add(site);
         }

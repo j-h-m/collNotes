@@ -22,8 +22,6 @@ namespace PDSkeleton
         public int IndividualCount { get; set; }
         private bool cultivated = false; // set as false initially
         public bool Cultivated { get; set; }
-        // how to save image? may have to save what we get as a byte array <--- byte array is usually what you store in a database.
-        // private ?Image? specimenImage = new ?Image?
-        // public ?Image? SpecimenImage {get; set; }
+        public Plugin.Media.Abstractions.MediaFile photo;
     }
 }

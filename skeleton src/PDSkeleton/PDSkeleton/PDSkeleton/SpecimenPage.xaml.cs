@@ -22,6 +22,7 @@ namespace PDSkeleton
         private string additionalInfo = "";
         private int individualCount = -1; // -1 indicates it hasn't been set
         private bool cultivated = false;
+        public Plugin.Media.Abstractions.MediaFile photo;
 
         public SpecimenPage(Site site)
         {
@@ -30,10 +31,10 @@ namespace PDSkeleton
             specimen = new Specimen();
         }
 
-        public void SetSpecimenGPS_OnClick(object sender, EventArgs e)
+        public async void SetSpecimenGPS_OnClick(object sender, EventArgs e)
         {
             // get the current location
-            
+            specimenGPS = await CurrentGPS.CurrentLocation();
         }
 
         public void FieldID_EntryCompleted(object sender, EventArgs e)
@@ -66,9 +67,9 @@ namespace PDSkeleton
             int.TryParse(((Entry)sender).Text, out individualCount);
         }
 
-        public void SpecimenPhoto_OnClick(object sender, EventArgs e)
+        public async void SpecimenPhoto_OnClick(object sender, EventArgs e)
         {
-
+            photo = await TakePhoto.CallCamera();
         }
 
         public void SaveSpecimen_OnClick(object sender, EventArgs e)
@@ -80,6 +81,7 @@ namespace PDSkeleton
             specimen.LifeStage = lifeStage;
             specimen.OccurrenceNotes = occurrenceNotes;
             specimen.Substrate = substrate;
+            specimen.photo = this.photo;
             site.Specimen.Add(specimen);
         }
 

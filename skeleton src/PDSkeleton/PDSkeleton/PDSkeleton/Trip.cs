@@ -15,8 +15,6 @@ namespace PDSkeleton
         public DateTime CollectionDate { get; set; }
         private List<Site> sites = new List<Site>();
         public List<Site> Sites{ get; set; }
-        // how to save image? may have to save what we get as a byte array <--- byte array is usually what you store in a database.
-        // private ?Image? groupPhoto = new ?Image?
-        // public ?Image? GroupPhoto {get; set; }
+        public Plugin.Media.Abstractions.MediaFile groupPhoto;
     }
 }

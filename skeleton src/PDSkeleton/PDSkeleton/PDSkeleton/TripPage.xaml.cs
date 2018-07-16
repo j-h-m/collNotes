@@ -17,8 +17,9 @@ namespace PDSkeleton
         private string projectName = "";
         private DateTime collectionDate;
         private Trip trip;
+        public Plugin.Media.Abstractions.MediaFile groupPhoto;
 
-		public TripPage()
+        public TripPage()
 		{
             trip = new Trip();
 			InitializeComponent ();
@@ -45,20 +46,17 @@ namespace PDSkeleton
             // https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/datepicker
         }
 
-        public void GroupPhoto_OnClick(object sender, EventArgs e)
+        public async void GroupPhoto_OnClick(object sender, EventArgs e)
         {
-            // open camera
-            // popup photo save, or just save to DB, or setting for this?
+            groupPhoto = await TakePhoto.CallCamera();
         }
 
-        public async void SaveTrip_OnClick(object sender, EventArgs e)
+        public void SaveTrip_OnClick(object sender, EventArgs e)
         {
-            // save trip data
-            // go to site page?
-            // await Navigation.PushModalAsync(new SitePage());
             trip.AdditionalCollectors = additionalCollectors;
             trip.CollectionDate = collectionDate;
             trip.PrimaryCollector = primaryCollector;
+            trip.groupPhoto = this.groupPhoto;
             trip.Sites = new List<Site>();
         }
 
