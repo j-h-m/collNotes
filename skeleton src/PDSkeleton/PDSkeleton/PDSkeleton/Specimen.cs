@@ -22,6 +22,10 @@ namespace PDSkeleton
         public int IndividualCount { get; set; }
         private bool cultivated = false; // set as false initially
         public bool Cultivated { get; set; }
+        private int siteNumber = 0;
+        public int SiteNumber { get; set; }
+        private int myRecordNo = 0;
+        public int MyRecordNo { get; set; }
         public Plugin.Media.Abstractions.MediaFile photo;
     }
 }

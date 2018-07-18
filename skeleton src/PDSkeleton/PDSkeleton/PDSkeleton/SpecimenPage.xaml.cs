@@ -22,6 +22,7 @@ namespace PDSkeleton
         private string additionalInfo = "";
         private int individualCount = -1; // -1 indicates it hasn't been set
         private bool cultivated = false;
+        private int myRecordNo = 0;
         public Plugin.Media.Abstractions.MediaFile photo;
 
         public SpecimenPage(Site site)
@@ -83,7 +84,13 @@ namespace PDSkeleton
             specimen.Substrate = substrate;
             specimen.photo = this.photo;
             site.Specimen.Add(specimen);
-        }
 
+            // write to sqlite database
+
+
+            // pass recordno to lower heirarchy object
+
+
+        }
     }
 }

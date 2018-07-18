@@ -18,6 +18,10 @@ namespace PDSkeleton
         public string AssociatedTaxa { get; set; }
         private string locationNotes = "";
         public string LocationNotes { get; set; }
+        private int tripNumber = 0;
+        public int TripNumber { get; set; }
+        private int myRecordNo = 0;
+        public int MyRecordNo { get; set; }
         public Plugin.Media.Abstractions.MediaFile photo;
 
     }

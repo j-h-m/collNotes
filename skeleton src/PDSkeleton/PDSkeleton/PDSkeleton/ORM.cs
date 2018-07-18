@@ -3,34 +3,80 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 
+// https://developer.xamarin.com/guides/android/data-and-cloud-services/data-access/part-3-using-sqlite-orm/
+// will probably want to go ahead and write data for each column name, maybe this will avoid
+// inconsistencies between Table definition and Object definition
+
 namespace PDSkeleton
 {
     class ORM
     {
         // define db access here
-        private static string databasePath = "";
-        private SQLiteConnection connection = null;
-
-        public SQLiteConnection GetConnection()
+        private SQLiteConnection connection;
+        public SQLiteConnection Connection
         {
-            if (connection != null)
+            get
             {
                 return connection;
             }
-            else
+            set
             {
-                connection = new SQLiteConnection(databasePath);
-                return connection;
+                connection = new SQLiteConnection(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "PD-Project");
             }
         }
     }
 
-    // define table here
-    [Table("RecordsTable")]
-    public class DataRecord
+    // specify column names
+    // table sets column datatype as property datatype
+    // include column attributes and property for each
+
+    [Table("ProjectRecords")]
+    public class ProjectRecords
     {
-        // specify column name
-        // table sets column datatype as property datatype
+        [PrimaryKey, AutoIncrement, Column("recordNo")]
+        public int RecordNo { get; set; }
+        [Column("ProjectName")]
+        public string ProjectName { get; set; }
+    }
+
+    [Table("TripRecords")]
+    public class TripRecords
+    {
+        [PrimaryKey, AutoIncrement, Column("recordNo")]
+        public int RecordNo { get; set; }
+        [Column("PrimaryCollector")]
+        public string PrimaryCollector { get; set; }
+        [Column("AdditionalCollectors")]
+        public string AdditionalCollectors { get; set; }
+        [Column("ProjectNumber")]
+        public int ProjectNumber { get; set; }
+        [Column("CollectionDate")]
+        public DateTime CollectionDate { get; set; }
+    }
+
+    [Table("SiteRecords")]
+    public class SiteRecords
+    {
+        [PrimaryKey, AutoIncrement, Column("recordNo")]
+        public int RecordNo { get; set; }
+        [Column("GPSCoordinates")]
+        public string GPSCoordinates { get; set; } // this probably won't work
+        [Column("Locality")]
+        public string Locality { get; set; }
+        [Column("Habitat")]
+        public string Habitat { get; set; }
+        [Column("AssociatedTaxa")]
+        public string AssociatedTaxa { get; set; }
+        [Column("LocationNotes")]
+        public string LocationNotes { get; set; }
+        [Column("TripNumber")]
+        public int TripNumber { get; set; }
+    }
+
+    [Table("SpecimenRecords")]
+    public class SpecimenRecords
+    {
         [PrimaryKey, AutoIncrement, Column("recordNo")]
         public int RecordNo { get; set; }
         [Column("tripNumber")]
