@@ -17,8 +17,8 @@ namespace PDSkeleton
         public int MyRecordNo { get; set; }
         private DateTime collectionDate = new DateTime();
         public DateTime CollectionDate { get; set; }
-        private List<Site> sites = new List<Site>();
-        public List<Site> Sites{ get; set; }
+        //private List<Site> sites = new List<Site>();
+        //public List<Site> Sites{ get; set; }
         public Plugin.Media.Abstractions.MediaFile groupPhoto;
     }
 }

@@ -66,7 +66,7 @@ namespace PDSkeleton
             site.SiteGPS = locationInfo;
             site.photo = this.photo;
             site.Specimen = new List<Specimen>();
-            trip.Sites.Add(site);
+            //trip.Sites.Add(site);
         }
         
         public async void NewSpecimen_OnClick(object sender, EventArgs e)

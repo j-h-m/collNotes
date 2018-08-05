@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using SQLite;
 
 // https://developer.xamarin.com/guides/android/data-and-cloud-services/data-access/part-3-using-sqlite-orm/
@@ -9,21 +8,43 @@ using SQLite;
 
 namespace PDSkeleton
 {
-    class ORM
+    // set as static, need to test --- JHM 7/19/2018
+    public static class ORM
     {
-        // define db access here
-        private SQLiteConnection connection;
-        public SQLiteConnection Connection
+        private static SQLiteConnection Connection = null;
+
+        public static void SetConnection()
         {
-            get
+            string filePath = CreateDBFilePath();
+            Connection = new SQLiteConnection(filePath);
+        }
+
+        public static SQLiteConnection GetConnection()
+        {
+            if (Connection != null)
+                return Connection;
+            else
             {
-                return connection;
+                SetConnection();
+                return Connection;
             }
-            set
-            {
-                connection = new SQLiteConnection(
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "PD-Project");
-            }
+            
+        }
+
+        public static string CreateDBFilePath()
+        {
+            var sqliteFilename = "PD_Project_Records.db3";
+#if __ANDROID__
+// Just use whatever directory SpecialFolder.Personal returns
+string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+#else
+            // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
+            // (they don't want non-user-generated data in Documents)
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
+            string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder instead
+#endif
+            var path = Path.Combine(libraryPath, sqliteFilename);
+            return path;
         }
     }
 

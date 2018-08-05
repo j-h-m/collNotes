@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Plugin.Media;
 
@@ -17,14 +15,11 @@ namespace PDSkeleton
                     Directory = "PD-Photos",
                     Name = DateTime.Now.ToString("MM-dd-yyyy")
                 };
-
-                // var photoFile = await CrossMedia.Current.TakePhotoAsync(mediaOptions);
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);
             }
             else
             {
-                // need to do something else here
                 return null;
             }
         }

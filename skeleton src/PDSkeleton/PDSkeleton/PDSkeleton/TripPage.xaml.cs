@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -57,7 +58,22 @@ namespace PDSkeleton
             trip.CollectionDate = collectionDate;
             trip.PrimaryCollector = primaryCollector;
             trip.groupPhoto = this.groupPhoto;
-            trip.Sites = new List<Site>();
+            //trip.Sites = new List<Site>();
+
+            // get new record no
+            // get 
+
+            SQLiteConnection conn = ORM.GetConnection();
+            // how to get old table if one has already been created?
+            conn.CreateTable<Trip>();
+            conn.Insert(trip);
+
+            Console.WriteLine("Reading data");
+            var table = conn.Table<Trip>();
+            foreach (var s in table)
+            {
+                Console.WriteLine(s.AdditionalCollectors + " " + s.PrimaryCollector);
+            }
         }
 
         public async void NewSite_OnClick(object sender, EventArgs e)

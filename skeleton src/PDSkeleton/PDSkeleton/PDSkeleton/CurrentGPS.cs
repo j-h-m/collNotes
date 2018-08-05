@@ -3,7 +3,6 @@ using Plugin.Geolocator.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace PDSkeleton
 {
