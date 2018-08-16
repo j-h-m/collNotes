@@ -3,80 +3,94 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PDSkeleton.SpecimenPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="Set Specimen GPS"
-                    VerticalOptions="Start"
-                    HorizontalOptions="Center"
-                    x:Name="btnSetSpecimenGPS"
-                    Clicked="SetSpecimenGPS_OnClick" />
-            <Label Text="GPS location hasn't been searched yet"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   x:Name="lblSpecimenGPSLocation" />
-            <Label Text="Field ID"
+        <StackLayout Spacing="1" Padding="1">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Field ID"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Entry Placeholder="Binomial or Common"
+                <Entry Placeholder="Binomial or Common"
                    VerticalOptions="Center"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
                    Completed="FieldID_EntryCompleted"
                    x:Name="entryFieldID" />
-            <Label Text="Occurrence Notes"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Occurrence Notes"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Entry Placeholder="Tallest in the stand"
+                <Entry Placeholder="Tallest in the stand"
                    VerticalOptions="Center"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
                    Completed="OccurrenceNotes_EntryCompleted"
                    x:Name="entryOccurrenceNotes" />
-            <Label Text="Substrate"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Substrate"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Entry Placeholder="mycorrhizal with Ent."
+                <Entry Placeholder="mycorrhizal with Ent."
                    VerticalOptions="Center"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
                    Completed="Substrate_EntryCompleted"
                    x:Name="entrySubstrate" />
-            <Label Text="Life Stage"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Life Stage"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Picker x:Name="pickerLifeStage" Title="N/A"
+                <Picker x:Name="pickerLifeStage" Title="N/A"
                     SelectedIndexChanged="Picker_SelectedIndexChanged">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Vegetative</x:String>
-                        <x:String>Early Inflorescence</x:String>
-                        <x:String>Peak Inflorescence</x:String>
-                        <x:String>Late Inflorescence</x:String>
-                        <x:String>Fruit/Seed Bearing</x:String>
-                        <x:String>Other</x:String>
-                        <x:String>N/A</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
-            <Label Text="Cultivated"
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Vegetative</x:String>
+                            <x:String>Early Inflorescence</x:String>
+                            <x:String>Peak Inflorescence</x:String>
+                            <x:String>Late Inflorescence</x:String>
+                            <x:String>Fruit/Seed Bearing</x:String>
+                            <x:String>Other</x:String>
+                            <x:String>N/A</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Cultivated"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Switch x:Name="switchCultivated"
-                    Toggled="Cultivated_SwitchToggled" />
-            <Label Text="Indiv. Count"
+                <Switch x:Name="switchCultivated"
+                    Toggled="Cultivated_SwitchToggled"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Indiv. Count"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Entry Placeholder="Est. qty."
+                <Entry Placeholder="Est. qty."
                    VerticalOptions="Center"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
                    Completed="IndivCount_EntryCompleted"
                    x:Name="entryIndivCount" />
-            <Button Text="Specimen Photo"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Specimen Photo"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     x:Name="btnSetSpecimenPhoto"
                     Clicked="SpecimenPhoto_OnClick" />
-            <Button Text="Save Specimen"
+                <Button Text="Save Specimen"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     x:Name="btnSaveSpecimen"
                     Clicked="SaveSpecimen_OnClick" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Set Site GPS"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnSetSiteGPS"
+                        Clicked="SetSpecimenGPS_OnClick" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

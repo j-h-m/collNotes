@@ -1,55 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PDSkeleton.TripPage">
+             x:Class="PDSkeleton.TripPage" >
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Primary Collector"
+        <StackLayout Spacing="1" Padding="1">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Primary Collector:"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Entry x:Name="entryPrimaryCollector"
+                <Entry x:Name="entryPrimaryCollector"
                    VerticalOptions="Center"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
                    Placeholder="John Smith"
                    Completed="PrimaryCollector_EntryCompleted" />
-            <Label Text="Additional Collectors"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center" />            
-            <Entry x:Name="entryAdditionalCollectors"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   Placeholder="First Last, First Last, ..."
-                   Completed="AdditionalCollectors_EntryCompleted" />
-            <Label Text="Project Name"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Additional Collectors:"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <Entry x:Name="entryProjectName"
+                <Entry x:Name="entryAdditionalCollectors"
                    VerticalOptions="Center"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
+                   Placeholder="First Last, ... "
+                   Completed="AdditionalCollectors_EntryCompleted" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Project Name:"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+                <Entry x:Name="entryProjectName"
+                   VerticalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
                    Placeholder="Flora of Mars"
                    Completed="ProjectName_EntryCompleted" />
-            <Label Text="Collection Date"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Collection Date:"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
-            <DatePicker x:Name="dpCollectionDate"
+                <DatePicker x:Name="dpCollectionDate"
                         VerticalOptions="Center"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
                         DateSelected="CollectionDate_DateSelected" />
-            <Button x:Name="btnGroupPhoto"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnGroupPhoto"
                     Text="Group Photo"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Clicked="GroupPhoto_OnClick"/>
-            <Button x:Name="btnSaveTrip"
+                <Button x:Name="btnSaveTrip"
                     Text="Save Trip"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Clicked="SaveTrip_OnClick"/>
-            <Button x:Name="btnNewSite"
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnNewSite"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Text="New Site"
                     Clicked="NewSite_OnClick" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

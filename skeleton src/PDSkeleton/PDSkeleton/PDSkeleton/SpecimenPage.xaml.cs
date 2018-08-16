@@ -25,6 +25,11 @@ namespace PDSkeleton
         private int myRecordNo = 0;
         public Plugin.Media.Abstractions.MediaFile photo;
 
+        public SpecimenPage()
+        {
+            InitializeComponent();
+        }
+
         public SpecimenPage(Site site)
         {
             InitializeComponent();

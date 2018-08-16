@@ -4,31 +4,44 @@
              xmlns:local="clr-namespace:PDSkeleton"
              x:Class="PDSkeleton.MainPage">
 
-    <StackLayout>
-        <Label Text="Go To Trip Page" 
-           HorizontalOptions="Center"
-           VerticalOptions="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Button x:Name="btnTrip"
                 Text="Record Data"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Clicked="Trip_OnClick"/>
-        <Label Text="Settings" 
-           HorizontalOptions="Center"
-           VerticalOptions="Center" />
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="Trip_OnClick"
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="Red"
+                BorderRadius="25"
+                BorderWidth="10"/>
         <Button x:Name="btnSettings"
                 Text="Settings"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Clicked="Settings_OnClick"/>
-        <Label Text="A Cry For Help" 
-           HorizontalOptions="Center"
-           VerticalOptions="Center" />
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="Settings_OnClick"
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="Green"
+                BorderRadius="25"
+                BorderWidth="10"/>
         <Button x:Name="btnHelp"
-                Text="Help!"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Clicked="Help_OnClick"/>
-    </StackLayout>
-
+                Text="Help me!"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="Help_OnClick"
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="Blue"
+                BorderRadius="25"
+                BorderWidth="10"/>
+    </Grid>
 </ContentPage>

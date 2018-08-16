@@ -20,6 +20,11 @@ namespace PDSkeleton
         private Dictionary<string, double> locationInfo;
         private Plugin.Media.Abstractions.MediaFile photo;
 
+        public SitePage()
+        {
+            InitializeComponent();
+        }
+
         public SitePage (Trip trip)
 		{
             InitializeComponent();
