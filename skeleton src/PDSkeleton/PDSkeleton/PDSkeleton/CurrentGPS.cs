@@ -6,6 +6,8 @@ using System.Diagnostics;
 
 namespace PDSkeleton
 {
+    // older API won't automatically ask the user for camera perms.
+
     public static class CurrentGPS
     {
         public async static System.Threading.Tasks.Task<Dictionary<string, double>> CurrentLocation()

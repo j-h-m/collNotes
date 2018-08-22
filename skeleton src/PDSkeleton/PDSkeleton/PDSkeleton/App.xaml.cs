@@ -11,7 +11,8 @@ namespace PDSkeleton
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+            // MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage()); // commented out in favor of navigation page
 		}
 
 		protected override void OnStart ()

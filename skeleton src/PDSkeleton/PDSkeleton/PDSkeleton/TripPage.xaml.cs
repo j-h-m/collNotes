@@ -57,7 +57,7 @@ namespace PDSkeleton
             trip.AdditionalCollectors = additionalCollectors;
             trip.CollectionDate = collectionDate;
             trip.PrimaryCollector = primaryCollector;
-            trip.groupPhoto = this.groupPhoto;
+            trip.GroupPhoto = groupPhoto;
             //trip.Sites = new List<Site>();
 
             // get new record no

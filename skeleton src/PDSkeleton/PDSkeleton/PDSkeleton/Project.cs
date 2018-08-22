@@ -4,13 +4,11 @@ using System.Text;
 
 namespace PDSkeleton
 {
-    class Project
+    public class Project
     {
-        private string projectName = "";
         public string ProjectName { get; set; }
-        private int myRecordNo = 0;
-        public int MyRecordNo { get; set; }
-        private List<Trip> trips = new List<Trip>();
-        public List<Trip> Trips { get; set; }
+        public string PrimaryCollector { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime CompletedDate { get; set; }
     }
 }

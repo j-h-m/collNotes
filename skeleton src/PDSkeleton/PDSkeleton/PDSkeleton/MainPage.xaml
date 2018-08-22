@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PDSkeleton"
-             x:Class="PDSkeleton.MainPage">
-
-    <Grid>
+             x:Class="PDSkeleton.MainPage"
+             Title="Plant Collector">
+    <Grid RowSpacing="10" ColumnSpacing="10" Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -13,14 +13,26 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnTrip"
-                Text="Record Data"
+        <Button x:Name="btnCreateProject"
+                Text="Create Project"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
-                Clicked="Trip_OnClick"
+                Clicked="NewProject_OnClick"
                 Grid.Row="0"
                 Grid.Column="0"
-                BackgroundColor="Red"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnCollect"
+                Text="Let's Collect!"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="Collect_OnClick"
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="Orange"
+                TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnSettings"
@@ -28,9 +40,10 @@
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Settings_OnClick"
-                Grid.Row="0"
-                Grid.Column="1"
-                BackgroundColor="Green"
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="IndianRed"
+                TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnHelp"
@@ -39,8 +52,9 @@
                 VerticalOptions="Fill"
                 Clicked="Help_OnClick"
                 Grid.Row="1"
-                Grid.Column="0"
-                BackgroundColor="Blue"
+                Grid.Column="1"
+                BackgroundColor="ForestGreen"
+                TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
     </Grid>

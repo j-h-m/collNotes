@@ -2,18 +2,17 @@
 using System.IO;
 using SQLite;
 
+// need to test reading and writing
+// writing to final CSV will require some inner joins +_+'
 // https://developer.xamarin.com/guides/android/data-and-cloud-services/data-access/part-3-using-sqlite-orm/
-// will probably want to go ahead and write data for each column name, maybe this will avoid
-// inconsistencies between Table definition and Object definition
 
 namespace PDSkeleton
 {
-    // set as static, need to test --- JHM 7/19/2018
     public static class ORM
     {
         private static SQLiteConnection Connection = null;
 
-        public static void SetConnection()
+        private static void SetConnection()
         {
             string filePath = CreateDBFilePath();
             Connection = new SQLiteConnection(filePath);
@@ -31,7 +30,7 @@ namespace PDSkeleton
             
         }
 
-        public static string CreateDBFilePath()
+        private static string CreateDBFilePath()
         {
             var sqliteFilename = "PD_Project_Records.db3";
 #if __ANDROID__
@@ -59,6 +58,12 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public int RecordNo { get; set; }
         [Column("ProjectName")]
         public string ProjectName { get; set; }
+        [Column("PrimaryCollector")]
+        public string PrimaryCollector { get; set; }
+        [Column("CreatedDate")]
+        public DateTime CreatedDate { get; set; }
+        [Column("CompletedDate")]
+        public DateTime CompletedDate { get; set; }
     }
 
     [Table("TripRecords")]
@@ -66,14 +71,12 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
     {
         [PrimaryKey, AutoIncrement, Column("recordNo")]
         public int RecordNo { get; set; }
-        [Column("PrimaryCollector")]
-        public string PrimaryCollector { get; set; }
         [Column("AdditionalCollectors")]
         public string AdditionalCollectors { get; set; }
-        [Column("ProjectNumber")]
-        public int ProjectNumber { get; set; }
         [Column("CollectionDate")]
         public DateTime CollectionDate { get; set; }
+        [Column("ParentProject")]
+        public string ParentProject { get; set; }
     }
 
     [Table("SiteRecords")]
@@ -82,7 +85,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         [PrimaryKey, AutoIncrement, Column("recordNo")]
         public int RecordNo { get; set; }
         [Column("GPSCoordinates")]
-        public string GPSCoordinates { get; set; } // this probably won't work
+        public string GPSCoordinates { get; set; }
         [Column("Locality")]
         public string Locality { get; set; }
         [Column("Habitat")]
@@ -91,8 +94,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string AssociatedTaxa { get; set; }
         [Column("LocationNotes")]
         public string LocationNotes { get; set; }
-        [Column("TripNumber")]
-        public int TripNumber { get; set; }
+        [Column("ParentTrip")]
+        public string ParentTrip { get; set; }
     }
 
     [Table("SpecimenRecords")]
@@ -100,12 +103,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
     {
         [PrimaryKey, AutoIncrement, Column("recordNo")]
         public int RecordNo { get; set; }
-        [Column("tripNumber")]
-        public int TripNumber { get; set; }
-        [Column("siteNumber")]
-        public int SiteNumber { get; set; }
-        [Column("specimenNumber")]
-        public int SpecimenNumber { get; set; }
+        [Column("ParentSite")]
+        public string ParentSite { get; set; }
         [Column("otherCatalogNumbers")]
         public string OtherCatalogNumbers { get; set; }
         [Column("genericcolumn2")]

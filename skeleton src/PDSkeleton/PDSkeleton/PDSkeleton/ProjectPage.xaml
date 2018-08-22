@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PDSkeleton.ProjectPage"
+             Title="Project">
+    <ContentPage.Content>
+        <StackLayout Spacing="1" Padding="1">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Project Name:"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+                <Entry x:Name="entryProjectName"
+                   VerticalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
+                   Placeholder="Flora of Mars"
+                   Completed="entryProjectName_Completed" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Primary Collector:"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+                <Entry x:Name="entryPrimaryCollectorProject"
+                   VerticalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
+                   Placeholder="John Smith"
+                   Completed="entryPrimaryCollectorProject_Completed" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Created Date:"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+                <DatePicker x:Name="dpCreatedDate"
+                   VerticalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
+                   DateSelected="dpCreatedDate_DateSelected"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnSaveProject"
+                    Text="Save Project"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="btnSaveProject_Clicked" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnBack"
+                    Text="Back"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" 
+                    Clicked="btnBack_ClickedAsync"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
