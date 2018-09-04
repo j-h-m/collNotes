@@ -80,15 +80,15 @@ namespace PDSkeleton
 
         public void SaveSpecimen_OnClick(object sender, EventArgs e)
         {
-            specimen.AdditionalInfo = additionalInfo;
-            specimen.Cultivated = cultivated;
-            specimen.FieldID = fieldID;
-            specimen.IndividualCount = individualCount;
-            specimen.LifeStage = lifeStage;
-            specimen.OccurrenceNotes = occurrenceNotes;
-            specimen.Substrate = substrate;
-            specimen.photo = this.photo;
-            site.Specimen.Add(specimen);
+            //specimen.AdditionalInfo = additionalInfo;
+            //specimen.Cultivated = cultivated;
+            //specimen.FieldID = fieldID;
+            //specimen.IndividualCount = individualCount;
+            //specimen.LifeStage = lifeStage;
+            //specimen.OccurrenceNotes = occurrenceNotes;
+            //specimen.Substrate = substrate;
+            //specimen.photo = this.photo;
+            //site.Specimen.Add(specimen);
 
             // write to sqlite database
 

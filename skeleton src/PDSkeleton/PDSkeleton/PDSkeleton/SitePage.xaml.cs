@@ -64,13 +64,13 @@ namespace PDSkeleton
 
         public void SaveSite_OnClick(object sender, EventArgs e)
         {
-            site.AssociatedTaxa = associatedTaxa;
-            site.Habitat = habitat;
-            site.Locality = locality;
-            site.LocationNotes = locationNotes;
-            site.SiteGPS = locationInfo;
-            site.photo = this.photo;
-            site.Specimen = new List<Specimen>();
+            //site.AssociatedTaxa = associatedTaxa;
+            //site.Habitat = habitat;
+            //site.Locality = locality;
+            //site.LocationNotes = locationNotes;
+            //site.SiteGPS = locationInfo;
+            //site.photo = this.photo;
+            //site.Specimen = new List<Specimen>();
             //trip.Sites.Add(site);
         }
         

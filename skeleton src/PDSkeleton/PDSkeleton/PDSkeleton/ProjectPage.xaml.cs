@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -10,13 +6,17 @@ using Xamarin.Forms.Xaml;
 
 namespace PDSkeleton
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProjectPage : ContentPage
 	{
         private Project project;
+        private string projectName = "";
+        private string primaryCollector = "";
+        private DateTime createdDate;
 
 		public ProjectPage ()
 		{
+            project = new Project();
 			InitializeComponent ();
 		}
 
@@ -28,34 +28,30 @@ namespace PDSkeleton
 
         private void entryProjectName_Completed(object sender, EventArgs e)
         {
-            project.ProjectName = ((Entry)sender).Text;
+            projectName = ((Entry)sender).Text;
         }
 
         private void entryPrimaryCollectorProject_Completed(object sender, EventArgs e)
         {
-            project.PrimaryCollector = ((Entry)sender).Text;
+            primaryCollector = ((Entry)sender).Text;
         }
 
         private void dpCreatedDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-            project.CreatedDate = ((DatePicker)sender).Date;
-            //project.CreatedDate = dpCreatedDate.Date;
+            createdDate = ((DatePicker)sender).Date;
         }
 
         private void btnSaveProject_Clicked(object sender, EventArgs e)
         {
             // check to make sure all data is present
+            project.ProjectName = projectName;
+            project.PrimaryCollector = primaryCollector;
+            project.CreatedDate = createdDate;
 
             // save project to database
-            var db = ORM.GetConnection();
-            db.CreateTable<Project>(); // does 'create if not exist'
-            db.Insert(project);
-
-            var tempTable = db.Table<Project>();
-            foreach (var item in tempTable)
-            {
-                //Console.WriteLine("project: " + item.ProjectName);
-            }
+            LiteDB.Connection.CreateTable<Project>(); // does 'create if not exist'
+            int autoIncRecordNo = LiteDB.Connection.Insert(project);
+            Console.WriteLine("inserted project recordno: " + autoIncRecordNo.ToString());
         }
 
         private async Task btnBack_ClickedAsync(object sender, EventArgs e)

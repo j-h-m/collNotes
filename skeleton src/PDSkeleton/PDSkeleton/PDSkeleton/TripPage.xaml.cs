@@ -54,26 +54,26 @@ namespace PDSkeleton
 
         public void SaveTrip_OnClick(object sender, EventArgs e)
         {
-            trip.AdditionalCollectors = additionalCollectors;
-            trip.CollectionDate = collectionDate;
-            trip.PrimaryCollector = primaryCollector;
-            trip.GroupPhoto = groupPhoto;
+            //trip.AdditionalCollectors = additionalCollectors;
+            //trip.CollectionDate = collectionDate;
+            //trip.PrimaryCollector = primaryCollector;
+            //trip.GroupPhoto = groupPhoto;
             //trip.Sites = new List<Site>();
 
             // get new record no
             // get 
 
-            SQLiteConnection conn = ORM.GetConnection();
-            // how to get old table if one has already been created?
-            conn.CreateTable<Trip>();
-            conn.Insert(trip);
+            //SQLiteConnection conn = ORM.GetConnection();
+            //// how to get old table if one has already been created?
+            //conn.CreateTable<Trip>();
+            //conn.Insert(trip);
 
-            Console.WriteLine("Reading data");
-            var table = conn.Table<Trip>();
-            foreach (var s in table)
-            {
-                Console.WriteLine(s.AdditionalCollectors + " " + s.PrimaryCollector);
-            }
+            //Console.WriteLine("Reading data");
+            //var table = conn.Table<Trip>();
+            //foreach (var s in table)
+            //{
+            //    Console.WriteLine(s.AdditionalCollectors + " " + s.PrimaryCollector);
+            //}
         }
 
         public async void NewSite_OnClick(object sender, EventArgs e)

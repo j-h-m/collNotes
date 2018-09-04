@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace PDSkeleton
 {
-	public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage
 	{
 		public MainPage()
 		{
@@ -25,20 +21,21 @@ namespace PDSkeleton
             // popup
             // user chooses existing project to collect under
             // overload constructor with project
-            string[] projects = new string[SharedLists.Projects.Count];
-            for (int i = 0; i < projects.Length; i++)
-            {
-                projects[i] = SharedLists.Projects[i].ProjectName;
-            }
-            var action = await DisplayActionSheet("Choose a project!", "Cancel", null, projects);
-            Debug.WriteLine("Project chosen: " + action);
-            foreach (var item in SharedLists.Projects)
-            {
-                if (item.ProjectName == action)
-                {
-                    await Navigation.PushModalAsync(new CollectingPage(item));
-                }
-            }
+            //string[] projects = new string[SharedLists.Projects.Count];
+            //for (int i = 0; i < projects.Length; i++)
+            //{
+            //    projects[i] = SharedLists.Projects[i].ProjectName;
+            //}
+            //var action = await DisplayActionSheet("Choose a project!", "Cancel", null, projects);
+            //Debug.WriteLine("Project chosen: " + action);
+            //foreach (var item in SharedLists.Projects)
+            //{
+            //    if (item.ProjectName == action)
+            //    {
+            //await Navigation.PushModalAsync(new CollectingPage(item));
+            //    }
+            //}
+            await Navigation.PushAsync(new CollectingPage());
         }
         
         public async void Settings_OnClick(object sender, EventArgs e)

@@ -25,11 +25,11 @@
       <DependentUpon>HelpPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)LiteDB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ORM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Project.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -39,18 +39,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SharedLists.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Site.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SitePage.xaml.cs">
       <DependentUpon>SitePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Specimen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecimenPage.xaml.cs">
       <DependentUpon>SpecimenPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)TakePhoto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Trip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TripPage.xaml.cs">
       <DependentUpon>TripPage.xaml</DependentUpon>
       <SubType>Code</SubType>
