@@ -54,7 +54,7 @@ namespace PDSkeleton
 
         public async void SetSiteGPS_OnClick(object sender, EventArgs e)
         {
-            locationInfo = await CurrentGPS.CurrentLocation();
+            //locationInfo = await CurrentGPS.CurrentLocation();
         }        
 
         public async void SitePhoto_OnClick(object sender, EventArgs e)

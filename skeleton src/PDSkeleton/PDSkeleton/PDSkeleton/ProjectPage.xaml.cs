@@ -10,9 +10,6 @@ namespace PDSkeleton
 	public partial class ProjectPage : ContentPage
 	{
         private Project project;
-        private string projectName = "";
-        private string primaryCollector = "";
-        private DateTime createdDate;
 
 		public ProjectPage ()
 		{
@@ -28,30 +25,32 @@ namespace PDSkeleton
 
         private void entryProjectName_Completed(object sender, EventArgs e)
         {
-            projectName = ((Entry)sender).Text;
+            project.ProjectName = ((Entry)sender).Text;
         }
 
         private void entryPrimaryCollectorProject_Completed(object sender, EventArgs e)
         {
-            primaryCollector = ((Entry)sender).Text;
+            project.PrimaryCollector = ((Entry)sender).Text;
         }
 
         private void dpCreatedDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-            createdDate = ((DatePicker)sender).Date;
+            project.CreatedDate = ((DatePicker)sender).Date;
         }
 
         private void btnSaveProject_Clicked(object sender, EventArgs e)
         {
             // check to make sure all data is present
-            project.ProjectName = projectName;
-            project.PrimaryCollector = primaryCollector;
-            project.CreatedDate = createdDate;
+            if (project.ProjectName is null || project.PrimaryCollector is null)
+            {
+                
+            }
 
             // save project to database
-            LiteDB.Connection.CreateTable<Project>(); // does 'create if not exist'
-            int autoIncRecordNo = LiteDB.Connection.Insert(project);
-            Console.WriteLine("inserted project recordno: " + autoIncRecordNo.ToString());
+            SQLite.SQLiteConnection connection = ORM.GetConnection();
+            connection.CreateTable<Project>(); // does 'create if not exist'
+            int autoKeyResult = connection.Insert(project);
+            Console.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
         }
 
         private async Task btnBack_ClickedAsync(object sender, EventArgs e)

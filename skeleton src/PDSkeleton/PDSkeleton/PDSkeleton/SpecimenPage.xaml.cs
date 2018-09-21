@@ -40,7 +40,7 @@ namespace PDSkeleton
         public async void SetSpecimenGPS_OnClick(object sender, EventArgs e)
         {
             // get the current location
-            specimenGPS = await CurrentGPS.CurrentLocation();
+            //specimenGPS = await CurrentGPS.CurrentLocation();
         }
 
         public void FieldID_EntryCompleted(object sender, EventArgs e)

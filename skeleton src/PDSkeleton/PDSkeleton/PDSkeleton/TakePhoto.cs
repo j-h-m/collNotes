@@ -2,6 +2,11 @@
 using System.Threading.Tasks;
 using Plugin.Media;
 
+/*
+ * Uses the Plugin.Media package to get a picture and save it to a directory called PD-Photos with the name as the month-day-year hour:minute:seconds
+ * returns a Task or null
+ */ 
+
 namespace PDSkeleton
 {
     public static class TakePhoto
@@ -13,7 +18,7 @@ namespace PDSkeleton
                 var mediaOptions = new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     Directory = "PD-Photos",
-                    Name = DateTime.Now.ToString("MM-dd-yyyy")
+                    Name = DateTime.Now.ToString("MM-dd-yyyy hh:mm:ss")
                 };
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);

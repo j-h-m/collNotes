@@ -13,12 +13,17 @@ namespace PDSkeleton
 	public partial class CollectingPage : TabbedPage
 	{
         private Project project;
+        private Trip trip;
+        private Site site;
+        private Specimen specimen;
 
         public CollectingPage ()
-		{
+        {
 			InitializeComponent ();
 		}
 
+        // overloaded constructor that accepts a Project as an argument
+        // this should be passed in MainPage once the Project is chosen from the prompt
         public CollectingPage (Project project)
         {
             this.project = project;

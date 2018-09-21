@@ -4,13 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
+/*
+ * Uses Plugin.Geolocator package to get the user's current GPS location.
+ * Returns a string containing the latitude, longitude coordinate pair.
+ */ 
+
 namespace PDSkeleton
 {
-    // older API won't automatically ask the user for camera perms.
+    // older Android OS won't automatically ask the user for camera perms.
+    // iOS?
 
     public static class CurrentGPS
     {
-        public async static System.Threading.Tasks.Task<Dictionary<string, double>> CurrentLocation()
+        public async static System.Threading.Tasks.Task<String> CurrentLocation()
         {
             Position position = null;
             Dictionary<string, double> keyValues = new Dictionary<string, double>();
@@ -18,19 +24,13 @@ namespace PDSkeleton
             try
             {
                 var locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 100;
+                locator.DesiredAccuracy = 100; // highest accuracy, see Plugin doc about this value
 
                 position = await locator.GetLastKnownLocationAsync();
 
                 if (position != null)
                 {
-                    keyValues.Add("longitude", position.Longitude);
-                    keyValues.Add("latitude", position.Latitude);
-                    keyValues.Add("accuracy", position.Accuracy);
-                    keyValues.Add("altitude", position.Altitude);
-                    keyValues.Add("altitude accuracy", position.AltitudeAccuracy);
-                    keyValues.Add("heading", position.Heading);
-                    return keyValues;
+                    return position.Latitude.ToString() + ", " + position.Longitude.ToString();
                 }
 
                 if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
@@ -56,14 +56,7 @@ namespace PDSkeleton
                     position.Timestamp, position.Latitude, position.Longitude,
                     position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed));
 
-            keyValues.Add("longitude", position.Longitude);
-            keyValues.Add("latitude", position.Latitude);
-            keyValues.Add("accuracy", position.Accuracy);
-            keyValues.Add("altitude", position.Altitude);
-            keyValues.Add("altitude accuracy", position.AltitudeAccuracy);
-            keyValues.Add("heading", position.Heading);
-
-            return keyValues;
+            return position.Latitude.ToString() + ", " + position.Longitude.ToString();
         }
     }
 }
