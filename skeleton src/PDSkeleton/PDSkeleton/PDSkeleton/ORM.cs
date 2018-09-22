@@ -54,9 +54,10 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         }
     }
 
-    // specify column names
-    // table sets column datatype as property datatype
-    // include column attributes and property for each
+    /*
+     * There is a table type for each collected-data type
+     * Each child-data type has a column that will allow data between tables to be connected through SQL join query
+     */ 
 
     [Table("Project")]
     public class Project
@@ -82,8 +83,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string AdditionalCollectors { get; set; }
         [Column("CollectionDate")]
         public DateTime CollectionDate { get; set; }
-        [Column("Project")]
-        public string Project { get; set; }
+        [Column("ProjectName")]
+        public string ProjectName { get; set; }
     }
 
     [Table("Site")]
@@ -101,8 +102,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string AssociatedTaxa { get; set; }
         [Column("LocationNotes")]
         public string LocationNotes { get; set; }
-        [Column("Trip")]
-        public string Trip { get; set; }
+        [Column("TripNumber")]
+        public string TripNumber { get; set; }
     }
 
     [Table("Specimen")]
@@ -126,7 +127,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string IndividualCount { get; set; }
         [Column("Cultivated")]
         public bool Cultivated { get; set; }
-        [Column("Site")]
-        public string Site { get; set; }
+        [Column("SiteNumber")]
+        public string SiteNumber { get; set; }
     }
 }

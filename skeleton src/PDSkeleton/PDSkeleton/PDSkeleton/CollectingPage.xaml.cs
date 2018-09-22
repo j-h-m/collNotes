@@ -29,5 +29,21 @@ namespace PDSkeleton
             this.project = project;
             InitializeComponent();
         }
+
+        /*
+         * Trip Section
+         * 
+         */ 
+
+
+        /*
+         * Site Section
+         * 
+         */ 
+
+        /*
+         * Specimen Section
+         * 
+         */ 
 	}
 }

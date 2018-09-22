@@ -25,25 +25,35 @@ namespace PDSkeleton
             // use overload constructor for CollectingPage with project
 
             SQLite.SQLiteConnection connection = ORM.GetConnection();
-            List<Project> projectList = connection.Query<Project>("select * from Project");
 
-            string[] projects = new string[projectList.Count];
-            for (int i = 0; i < projects.Length; i++)
+            try
             {
-                projects[i] = projectList[i].ProjectName;
-            }
+                List<Project> projectList = connection.Query<Project>("select * from Project");
 
-            var action = await DisplayActionSheet("Choose a project!", "Cancel", null, projects);
-
-            Debug.WriteLine("Project chosen: " + action);
-
-            foreach (var item in projectList)
-            {
-                if (item.ProjectName == action)
+                string[] projects = new string[projectList.Count];
+                for (int i = 0; i < projects.Length; i++)
                 {
-                    await Navigation.PushAsync(new CollectingPage(item));
+                    projects[i] = projectList[i].ProjectName;
+                }
+
+                var action = await DisplayActionSheet("Choose a project!", "Cancel", null, projects);
+
+                Debug.WriteLine("Project chosen: " + action);
+
+                foreach (var item in projectList)
+                {
+                    if (item.ProjectName == action)
+                    {
+                        await Navigation.PushAsync(new CollectingPage(item));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                // alert user they can't start collecting until they've chosen a project
+            }
+
         }
         
         public async void Settings_OnClick(object sender, EventArgs e)

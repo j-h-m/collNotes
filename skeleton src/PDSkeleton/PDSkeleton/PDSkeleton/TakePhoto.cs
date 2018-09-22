@@ -11,14 +11,14 @@ namespace PDSkeleton
 {
     public static class TakePhoto
     {
-        public async static Task<Plugin.Media.Abstractions.MediaFile> CallCamera()
+        public async static Task<Plugin.Media.Abstractions.MediaFile> CallCamera(string fileNamePrefix)
         {
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
                 var mediaOptions = new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     Directory = "PD-Photos",
-                    Name = DateTime.Now.ToString("MM-dd-yyyy hh:mm:ss")
+                    Name = DateTime.Now.ToString(fileNamePrefix + "MM-dd-yyyy")
                 };
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);

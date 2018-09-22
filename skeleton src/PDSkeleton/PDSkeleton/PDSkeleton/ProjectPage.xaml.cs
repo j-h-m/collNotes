@@ -41,9 +41,16 @@ namespace PDSkeleton
         private void btnSaveProject_Clicked(object sender, EventArgs e)
         {
             // check to make sure all data is present
-            if (project.ProjectName is null || project.PrimaryCollector is null)
+            if (entryProjectName.Text is null || entryPrimaryCollectorProject.Text is null)
             {
-                
+                // alert user they must enter all information
+                return;
+            }
+            else
+            {
+                project.ProjectName = entryProjectName.Text;
+                project.PrimaryCollector = entryPrimaryCollectorProject.Text;
+                project.CreatedDate = dpCreatedDate.Date; // default should be current date
             }
 
             // save project to database
