@@ -85,6 +85,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public DateTime CollectionDate { get; set; }
         [Column("ProjectName")]
         public string ProjectName { get; set; }
+        [Column("TripName")]
+        public string TripName { get; set; }
     }
 
     [Table("Site")]
@@ -104,6 +106,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string LocationNotes { get; set; }
         [Column("TripNumber")]
         public string TripNumber { get; set; }
+        [Column("SiteName")]
+        public string SiteName { get; set; }
     }
 
     [Table("Specimen")]

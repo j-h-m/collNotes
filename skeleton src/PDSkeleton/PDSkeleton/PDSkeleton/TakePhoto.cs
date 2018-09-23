@@ -18,7 +18,7 @@ namespace PDSkeleton
                 var mediaOptions = new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     Directory = "PD-Photos",
-                    Name = DateTime.Now.ToString(fileNamePrefix + "MM-dd-yyyy")
+                    Name = fileNamePrefix + "-" + DateTime.Now.ToString("MM-dd-yyyy")
                 };
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);

@@ -12,7 +12,7 @@
                     <Entry x:Name="entryTripName"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       Placeholder="Let's go collect!"
+                       Placeholder="Trip name"
                        Completed="entryTripName_Completed" />
                 </StackLayout>               
                 <StackLayout Orientation="Horizontal">
@@ -60,6 +60,16 @@
         <ContentPage.Content>
             <StackLayout  Spacing="1" Padding="1">
                 <StackLayout Orientation="Horizontal">
+                    <Label Text="Site Name:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry x:Name="entrySiteName"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Placeholder="Site name"
+                       Completed="entrySiteName_Completed" />
+                </StackLayout> 
+                <StackLayout Orientation="Horizontal">
                     <Label Text="Locality"
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
@@ -87,7 +97,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryAssocTaxa" 
-                       Completed="entryAssocTaxa_Clicked"/>
+                       Completed="entryAssocTaxa_Completed"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Location Notes"
@@ -97,7 +107,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryLocationNotes" 
-                       Completed="entryLocationNotes_Clicked"/>
+                       Completed="entryLocationNotes_Completed"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Button x:Name="btnSitePhoto"
