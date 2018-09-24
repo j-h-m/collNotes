@@ -104,8 +104,8 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string AssociatedTaxa { get; set; }
         [Column("LocationNotes")]
         public string LocationNotes { get; set; }
-        [Column("TripNumber")]
-        public string TripNumber { get; set; }
+        [Column("TripName")]
+        public string TripName { get; set; }
         [Column("SiteName")]
         public string SiteName { get; set; }
     }
@@ -131,7 +131,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string IndividualCount { get; set; }
         [Column("Cultivated")]
         public bool Cultivated { get; set; }
-        [Column("SiteNumber")]
-        public string SiteNumber { get; set; }
+        [Column("SiteName")]
+        public string SiteName { get; set; }
     }
 }

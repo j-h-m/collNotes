@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -46,24 +47,20 @@ namespace PDSkeleton
                 // alert user they must enter all information
                 return;
             }
-            else
-            {
-                project.ProjectName = entryProjectName.Text;
-                project.PrimaryCollector = entryPrimaryCollectorProject.Text;
-                project.CreatedDate = dpCreatedDate.Date; // default should be current date
-            }
+
+            project.ProjectName = entryProjectName.Text;
+            project.PrimaryCollector = entryPrimaryCollectorProject.Text;
+            project.CreatedDate = dpCreatedDate.Date; // default should be current date
 
             // save project to database
             SQLite.SQLiteConnection connection = ORM.GetConnection();
             connection.CreateTable<Project>(); // does 'create if not exist'
             int autoKeyResult = connection.Insert(project);
-            Console.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
+            Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
         }
 
         private async Task btnBack_ClickedAsync(object sender, EventArgs e)
         {
-            // back to main page
-            // don't need this for navigation but will for modal pages
             await Navigation.PopAsync();
         }
     }

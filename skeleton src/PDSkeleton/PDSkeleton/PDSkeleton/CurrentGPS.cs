@@ -1,25 +1,22 @@
 ﻿using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 /*
  * Uses Plugin.Geolocator package to get the user's current GPS location.
  * Returns a string containing the latitude, longitude coordinate pair.
- */ 
+ */
 
 namespace PDSkeleton
 {
-    // older Android OS won't automatically ask the user for camera perms.
-    // iOS?
+    // consider permissions on all devices
 
     public static class CurrentGPS
     {
         public async static System.Threading.Tasks.Task<String> CurrentLocation()
         {
             Position position = null;
-            Dictionary<string, double> keyValues = new Dictionary<string, double>();
 
             try
             {
