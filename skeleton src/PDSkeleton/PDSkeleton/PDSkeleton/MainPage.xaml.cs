@@ -22,13 +22,10 @@ namespace PDSkeleton
         {
             // popup
             // user chooses existing project to collect under
-            // use overload constructor for CollectingPage with project
-
-            SQLite.SQLiteConnection connection = ORM.GetConnection();
 
             try
             {
-                List<Project> projectList = connection.Query<Project>("select * from Project");
+                List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
 
                 string[] projects = new string[projectList.Count];
                 for (int i = 0; i < projects.Length; i++)
@@ -36,15 +33,15 @@ namespace PDSkeleton
                     projects[i] = projectList[i].ProjectName;
                 }
 
-                var action = await DisplayActionSheet("Choose a project!", "Cancel", null, projects);
+                var action = await DisplayActionSheet("Choose a project", "Cancel", null, projects);
 
                 Debug.WriteLine("Project chosen: " + action);
 
-                foreach (var item in projectList)
+                foreach (Project p in projectList)
                 {
-                    if (item.ProjectName == action)
+                    if (p.ProjectName == action)
                     {
-                        await Navigation.PushAsync(new CollectingPage(item));
+                        await Navigation.PushAsync(new CollectingPage(p));
                     }
                 }
             }
@@ -53,12 +50,11 @@ namespace PDSkeleton
                 Debug.WriteLine(ex.Message);
                 // alert user they can't start collecting until they've chosen a project
             }
-
         }
         
-        public async void Settings_OnClick(object sender, EventArgs e)
+        public async void ExportProject_OnClick(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Settings());
+            await Navigation.PushAsync(new ExportProject());
         }
 
         public async void Help_OnClick(object sender, EventArgs e)

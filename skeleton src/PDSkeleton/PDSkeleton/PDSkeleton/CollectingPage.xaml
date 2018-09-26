@@ -1,239 +1,64 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PDSkeleton.CollectingPage">
-    <ContentPage Title="Trip">
-        <ContentPage.Content>
-            <StackLayout Spacing="1" Padding="1">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Trip Name:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry x:Name="entryTripName"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       Placeholder="Trip name"
-                       Completed="entryTripName_Completed" />
-                </StackLayout>               
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Additional Collectors:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry x:Name="entryAdditionalCollectors"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       Placeholder="First Last, ... "
-                       Completed="entryAdditionalCollectors_Completed" />
-                </StackLayout>               
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Collection Date:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <DatePicker x:Name="dpCollectionDate"
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
-                        DateSelected="dpCollectionDate_DateSelected" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button x:Name="btnGroupPhotoTrip"
-                        Text="Group Photo"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center" 
-                        Clicked="btnGroupPhotoTrip_Clicked" />
-                    <Button x:Name="btnSaveTrip"
-                        Text="Save Trip"
-                        VerticalOptions="Center"
-                        Clicked="btnSaveTrip_Clicked" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" >
-                    <Button x:Name="btnNewTrip"
-                        Text="New Trip"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Clicked="btnNewTrip_Clicked" />
-                </StackLayout>
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-    
-    <ContentPage Title="Site">
-        <ContentPage.Content>
-            <StackLayout  Spacing="1" Padding="1">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Site Name:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry x:Name="entrySiteName"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       Placeholder="Site name"
-                       Completed="entrySiteName_Completed" />
-                </StackLayout> 
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Locality"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
-                    <Entry Placeholder="10km from trail head..."
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryLocality"
-                       Completed="entryLocality_Completed" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Habitat"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
-                    <Entry Placeholder="Pine Forest"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryHabitat" 
-                       Completed="entryHabitat_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Associated Taxa"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
-                    <Entry Placeholder="Site wide 'field calls'"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryAssocTaxa" 
-                       Completed="entryAssocTaxa_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Location Notes"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry Placeholder="Popular campground"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryLocationNotes" 
-                       Completed="entryLocationNotes_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button x:Name="btnSitePhoto"
-                        Text="Site Photo"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Clicked="btnSitePhoto_Clicked"/>
-                    <Button x:Name="btnSaveSite"
-                        Text="Save Site"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Clicked="btnSaveSite_Clicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Get GPS Coordinates"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        x:Name="btnSetSiteGPS"
-                        Clicked="btnSetSiteGPS_Clicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button x:Name="btnNewSite"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Text="New Site" 
-                        Clicked="btnNewSite_Clicked"/>
-                </StackLayout>
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-    
-    <ContentPage Title="Specimen">
-        <ContentPage.Content>
-            <StackLayout Spacing="1" Padding="1">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Field ID"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry Placeholder="Binomial or Common"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryFieldID" 
-                       Completed="entryFieldID_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Occurrence Notes"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry Placeholder="Tallest in the stand"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryOccurrenceNotes" 
-                       Completed="entryOccurrenceNotes_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Substrate"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry Placeholder="mycorrhizal with Ent."
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entrySubstrate"
-                       Completed="entrySubstrate_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Life Stage"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Picker x:Name="pickerLifeStage" Title="N/A" SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Vegetative</x:String>
-                                <x:String>Early Inflorescence</x:String>
-                                <x:String>Peak Inflorescence</x:String>
-                                <x:String>Late Inflorescence</x:String>
-                                <x:String>Fruit/Seed Bearing</x:String>
-                                <x:String>Other</x:String>
-                                <x:String>N/A</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Cultivated"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Switch x:Name="switchCultivated"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Toggled="switchCultivated_Toggled"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Indiv. Count"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Entry Placeholder="Est. qty."
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryIndivCount"
-                       Completed="entryIndivCount_Completed"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Specimen Photo"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        x:Name="btnSetSpecimenPhoto"
-                        Clicked="btnSetSpecimenPhoto_Clicked"/>
-                    <Button Text="Save Specimen"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        x:Name="btnSaveSpecimen"
-                        Clicked="btnSaveSpecimen_Clicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Get GPS Coordinates"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        x:Name="btnSetSpecimenGPS"
-                        Clicked="btnSetSpecimenGPS_Clicked"/>
-                    <Button Text="New Specimen"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        x:Name="btnNewSpecimen"
-                        Clicked="btnNewSpecimen_Clicked"/>
-                </StackLayout>
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-</TabbedPage>
+             xmlns:local="clr-namespace:CollectingPage"
+             x:Class="PDSkeleton.CollectingPage"
+             Title="Let's Collect"
+             BackgroundColor="Teal">
+    <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="btnAddTrip"
+                Text="Add Trip"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnAddTrip_Clicked"
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnAddSite"
+                Text="Add Site"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnAddSite_Clicked"
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="Orange"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnAddSpecimen"
+                Text="Add Specimen"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnAddSpecimen_Clicked"
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="ForestGreen"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnInstructions"
+                Text="Instructions"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnInstructions_Clicked"
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="IndianRed"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>        
+        
+    </Grid>
+</ContentPage>

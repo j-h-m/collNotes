@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PDSkeleton.TripPage" Title="Trip" BackgroundColor="DodgerBlue">
+    <ContentPage.Content>
+        <StackLayout Spacing="1" Padding="1">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Trip Name:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry x:Name="entryTripName"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Placeholder="Trip name"
+                       Completed="entryTripName_Completed" />
+                </StackLayout>               
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Additional Collectors:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry x:Name="entryAdditionalCollectors"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Placeholder="First Last, ... "
+                       Completed="entryAdditionalCollectors_Completed" />
+                </StackLayout>               
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Collection Date:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <DatePicker x:Name="dpCollectionDate"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        DateSelected="dpCollectionDate_DateSelected" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="btnGroupPhotoTrip"
+                        Text="Group Photo"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center" 
+                        Clicked="btnGroupPhotoTrip_Clicked" />
+                    <Button x:Name="btnSaveTrip"
+                        Text="Save Trip"
+                        VerticalOptions="Center"
+                        Clicked="btnSaveTrip_Clicked" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" >
+                    <Button x:Name="btnNewTrip"
+                        Text="New Trip"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Clicked="btnNewTrip_Clicked" />
+                </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

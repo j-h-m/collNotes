@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PDSkeleton.SpecimenPage" Title="Specimen" BackgroundColor="White">
+    <ContentPage.Content>
+        <ScrollView>
+          <StackLayout Spacing="0" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Field ID"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="Binomial or Common"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryFieldID" 
+                       Completed="entryFieldID_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Occurrence Notes"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="Tallest in the stand"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryOccurrenceNotes" 
+                       Completed="entryOccurrenceNotes_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Substrate"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="mycorrhizal with Ent."
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entrySubstrate"
+                       Completed="entrySubstrate_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Life Stage"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Picker x:Name="pickerLifeStage" Title="N/A" SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Vegetative</x:String>
+                                <x:String>Early Inflorescence</x:String>
+                                <x:String>Peak Inflorescence</x:String>
+                                <x:String>Late Inflorescence</x:String>
+                                <x:String>Fruit/Seed Bearing</x:String>
+                                <x:String>Other</x:String>
+                                <x:String>N/A</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Cultivated"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Switch x:Name="switchCultivated"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Toggled="switchCultivated_Toggled"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Indiv. Count"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="Est. qty."
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryIndivCount"
+                       Completed="entryIndivCount_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Take Photo"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnSetSpecimenPhoto"
+                        Clicked="btnSetSpecimenPhoto_Clicked"/>
+                    <Button Text="Save Specimen"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnSaveSpecimen"
+                        Clicked="btnSaveSpecimen_Clicked"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Set GPS"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnSetSpecimenGPS"
+                        Clicked="btnSetSpecimenGPS_Clicked"/>
+                    <Button Text="New Specimen"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnNewSpecimen"
+                        Clicked="btnNewSpecimen_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

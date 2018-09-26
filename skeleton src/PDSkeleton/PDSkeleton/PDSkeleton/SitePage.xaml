@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PDSkeleton.SitePage" Title="Site" BackgroundColor="White">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Spacing="0" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Site Name:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry x:Name="entrySiteName"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Placeholder="Site name"
+                       Completed="entrySiteName_Completed" />
+                </StackLayout> 
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Locality"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                    <Entry Placeholder="10km from trail head..."
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryLocality"
+                       Completed="entryLocality_Completed" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Habitat"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                    <Entry Placeholder="Pine Forest"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryHabitat" 
+                       Completed="entryHabitat_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Associated Taxa"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                    <Entry Placeholder="Site wide 'field calls'"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryAssocTaxa" 
+                       Completed="entryAssocTaxa_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Location Notes"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="Popular campground"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryLocationNotes" 
+                       Completed="entryLocationNotes_Completed"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="btnSitePhoto"
+                        Text="Take Photo"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Clicked="btnSitePhoto_Clicked"/>
+                    <Button Text="Set GPS"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnSetSiteGPS"
+                        Clicked="btnSetSiteGPS_Clicked"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="btnSaveSite"
+                        Text="Save Site"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Clicked="btnSaveSite_Clicked"/>                
+                    <Button x:Name="btnNewSite"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Text="New Site" 
+                        Clicked="btnNewSite_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

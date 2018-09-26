@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PDSkeleton"
              x:Class="PDSkeleton.MainPage"
-             Title="Plant Collector">
+             Title="Plant Collector"
+             BackgroundColor="Teal">
     <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -35,11 +36,11 @@
                 TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
-        <Button x:Name="btnSettings"
-                Text="Settings"
+        <Button x:Name="btnExportProject"
+                Text="Export Project"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
-                Clicked="Settings_OnClick"
+                Clicked="ExportProject_OnClick"
                 Grid.Row="1"
                 Grid.Column="0"
                 BackgroundColor="IndianRed"

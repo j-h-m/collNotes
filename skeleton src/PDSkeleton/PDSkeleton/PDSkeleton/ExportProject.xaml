@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PDSkeleton.ExportProject" Title="Export Project">
+    <ContentPage.Content>
+        <StackLayout Spacing="1" Padding="1">
+            <Label Text="Choose a Project:"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+            <Picker x:Name="pickerExportProject"
+                    Title="Select Project" SelectedIndexChanged="pickerExportProject_SelectedIndexChanged" />
+            <Button x:Name="btnExportProjectCSV"
+                    Text="Export Project Data"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="btnExportProjectCSV_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

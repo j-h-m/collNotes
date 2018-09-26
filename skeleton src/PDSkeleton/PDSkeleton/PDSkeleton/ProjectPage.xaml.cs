@@ -59,7 +59,7 @@ namespace PDSkeleton
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
         }
 
-        private async Task btnBack_ClickedAsync(object sender, EventArgs e)
+        private async void btnBack_ClickedAsync(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
