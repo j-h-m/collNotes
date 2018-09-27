@@ -2,6 +2,11 @@
 using System.Diagnostics;
 using Xamarin.Forms;
 
+/*
+ * Specimen Page
+ * Create a new Specimen
+ */ 
+
 namespace PDSkeleton
 {
     public partial class SpecimenPage : ContentPage

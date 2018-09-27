@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Plugin.Media;
 
 /*
- * Uses the Plugin.Media package to get a picture and save it to a directory called PD-Photos with the name as the month-day-year hour:minute:seconds
- * returns a Task or null
+ * Uses the Plugin.Media package to get a picture and save it
+ * May want to look at saving to an album ID by the Project Name ... if possible
  */ 
 
 namespace PDSkeleton
@@ -23,10 +23,7 @@ namespace PDSkeleton
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);
             }
-            else
-            {
-                return null;
-            }
+            return null; // need to add checks on calls in case null is returned
         }
     }
 }

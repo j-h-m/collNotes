@@ -2,6 +2,11 @@
 using System.Diagnostics;
 using Xamarin.Forms;
 
+/*
+ * Site Page
+ * Create a new Site
+ */ 
+
 namespace PDSkeleton
 {
     public partial class SitePage : ContentPage

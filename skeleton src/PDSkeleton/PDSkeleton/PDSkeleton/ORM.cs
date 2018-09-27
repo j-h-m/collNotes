@@ -4,14 +4,9 @@ using SQLite;
 
 /*
  * Code for ORM style SQLite local database.
- * Each object will have it's own table.
- * Each object should have some way to trace to it's parent, in terms of data heirarchy.
+ * Database for each represented data abstraction - Project, Trip, Site, Specimen
  * 
- */ 
-
-// need to test reading and writing
-// writing to final CSV will require some inner joins +_+'
-// https://developer.xamarin.com/guides/android/data-and-cloud-services/data-access/part-3-using-sqlite-orm/
+ */
 
 namespace PDSkeleton
 {

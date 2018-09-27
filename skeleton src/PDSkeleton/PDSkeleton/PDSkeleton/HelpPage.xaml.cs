@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+/*
+ * Help Page
+ * Should eventually send the user to the help website
+ * Or better yet, provide built-in instructions
+ * 
+ */ 
+
 namespace PDSkeleton
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Help : ContentPage
 	{
 		public Help ()

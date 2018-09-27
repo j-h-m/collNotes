@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 /*
  * Uses Plugin.Geolocator package to get the user's current GPS location.
- * Returns a string containing the latitude, longitude coordinate pair.
+ * Returns a string containing the latitude, longitude coordinate pair as well as error and altitude in Meters.
  */
 
 namespace PDSkeleton
@@ -53,7 +53,7 @@ namespace PDSkeleton
                     position.Timestamp, position.Latitude, position.Longitude,
                     position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed));
 
-            return position.Latitude.ToString() + ", " + position.Longitude.ToString();
+            return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
         }
     }
 }

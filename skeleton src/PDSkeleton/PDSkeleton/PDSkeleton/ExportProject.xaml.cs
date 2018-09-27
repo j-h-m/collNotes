@@ -1,16 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-
 using Plugin.ShareFile;
-
 using Xamarin.Forms;
 
 /*
  * User chooses a project and can then export all Site/Specimen data to a CSV file for sharing.
  * CSV made manually following - https://tools.ietf.org/html/rfc4180
  * 
- */ 
+ */
 
 namespace PDSkeleton
 {
@@ -63,30 +61,22 @@ namespace PDSkeleton
                 return;
             }
 
+            // data from project
+            string recordedBy = selectedProject.PrimaryCollector;
+            string samplingEffort = selectedProject.ProjectName;
+
             string filePath = "";
 
-            // site # - specimen #
-            // site # - # (not specimen record)
-
-            string selectedProjectName = selectedProject.ProjectName;
-
             // get Trips for selected Project
-            List<Trip> selectedProjectTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + selectedProjectName + "'");
-
-            List<string> selectedProjectTripNames = new List<string>();
-
-            foreach (Trip t in selectedProjectTrips)
-            {
-                selectedProjectTripNames.Add(t.TripName);
-            }
+            List<Trip> selectedProjectTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + selectedProject.ProjectName + "'");
 
             // get Sites for each Trip
             Dictionary<string, List<Site>> sitesForTrips = new Dictionary<string, List<Site>>();
 
-            foreach (string s in selectedProjectTripNames)
+            foreach (Trip trip in selectedProjectTrips)
             {
-                List<Site> sites = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + s + "'");
-                sitesForTrips.Add(s, sites);
+                List<Site> sites = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + trip.TripName + "'");
+                sitesForTrips.Add(trip.TripName, sites);
             }
 
             // get Specimen for each Site
@@ -102,7 +92,7 @@ namespace PDSkeleton
             }
 
             // create CSV with site # - specimen # for each specimen record
-            // start with 1 - 1
+            // use recordno to get site # and specimen #
 
             string csvContent = "";
 
@@ -111,22 +101,106 @@ namespace PDSkeleton
                 "samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
                 "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
 
-            foreach (var item in specimenForSites)
+            foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites)
             {
-                string siteName = item.Key;
-                List<Specimen> specimenList = item.Value;
+                // get site, trip info using the site name
+                string siteName = sitesSpecimen.Key;
+                string tripName = "";
 
-                foreach (var specimen in specimenList)
+                Site refSite = null;
+
+                foreach (KeyValuePair<string, List<Site>> sitesTrip in sitesForTrips)
                 {
-                    
+                    foreach (Site site in sitesTrip.Value)
+                    {
+                        if (siteName == site.SiteName)
+                        {
+                            refSite = site;
+                            tripName = sitesTrip.Key;
+                            break;
+                        }
+                    }
+                    if (!tripName.Equals(""))
+                    {
+                        break;
+                    }
                 }
+
+                Trip trip = null;
+                foreach (Trip t in selectedProjectTrips)
+                {
+                    if (tripName.Equals(t.TripName))
+                    {
+                        trip = t;
+                        break;
+                    }
+                }
+
+                // trip level data
+                string assColl = "";
+                DateTime eventDate = DateTime.Now;
+
+                if (trip != null)
+                {
+                    assColl = trip.AdditionalCollectors;
+                    eventDate = trip.CollectionDate;
+                }
+
+                // site level data
+                string habitat = refSite.Habitat;
+                string locality = refSite.Locality;
+                string locationNotes = refSite.LocationNotes;
+                string associatedTaxa = refSite.AssociatedTaxa;
+                int siteNumber = refSite.RecordNo;
+
+                // specimen level data
+                foreach (Specimen spec in sitesSpecimen.Value)
+                {
+                    int specimenNumber = spec.RecordNo;
+                    string genericColumn2 = spec.AdditionalInfo;
+                    string individualCount = spec.IndividualCount;
+                    string reproductiveCondition = spec.LifeStage;
+                    string occurrenceRemarks = spec.OccurrenceNotes;
+                    string substrate = spec.Substrate;
+                    string establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
+                    string genericColumn1 = spec.FieldIdentification;
+                    string latitude = spec.GPSCoordinates.Split(',')[0];
+                    string longitude = spec.GPSCoordinates.Split(',')[1];
+                    string coordinateUncertaintyMeters = spec.GPSCoordinates.Split(',')[2];
+                    string minimumElevationMeters = spec.GPSCoordinates.Split(',')[3];
+
+                    csvContent += siteNumber.ToString() + "-" + specimenNumber.ToString() + "," +   // other catalog numbers
+                                            siteNumber.ToString() + "," +                           // site number
+                                            specimenNumber.ToString() + "," +                       // specimen number
+                                            genericColumn2 + "," +                                  // generic column 2 (additional info)
+                                            assColl + "," +                                         // associated collectors
+                                            habitat + "," +                                         // habitat
+                                            individualCount + "," +                                 // individual count
+                                            reproductiveCondition + "," +                           // reproductive condition
+                                            locality + "," +                                        // locality
+                                            locationNotes + "," +                                   // location remarks
+                                            occurrenceRemarks + "," +                               // occurrence remarks
+                                            recordedBy + "," +                                      // recorded by (primary collector)
+                                            samplingEffort + "," +                                  // sampling effort (project name)
+                                            substrate + "," +                                       // substrate
+                                            associatedTaxa + "," +                                  // associated taxa
+                                            eventDate.ToString("yyyy-MM-dd") + "," +                // event date
+                                            establishmentMeans + "," +                              // establishment means (cultivated)
+                                            genericColumn1 + "," +                                  // generic column 1 (field identification)
+                                            latitude + "," +                                        // latitude
+                                            longitude + "," +                                       // longitude
+                                            coordinateUncertaintyMeters + "," +                     // error in Meters
+                                            minimumElevationMeters +                                // elevation
+                                            "," + "," + "," + "," + "," + ",";                      // 6 empty columns for desktop determinations
+
+
+
+                }
+
+                File.WriteAllText(filePath + "/" + selectedProject.ProjectName + DateTime.Now.ToShortDateString() + ".csv", csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding
+
+                CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export");
             }
-
-            File.WriteAllText(filePath + "/" + selectedProject.ProjectName + DateTime.Now.ToShortDateString() + ".csv", csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding
-
-            CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export");
         }
     }
-
-
 }

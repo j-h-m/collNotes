@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-
 using Xamarin.Forms;
+
+/*
+ * Main Menu Page
+ * Create Project, start Collecting under a project.
+ * Data Export
+ * Help
+ * 
+ */ 
 
 namespace PDSkeleton
 {

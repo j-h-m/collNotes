@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
 using Xamarin.Forms;
 
 /*
  * Collecting Page - gets Project through navigation from MainPage
- * Menu to create Trips, Sites, and Specimen
+ * Menu to create Trips, Sites, and Specimen under the selected Project
  * 
  */
 

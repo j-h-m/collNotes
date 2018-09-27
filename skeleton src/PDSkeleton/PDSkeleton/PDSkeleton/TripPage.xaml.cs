@@ -2,6 +2,11 @@
 using System.Diagnostics;
 using Xamarin.Forms;
 
+/*
+ * Trip Page
+ * Create a new Trip
+ */ 
+
 namespace PDSkeleton
 {
     public partial class TripPage : ContentPage
