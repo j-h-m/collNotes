@@ -26,7 +26,7 @@
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnCollect"
-                Text="Let's Collect!"
+                Text="Let's Collect"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Collect_OnClick"
@@ -48,7 +48,7 @@
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnHelp"
-                Text="Help me!"
+                Text="Help"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Help_OnClick"

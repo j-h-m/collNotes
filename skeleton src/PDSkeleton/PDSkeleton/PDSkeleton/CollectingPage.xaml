@@ -49,7 +49,7 @@
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnInstructions"
-                Text="Instructions"
+                Text="Help"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="btnInstructions_Clicked"

@@ -61,10 +61,5 @@ namespace PDSkeleton
             int autoKeyResult = connection.Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
         }
-
-        private async void btnBack_ClickedAsync(object sender, EventArgs e)
-        {
-            await Navigation.PopAsync();
-        }
     }
 }

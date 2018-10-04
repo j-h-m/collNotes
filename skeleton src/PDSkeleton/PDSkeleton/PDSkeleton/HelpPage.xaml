@@ -4,10 +4,10 @@
              x:Class="PDSkeleton.Help">
     <ContentPage.Content>
         <StackLayout Padding="1">
-            <Label Text="Help me!"
+            <Label Text="Help Link"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
-            <Button Text="Help!"
+            <Button Text="Help"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     x:Name="btnHelp"

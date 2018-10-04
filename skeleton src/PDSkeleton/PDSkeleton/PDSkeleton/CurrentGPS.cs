@@ -27,7 +27,7 @@ namespace PDSkeleton
 
                 if (position != null)
                 {
-                    return position.Latitude.ToString() + ", " + position.Longitude.ToString();
+                    return position.Latitude.ToString() + ", " + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
                 }
 
                 if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)

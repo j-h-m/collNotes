@@ -65,8 +65,6 @@ namespace PDSkeleton
             string recordedBy = selectedProject.PrimaryCollector;
             string samplingEffort = selectedProject.ProjectName;
 
-            string filePath = "";
-
             // get Trips for selected Project
             List<Trip> selectedProjectTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + selectedProject.ProjectName + "'");
 
@@ -192,14 +190,16 @@ namespace PDSkeleton
                                             coordinateUncertaintyMeters + "," +                     // error in Meters
                                             minimumElevationMeters +                                // elevation
                                             "," + "," + "," + "," + "," + ",";                      // 6 empty columns for desktop determinations
-
-
-
                 }
 
-                File.WriteAllText(filePath + "/" + selectedProject.ProjectName + DateTime.Now.ToShortDateString() + ".csv", csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding
+                string filePath = "";
 
-                CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export");
+                filePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/" + selectedProject.ProjectName + DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
+
+                File.WriteAllText(filePath, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding
+
+                CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export"); // this isn't working
+                // https://github.com/nielscup/ShareFile
             }
         }
     }
