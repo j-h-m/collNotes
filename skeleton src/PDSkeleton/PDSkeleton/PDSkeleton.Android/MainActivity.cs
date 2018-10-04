@@ -18,18 +18,16 @@ namespace PDSkeleton.Droid
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
 
+            // added from https://forums.xamarin.com/discussion/97273/launch-camera-activity-with-saving-file-in-external-storage-crashes-the-app
+            // supposed to solve file sharing plugin issue on Android 24+ ???
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.SetVmPolicy(builder.Build());
+
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
-        }
-
-        // added as instructed in readme from Media Plugin for Xamarin & Windows
-        // JHM - 7/14/2018
-        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
-        //{
-        //    Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        //}
+    }
 
         // JHM - 7/16/2018
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

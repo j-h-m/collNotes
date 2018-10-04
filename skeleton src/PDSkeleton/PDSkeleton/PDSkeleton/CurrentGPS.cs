@@ -23,20 +23,20 @@ namespace PDSkeleton
                 var locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 100; // highest accuracy, see Plugin doc about this value
 
-                position = await locator.GetLastKnownLocationAsync();
+                //position = await locator.GetLastKnownLocationAsync();
 
-                if (position != null)
-                {
-                    return position.Latitude.ToString() + ", " + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
-                }
+                //if (position != null)
+                //{
+                //    return position.Latitude.ToString() + ", " + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                //}
 
-                if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
-                {
-                    // gps not available or enabled
-                    Debug.WriteLine("Geolocation not available or enabled.");
-                }
+                //if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
+                //{
+                //    // gps not available or enabled
+                //    Debug.WriteLine("Geolocation not available or enabled.");
+                //}
 
-                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
+                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true); // probably should get new location each time
 
             }
             catch (Exception ex)
