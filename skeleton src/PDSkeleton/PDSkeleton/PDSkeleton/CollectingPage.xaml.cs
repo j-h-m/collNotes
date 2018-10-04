@@ -14,7 +14,6 @@ namespace PDSkeleton
     public partial class CollectingPage : ContentPage
 	{
         private Project project;
-        private Trip selectedTrip = null;
 
         public CollectingPage (Project project)
         {
@@ -31,6 +30,7 @@ namespace PDSkeleton
         {
             // popup
             // user chooses existing Trip to add Site to
+            // goes under Project
 
             try
             {
@@ -50,7 +50,6 @@ namespace PDSkeleton
                 {
                     if (t.TripName == action)
                     {
-                        selectedTrip = t;
                         await Navigation.PushAsync(new SitePage(t));
                     }
                 }
@@ -58,8 +57,7 @@ namespace PDSkeleton
             catch (Exception ex)
             {
                 // probably no trips
-                // tell user to create trip first
-
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Trip first!");
                 Debug.WriteLine(ex.Message);
             }
         }
@@ -69,26 +67,33 @@ namespace PDSkeleton
             // popup
             // user chooses existing Site to add Specimen to
 
-            if (selectedTrip == null)
-            {
-                // user should create a Site first
-            }
-
             try
             {
-                List<Site> siteList = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + selectedTrip.TripName + "'");
+                // get all sites for current Project
+                List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
 
-                string[] sites = new string[siteList.Count];
+                List<Site> allSites = new List<Site>();
+
+                foreach (Trip trip in tripList)
+                {
+                    List<Site> tripSiteList = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + trip.TripName + "'");
+                    foreach (Site site in tripSiteList)
+                    {
+                        allSites.Add(site);
+                    }
+                }
+
+                string[] sites = new string[allSites.Count];
                 for (int i = 0; i < sites.Length; i++)
                 {
-                    sites[i] = siteList[i].SiteName;
+                    sites[i] = allSites[i].SiteName;
                 }
 
                 var action = await DisplayActionSheet("Choose a site", "Cancel", null, sites);
 
-                Debug.WriteLine("Trip chosen: " + action);
+                Debug.WriteLine("Site chosen: " + action);
 
-                foreach (Site s in siteList)
+                foreach (Site s in allSites)
                 {
                     if (s.SiteName == action)
                     {
@@ -98,13 +103,15 @@ namespace PDSkeleton
             }
             catch (Exception ex)
             {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Site first!");
                 Debug.WriteLine(ex.Message);
             }
         }
 
-        public void btnInstructions_Clicked(object sender, EventArgs e)
+        public async void btnInstructions_Clicked(object sender, EventArgs e)
         {
-            
+            // use help default for now
+            await Navigation.PushAsync(new Help());
         }
 	}
 }

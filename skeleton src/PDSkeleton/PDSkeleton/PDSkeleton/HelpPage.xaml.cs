@@ -21,7 +21,8 @@ namespace PDSkeleton
 
         public void btnHelp_Clicked(object sender, EventArgs e)
         {
-            Device.OpenUri(new Uri(@"https://j-h-m.github.io/pd-project-xamarin/"));
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Will add help documentation web-page soon.");
+            // Device.OpenUri(new Uri(@"https://j-h-m.github.io/pd-project-xamarin/"));
         }
 
     }

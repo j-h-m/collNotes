@@ -23,7 +23,7 @@ namespace PDSkeleton
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);
             }
-            return null; // need to add checks on calls in case null is returned
+            return null;
         }
     }
 }

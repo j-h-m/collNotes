@@ -84,6 +84,7 @@ namespace PDSkeleton
             if (specimen.FieldIdentification == null || specimen.OccurrenceNotes == null || specimen.Substrate == null || specimen.LifeStage == null || specimen.IndividualCount == null)
             {
                 // toast need all info
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all Specimen info to save it");
                 return;
             }
 
@@ -91,11 +92,14 @@ namespace PDSkeleton
             int autoKeyResult = ORM.GetConnection().Insert(specimen);
             // toast saved trip
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
+
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.FieldIdentification);
         }
 
         public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
         {
             specimenGPS = await CurrentGPS.CurrentLocation();
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Got GPS");
         }
 
         public void btnNewSpecimen_Clicked(object sender, EventArgs e)
@@ -116,6 +120,8 @@ namespace PDSkeleton
             pickerLifeStage.SelectedItem = null;
             switchCultivated.IsToggled = false;
             entryIndivCount.Text = "";
+
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new specimen");
         }
     }
 }

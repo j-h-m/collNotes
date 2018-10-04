@@ -55,13 +55,23 @@ namespace PDSkeleton
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                // alert user they can't start collecting until they've chosen a project
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Can't start collecting until you've created a project!");
             }
         }
-        
+
         public async void ExportProject_OnClick(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ExportProject());
+            List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
+
+            if (projectList.Count > 0)
+            {
+                await Navigation.PushAsync(new ExportProject());
+            }
+            else
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("No projects to export!");
+            }
+
         }
 
         public async void Help_OnClick(object sender, EventArgs e)

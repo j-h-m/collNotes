@@ -5,6 +5,8 @@ using Xamarin.Forms.Xaml;
 
 /*
  * Create Project Page
+ * User Creates a Project and saves it which causes a record to be written to the SQLite file
+ * All saved projects can be read from DB as Project object
  * 
  */ 
 
@@ -18,7 +20,7 @@ namespace PDSkeleton
 		public ProjectPage ()
 		{
             project = new Project();
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
         public ProjectPage (Project project)
@@ -47,19 +49,20 @@ namespace PDSkeleton
             // check to make sure all data is present
             if (entryProjectName.Text is null || entryPrimaryCollectorProject.Text is null)
             {
-                // alert user they must enter all information
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Project");
                 return;
             }
 
             project.ProjectName = entryProjectName.Text;
             project.PrimaryCollector = entryPrimaryCollectorProject.Text;
-            project.CreatedDate = dpCreatedDate.Date; // default should be current date
+            project.CreatedDate = dpCreatedDate.Date;
 
             // save project to database
-            SQLite.SQLiteConnection connection = ORM.GetConnection();
-            connection.CreateTable<Project>(); // does 'create if not exist'
-            int autoKeyResult = connection.Insert(project);
+            ORM.GetConnection().CreateTable<Project>();
+            int autoKeyResult = ORM.GetConnection().Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
+
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved!");
         }
     }
 }

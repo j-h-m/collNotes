@@ -14,8 +14,7 @@
                     Text="Export Project Data"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Clicked="btnExportProjectCSV_Clicked"
-                    BackgroundColor="Green"/>
+                    Clicked="btnExportProjectCSV_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

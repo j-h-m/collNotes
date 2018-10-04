@@ -45,7 +45,7 @@ namespace PDSkeleton
         {
             if (project.ProjectName.Equals("") || trip.TripName.Equals(""))
             {
-                // need trip name first
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name to save under first");
                 return;
             }
             await TakePhoto.CallCamera(project.ProjectName + "-" + trip.TripName);
@@ -62,7 +62,7 @@ namespace PDSkeleton
 
             if (trip.TripName == null || trip.AdditionalCollectors == null)
             {
-                // toast missing info
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Trip");
                 return;
             }
 
@@ -70,6 +70,8 @@ namespace PDSkeleton
             int autoKeyResult = ORM.GetConnection().Insert(trip);
             // toast saved trip
             Debug.WriteLine("inserted trip, recordno is: " + autoKeyResult.ToString());
+
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved Trip " + trip.TripName);
         }
 
         public void btnNewTrip_Clicked(object sender, EventArgs e)
@@ -83,6 +85,8 @@ namespace PDSkeleton
             entryTripName.Text = "";
             entryAdditionalCollectors.Text = "";
             dpCollectionDate.Date = DateTime.Today;
+
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Trip");
         }
     }
 }

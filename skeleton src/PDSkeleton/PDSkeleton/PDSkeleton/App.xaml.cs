@@ -10,6 +10,7 @@ namespace PDSkeleton
 		{
 			InitializeComponent();
             // navigation page allows the user to have a built-in back button for navigation
+            // launch MainPage on load
             MainPage = new NavigationPage(new MainPage());
 		}
 
