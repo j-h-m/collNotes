@@ -10,8 +10,6 @@ using System.Diagnostics;
 
 namespace PDSkeleton
 {
-    // consider permissions on all devices
-
     public static class CurrentGPS
     {
         public async static System.Threading.Tasks.Task<String> CurrentLocation()
@@ -21,23 +19,10 @@ namespace PDSkeleton
             try
             {
                 var locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 100; // highest accuracy, see Plugin doc about this value
+                locator.DesiredAccuracy = 100; // 100 is highest accuracy, see Plugin doc about this value
 
-                //position = await locator.GetLastKnownLocationAsync();
-
-                //if (position != null)
-                //{
-                //    return position.Latitude.ToString() + ", " + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
-                //}
-
-                //if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
-                //{
-                //    // gps not available or enabled
-                //    Debug.WriteLine("Geolocation not available or enabled.");
-                //}
-
-                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true); // probably should get new location each time
-
+                // get position
+                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
             }
             catch (Exception ex)
             {
@@ -47,13 +32,18 @@ namespace PDSkeleton
             if (position == null)
             {
                 Debug.WriteLine("GPS returned null.");
+                return "";
             }
-
-            Debug.WriteLine(string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
+            else
+            {
+                string fullLocation = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
                     position.Timestamp, position.Latitude, position.Longitude,
-                    position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed));
+                    position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
 
-            return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                Debug.WriteLine(fullLocation);
+
+                return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+            }
         }
     }
 }

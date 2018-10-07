@@ -5,10 +5,7 @@ using Xamarin.Forms;
 
 /*
  * Main Menu Page
- * Create Project, start Collecting under a project.
- * Data Export
- * Help
- * 
+ *  - it is the main navigation page which is launched on App load
  */ 
 
 namespace PDSkeleton
@@ -20,16 +17,18 @@ namespace PDSkeleton
 			InitializeComponent();
 		}
 
+        // NewProject button event
+        //  - loads Project page
         public async void NewProject_OnClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProjectPage());
         }
 
+        // Collect button event
+        //  - loads a list of Projects for the user to choose to collect under
+        //  - upon user choosing, loads the Collecting Page
         public async void Collect_OnClick(object sender, EventArgs e)
         {
-            // popup
-            // user chooses existing project to collect under
-
             try
             {
                 List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
@@ -41,8 +40,6 @@ namespace PDSkeleton
                 }
 
                 var action = await DisplayActionSheet("Choose a project", "Cancel", null, projects);
-
-                Debug.WriteLine("Project chosen: " + action);
 
                 foreach (Project p in projectList)
                 {
@@ -59,21 +56,33 @@ namespace PDSkeleton
             }
         }
 
+        // Export Project button event
+        //  - checks the local database for Projects before navigation
+        //  - loads the ExportProject Page
         public async void ExportProject_OnClick(object sender, EventArgs e)
         {
-            List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
-
-            if (projectList.Count > 0)
+            try
             {
-                await Navigation.PushAsync(new ExportProject());
+                List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
+
+                if (projectList.Count > 0)
+                {
+                    await Navigation.PushAsync(new ExportProject());
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No projects to export!");
+                }
             }
-            else
+            catch (Exception ex)
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("No projects to export!");
+                Debug.WriteLine(ex.Message);
             }
-
         }
 
+        // Help button event
+        //  - loads the Help Page
         public async void Help_OnClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Help());

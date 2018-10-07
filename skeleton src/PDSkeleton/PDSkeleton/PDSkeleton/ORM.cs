@@ -3,13 +3,14 @@ using System.IO;
 using SQLite;
 
 /*
- * Code for ORM style SQLite local database.
+ * Code for ORM SQLite local database.
  * Database for each represented data abstraction - Project, Trip, Site, Specimen
- * 
  */
 
 namespace PDSkeleton
 {
+    // static class - one instance so the connection is available to all other classes and programmer won't have to manage instances
+    //              - also lets us not worry about file-access conflicts so much by ALWAYS accessing the SQLite database through this static variable
     public static class ORM
     {
         private static SQLiteConnection Connection = null;
@@ -28,10 +29,12 @@ namespace PDSkeleton
             {
                 SetConnection();
                 return Connection;
-            }
-            
+            } 
         }
 
+        // no args method
+        // returns string with file path for the sqlite database
+        // will be different on iOS vs Android
         private static string CreateDBFilePath()
         {
             var sqliteFilename = "PD_Project_Records.db3";
@@ -50,8 +53,11 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
     }
 
     /*
-     * There is a table type for each collected-data type
-     * Each child-data type has a column that will allow data between tables to be connected through SQL join query
+     * There is a table type for each data abstraction
+     * Each child-data type has a column that will allow data between tables to be connected
+     * Project -> Trip
+     * Trip -> Site
+     * Site -> Specimen
      */ 
 
     [Table("Project")]

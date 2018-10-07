@@ -5,8 +5,10 @@ using Plugin.ShareFile;
 using Xamarin.Forms;
 
 /*
- * User chooses a project and can then export all Site/Specimen data to a CSV file for sharing.
- * CSV made manually following - https://tools.ietf.org/html/rfc4180
+ * Export Project page
+ *  - User chooses a Project
+ *  - CSV file created and exported
+ *  - CSV made manually following - https://tools.ietf.org/html/rfc4180
  */
 
 namespace PDSkeleton
@@ -17,6 +19,8 @@ namespace PDSkeleton
         private List<Project> projectList;
         private string crlf = Environment.NewLine;
 
+        // default constructor
+        // loads the Project List
         public ExportProject()
         {
             InitializeComponent();
@@ -33,6 +37,9 @@ namespace PDSkeleton
             pickerExportProject.ItemsSource = projectNameList;
         }
 
+
+        // Project Picker event
+        //  - sets the selected project when user selects a Project
         public void pickerExportProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -52,6 +59,8 @@ namespace PDSkeleton
             }
         }
 
+        // Export CSV button event
+        //  - creates the CSV for export of the selected Project
         public void btnExportProjectCSV_Clicked(object sender, EventArgs e)
         {
             try
@@ -193,13 +202,27 @@ namespace PDSkeleton
                                                 "," + "," + "," + "," + "," + ",";                      // 6 empty columns for desktop determinations
                     }
 
-                    string filePath = "";
+                    // try my documents
+#if __ANDROID__
+                    string filePath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/";
+#endif
+#if __IOS__
+                    string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/";
+#endif
+                    // string tempPath = System.IO.Path.GetTempPath();
 
-                    filePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/" + selectedProject.ProjectName + DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
+                    // string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/";
 
-                    File.WriteAllText(filePath, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding
+                    // save to local app data
+                    // to share in email must use temporary file, can't use internal storage
+                    string fileName = DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
 
-                    CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export"); // working on Android, weird on iOS... https://github.com/nielscup/ShareFile
+                    string localFileLocation = filePath + selectedProject.ProjectName + "_" + fileName;
+
+                    File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
+
+                    CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
+                    CrossShareFile.Current.ShareRemoteFile("", "", "");
                 }
             }
             catch (Exception ex)

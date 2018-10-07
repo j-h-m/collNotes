@@ -4,7 +4,7 @@ using Plugin.Media;
 
 /*
  * Uses the Plugin.Media package to get a picture and save it
- * May want to look at saving to an album ID by the Project Name ... if possible
+ *  - May want to look at saving to an album with the Project name?
  */ 
 
 namespace PDSkeleton
@@ -17,8 +17,11 @@ namespace PDSkeleton
             {
                 var mediaOptions = new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
-                    Directory = "PD-Photos",
-                    Name = fileNamePrefix + "-" + DateTime.Now.ToString("MM-dd-yyyy")
+                    // tried just PD-Photos
+                    // Directory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/PD-Photos",
+                    Name = fileNamePrefix + "-" + DateTime.Now.ToString("MM-dd-yyyy"),
+                    // try saving to album instead of directory
+                    SaveToAlbum = true                    
                 };
                 
                 return await CrossMedia.Current.TakePhotoAsync(mediaOptions);

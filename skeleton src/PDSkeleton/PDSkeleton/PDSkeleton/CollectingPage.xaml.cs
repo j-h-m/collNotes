@@ -4,34 +4,38 @@ using System.Diagnostics;
 using Xamarin.Forms;
 
 /*
- * Collecting Page - gets Project through navigation from MainPage
- * Menu to create Trips, Sites, and Specimen under the selected Project
- * 
+ * Collecting Page 
+ *  - gets Project through navigation from MainPage
+ *  - Menu to create Trips, Sites, and Specimen under the selected Project
  */
 
 namespace PDSkeleton
 {
     public partial class CollectingPage : ContentPage
 	{
+        // fields
         private Project project;
 
+        // constructor accepts selected Project from MainPage
         public CollectingPage (Project project)
         {
             this.project = project;
             InitializeComponent();
         }
 
+        // AddTrip button
+        //  - loads the Trip Page
+        //  - passes selected project from MainPage to TripPage through TripPage's constructor
         public async void btnAddTrip_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TripPage(project));
         }
 
+        // AddSite button
+        //  - prompts user with list of Trips to add a Site to
+        //  - selected Trip is passed to the SitePage through SitePage's constructor
         public async void btnAddSite_Clicked(object sender, EventArgs e)
         {
-            // popup
-            // user chooses existing Trip to add Site to
-            // goes under Project
-
             try
             {
                 List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
@@ -56,17 +60,17 @@ namespace PDSkeleton
             }
             catch (Exception ex)
             {
-                // probably no trips
+                // no Trips created, so no Trip database to query
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Trip first!");
                 Debug.WriteLine(ex.Message);
             }
         }
 
+        // Add Specimen button
+        //  - prompts user with a Site to add Specimen to
+        //  - upon selecting a Site, the Site is passed to the SpecimenPage through SpecimenPage's constructor
         public async void btnAddSpecimen_Clicked(object sender, EventArgs e)
         {
-            // popup
-            // user chooses existing Site to add Specimen to
-
             try
             {
                 // get all sites for current Project
@@ -103,14 +107,18 @@ namespace PDSkeleton
             }
             catch (Exception ex)
             {
+                // no Sites have been saved, no Site table to query against
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Site first!");
                 Debug.WriteLine(ex.Message);
             }
         }
 
+        // Instructions Button event
+        //  - will eventually load instructions page
+        //  - since we don't have feedback yet, we don't really know what information users will need
+        //  - load the HelpPage for now
         public async void btnInstructions_Clicked(object sender, EventArgs e)
         {
-            // use help default for now
             await Navigation.PushAsync(new Help());
         }
 	}

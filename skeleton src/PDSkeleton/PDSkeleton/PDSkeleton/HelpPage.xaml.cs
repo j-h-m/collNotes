@@ -14,11 +14,14 @@ namespace PDSkeleton
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Help : ContentPage
 	{
+        // no args constructor
 		public Help ()
 		{
 			InitializeComponent ();
 		}
 
+        // Help Button event
+        //  - will send user to online documentation
         public void btnHelp_Clicked(object sender, EventArgs e)
         {
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Will add help documentation web-page soon.");

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 /*
  * Specimen Page
- * Create a new Specimen
+ *  - collect Specimen under a Site
  */ 
 
 namespace PDSkeleton
@@ -21,48 +21,58 @@ namespace PDSkeleton
         private string individualCount = "";
         private string specimenGPS = "";
 
+        // constructor takes Site as argument to record Specimen under
         public SpecimenPage(Site site)
         {
+            specimen = new Specimen();
             this.site = site;
             InitializeComponent();
         }
 
+        // field id text entry event
         public void entryFieldID_Completed(object sender, EventArgs e)
         {
             fieldID = entryFieldID.Text;
         }
 
+        // occurrence notes text entry event
         public void entryOccurrenceNotes_Completed(object sender, EventArgs e)
         {
             occurrenceNotes = entryOccurrenceNotes.Text;
         }
 
+        // substrate text entry event
         public void entrySubstrate_Completed(object sender, EventArgs e)
         {
             substrate = entrySubstrate.Text;
         }
 
+        // picker life stage event
         public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
             lifeStage = pickerLifeStage.SelectedItem.ToString();
         }
 
+        // switch cultivated? event
         public void switchCultivated_Toggled(object sender, EventArgs e)
         {
             cultivated = switchCultivated.IsToggled;
         }
 
+        // individual count text entry event
         public void entryIndivCount_Completed(object sender, EventArgs e)
         {
             individualCount = entryIndivCount.Text;
         }
 
+        // specimen photo button event
         public async void btnSetSpecimenPhoto_Clicked(object sender, EventArgs e)
         {
             // get specimen name first
-            if (site.SiteName.Equals("") || specimen.FieldIdentification.Equals(""))
+            if (site.SiteName.Equals("") || entryFieldID.Text.Equals(""))
             {
                 // toast need specimen id
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must entry specimen field ID before taking photo");
                 return;
             }
             await TakePhoto.CallCamera(site.SiteName + "-" + specimen.FieldIdentification);
@@ -70,7 +80,6 @@ namespace PDSkeleton
 
         public void btnSaveSpecimen_Clicked(object sender, EventArgs e)
         {
-            specimen = new Specimen();
             specimen.FieldIdentification = (fieldID.Equals("")) ? entryFieldID.Text : fieldID;
             specimen.OccurrenceNotes = (occurrenceNotes.Equals("")) ? entryOccurrenceNotes.Text : occurrenceNotes;
             specimen.Substrate = (substrate.Equals("")) ? entrySubstrate.Text : substrate;
@@ -99,7 +108,14 @@ namespace PDSkeleton
         public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
         {
             specimenGPS = await CurrentGPS.CurrentLocation();
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Got GPS");
+            if (!specimenGPS.Equals(""))
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location");
+            }
+            else
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + specimenGPS);
+            }
         }
 
         public void btnNewSpecimen_Clicked(object sender, EventArgs e)
