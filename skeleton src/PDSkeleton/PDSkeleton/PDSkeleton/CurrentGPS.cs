@@ -21,28 +21,27 @@ namespace PDSkeleton
                 var locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 100; // 100 is highest accuracy, see Plugin doc about this value
 
+                if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
+                {
+                    // not available or enabled
+                    return "";
+                }
+
                 // get position
                 position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Unable to get location: " + ex);
-            }
 
-            if (position == null)
-            {
-                Debug.WriteLine("GPS returned null.");
-                return "";
-            }
-            else
-            {
                 string fullLocation = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
-                    position.Timestamp, position.Latitude, position.Longitude,
-                    position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
+    position.Timestamp, position.Latitude, position.Longitude,
+    position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
 
                 Debug.WriteLine(fullLocation);
 
                 return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to get location: " + ex);
+                return "";
             }
         }
     }

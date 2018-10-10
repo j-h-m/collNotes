@@ -108,9 +108,9 @@ namespace PDSkeleton
         public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
         {
             specimenGPS = await CurrentGPS.CurrentLocation();
-            if (!specimenGPS.Equals(""))
+            if (specimenGPS.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?");
             }
             else
             {

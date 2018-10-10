@@ -40,7 +40,7 @@
                     <Label Text="Life Stage"
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
-                    <Picker x:Name="pickerLifeStage" Title="N/A" SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
+                    <Picker x:Name="pickerLifeStage" Title="Select Life Stage" SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Vegetative</x:String>

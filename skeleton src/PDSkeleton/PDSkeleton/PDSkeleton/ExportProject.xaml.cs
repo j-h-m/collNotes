@@ -203,26 +203,17 @@ namespace PDSkeleton
                     }
 
                     // try my documents
-#if __ANDROID__
-                    string filePath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/";
-#endif
-#if __IOS__
                     string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/";
-#endif
-                    // string tempPath = System.IO.Path.GetTempPath();
-
-                    // string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/";
 
                     // save to local app data
                     // to share in email must use temporary file, can't use internal storage
-                    string fileName = DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
+                    string fileName = selectedProject.ProjectName.Trim() + "_" + DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
 
-                    string localFileLocation = filePath + selectedProject.ProjectName + "_" + fileName;
+                    string localFileLocation = filePath + fileName;
 
                     File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
 
                     CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
-                    CrossShareFile.Current.ShareRemoteFile("", "", "");
                 }
             }
             catch (Exception ex)
