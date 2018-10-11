@@ -42,6 +42,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ICrossPlatformToast.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ICrossPlatform_GetShareFolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

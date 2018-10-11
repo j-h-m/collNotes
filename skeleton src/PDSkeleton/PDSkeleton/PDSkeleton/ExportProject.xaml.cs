@@ -202,8 +202,7 @@ namespace PDSkeleton
                                                 "," + "," + "," + "," + "," + ",";                      // 6 empty columns for desktop determinations
                     }
 
-                    // try my documents
-                    string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/";
+                    string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
 
                     // save to local app data
                     // to share in email must use temporary file, can't use internal storage
@@ -213,7 +212,7 @@ namespace PDSkeleton
 
                     File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
 
-                    CrossShareFile.Current.ShareLocalFile(filePath, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
+                    CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
                 }
             }
             catch (Exception ex)
