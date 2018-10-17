@@ -105,8 +105,13 @@ namespace PDSkeleton
                 string csvContent = "";
 
                 // 28 column header
-                csvContent += "otherCatalogNumbers,siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
-                    "samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
+                //csvContent += "otherCatalogNumbers,siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
+                    //"samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
+                    //"scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
+
+                // 27 column header -- changed samplingEffort ---> Label Project
+                csvContent += "siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
+                    "Label Project,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
                     "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
 
                 foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites)
@@ -177,7 +182,7 @@ namespace PDSkeleton
                         string coordinateUncertaintyMeters = spec.GPSCoordinates.Split(',')[2];
                         string minimumElevationMeters = spec.GPSCoordinates.Split(',')[3];
 
-                        csvContent += siteNumber.ToString() + "-" + specimenNumber.ToString() + "," +   // other catalog numbers
+                        csvContent += // siteNumber.ToString() + "-" + specimenNumber.ToString() + "," +   // other catalog numbers
                                                 siteNumber.ToString() + "," +                           // site number
                                                 specimenNumber.ToString() + "," +                       // specimen number
                                                 genericColumn2 + "," +                                  // generic column 2 (additional info)
