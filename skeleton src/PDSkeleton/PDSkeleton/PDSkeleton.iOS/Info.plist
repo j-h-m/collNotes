@@ -32,8 +32,6 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>PDSkeleton</string>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -46,5 +44,9 @@
 	<string>Needs Calendar Permission</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access location when open.</string>
+	<key>Custom Property</key>
+	<string>This app needs access to the photo gallery.</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

@@ -69,12 +69,19 @@ namespace PDSkeleton
         public async void btnSetSpecimenPhoto_Clicked(object sender, EventArgs e)
         {
             // get specimen name first
+            if (entryFieldID.Text == null)
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
+                return;
+            }
+
             if (site.SiteName.Equals("") || entryFieldID.Text.Equals(""))
             {
                 // toast need specimen id
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must entry specimen field ID before taking photo");
                 return;
             }
+
             await TakePhoto.CallCamera(site.SiteName + "-" + specimen.FieldIdentification);
         }
 

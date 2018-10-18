@@ -48,6 +48,12 @@ namespace PDSkeleton
 
         public async void btnGroupPhotoTrip_Clicked(object sender, EventArgs e)
         {
+            if (entryTripName.Text == null)
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
+                return;
+            }
+
             if (project.ProjectName.Equals("") || entryTripName.Text.Equals(""))
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
