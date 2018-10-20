@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -13,12 +14,7 @@ namespace PDSkeleton
     {
         private Site site;
         private Specimen specimen;
-        private string fieldID = "";
-        private string occurrenceNotes = "";
-        private string substrate = "";
-        private string lifeStage = "";
-        private bool cultivated = false;
-        private string individualCount = "";
+
         private string specimenGPS = "";
 
         // constructor takes Site as argument to record Specimen under
@@ -32,37 +28,37 @@ namespace PDSkeleton
         // field id text entry event
         public void entryFieldID_Completed(object sender, EventArgs e)
         {
-            fieldID = entryFieldID.Text;
+            specimen.FieldIdentification = entryFieldID.Text;
         }
 
         // occurrence notes text entry event
         public void entryOccurrenceNotes_Completed(object sender, EventArgs e)
         {
-            occurrenceNotes = entryOccurrenceNotes.Text;
+            specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
         }
 
         // substrate text entry event
         public void entrySubstrate_Completed(object sender, EventArgs e)
         {
-            substrate = entrySubstrate.Text;
+            specimen.Substrate = entrySubstrate.Text;
         }
 
         // picker life stage event
         public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
-            lifeStage = pickerLifeStage.SelectedItem.ToString();
+            specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
         }
 
         // switch cultivated? event
         public void switchCultivated_Toggled(object sender, EventArgs e)
         {
-            cultivated = switchCultivated.IsToggled;
+            specimen.Cultivated = switchCultivated.IsToggled;
         }
 
         // individual count text entry event
         public void entryIndivCount_Completed(object sender, EventArgs e)
         {
-            individualCount = entryIndivCount.Text;
+            specimen.IndividualCount = entryIndivCount.Text;
         }
 
         // specimen photo button event
@@ -71,42 +67,42 @@ namespace PDSkeleton
             // get specimen name first
             if (entryFieldID.Text == null)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a specimen field ID before taking photo");
                 return;
             }
 
             if (site.SiteName.Equals("") || entryFieldID.Text.Equals(""))
             {
                 // toast need specimen id
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must entry specimen field ID before taking photo");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter specimen field ID before taking photo");
                 return;
             }
 
-            await TakePhoto.CallCamera(site.SiteName + "-" + specimen.FieldIdentification);
+            await TakePhoto.CallCamera(site.SiteName + "-" + entryFieldID.Text);
         }
 
         public void btnSaveSpecimen_Clicked(object sender, EventArgs e)
         {
-            specimen.FieldIdentification = (fieldID.Equals("")) ? entryFieldID.Text : fieldID;
-            specimen.OccurrenceNotes = (occurrenceNotes.Equals("")) ? entryOccurrenceNotes.Text : occurrenceNotes;
-            specimen.Substrate = (substrate.Equals("")) ? entrySubstrate.Text : substrate;
-            specimen.LifeStage = (lifeStage.Equals("")) ? pickerLifeStage.SelectedItem.ToString() : lifeStage;
-            specimen.Cultivated = (cultivated == false) ? switchCultivated.IsToggled : cultivated;
-            specimen.IndividualCount = (individualCount.Equals("")) ? entryIndivCount.Text : individualCount;
-            specimen.GPSCoordinates = specimenGPS;
-
             specimen.SiteName = site.SiteName;
 
-            if (specimen.FieldIdentification == null || specimen.OccurrenceNotes == null || specimen.Substrate == null || specimen.LifeStage == null || specimen.IndividualCount == null)
+            // check to make sure all data is present
+            if (entryFieldID.Text is null || entryOccurrenceNotes.Text is null || entrySubstrate.Text is null || entryIndivCount.Text is null || pickerLifeStage.SelectedItem is null)
             {
-                // toast need all info
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all Specimen info to save it");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Specimen");
                 return;
             }
 
+            specimen.GPSCoordinates = specimenGPS;
+            specimen.FieldIdentification = entryFieldID.Text;
+            specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
+            specimen.Substrate = entrySubstrate.Text;
+            specimen.IndividualCount = entryIndivCount.Text;
+            specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+            specimen.Cultivated = switchCultivated.IsToggled;
+
+            // save Specimen to database
             ORM.GetConnection().CreateTable<Specimen>();
             int autoKeyResult = ORM.GetConnection().Insert(specimen);
-            // toast saved trip
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.FieldIdentification);
@@ -129,12 +125,6 @@ namespace PDSkeleton
         {
             specimen = new Specimen();
 
-            fieldID = "";
-            occurrenceNotes = "";
-            substrate = "";
-            lifeStage = "";
-            cultivated = false;
-            individualCount = "";
             specimenGPS = "";
 
             entryFieldID.Text = "";

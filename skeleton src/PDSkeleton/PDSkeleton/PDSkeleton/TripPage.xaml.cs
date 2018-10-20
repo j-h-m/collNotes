@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace PDSkeleton
     {
         private Project project;
         private Trip trip;
+        private List<Trip> existingTrips;
 
         // constructor takes Project as argument
         public TripPage(Project project)
@@ -22,28 +24,22 @@ namespace PDSkeleton
             InitializeComponent();
         }
 
-        private string tripName = "";
-        private string additionalCollectors = "";
-        private DateTime tripDate;
-        private bool dateSelected = false;
-
         // trip name text entry event
         public void entryTripName_Completed(object sender, EventArgs e)
         {
-            tripName = entryTripName.Text;
+            trip.TripName = entryTripName.Text;
         }
 
         // additional collectors text entry event
         public void entryAdditionalCollectors_Completed(object sender, EventArgs e)
         {
-            additionalCollectors = entryAdditionalCollectors.Text;
+            trip.AdditionalCollectors = entryAdditionalCollectors.Text;
         }
 
         // date picker collection date event
         public void dpCollectionDate_DateSelected(object sender, EventArgs e)
         {
-            tripDate = dpCollectionDate.Date;
-            dateSelected = true;
+            trip.CollectionDate = dpCollectionDate.Date;
         }
 
         public async void btnGroupPhotoTrip_Clicked(object sender, EventArgs e)
@@ -64,21 +60,35 @@ namespace PDSkeleton
 
         public void btnSaveTrip_Clicked(object sender, EventArgs e)
         {
-            trip.TripName = (tripName.Equals("")) ? entryTripName.Text : tripName;
-            trip.AdditionalCollectors = (additionalCollectors.Equals("")) ? entryTripName.Text : additionalCollectors;
-            trip.CollectionDate = (dateSelected) ? tripDate : DateTime.Today;
-
             trip.ProjectName = project.ProjectName;
 
-            if (trip.TripName == null || trip.AdditionalCollectors == null)
+            // check to make sure all data is present
+            if (entryTripName.Text is null || entryAdditionalCollectors.Text is null)
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Trip");
                 return;
             }
 
+            trip.TripName = entryTripName.Text;
+            trip.AdditionalCollectors = entryAdditionalCollectors.Text;
+            trip.CollectionDate = dpCollectionDate.Date;
+
             ORM.GetConnection().CreateTable<Trip>();
+
+            // check for duplicate names first
+            existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip");
+
+            foreach (Trip t in existingTrips)
+            {
+                if (t.TripName.Equals(trip.TripName))
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a trip with the same name!");
+                    return;
+                }
+            }
+
+            // save trip to database
             int autoKeyResult = ORM.GetConnection().Insert(trip);
-            // toast saved trip
             Debug.WriteLine("inserted trip, recordno is: " + autoKeyResult.ToString());
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved Trip " + trip.TripName);
@@ -87,10 +97,6 @@ namespace PDSkeleton
         public void btnNewTrip_Clicked(object sender, EventArgs e)
         {
             trip = new Trip();
-            // reset all controls
-            tripName = "";
-            additionalCollectors = "";
-            dateSelected = false;
 
             entryTripName.Text = "";
             entryAdditionalCollectors.Text = "";

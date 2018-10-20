@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace PDSkeleton
     {
         private Trip trip;
         private Site site;
+        private List<Site> existingSites;
 
         // constructor accepts Trip as argument
         // Site is then added with this Trip's name for later association
@@ -21,42 +23,36 @@ namespace PDSkeleton
             this.trip = trip;
             InitializeComponent();
         }
-
-        private string siteName = "";
-        private string locality = "";
-        private string habitat = "";
-        private string associatedTaxa = "";
-        private string locationNotes = "";
         private string siteGPS = "";
 
         // Site Name text entry event
         public void entrySiteName_Completed(object sender, EventArgs e)
         {
-            siteName = entrySiteName.Text;
+            site.SiteName = entrySiteName.Text;
         }
 
         // locality text entry event
         public void entryLocality_Completed(object sender, EventArgs e)
         {
-            locality = entryLocality.Text;
+            site.Locality = entryLocality.Text;
         }
 
         // habitat text entry event
         public void entryHabitat_Completed(object sender, EventArgs e)
         {
-            habitat = entryHabitat.Text;
+            site.Habitat = entryHabitat.Text;
         }
 
         // associated taxa text entry event
         public void entryAssocTaxa_Completed(object sender, EventArgs e)
         {
-            associatedTaxa = entryAssocTaxa.Text;
+            site.AssociatedTaxa = entryAssocTaxa.Text;
         }
 
         // location notes text entry event
         public void entryLocationNotes_Completed(object sender, EventArgs e)
         {
-            locationNotes = entryLocationNotes.Text;
+            site.LocationNotes = entryLocationNotes.Text;
         }
 
         // site photo button event
@@ -65,39 +61,53 @@ namespace PDSkeleton
             // get site name
             if (entrySiteName.Text == null)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Site name before taking photo");
                 return;
             }
 
-            if (trip.TripName.Equals("") || entrySiteName.Equals(""))
+            if (trip.TripName.Equals("") || entrySiteName.Text.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Select a Trip and name the Site before taking photo");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Select a Site and name the Site before taking photo");
                 return;
             }
-            await TakePhoto.CallCamera(trip.TripName + "-" + site.SiteName);
+            await TakePhoto.CallCamera(trip.TripName + "-" + entrySiteName.Text);
         }
 
         public void btnSaveSite_Clicked(object sender, EventArgs e)
         {
             site = new Site();
-            site.SiteName = (siteName.Equals("")) ? entrySiteName.Text : siteName;
-            site.Locality = (locality.Equals("")) ? entryLocality.Text : locality;
-            site.Habitat = (habitat.Equals("")) ? entryHabitat.Text : habitat;
-            site.AssociatedTaxa = (associatedTaxa.Equals("")) ? entryAssocTaxa.Text : associatedTaxa;
-            site.LocationNotes = (locationNotes.Equals("")) ? entryLocationNotes.Text : locationNotes;
+
             site.GPSCoordinates = siteGPS;
             site.TripName = trip.TripName;
 
-            if (site.SiteName == null || site.Locality == null || site.Habitat == null || site.AssociatedTaxa == null || site.LocationNotes == null)
+            // check to make sure all data is present
+            if (entrySiteName.Text is null || entryLocality.Text is null || entryHabitat.Text is null || entryAssocTaxa.Text is null || entryLocationNotes.Text is null)
             {
-                // toast need all info
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info for Site");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Site");
                 return;
             }
 
+            site.SiteName = entrySiteName.Text;
+            site.Locality = entryLocality.Text;
+            site.Habitat = entryHabitat.Text;
+            site.AssociatedTaxa = entryAssocTaxa.Text;
+            site.LocationNotes = entryLocationNotes.Text;
+
             ORM.GetConnection().CreateTable<Site>();
+
+            // check for duplicate names first
+            existingSites = ORM.GetConnection().Query<Site>("select * from Site");
+
+            foreach (Site s in existingSites)
+            {
+                if (s.SiteName.Equals(site.SiteName))
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a site with the same name!");
+                    return;
+                }
+            }
+            // save site to database
             int autoKeyResult = ORM.GetConnection().Insert(site);
-            // toast saved trip
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Site " + site.SiteName + " saved!");
             Debug.WriteLine("inserted site, recordno is: " + autoKeyResult.ToString());
         }
@@ -118,11 +128,6 @@ namespace PDSkeleton
         public void btnNewSite_Clicked(object sender, EventArgs e)
         {
             site = new Site();
-            siteName = "";
-            locality = "";
-            habitat = "";
-            associatedTaxa = "";
-            locationNotes = "";
 
             entrySiteName.Text = "";
             entryLocality.Text = "";

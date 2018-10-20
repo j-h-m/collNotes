@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,6 +15,7 @@ namespace PDSkeleton
 	public partial class ProjectPage : ContentPage
 	{
         private Project project;
+        private List<Project> existingProjects;
 
         // no args constructor
 		public ProjectPage ()
@@ -63,8 +65,21 @@ namespace PDSkeleton
             project.PrimaryCollector = entryPrimaryCollectorProject.Text;
             project.CreatedDate = dpCreatedDate.Date;
 
-            // save project to database
             ORM.GetConnection().CreateTable<Project>();
+
+            // check for duplicate names first
+            existingProjects = ORM.GetConnection().Query<Project>("select * from Project");
+
+            foreach (Project p in existingProjects)
+            {
+                if (p.ProjectName.Equals(project.ProjectName))
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a project with the same name!");
+                    return;
+                }
+            }
+
+            // save project to database
             int autoKeyResult = ORM.GetConnection().Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
 

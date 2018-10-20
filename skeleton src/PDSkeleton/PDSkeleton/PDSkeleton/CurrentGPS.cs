@@ -1,5 +1,7 @@
 ﻿using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using System;
 using System.Diagnostics;
 
@@ -21,22 +23,37 @@ namespace PDSkeleton
                 var locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 100; // 100 is highest accuracy, see Plugin doc about this value
 
-                if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (status != PermissionStatus.Granted)
                 {
-                    // not available or enabled
-                    return "";
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                    {
+                        return "";
+                    }
+
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    //Best practice to always check that the key exists
+                    if (results.ContainsKey(Permission.Location))
+                        status = results[Permission.Location];
                 }
 
-                // get position
-                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
+                if (status == PermissionStatus.Granted)
+                {
+                    // get position
+                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
 
-                string fullLocation = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
-    position.Timestamp, position.Latitude, position.Longitude,
-    position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
+                    string fullLocation = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
+                        position.Timestamp, position.Latitude, position.Longitude,
+                        position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
 
-                Debug.WriteLine(fullLocation);
+                    Debug.WriteLine(fullLocation);
 
-                return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                    return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                }
+                else
+                {
+                    return "";
+                }
             }
             catch (Exception ex)
             {
