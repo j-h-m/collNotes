@@ -3,6 +3,9 @@ using System.IO;
 using System.Collections.Generic;
 using Plugin.ShareFile;
 using Xamarin.Forms;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System.Threading.Tasks;
 
 /*
  * Export Project page
@@ -61,8 +64,15 @@ namespace PDSkeleton
 
         // Export CSV button event
         //  - creates the CSV for export of the selected Project
-        public void btnExportProjectCSV_Clicked(object sender, EventArgs e)
+        public async void btnExportProjectCSV_Clicked(object sender, EventArgs e)
         {
+            var result = await CheckExternalFilePermissions();
+
+            if (!result)
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Storage permission required for data export!");
+            }
+
             try
             {
                 if (selectedProject == null)
@@ -204,7 +214,7 @@ namespace PDSkeleton
                                                 longitude + "," +                                       // longitude
                                                 coordinateUncertaintyMeters + "," +                     // error in Meters
                                                 minimumElevationMeters +                                // elevation
-                                                "," + "," + "," + "," + "," + ",";                      // 6 empty columns for desktop determinations
+                                                "," + "," + "," + "," + "," + "," + crlf;               // 6 empty columns for desktop determinations
                     }
 
                     string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
@@ -224,6 +234,34 @@ namespace PDSkeleton
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Error: " + ex.Message);
             }
+        }
+
+        public async Task<bool> CheckExternalFilePermissions()
+        {
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+            if (status != PermissionStatus.Granted)
+            {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
+                {
+                    return false;
+                }
+
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
+                //Best practice to always check that the key exists
+                if (results.ContainsKey(Permission.Storage))
+                    status = results[Permission.Storage];
+            }
+
+            if (status == PermissionStatus.Granted)
+            {
+                return true;
+            }
+            else if (status != PermissionStatus.Unknown)
+            {
+                return false;
+            }
+
+            return false;
         }
     }
 }
