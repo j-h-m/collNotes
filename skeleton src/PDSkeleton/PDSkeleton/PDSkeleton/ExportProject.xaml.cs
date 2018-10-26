@@ -97,6 +97,12 @@ namespace PDSkeleton
                     sitesForTrips.Add(trip.TripName, sites);
                 }
 
+                if (sitesForTrips.Count == 0)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Missing data");
+                    return;
+                }
+
                 // get Specimen for each Site
                 Dictionary<string, List<Specimen>> specimenForSites = new Dictionary<string, List<Specimen>>();
 
@@ -107,6 +113,12 @@ namespace PDSkeleton
                         List<Specimen> specimenList = ORM.GetConnection().Query<Specimen>("select * from Specimen where SiteName = '" + site.SiteName + "'");
                         specimenForSites.Add(site.SiteName, specimenList);
                     }
+                }
+
+                if (specimenForSites.Count == 0)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Missing data");
+                    return;
                 }
 
                 // create CSV with site # - specimen # for each specimen record

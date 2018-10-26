@@ -40,6 +40,12 @@ namespace PDSkeleton
             {
                 List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
 
+                if (tripList.Count == 0)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Trip first!");
+                    return;
+                }
+
                 string[] trips = new string[tripList.Count];
                 for (int i = 0; i < trips.Length; i++)
                 {
@@ -85,6 +91,11 @@ namespace PDSkeleton
                     {
                         allSites.Add(site);
                     }
+                }
+
+                if (allSites.Count == 0)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Site first!");
                 }
 
                 string[] sites = new string[allSites.Count];
