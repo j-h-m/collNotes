@@ -61,6 +61,7 @@ namespace PDSkeleton
                     if (t.TripName == action)
                     {
                         await Navigation.PushAsync(new SitePage(t));
+                        break;
                     }
                 }
             }
@@ -113,6 +114,7 @@ namespace PDSkeleton
                     if (s.SiteName == action)
                     {
                         await Navigation.PushAsync(new SpecimenPage(s));
+                        break;
                     }
                 }
             }

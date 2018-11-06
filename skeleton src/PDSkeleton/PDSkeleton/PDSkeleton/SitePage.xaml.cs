@@ -115,12 +115,22 @@ namespace PDSkeleton
         public async void btnSetSiteGPS_Clicked(object sender, EventArgs e)
         {
             siteGPS = await CurrentGPS.CurrentLocation();
+            lblStatusMessage.IsVisible = true;
+            lblStatusMessage.TextColor = Color.Orange;
+            lblStatusMessage.Text = "Getting Location...";
+
             if (siteGPS.Equals(""))
             {
+                lblStatusMessage.IsVisible = true;
+                lblStatusMessage.TextColor = Color.Red;
+                lblStatusMessage.Text = "Failed to get location";
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?");
             }
             else
             {
+                lblStatusMessage.IsVisible = true;
+                lblStatusMessage.TextColor = Color.Blue;
+                lblStatusMessage.Text = "Location: " + siteGPS;
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + siteGPS);
             }
         }
@@ -134,6 +144,9 @@ namespace PDSkeleton
             entryHabitat.Text = "";
             entryAssocTaxa.Text = "";
             entryLocationNotes.Text = "";
+
+            lblStatusMessage.IsVisible = false;
+            lblStatusMessage.Text = "";
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared data for new Site");
         }

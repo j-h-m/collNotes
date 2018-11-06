@@ -57,6 +57,12 @@
                        Completed="entryLocationNotes_Completed"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblStatusMessage"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           IsVisible="false" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Button x:Name="btnSitePhoto"
                         Text="Take Photo"
                         VerticalOptions="Center"

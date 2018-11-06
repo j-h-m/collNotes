@@ -46,6 +46,7 @@ namespace PDSkeleton
                     if (p.ProjectName == action)
                     {
                         await Navigation.PushAsync(new CollectingPage(p));
+                        break;
                     }
                 }
             }

@@ -199,10 +199,10 @@ namespace PDSkeleton
                         string substrate = spec.Substrate;
                         string establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
                         string genericColumn1 = spec.FieldIdentification;
-                        string latitude = spec.GPSCoordinates.Split(',')[0];
-                        string longitude = spec.GPSCoordinates.Split(',')[1];
-                        string coordinateUncertaintyMeters = spec.GPSCoordinates.Split(',')[2];
-                        string minimumElevationMeters = spec.GPSCoordinates.Split(',')[3];
+                        string latitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[0] : "";
+                        string longitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[1] : "";
+                        string coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
+                        string minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
 
                         csvContent += // siteNumber.ToString() + "-" + specimenNumber.ToString() + "," +   // other catalog numbers
                                                 siteNumber.ToString() + "," +                           // site number

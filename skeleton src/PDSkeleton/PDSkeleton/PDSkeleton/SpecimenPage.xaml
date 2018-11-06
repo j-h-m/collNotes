@@ -39,8 +39,8 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Life Stage"
                        VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-                    <Picker x:Name="pickerLifeStage" Title="Select Life Stage" SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
+                       HorizontalOptions="FillAndExpand" />
+                    <Picker x:Name="pickerLifeStage" Title="Select A Life Stage" SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Vegetative</x:String>
@@ -53,6 +53,18 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Other"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" 
+                           x:Name="lblOtherLifeStage"
+                           IsVisible="false" />
+                    <Entry Placeholder="Other..."
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"
+                           x:Name="entryOtherLifeStage" 
+                           IsVisible="false" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Cultivated"
@@ -74,28 +86,34 @@
                        Completed="entryIndivCount_Completed"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblStatusMessage"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           IsVisible="false" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Button Text="Take Photo"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         x:Name="btnSetSpecimenPhoto"
                         Clicked="btnSetSpecimenPhoto_Clicked"/>
-                    <Button Text="Save Specimen"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        x:Name="btnSaveSpecimen"
-                        Clicked="btnSaveSpecimen_Clicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
                     <Button Text="Set GPS"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         x:Name="btnSetSpecimenGPS"
                         Clicked="btnSetSpecimenGPS_Clicked"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Button Text="New Specimen"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         x:Name="btnNewSpecimen"
                         Clicked="btnNewSpecimen_Clicked"/>
+                    <Button Text="Save Specimen"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        x:Name="btnSaveSpecimen"
+                        Clicked="btnSaveSpecimen_Clicked"/>     
                 </StackLayout>
             </StackLayout>
             </ScrollView>

@@ -47,6 +47,14 @@ namespace PDSkeleton
         public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
             specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+            if (specimen.LifeStage.Equals("Other")) {
+                lblOtherLifeStage.IsVisible = true;
+                entryOtherLifeStage.IsVisible = true;
+            }
+            else {
+                lblOtherLifeStage.IsVisible = false;
+                entryOtherLifeStage.IsVisible = false;
+            }
         }
 
         // switch cultivated? event
@@ -97,7 +105,19 @@ namespace PDSkeleton
             specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
             specimen.Substrate = entrySubstrate.Text;
             specimen.IndividualCount = entryIndivCount.Text;
-            specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+
+
+            if (entryOtherLifeStage.IsVisible && !entryOtherLifeStage.Text.Equals("")) {
+                specimen.LifeStage = entryOtherLifeStage.Text;
+            }
+            else if (entryOtherLifeStage.IsVisible){
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Fill in \"Other\" Life Stage!");
+                return;
+            }
+            else {
+                specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+            }
+
             specimen.Cultivated = switchCultivated.IsToggled;
 
             // save Specimen to database
@@ -111,12 +131,22 @@ namespace PDSkeleton
         public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
         {
             specimenGPS = await CurrentGPS.CurrentLocation();
+            lblStatusMessage.IsVisible = true;
+            lblStatusMessage.TextColor = Color.Orange;
+            lblStatusMessage.Text = "Getting Location...";
+
             if (specimenGPS.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?");
+                lblStatusMessage.IsVisible = true;
+                lblStatusMessage.TextColor = Color.Red;
+                lblStatusMessage.Text = "Failed to get location";
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?"); 
             }
             else
             {
+                lblStatusMessage.IsVisible = true;
+                lblStatusMessage.TextColor = Color.Blue;
+                lblStatusMessage.Text = "Location: " + specimenGPS;
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + specimenGPS);
             }
         }
@@ -133,6 +163,13 @@ namespace PDSkeleton
             pickerLifeStage.SelectedItem = null;
             switchCultivated.IsToggled = false;
             entryIndivCount.Text = "";
+
+            lblOtherLifeStage.IsVisible = false;
+            entryOtherLifeStage.IsVisible = false;
+            entryOtherLifeStage.Text = "";
+
+            lblStatusMessage.IsVisible = false;
+            lblStatusMessage.Text = "";
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new specimen");
         }
