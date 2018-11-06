@@ -5,7 +5,7 @@ Creating an Android and iOS application using Xamarin.Forms to support the [desk
 Build testing with [Appveyor](https://www.appveyor.com/).
 
 
-# Screenshots
+# Skeleton Solution (i.e subject to change)
 ## Android
 ![Android Screenshot](/images/android-screenshot.png)
 ## iOS
