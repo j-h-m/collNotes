@@ -42,7 +42,7 @@ namespace PDSkeleton
                 string[] trips = new string[tripList.Count];
                 for (int i = 0; i < trips.Length; i++)
                 {
-                    trips[i] = tripList[i].ProjectName;
+                    trips[i] = tripList[i].TripName;
                 }
 
                 var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);

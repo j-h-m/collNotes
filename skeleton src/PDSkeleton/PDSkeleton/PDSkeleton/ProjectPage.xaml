@@ -35,16 +35,16 @@
                    DateSelected="dpCreatedDate_DateSelected"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnSaveProject"
-                    Text="Save Project"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Clicked="btnSaveProject_Clicked" />
                 <Button x:Name="btnNewProject"
                     Text="New Project"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Clicked="btnNewProject_Clicked" />                
+                    Clicked="btnNewProject_Clicked" />
+                <Button x:Name="btnSaveProject"
+                    Text="Save Project"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="btnSaveProject_Clicked" />                
             </StackLayout>            
         </StackLayout>
     </ContentPage.Content>

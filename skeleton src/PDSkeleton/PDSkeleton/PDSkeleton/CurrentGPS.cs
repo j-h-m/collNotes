@@ -40,7 +40,7 @@ namespace PDSkeleton
                 if (status == PermissionStatus.Granted)
                 {
                     // get position
-                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
+                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
 
                     string fullLocation = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
                         position.Timestamp, position.Latitude, position.Longitude,

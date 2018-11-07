@@ -192,21 +192,26 @@ namespace PDSkeleton
 
         public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
         {
-            specimenGPS = await CurrentGPS.CurrentLocation();
             lblStatusMessage.IsVisible = true;
             lblStatusMessage.TextColor = Color.Orange;
             lblStatusMessage.Text = "Getting Location...";
 
+            pbProgressStatus.IsVisible = true;
+            await pbProgressStatus.ProgressTo(1.0, 5, Easing.Linear);
+
+            specimenGPS = await CurrentGPS.CurrentLocation();
+
+
             if (specimenGPS.Equals(""))
             {
-                lblStatusMessage.IsVisible = true;
+                pbProgressStatus.IsVisible = false;
                 lblStatusMessage.TextColor = Color.Red;
                 lblStatusMessage.Text = "Failed to get location";
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?"); 
             }
             else
             {
-                lblStatusMessage.IsVisible = true;
+                pbProgressStatus.IsVisible = false;
                 lblStatusMessage.TextColor = Color.Blue;
                 lblStatusMessage.Text = "Location: " + specimenGPS;
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + specimenGPS);

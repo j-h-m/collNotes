@@ -60,7 +60,15 @@
                     <Label x:Name="lblStatusMessage"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
-                           IsVisible="false" />
+                           IsVisible="false" />              
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <ProgressBar x:Name="pbProgressStatus"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="CenterAndExpand"
+                                 IsVisible="false" 
+                                 Progress=".1" 
+                                 ProgressColor="Lime" />                    
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Button x:Name="btnSitePhoto"
@@ -74,17 +82,17 @@
                         x:Name="btnSetSiteGPS"
                         Clicked="btnSetSiteGPS_Clicked"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button x:Name="btnSaveSite"
-                        Text="Save Site"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Clicked="btnSaveSite_Clicked"/>                
+                <StackLayout Orientation="Horizontal">               
                     <Button x:Name="btnNewSite"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         Text="New Site" 
                         Clicked="btnNewSite_Clicked"/>
+                    <Button x:Name="btnSaveSite"
+                        Text="Save Site"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Clicked="btnSaveSite_Clicked"/>                     
                 </StackLayout>
             </StackLayout>
         </ScrollView>
