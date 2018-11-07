@@ -16,12 +16,31 @@ namespace PDSkeleton
         private Trip trip;
         private List<Trip> existingTrips;
 
-        // constructor takes Project as argument
+        private bool editing = false;
+        private string projectName = "";
+
+        // constructor for collecting
         public TripPage(Project project)
         {
             this.project = project;
+            projectName = project.ProjectName;
             trip = new Trip();
             InitializeComponent();
+        }
+
+        // constructor for editing
+        public TripPage(Trip trip)
+        {
+            this.trip = trip;
+            editing = true;
+            projectName = trip.ProjectName;
+            InitializeComponent();
+
+            entryTripName.Text = trip.TripName;
+            entryAdditionalCollectors.Text = trip.AdditionalCollectors;
+            dpCollectionDate.Date = trip.CollectionDate;
+            entryTripName.IsEnabled = false;
+            btnNewTrip.IsEnabled = false;
         }
 
         // trip name text entry event
@@ -44,28 +63,49 @@ namespace PDSkeleton
 
         public async void btnGroupPhotoTrip_Clicked(object sender, EventArgs e)
         {
-            if (entryTripName.Text == null)
+            if (entryTripName.Text == null || projectName.Equals("") || entryTripName.Text.Equals(""))
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
                 return;
             }
 
-            if (project.ProjectName.Equals("") || entryTripName.Text.Equals(""))
-            {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
-                return;
-            }
-            await TakePhoto.CallCamera(project.ProjectName + "-" + trip.TripName);
+            await TakePhoto.CallCamera(projectName + "-" + trip.TripName);
         }
 
         public void btnSaveTrip_Clicked(object sender, EventArgs e)
         {
-            trip.ProjectName = project.ProjectName;
+            if (editing)
+            {
+                if (!entryAdditionalCollectors.Text.Equals("") && !entryAdditionalCollectors.Text.Equals(""))
+                {
+                    trip.AdditionalCollectors = entryAdditionalCollectors.Text;
+                    trip.CollectionDate = dpCollectionDate.Date;
+
+                    int updateResult = ORM.GetConnection().Update(trip, typeof(Trip));
+                    if (updateResult == 1) // what is result of above call?
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " save succeeded.");
+                        return;
+                    }
+                    else
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " save failed.");
+                        return;
+                    }
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Trip!");
+                    return;
+                }
+            }
+
+            trip.ProjectName = projectName;
 
             // check to make sure all data is present
             if (entryTripName.Text is null || entryAdditionalCollectors.Text is null)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Trip");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Trip!");
                 return;
             }
 

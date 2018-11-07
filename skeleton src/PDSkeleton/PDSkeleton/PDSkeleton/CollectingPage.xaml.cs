@@ -52,7 +52,7 @@ namespace PDSkeleton
                     trips[i] = tripList[i].TripName;
                 }
 
-                var action = await DisplayActionSheet("Choose a trip", "Cancel", null, trips);
+                var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);
 
                 Debug.WriteLine("Trip chosen: " + action);
 
@@ -105,7 +105,7 @@ namespace PDSkeleton
                     sites[i] = allSites[i].SiteName;
                 }
 
-                var action = await DisplayActionSheet("Choose a site", "Cancel", null, sites);
+                var action = await DisplayActionSheet("Choose a Site", "Cancel", null, sites);
 
                 Debug.WriteLine("Site chosen: " + action);
 
@@ -126,13 +126,10 @@ namespace PDSkeleton
             }
         }
 
-        // Instructions Button event
-        //  - will eventually load instructions page
-        //  - since we don't have feedback yet, we don't really know what information users will need
-        //  - load the HelpPage for now
-        public async void btnInstructions_Clicked(object sender, EventArgs e)
+        // Navigate to Edit Page
+        public async void btnEditPage_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Help());
+            await Navigation.PushAsync(new EditPage(project));
         }
 	}
 }

@@ -40,7 +40,12 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Clicked="btnSaveProject_Clicked" />
-            </StackLayout>
+                <Button x:Name="btnNewProject"
+                    Text="New Project"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="btnNewProject_Clicked" />                
+            </StackLayout>            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

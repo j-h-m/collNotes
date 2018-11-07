@@ -27,6 +27,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)EditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -63,6 +67,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SpecimenPage.xaml.cs">
       <DependentUpon>SpecimenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)EditPage.xaml.cs">
+      <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

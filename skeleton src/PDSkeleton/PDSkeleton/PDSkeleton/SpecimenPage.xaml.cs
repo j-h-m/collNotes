@@ -15,14 +15,37 @@ namespace PDSkeleton
         private Site site;
         private Specimen specimen;
 
+        private bool editing = false;
+
         private string specimenGPS = "";
+        private string siteName = "";
 
         // constructor takes Site as argument to record Specimen under
         public SpecimenPage(Site site)
         {
             specimen = new Specimen();
             this.site = site;
+            siteName = site.SiteName;
             InitializeComponent();
+        }
+
+        // constructor takes Specimen as argument- editing
+        public SpecimenPage(Specimen specimen)
+        {
+            this.specimen = specimen;
+            siteName = specimen.SiteName;
+            InitializeComponent();
+
+            editing = true;
+
+            entryFieldID.Text = specimen.FieldIdentification;
+            entryFieldID.IsEnabled = false;
+            entryOccurrenceNotes.Text = specimen.OccurrenceNotes;
+            entrySubstrate.Text = specimen.Substrate;
+            pickerLifeStage.SelectedItem = specimen.LifeStage;
+            switchCultivated.IsToggled = specimen.Cultivated;
+            entryIndivCount.Text = specimen.IndividualCount;
+            btnNewSpecimen.IsEnabled = false;
         }
 
         // field id text entry event
@@ -46,12 +69,19 @@ namespace PDSkeleton
         // picker life stage event
         public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
+            // picker reset for new Specimen
+            if (pickerLifeStage.SelectedItem == null)
+            {
+                return;
+            }
             specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
-            if (specimen.LifeStage.Equals("Other")) {
+            if (specimen.LifeStage.Equals("Other")) 
+            {
                 lblOtherLifeStage.IsVisible = true;
                 entryOtherLifeStage.IsVisible = true;
             }
-            else {
+            else 
+            {
                 lblOtherLifeStage.IsVisible = false;
                 entryOtherLifeStage.IsVisible = false;
             }
@@ -79,24 +109,56 @@ namespace PDSkeleton
                 return;
             }
 
-            if (site.SiteName.Equals("") || entryFieldID.Text.Equals(""))
+            if (siteName.Equals("") || entryFieldID.Text.Equals(""))
             {
                 // toast need specimen id
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter specimen field ID before taking photo");
                 return;
             }
 
-            await TakePhoto.CallCamera(site.SiteName + "-" + entryFieldID.Text);
+            await TakePhoto.CallCamera(siteName + "-" + entryFieldID.Text);
         }
 
         public void btnSaveSpecimen_Clicked(object sender, EventArgs e)
         {
+            if (editing)
+            {
+                if (!entrySubstrate.Text.Equals("") && !entryIndivCount.Text.Equals("") && !entryOccurrenceNotes.Text.Equals("") && !(pickerLifeStage.SelectedItem is null) &&
+                   !(entrySubstrate.Text is null) && !(entryIndivCount.Text is null) && !(entryOccurrenceNotes.Text is null))
+                {
+                    specimen.Substrate = entrySubstrate.Text;
+                    specimen.IndividualCount = entryIndivCount.Text;
+                    specimen.Cultivated = switchCultivated.IsToggled;
+                    specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
+                    specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+                    specimen.GPSCoordinates = (specimenGPS.Equals("")) ? specimen.GPSCoordinates : specimenGPS;
+
+                    int updateResult = ORM.GetConnection().Update(specimen, typeof(Specimen));
+                    if (updateResult == 1)
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.FieldIdentification + " save succeeded.");
+                        return;
+                    }
+                    else
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.FieldIdentification + " save failed");
+                        return;
+                    }
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Specimen!");
+                    return;
+                }
+            }
+
             specimen.SiteName = site.SiteName;
 
             // check to make sure all data is present
-            if (entryFieldID.Text is null || entryOccurrenceNotes.Text is null || entrySubstrate.Text is null || entryIndivCount.Text is null || pickerLifeStage.SelectedItem is null)
+            if (entryFieldID.Text is null || entryOccurrenceNotes.Text is null || entrySubstrate.Text is null || entryIndivCount.Text is null || pickerLifeStage.SelectedItem is null ||
+               entryFieldID.Text.Equals("") || entryOccurrenceNotes.Text.Equals("") || entrySubstrate.Text.Equals("") || entryIndivCount.Text.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Specimen");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Specimen!");
                 return;
             }
 
@@ -171,7 +233,7 @@ namespace PDSkeleton
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new specimen");
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Specimen");
         }
     }
 }

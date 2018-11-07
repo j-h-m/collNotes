@@ -17,36 +17,45 @@ namespace PDSkeleton
         private Project project;
         private List<Project> existingProjects;
 
-        // no args constructor
+        private bool editing = false;
+
+        // constructor for collecting
 		public ProjectPage ()
 		{
             project = new Project();
 			InitializeComponent();
 		}
 
-        // constructor accepts selected project from MainPage
-        public ProjectPage (Project project)
+        // constructor for editing
+        public ProjectPage(Project project)
         {
             this.project = project;
+            editing = true;
             InitializeComponent();
+
+            entryProjectName.Text = project.ProjectName;
+            entryPrimaryCollectorProject.Text = project.PrimaryCollector;
+            dpCreatedDate.Date = project.CreatedDate;
+            entryProjectName.IsEnabled = false;
+            btnNewProject.IsEnabled = false;
         }
 
         // project name text entry event
         private void entryProjectName_Completed(object sender, EventArgs e)
         {
-            project.ProjectName = ((Entry)sender).Text;
+            project.ProjectName = entryProjectName.Text;
         }
 
         // primary collector text entry event
         private void entryPrimaryCollectorProject_Completed(object sender, EventArgs e)
         {
-            project.PrimaryCollector = ((Entry)sender).Text;
+            project.PrimaryCollector = entryPrimaryCollectorProject.Text;
         }
 
         // date picker created date event
         private void dpCreatedDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-            project.CreatedDate = ((DatePicker)sender).Date;
+            project.CreatedDate = dpCreatedDate.Date;
         }
 
         // SaveProject button event
@@ -54,10 +63,36 @@ namespace PDSkeleton
         //  - writes Project to the local database
         private void btnSaveProject_Clicked(object sender, EventArgs e)
         {
-            // check to make sure all data is present
-            if (entryProjectName.Text is null || entryPrimaryCollectorProject.Text is null)
+            if (editing)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Project");
+                if (!(entryPrimaryCollectorProject.Text is null) && !entryPrimaryCollectorProject.Text.Equals(""))
+                {
+                    project.PrimaryCollector = entryPrimaryCollectorProject.Text;
+                    project.CreatedDate = dpCreatedDate.Date;
+
+                    int updateResult = ORM.GetConnection().Update(project, typeof(Project));
+                    if (updateResult == 1) // what is result of above call?
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " save succeeded.");
+                        return;
+                    }
+                    else
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " save failed.");
+                        return;
+                    }
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Project!");
+                    return;
+                }
+            }
+
+            // check to make sure all data is present
+            if (entryProjectName.Text is null || entryProjectName.Text.Equals("") || entryPrimaryCollectorProject.Text is null || entryPrimaryCollectorProject.Text.Equals(""))
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Project!");
                 return;
             }
 
@@ -84,6 +119,18 @@ namespace PDSkeleton
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved!");
+        }
+
+        // NewProject button event
+        // - resets project and creates new Project object
+        private void btnNewProject_Clicked(object sender, EventArgs e)
+        {
+            project = new Project();
+
+            entryProjectName.Text = "";
+            entryPrimaryCollectorProject.Text = "";
+
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Project");
         }
     }
 }

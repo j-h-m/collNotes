@@ -34,23 +34,23 @@
                         HorizontalOptions="FillAndExpand"
                         DateSelected="dpCollectionDate_DateSelected" />
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" >
                     <Button x:Name="btnGroupPhotoTrip"
                         Text="Group Photo"
                         VerticalOptions="Center"
                         HorizontalOptions="Center" 
                         Clicked="btnGroupPhotoTrip_Clicked" />
-                    <Button x:Name="btnSaveTrip"
-                        Text="Save Trip"
-                        VerticalOptions="Center"
-                        Clicked="btnSaveTrip_Clicked" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" >
+                </StackLayout>            
+                <StackLayout Orientation="Horizontal">
                     <Button x:Name="btnNewTrip"
                         Text="New Trip"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         Clicked="btnNewTrip_Clicked" />
+                    <Button x:Name="btnSaveTrip"
+                        Text="Save Trip"
+                        VerticalOptions="Center"
+                        Clicked="btnSaveTrip_Clicked" />
                 </StackLayout>
         </StackLayout>
     </ContentPage.Content>
