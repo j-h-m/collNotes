@@ -227,7 +227,7 @@ namespace PDSkeleton
                                                 coordinateUncertaintyMeters + "," +                     // error in Meters
                                                 minimumElevationMeters +                                // elevation
                                                 "," + "," + "," + "," + "," + "," + crlf;               // 6 empty columns for desktop determinations
-                    }
+                    } // wrap fields in double quotes and test with user input fields including commas and try single quotes
 
                     string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
 
