@@ -46,36 +46,6 @@ namespace PDSkeleton
             entryLocationNotes.Text = site.LocationNotes;
         }
 
-        // Site Name text entry event
-        public void entrySiteName_Completed(object sender, EventArgs e)
-        {
-            site.SiteName = entrySiteName.Text;
-        }
-
-        // locality text entry event
-        public void entryLocality_Completed(object sender, EventArgs e)
-        {
-            site.Locality = entryLocality.Text;
-        }
-
-        // habitat text entry event
-        public void entryHabitat_Completed(object sender, EventArgs e)
-        {
-            site.Habitat = entryHabitat.Text;
-        }
-
-        // associated taxa text entry event
-        public void entryAssocTaxa_Completed(object sender, EventArgs e)
-        {
-            site.AssociatedTaxa = entryAssocTaxa.Text;
-        }
-
-        // location notes text entry event
-        public void entryLocationNotes_Completed(object sender, EventArgs e)
-        {
-            site.LocationNotes = entryLocationNotes.Text;
-        }
-
         // site photo button event
         public async void btnSitePhoto_Clicked(object sender, EventArgs e)
         {

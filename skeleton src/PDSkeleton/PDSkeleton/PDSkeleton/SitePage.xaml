@@ -13,8 +13,7 @@
                     <Entry x:Name="entrySiteName"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       Placeholder="Site name"
-                       Completed="entrySiteName_Completed" />
+                       Placeholder="Site name" />
                 </StackLayout> 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Locality"
@@ -23,8 +22,7 @@
                     <Entry Placeholder="10km from trail head..."
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryLocality"
-                       Completed="entryLocality_Completed" />
+                       x:Name="entryLocality" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Habitat"
@@ -33,8 +31,7 @@
                     <Entry Placeholder="Pine Forest"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryHabitat" 
-                       Completed="entryHabitat_Completed"/>
+                       x:Name="entryHabitat" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Associated Taxa"
@@ -43,8 +40,7 @@
                     <Entry Placeholder="Site wide 'field calls'"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryAssocTaxa" 
-                       Completed="entryAssocTaxa_Completed"/>
+                       x:Name="entryAssocTaxa" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Location Notes"
@@ -53,8 +49,7 @@
                     <Entry Placeholder="Popular campground"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryLocationNotes" 
-                       Completed="entryLocationNotes_Completed"/>
+                       x:Name="entryLocationNotes" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label x:Name="lblStatusMessage"

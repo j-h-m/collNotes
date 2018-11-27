@@ -18,7 +18,7 @@ namespace PDSkeleton
 {
     public partial class ExportProject : ContentPage
     {
-        private Project selectedProject = null;
+        private Project selectedProject;
         private List<Project> projectList;
         private string crlf = Environment.NewLine;
 
@@ -204,29 +204,28 @@ namespace PDSkeleton
                         string coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
                         string minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
 
-                        csvContent += // siteNumber.ToString() + "-" + specimenNumber.ToString() + "," +   // other catalog numbers
-                                                siteNumber.ToString() + "," +                           // site number
-                                                specimenNumber.ToString() + "," +                       // specimen number
-                                                genericColumn2 + "," +                                  // generic column 2 (additional info)
-                                                assColl + "," +                                         // associated collectors
-                                                habitat + "," +                                         // habitat
-                                                individualCount + "," +                                 // individual count
-                                                reproductiveCondition + "," +                           // reproductive condition
-                                                locality + "," +                                        // locality
-                                                locationNotes + "," +                                   // location remarks
-                                                occurrenceRemarks + "," +                               // occurrence remarks
-                                                recordedBy + "," +                                      // recorded by (primary collector)
-                                                samplingEffort + "," +                                  // sampling effort (project name)
-                                                substrate + "," +                                       // substrate
-                                                associatedTaxa + "," +                                  // associated taxa
-                                                eventDate.ToString("yyyy-MM-dd") + "," +                // event date
-                                                establishmentMeans + "," +                              // establishment means (cultivated)
-                                                genericColumn1 + "," +                                  // generic column 1 (field identification)
-                                                latitude + "," +                                        // latitude
-                                                longitude + "," +                                       // longitude
-                                                coordinateUncertaintyMeters + "," +                     // error in Meters
-                                                minimumElevationMeters +                                // elevation
-                                                "," + "," + "," + "," + "," + "," + crlf;               // 6 empty columns for desktop determinations
+                        csvContent += "\"" +    siteNumber.ToString() + "\",\"" +                           // site number
+                                                specimenNumber.ToString() + "\",\"" +                       // specimen number
+                                                genericColumn2 + "\",\"" +                                  // generic column 2 (additional info)
+                                                assColl + "\",\"" +                                         // associated collectors
+                                                habitat + "\",\"" +                                         // habitat
+                                                individualCount + "\",\"" +                                 // individual count
+                                                reproductiveCondition + "\",\"" +                           // reproductive condition
+                                                locality + "\",\"" +                                        // locality
+                                                locationNotes + "\",\"" +                                   // location remarks
+                                                occurrenceRemarks + "\",\"" +                               // occurrence remarks
+                                                recordedBy + "\",\"" +                                      // recorded by (primary collector)
+                                                samplingEffort + "\",\"" +                                  // sampling effort (project name)
+                                                substrate + "\",\"" +                                       // substrate
+                                                associatedTaxa + "\",\"" +                                  // associated taxa
+                                                eventDate.ToString("yyyy-MM-dd") + "\",\"" +                // event date
+                                                establishmentMeans + "\",\"" +                              // establishment means (cultivated)
+                                                genericColumn1 + "\",\"" +                                  // generic column 1 (field identification)
+                                                latitude + "\",\"" +                                        // latitude
+                                                longitude + "\",\"" +                                       // longitude
+                                                coordinateUncertaintyMeters + "\",\"" +                     // error in Meters
+                                                minimumElevationMeters +                                    // elevation
+                                                "\"," + "," + "," + "," + "," + "," + crlf;                 // 6 empty columns for desktop determinations
                     } // wrap fields in double quotes and test with user input fields including commas and try single quotes
 
                     string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();

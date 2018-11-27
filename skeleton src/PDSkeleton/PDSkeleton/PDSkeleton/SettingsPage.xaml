@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="PDSkeleton.SettingsPage"
+    Title="Settings" >
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Collector Name:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="John Doe"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryCollectorName" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Format:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Picker x:Name="pickerExportFormat" Title="Select Data Format" SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Darwin Core</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Starting Record Number:"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                    <Entry Placeholder="1000000"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       x:Name="entryStartingRecordNumber" />
+                </StackLayout>                
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Save Settings"
+                            x:Name="btnSaveSettings"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Clicked="btnSaveSettings_Clicked" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

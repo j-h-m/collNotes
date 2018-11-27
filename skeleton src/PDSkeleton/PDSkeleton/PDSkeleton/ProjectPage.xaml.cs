@@ -40,18 +40,6 @@ namespace PDSkeleton
             btnNewProject.IsEnabled = false;
         }
 
-        // project name text entry event
-        private void entryProjectName_Completed(object sender, EventArgs e)
-        {
-            project.ProjectName = entryProjectName.Text;
-        }
-
-        // primary collector text entry event
-        private void entryPrimaryCollectorProject_Completed(object sender, EventArgs e)
-        {
-            project.PrimaryCollector = entryPrimaryCollectorProject.Text;
-        }
-
         // date picker created date event
         private void dpCreatedDate_DateSelected(object sender, DateChangedEventArgs e)
         {
@@ -90,7 +78,8 @@ namespace PDSkeleton
             }
 
             // check to make sure all data is present
-            if (entryProjectName.Text is null || entryProjectName.Text.Equals("") || entryPrimaryCollectorProject.Text is null || entryPrimaryCollectorProject.Text.Equals(""))
+            if (entryProjectName.Text is null || entryProjectName.Text.Equals("") || 
+                entryPrimaryCollectorProject.Text is null || entryPrimaryCollectorProject.Text.Equals(""))
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Project!");
                 return;

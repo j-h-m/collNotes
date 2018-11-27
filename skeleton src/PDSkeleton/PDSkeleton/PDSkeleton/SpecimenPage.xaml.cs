@@ -26,6 +26,7 @@ namespace PDSkeleton
             specimen = new Specimen();
             this.site = site;
             siteName = site.SiteName;
+            this.Title = siteName + "-" + "s1";
             InitializeComponent();
         }
 
@@ -46,24 +47,6 @@ namespace PDSkeleton
             switchCultivated.IsToggled = specimen.Cultivated;
             entryIndivCount.Text = specimen.IndividualCount;
             btnNewSpecimen.IsEnabled = false;
-        }
-
-        // field id text entry event
-        public void entryFieldID_Completed(object sender, EventArgs e)
-        {
-            specimen.FieldIdentification = entryFieldID.Text;
-        }
-
-        // occurrence notes text entry event
-        public void entryOccurrenceNotes_Completed(object sender, EventArgs e)
-        {
-            specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
-        }
-
-        // substrate text entry event
-        public void entrySubstrate_Completed(object sender, EventArgs e)
-        {
-            specimen.Substrate = entrySubstrate.Text;
         }
 
         // picker life stage event
@@ -91,12 +74,6 @@ namespace PDSkeleton
         public void switchCultivated_Toggled(object sender, EventArgs e)
         {
             specimen.Cultivated = switchCultivated.IsToggled;
-        }
-
-        // individual count text entry event
-        public void entryIndivCount_Completed(object sender, EventArgs e)
-        {
-            specimen.IndividualCount = entryIndivCount.Text;
         }
 
         // specimen photo button event

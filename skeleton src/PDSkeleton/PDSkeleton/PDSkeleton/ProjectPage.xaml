@@ -12,8 +12,7 @@
                 <Entry x:Name="entryProjectName"
                    VerticalOptions="Center"
                    HorizontalOptions="FillAndExpand"
-                   Placeholder="Flora of Mars"
-                   Completed="entryProjectName_Completed" />
+                   Placeholder="Flora of Mars" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Primary Collector:"
@@ -22,8 +21,7 @@
                 <Entry x:Name="entryPrimaryCollectorProject"
                    VerticalOptions="Center"
                    HorizontalOptions="FillAndExpand"
-                   Placeholder="John Smith"
-                   Completed="entryPrimaryCollectorProject_Completed" />
+                   Placeholder="John Doe" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Created Date:"

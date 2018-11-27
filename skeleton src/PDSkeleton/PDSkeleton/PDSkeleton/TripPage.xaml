@@ -12,8 +12,7 @@
                     <Entry x:Name="entryTripName"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       Placeholder="Trip name"
-                       Completed="entryTripName_Completed" />
+                       Placeholder="Trip name"/>
                 </StackLayout>               
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Additional Collectors:"
@@ -22,8 +21,7 @@
                     <Entry x:Name="entryAdditionalCollectors"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       Placeholder="First Last, ... "
-                       Completed="entryAdditionalCollectors_Completed" />
+                       Placeholder="First Last, ... " />
                 </StackLayout>               
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Collection Date:"

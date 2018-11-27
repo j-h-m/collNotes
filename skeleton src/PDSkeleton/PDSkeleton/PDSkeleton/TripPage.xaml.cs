@@ -43,18 +43,6 @@ namespace PDSkeleton
             btnNewTrip.IsEnabled = false;
         }
 
-        // trip name text entry event
-        public void entryTripName_Completed(object sender, EventArgs e)
-        {
-            trip.TripName = entryTripName.Text;
-        }
-
-        // additional collectors text entry event
-        public void entryAdditionalCollectors_Completed(object sender, EventArgs e)
-        {
-            trip.AdditionalCollectors = entryAdditionalCollectors.Text;
-        }
-
         // date picker collection date event
         public void dpCollectionDate_DateSelected(object sender, EventArgs e)
         {
@@ -76,6 +64,7 @@ namespace PDSkeleton
         {
             if (editing)
             {
+                // check for empty fields, required for an edit
                 if (!entryAdditionalCollectors.Text.Equals("") && !entryAdditionalCollectors.Text.Equals(""))
                 {
                     trip.AdditionalCollectors = entryAdditionalCollectors.Text;
@@ -93,11 +82,6 @@ namespace PDSkeleton
                         return;
                     }
                 }
-                else
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Trip!");
-                    return;
-                }
             }
 
             trip.ProjectName = projectName;
@@ -105,7 +89,8 @@ namespace PDSkeleton
             // check to make sure all data is present
             if (entryTripName.Text is null || entryAdditionalCollectors.Text is null)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Trip!");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Adding default data for Trip");
+                // add default data
                 return;
             }
 

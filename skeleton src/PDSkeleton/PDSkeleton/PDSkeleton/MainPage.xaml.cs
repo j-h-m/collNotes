@@ -82,11 +82,11 @@ namespace PDSkeleton
             }
         }
 
-        // Help button event
-        //  - loads the Help Page
-        public async void Help_OnClick(object sender, EventArgs e)
+        // Settings button event
+        //  - loads the Settings Page
+        public async void Settings_OnClick(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Help());
+            await Navigation.PushAsync(new SettingsPage());
         }
     }
 }

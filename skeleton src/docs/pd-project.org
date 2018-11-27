@@ -1,3 +1,4 @@
+
 #+TITLE: pd-project
 <2018-11-07 Wed>
 * revisions
@@ -19,3 +20,23 @@
  - option to set the first specimen number
    - add existing beginning number to keep up with collection
  - add data export to settings button
+* TODO list
+** DONE add location accuracy and elevation to gps data and export
+** DONE encase csv fields with quotes
+** DONE show site name on the specimen page
+** TODO add a settings page
+*** DONE add the page
+*** DONE add collector name / user name
+*** DONE add format selection (Darwin Core for now...)
+*** DONE option to set first specimen number (how can I do this in database?)
+*** TODO maybe add data export to settings button
+** TODO don't require all fields
+** TODO use defaults if name isn't given (Project-1, Trip-1, Site-1, Specimen-1)
+** TODO auto generate incrementing number for site / specimen (use recordno + 1)
+** TODO default entry in choice list for each (create "one of these")
+*** TODO Project use current date in ISO format
+** TODO create a specimen entry without a Trip/Site associated ("side of the road collecting")
+*** user wants to collect on the fly
+*** use last recordno to create unqiue name
+** TODO remember username (primary collector) from previous trip for default
+*** TODO add under settings

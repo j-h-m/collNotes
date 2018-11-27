@@ -13,8 +13,7 @@
                     <Entry Placeholder="Binomial or Common"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryFieldID" 
-                       Completed="entryFieldID_Completed"/>
+                       x:Name="entryFieldID" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Occurrence Notes"
@@ -23,8 +22,7 @@
                     <Entry Placeholder="Tallest in the stand"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryOccurrenceNotes" 
-                       Completed="entryOccurrenceNotes_Completed"/>
+                       x:Name="entryOccurrenceNotes" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Substrate"
@@ -33,8 +31,7 @@
                     <Entry Placeholder="mycorrhizal with Ent."
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entrySubstrate"
-                       Completed="entrySubstrate_Completed"/>
+                       x:Name="entrySubstrate" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Life Stage"
@@ -49,7 +46,6 @@
                                 <x:String>Late Inflorescence</x:String>
                                 <x:String>Fruit/Seed Bearing</x:String>
                                 <x:String>Other</x:String>
-                                <x:String>N/A</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
@@ -82,8 +78,7 @@
                     <Entry Placeholder="Est. qty."
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
-                       x:Name="entryIndivCount"
-                       Completed="entryIndivCount_Completed"/>
+                       x:Name="entryIndivCount" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label x:Name="lblStatusMessage"
