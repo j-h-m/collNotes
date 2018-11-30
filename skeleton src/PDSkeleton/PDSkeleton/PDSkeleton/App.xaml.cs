@@ -16,8 +16,14 @@ namespace PDSkeleton
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
-		}
+            // Handle when your app starts
+            // load app variables
+            bool result = AppVarsFile.ReadAppVars();
+            ORM.GetConnection().CreateTable<Project>();
+            ORM.GetConnection().CreateTable<Trip>();
+            ORM.GetConnection().CreateTable<Site>();
+            ORM.GetConnection().CreateTable<Specimen>();
+        }
 
 		protected override void OnSleep ()
 		{

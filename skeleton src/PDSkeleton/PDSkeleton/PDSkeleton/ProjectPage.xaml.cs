@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 /*
  * Project Page
  *  - users create new Projects to collect under on this Page
- */ 
+ */
 
 namespace PDSkeleton
 {
@@ -15,7 +14,6 @@ namespace PDSkeleton
 	public partial class ProjectPage : ContentPage
 	{
         private Project project;
-        private List<Project> existingProjects;
 
         private bool editing = false;
 
@@ -53,61 +51,56 @@ namespace PDSkeleton
         {
             if (editing)
             {
-                if (!(entryPrimaryCollectorProject.Text is null) && !entryPrimaryCollectorProject.Text.Equals(""))
+                if (!(entryPrimaryCollectorProject.Text is null) || !entryPrimaryCollectorProject.Text.Equals(""))
                 {
                     project.PrimaryCollector = entryPrimaryCollectorProject.Text;
                     project.CreatedDate = dpCreatedDate.Date;
 
                     int updateResult = ORM.GetConnection().Update(project, typeof(Project));
-                    if (updateResult == 1) // what is result of above call?
+                    if (updateResult == 1)
                     {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " save succeeded.");
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update succeeded.");
                         return;
                     }
                     else
                     {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " save failed.");
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update failed.");
                         return;
                     }
                 }
                 else
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Project!");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Update requires some info to be changed.");
                     return;
                 }
             }
 
             // check to make sure all data is present
-            if (entryProjectName.Text is null || entryProjectName.Text.Equals("") || 
-                entryPrimaryCollectorProject.Text is null || entryPrimaryCollectorProject.Text.Equals(""))
+            if (entryProjectName.Text is null || entryProjectName.Text.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Project!");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Unique name required to identify Project");
                 return;
             }
 
             project.ProjectName = entryProjectName.Text;
-            project.PrimaryCollector = entryPrimaryCollectorProject.Text;
+            string defaultCollectorName = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
+            project.PrimaryCollector = (entryPrimaryCollectorProject.Text.Equals("") || entryPrimaryCollectorProject.Text is null) ? defaultCollectorName : entryPrimaryCollectorProject.Text;
             project.CreatedDate = dpCreatedDate.Date;
 
             ORM.GetConnection().CreateTable<Project>();
 
             // check for duplicate names first
-            existingProjects = ORM.GetConnection().Query<Project>("select * from Project");
-
-            foreach (Project p in existingProjects)
+            if (ORM.CheckExists(project))
             {
-                if (p.ProjectName.Equals(project.ProjectName))
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a project with the same name!");
-                    return;
-                }
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Unique name required to identify Project");
+                return;
             }
 
             // save project to database
             int autoKeyResult = ORM.GetConnection().Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved!");
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved");
         }
 
         // NewProject button event

@@ -10,6 +10,7 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
                 <Entry x:Name="entryProjectName"
+                       Keyboard="Text"
                    VerticalOptions="Center"
                    HorizontalOptions="FillAndExpand"
                    Placeholder="Flora of Mars" />
@@ -19,6 +20,7 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
                 <Entry x:Name="entryPrimaryCollectorProject"
+                       Keyboard="Text"
                    VerticalOptions="Center"
                    HorizontalOptions="FillAndExpand"
                    Placeholder="John Doe" />

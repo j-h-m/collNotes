@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using SQLite;
 
@@ -50,6 +51,82 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
             var path = Path.Combine(libraryPath, sqliteFilename);
             return path;
         }
+
+        public static bool CheckExists(object obj)
+        {
+            bool exists = false;
+
+            if (obj.GetType() == typeof(Project))
+            {
+                Project objProject = (Project)obj;
+                ORM.GetConnection().CreateTable<Project>();
+
+                // check for duplicate names first
+                List<Project> existingProjects = ORM.GetConnection().Query<Project>("select * from Project");
+
+                foreach (Project p in existingProjects)
+                {
+                    if (p.ProjectName.Equals(objProject.ProjectName))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+            else if (obj.GetType() == typeof(Trip))
+            {
+                Trip objTrip = (Trip)obj;
+                ORM.GetConnection().CreateTable<Trip>();
+
+                // check for duplicate names first
+                List<Trip> existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip");
+
+                foreach (Trip p in existingTrips)
+                {
+                    if (p.TripName.Equals(objTrip.TripName))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+            else if (obj.GetType() == typeof(Site))
+            {
+                Site objSite = (Site)obj;
+                ORM.GetConnection().CreateTable<Site>();
+
+                // check for duplicate names first
+                List<Site> existingSites = ORM.GetConnection().Query<Site>("select * from Site");
+
+                foreach (Site p in existingSites)
+                {
+                    if (p.SiteName.Equals(objSite.SiteName))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+            else if (obj.GetType() == typeof(Specimen))
+            {
+                Specimen objSpecimen = (Specimen)obj;
+                ORM.GetConnection().CreateTable<Specimen>();
+
+                // check for duplicate names first
+                List<Specimen> existingSpecimens = ORM.GetConnection().Query<Specimen>("select * from Specimen");
+
+                foreach (Specimen p in existingSpecimens)
+                {
+                    if (p.SpecimenName.Equals(objSpecimen.SpecimenName))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+
+            return exists;
+        }
     }
 
     /*
@@ -65,7 +142,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
     {
         [PrimaryKey, AutoIncrement, Column("recordNo")]
         public int RecordNo { get; set; }
-        [Column("ProjectName")]
+        [Column("ProjectName")] // project name has unique constraint
         public string ProjectName { get; set; }
         [Column("PrimaryCollector")]
         public string PrimaryCollector { get; set; }
@@ -134,5 +211,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public bool Cultivated { get; set; }
         [Column("SiteName")]
         public string SiteName { get; set; }
+        [Column("SpecimenName")]
+        public string SpecimenName { get; set; }
     }
 }

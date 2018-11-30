@@ -11,6 +11,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="Binomial or Common"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryFieldID" />
@@ -20,6 +21,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="Tallest in the stand"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryOccurrenceNotes" />
@@ -29,6 +31,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="mycorrhizal with Ent."
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entrySubstrate" />
@@ -57,6 +60,7 @@
                            x:Name="lblOtherLifeStage"
                            IsVisible="false" />
                     <Entry Placeholder="Other..."
+                           Keyboard="Text"
                            VerticalOptions="Center"
                            HorizontalOptions="FillAndExpand"
                            x:Name="entryOtherLifeStage" 
@@ -76,6 +80,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="Est. qty."
+                           Keyboard="Numeric"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryIndivCount" />

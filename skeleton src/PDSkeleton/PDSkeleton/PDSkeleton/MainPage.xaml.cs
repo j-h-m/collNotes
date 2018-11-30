@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 /*
@@ -33,20 +34,68 @@ namespace PDSkeleton
             {
                 List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
 
-                string[] projects = new string[projectList.Count];
-                for (int i = 0; i < projects.Length; i++)
+                string[] projects = new string[projectList.Count + 1];
+                for (int i = 0; i < projects.Length - 1; i++)
                 {
                     projects[i] = projectList[i].ProjectName;
+                }
+
+                // default 'today' project
+                Project todayProject = new Project
+                {
+                    ProjectName = string.Format("Project-{0}", DateTime.Now.ToShortDateString()),
+                    PrimaryCollector = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName,
+                    CreatedDate = DateTime.Now
+                };
+
+                bool dayPExists = false;
+
+                foreach (var p in projectList)
+                {
+                    if (p.ProjectName.Equals(todayProject.ProjectName))
+                    {
+                        dayPExists = true;
+                        break;
+                    }
+                }
+
+                if (!dayPExists)
+                {
+                    projectList.Add(todayProject);
+
+                    projects[projects.Length - 1] = string.Format("Project-{0}", DateTime.Now.ToShortDateString());
+                }
+                else
+                {
+                    projects = (from p in projectList
+                                select p.ProjectName).ToArray();
                 }
 
                 var action = await DisplayActionSheet("Choose a project", "Cancel", null, projects);
 
                 foreach (Project p in projectList)
                 {
-                    if (p.ProjectName == action)
+                    if (p.ProjectName.Equals(action))
                     {
-                        await Navigation.PushAsync(new CollectingPage(p));
-                        break;
+                        if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToShortDateString())))
+                        { // add today project to database if it is selected
+                            if (!ORM.CheckExists(p))
+                            {
+                                int autoKeyResult = ORM.GetConnection().Insert(p);
+                                await Navigation.PushAsync(new CollectingPage(p));
+                                break;
+                            }
+                            else
+                            {
+                                await Navigation.PushAsync(new CollectingPage(p));
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            await Navigation.PushAsync(new CollectingPage(p));
+                            break;
+                        }
                     }
                 }
             }

@@ -12,6 +12,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="John Doe"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryCollectorName" />
@@ -33,6 +34,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="1000000"
+                       Keyboard="Numeric"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryStartingRecordNumber" />

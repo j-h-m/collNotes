@@ -26,7 +26,7 @@
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnCollect"
-                Text="Detail Collect"
+                Text="Plant Collect"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Collect_OnClick"
@@ -37,7 +37,7 @@
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnExportProject"
-                Text="Quick Collect"
+                Text="Export Project"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="ExportProject_OnClick"
@@ -48,7 +48,7 @@
                 BorderRadius="25"
                 BorderWidth="10"/>
         <Button x:Name="btnSettings"
-                Text="Help"
+                Text="Settings"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Settings_OnClick"

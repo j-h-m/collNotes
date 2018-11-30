@@ -11,6 +11,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry x:Name="entrySiteName"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        Placeholder="Site name" />
@@ -20,6 +21,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                     <Entry Placeholder="10km from trail head..."
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryLocality" />
@@ -29,6 +31,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                     <Entry Placeholder="Pine Forest"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryHabitat" />
@@ -38,6 +41,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                     <Entry Placeholder="Site wide 'field calls'"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryAssocTaxa" />
@@ -47,6 +51,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center" />
                     <Entry Placeholder="Popular campground"
+                           Keyboard="Text"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        x:Name="entryLocationNotes" />
