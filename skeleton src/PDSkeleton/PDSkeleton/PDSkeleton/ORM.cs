@@ -59,7 +59,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
             if (obj.GetType() == typeof(Project))
             {
                 Project objProject = (Project)obj;
-                ORM.GetConnection().CreateTable<Project>();
 
                 // check for duplicate names first
                 List<Project> existingProjects = ORM.GetConnection().Query<Project>("select * from Project");
@@ -76,7 +75,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
             else if (obj.GetType() == typeof(Trip))
             {
                 Trip objTrip = (Trip)obj;
-                ORM.GetConnection().CreateTable<Trip>();
 
                 // check for duplicate names first
                 List<Trip> existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip");
@@ -93,7 +91,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
             else if (obj.GetType() == typeof(Site))
             {
                 Site objSite = (Site)obj;
-                ORM.GetConnection().CreateTable<Site>();
 
                 // check for duplicate names first
                 List<Site> existingSites = ORM.GetConnection().Query<Site>("select * from Site");
@@ -110,7 +107,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
             else if (obj.GetType() == typeof(Specimen))
             {
                 Specimen objSpecimen = (Specimen)obj;
-                ORM.GetConnection().CreateTable<Specimen>();
 
                 // check for duplicate names first
                 List<Specimen> existingSpecimens = ORM.GetConnection().Query<Specimen>("select * from Specimen");
@@ -148,8 +144,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string PrimaryCollector { get; set; }
         [Column("CreatedDate")]
         public DateTime CreatedDate { get; set; }
-        [Column("CompletedDate")]
-        public DateTime CompletedDate { get; set; }
     }
 
     [Table("Trip")]

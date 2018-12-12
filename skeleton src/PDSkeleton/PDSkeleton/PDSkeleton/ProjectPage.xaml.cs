@@ -18,7 +18,7 @@ namespace PDSkeleton
         private bool editing = false;
 
         // constructor for collecting
-		public ProjectPage ()
+		public ProjectPage()
 		{
             project = new Project();
 			InitializeComponent();
@@ -75,7 +75,7 @@ namespace PDSkeleton
                 }
             }
 
-            // check to make sure all data is present
+            // check to make sure name is present
             if (entryProjectName.Text is null || entryProjectName.Text.Equals(""))
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Unique name required to identify Project");
@@ -83,6 +83,7 @@ namespace PDSkeleton
             }
 
             project.ProjectName = entryProjectName.Text;
+            // check for default collector name and use if primary collector wasn't given
             string defaultCollectorName = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
             project.PrimaryCollector = (entryPrimaryCollectorProject.Text.Equals("") || entryPrimaryCollectorProject.Text is null) ? defaultCollectorName : entryPrimaryCollectorProject.Text;
             project.CreatedDate = dpCreatedDate.Date;

@@ -22,6 +22,14 @@ namespace PDSkeleton
         private List<Project> projectList;
         private string crlf = Environment.NewLine;
 
+        private string recordedBy;
+        private string samplingEffort;
+
+        public enum DataExportType
+        {
+            DarwinCore
+        }
+
         // default constructor
         // loads the Project List
         public ExportProject()
@@ -82,8 +90,8 @@ namespace PDSkeleton
                 }
 
                 // data from project
-                string recordedBy = selectedProject.PrimaryCollector;
-                string samplingEffort = selectedProject.ProjectName;
+                recordedBy = selectedProject.PrimaryCollector;
+                samplingEffort = selectedProject.ProjectName;
 
                 // get Trips for selected Project
                 List<Trip> selectedProjectTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + selectedProject.ProjectName + "'");
@@ -121,130 +129,157 @@ namespace PDSkeleton
                     return;
                 }
 
-                // create CSV with site # - specimen # for each specimen record
-                // use recordno to get site # and specimen #
-
+                // csv content string to write to file
                 string csvContent = "";
 
-                // 28 column header
-                //csvContent += "otherCatalogNumbers,siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
-                    //"samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
-                    //"scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
-
-                // 27 column header -- changed samplingEffort ---> Label Project
-                csvContent += "siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
-                    "Label Project,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
-                    "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
-
-                foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites)
+                if (AppVariables.DataExportFormat.Equals("Darwin Core"))
                 {
-                    // get site, trip info using the site name
-                    string siteName = sitesSpecimen.Key;
-                    string tripName = "";
-
-                    Site refSite = null;
-
-                    foreach (KeyValuePair<string, List<Site>> sitesTrip in sitesForTrips)
-                    {
-                        foreach (Site site in sitesTrip.Value)
-                        {
-                            if (siteName == site.SiteName)
-                            {
-                                refSite = site;
-                                tripName = sitesTrip.Key;
-                                break;
-                            }
-                        }
-                        if (!tripName.Equals(""))
-                        {
-                            break;
-                        }
-                    }
-
-                    Trip trip = null;
-                    foreach (Trip t in selectedProjectTrips)
-                    {
-                        if (tripName.Equals(t.TripName))
-                        {
-                            trip = t;
-                            break;
-                        }
-                    }
-
-                    // trip level data
-                    string assColl = "";
-                    DateTime eventDate = DateTime.Now;
-
-                    if (trip != null)
-                    {
-                        assColl = trip.AdditionalCollectors;
-                        eventDate = trip.CollectionDate;
-                    }
-
-                    // site level data
-                    string habitat = refSite.Habitat;
-                    string locality = refSite.Locality;
-                    string locationNotes = refSite.LocationNotes;
-                    string associatedTaxa = refSite.AssociatedTaxa;
-                    int siteNumber = refSite.RecordNo;
-
-                    // specimen level data
-                    foreach (Specimen spec in sitesSpecimen.Value)
-                    {
-                        int specimenNumber = spec.RecordNo;
-                        string genericColumn2 = spec.AdditionalInfo;
-                        string individualCount = spec.IndividualCount;
-                        string reproductiveCondition = spec.LifeStage;
-                        string occurrenceRemarks = spec.OccurrenceNotes;
-                        string substrate = spec.Substrate;
-                        string establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
-                        string genericColumn1 = spec.FieldIdentification;
-                        string latitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[0] : "";
-                        string longitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[1] : "";
-                        string coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
-                        string minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
-
-                        csvContent += "\"" +    siteNumber.ToString() + "\",\"" +                           // site number
-                                                specimenNumber.ToString() + "\",\"" +                       // specimen number
-                                                genericColumn2 + "\",\"" +                                  // generic column 2 (additional info)
-                                                assColl + "\",\"" +                                         // associated collectors
-                                                habitat + "\",\"" +                                         // habitat
-                                                individualCount + "\",\"" +                                 // individual count
-                                                reproductiveCondition + "\",\"" +                           // reproductive condition
-                                                locality + "\",\"" +                                        // locality
-                                                locationNotes + "\",\"" +                                   // location remarks
-                                                occurrenceRemarks + "\",\"" +                               // occurrence remarks
-                                                recordedBy + "\",\"" +                                      // recorded by (primary collector)
-                                                samplingEffort + "\",\"" +                                  // sampling effort (project name)
-                                                substrate + "\",\"" +                                       // substrate
-                                                associatedTaxa + "\",\"" +                                  // associated taxa
-                                                eventDate.ToString("yyyy-MM-dd") + "\",\"" +                // event date
-                                                establishmentMeans + "\",\"" +                              // establishment means (cultivated)
-                                                genericColumn1 + "\",\"" +                                  // generic column 1 (field identification)
-                                                latitude + "\",\"" +                                        // latitude
-                                                longitude + "\",\"" +                                       // longitude
-                                                coordinateUncertaintyMeters + "\",\"" +                     // error in Meters
-                                                minimumElevationMeters +                                    // elevation
-                                                "\"," + "," + "," + "," + "," + "," + crlf;                 // 6 empty columns for desktop determinations
-                    } // wrap fields in double quotes and test with user input fields including commas and try single quotes
-
-                    string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
-
-                    // save to local app data
-                    // to share in email must use temporary file, can't use internal storage
-                    string fileName = selectedProject.ProjectName.Trim() + "_" + DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
-
-                    string localFileLocation = filePath + fileName;
-
-                    File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
-
-                    CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
+                    csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
                 }
+                else // default Darwin Core format
+                {
+                    csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
+                }
+
+                string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
+
+                // save to local app data
+                // to share in email must use temporary file, can't use internal storage
+                string fileName = selectedProject.ProjectName.Trim() + "_" + DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
+
+                string localFileLocation = filePath + fileName;
+
+                File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
+
+                CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
             }
             catch (Exception ex)
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Error: " + ex.Message);
             }
+        }
+
+        public string CreateCSVForExport(DataExportType det, List<Trip> selectedProjectTrips, Dictionary<string, List<Specimen>> specimenForSites, Dictionary<string, List<Site>> sitesForTrips)
+        {
+            // create CSV with site # - specimen # for each specimen record
+            // use recordno to get site # and specimen #
+
+            string csvContent = "";
+
+            // call function to generate csv data based on format
+            switch (det)
+            {
+                case DataExportType.DarwinCore:
+                    csvContent = GenDarwinCore(selectedProjectTrips, specimenForSites, sitesForTrips);
+                    break;
+            }
+
+            return csvContent;
+        }
+
+        private string GenDarwinCore(List<Trip> selectedProjectTrips, Dictionary<string, List<Specimen>> specimenForSites, Dictionary<string, List<Site>> sitesForTrips)
+        {
+            string csvContent = "";
+
+            // 27 column header -- changed samplingEffort ---> Label Project
+            csvContent += "siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
+                "Label Project,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
+                "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
+
+            foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites)
+            {
+                // get site, trip info using the site name
+                string siteName = sitesSpecimen.Key;
+                string tripName = "";
+
+                Site refSite = null;
+
+                foreach (KeyValuePair<string, List<Site>> sitesTrip in sitesForTrips)
+                {
+                    foreach (Site site in sitesTrip.Value)
+                    {
+                        if (siteName == site.SiteName)
+                        {
+                            refSite = site;
+                            tripName = sitesTrip.Key;
+                            break;
+                        }
+                    }
+                    if (!tripName.Equals(""))
+                    {
+                        break;
+                    }
+                }
+
+                Trip trip = null;
+                foreach (Trip t in selectedProjectTrips)
+                {
+                    if (tripName.Equals(t.TripName))
+                    {
+                        trip = t;
+                        break;
+                    }
+                }
+
+                // trip level data
+                string assColl = "";
+                DateTime eventDate = DateTime.Now;
+
+                if (trip != null)
+                {
+                    assColl = trip.AdditionalCollectors;
+                    eventDate = trip.CollectionDate;
+                }
+
+                // site level data
+                string habitat = refSite.Habitat;
+                string locality = refSite.Locality;
+                string locationNotes = refSite.LocationNotes;
+                string associatedTaxa = refSite.AssociatedTaxa;
+                int siteNumber = refSite.RecordNo;
+
+                // specimen level data
+                foreach (Specimen spec in sitesSpecimen.Value)
+                {
+                    int specimenNumber = spec.RecordNo;
+                    string genericColumn2 = spec.AdditionalInfo;
+                    string individualCount = spec.IndividualCount;
+                    string reproductiveCondition = spec.LifeStage;
+                    string occurrenceRemarks = spec.OccurrenceNotes;
+                    string substrate = spec.Substrate;
+                    string establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
+                    string genericColumn1 = spec.FieldIdentification;
+                    string latitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[0] : "";
+                    string longitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[1] : "";
+                    string coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
+                    string minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
+
+                    csvContent += "\"" + siteNumber.ToString() + "\",\"" +                           // site number
+                                            specimenNumber.ToString() + "\",\"" +                       // specimen number
+                                            genericColumn2 + "\",\"" +                                  // generic column 2 (additional info)
+                                            assColl + "\",\"" +                                         // associated collectors
+                                            habitat + "\",\"" +                                         // habitat
+                                            individualCount + "\",\"" +                                 // individual count
+                                            reproductiveCondition + "\",\"" +                           // reproductive condition
+                                            locality + "\",\"" +                                        // locality
+                                            locationNotes + "\",\"" +                                   // location remarks
+                                            occurrenceRemarks + "\",\"" +                               // occurrence remarks
+                                            recordedBy + "\",\"" +                                      // recorded by (primary collector)
+                                            samplingEffort + "\",\"" +                                  // sampling effort (project name)
+                                            substrate + "\",\"" +                                       // substrate
+                                            associatedTaxa + "\",\"" +                                  // associated taxa
+                                            eventDate.ToString("yyyy-MM-dd") + "\",\"" +                // event date - ISO Format*
+                                            establishmentMeans + "\",\"" +                              // establishment means (cultivated)
+                                            genericColumn1 + "\",\"" +                                  // generic column 1 (field identification)
+                                            latitude + "\",\"" +                                        // latitude
+                                            longitude + "\",\"" +                                       // longitude
+                                            coordinateUncertaintyMeters + "\",\"" +                     // error in Meters
+                                            minimumElevationMeters +                                    // elevation
+                                            "\"," + "," + "," + "," + "," + "," + crlf;                 // 6 empty columns for desktop determinations
+                } // wrap fields in double quotes and test with user input fields including commas and try single quotes
+            }
+
+            return csvContent;
         }
 
         public async Task<bool> CheckExternalFilePermissions()

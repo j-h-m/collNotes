@@ -20,6 +20,9 @@ namespace PDSkeleton
         private bool editing = false;
         private string tripName = "";
 
+        // default constructor for xaml preview
+        public SitePage() { }
+
         // constructor accepts Trip as argument
         // Site is then added with this Trip's name for later association
         public SitePage(Trip trip)
@@ -113,10 +116,8 @@ namespace PDSkeleton
             site.AssociatedTaxa = entryAssocTaxa.Text;
             site.LocationNotes = entryLocationNotes.Text;
 
-            ORM.GetConnection().CreateTable<Site>();
-
             // check for duplicate names first
-            existingSites = ORM.GetConnection().Query<Site>("select * from Site");
+            existingSites = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + site.TripName + "'");
 
             foreach (Site s in existingSites)
             {

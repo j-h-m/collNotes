@@ -17,8 +17,9 @@ namespace PDSkeleton
 		protected override void OnStart ()
 		{
             // Handle when your app starts
-            // load app variables
+            // load app variables from file
             bool result = AppVarsFile.ReadAppVars();
+            // create tables for ORM, if not already created
             ORM.GetConnection().CreateTable<Project>();
             ORM.GetConnection().CreateTable<Trip>();
             ORM.GetConnection().CreateTable<Site>();

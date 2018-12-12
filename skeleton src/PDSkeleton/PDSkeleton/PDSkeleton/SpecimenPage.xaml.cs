@@ -20,6 +20,9 @@ namespace PDSkeleton
         private string specimenGPS = "";
         private string siteName = "";
 
+        // default constructor for xaml preview
+        public SpecimenPage() { }
+
         // constructor takes Site as argument to record Specimen under
         public SpecimenPage(Site site)
         {
@@ -160,7 +163,6 @@ namespace PDSkeleton
             specimen.Cultivated = switchCultivated.IsToggled;
 
             // save Specimen to database
-            ORM.GetConnection().CreateTable<Specimen>();
             int autoKeyResult = ORM.GetConnection().Insert(specimen);
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
 

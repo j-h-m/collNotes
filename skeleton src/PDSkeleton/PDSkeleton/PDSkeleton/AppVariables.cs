@@ -59,13 +59,13 @@ namespace PDSkeleton
                         }
                         switch (item.Substring(0,2))
                         {
-                            case "CN-":
+                            case "CN":
                                 AppVariables.CollectorName = item.Substring(3);
                                 break;
-                            case "CC-":
+                            case "CC":
                                 AppVariables.CollectionCount = int.Parse(item.Substring(3));
                                 break;
-                            case "DF-":
+                            case "DF":
                                 AppVariables.DataExportFormat = item.Substring(3);
                                 break;
                             default:

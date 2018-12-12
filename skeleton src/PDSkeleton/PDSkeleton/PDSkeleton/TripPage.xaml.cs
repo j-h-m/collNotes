@@ -19,6 +19,9 @@ namespace PDSkeleton
         private bool editing = false;
         private string projectName = "";
 
+        // default constructor for xaml preview
+        public TripPage() { }
+
         // constructor for collecting
         public TripPage(Project project)
         {
@@ -86,7 +89,7 @@ namespace PDSkeleton
 
             trip.ProjectName = projectName;
 
-            // check to make sure all data is present
+            // check to make sure name is present
             if (entryTripName.Text is null || entryAdditionalCollectors.Text is null)
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Adding default data for Trip");
@@ -98,10 +101,8 @@ namespace PDSkeleton
             trip.AdditionalCollectors = entryAdditionalCollectors.Text;
             trip.CollectionDate = dpCollectionDate.Date;
 
-            ORM.GetConnection().CreateTable<Trip>();
-
             // check for duplicate names first
-            existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip");
+            existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + trip.ProjectName + "'");
 
             foreach (Trip t in existingTrips)
             {
