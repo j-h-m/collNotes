@@ -132,6 +132,10 @@ namespace PDSkeleton
                 // csv content string to write to file
                 string csvContent = "";
 
+                if (AppVariables.DataExportFormat is null)
+                {
+                    AppVariables.DataExportFormat = "Darwin Core"; // default is darwin core
+                }
                 if (AppVariables.DataExportFormat.Equals("Darwin Core"))
                 {
                     csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
@@ -147,7 +151,7 @@ namespace PDSkeleton
                 // to share in email must use temporary file, can't use internal storage
                 string fileName = selectedProject.ProjectName.Trim() + "_" + DateTime.Now.ToString("MM-dd-yyyy") + ".csv";
 
-                string localFileLocation = filePath + fileName;
+                string localFileLocation = Path.Combine(filePath, fileName);
 
                 File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
 

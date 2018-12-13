@@ -207,5 +207,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public string SiteName { get; set; }
         [Column("SpecimenName")]
         public string SpecimenName { get; set; }
+        [Column("SpecimenNumber")]
+        public int SpecimenNumber { get; set; }
     }
 }

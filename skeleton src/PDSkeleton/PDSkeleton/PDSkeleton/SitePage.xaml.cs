@@ -69,7 +69,7 @@ namespace PDSkeleton
 
         public void btnSaveSite_Clicked(object sender, EventArgs e)
         {
-            if (editing)
+            if (editing) // editing should only require all existing information to be changed
             {
                 if (!entryHabitat.Text.Equals("") && !entryLocality.Text.Equals("") && !entryAssocTaxa.Text.Equals("") && entryLocationNotes.Text.Equals("") &&
                    !(entryHabitat.Text is null) && !(entryLocality.Text is null) && !(entryAssocTaxa.Text is null) && !(entryLocationNotes.Text is null))
@@ -102,21 +102,21 @@ namespace PDSkeleton
             site.GPSCoordinates = siteGPS;
             site.TripName = tripName;
 
-            // check to make sure all data is present
-            if (entrySiteName.Text is null || entryLocality.Text is null || entryHabitat.Text is null || entryAssocTaxa.Text is null || entryLocationNotes.Text is null ||
-               entrySiteName.Text.Equals("") || entryLocality.Text.Equals("") || entryHabitat.Text.Equals("") || entryAssocTaxa.Text.Equals("") || entryLocationNotes.Text.Equals(""))
+            // only require name to save Site
+            if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Site!");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter a name for Site!");
                 return;
             }
 
             site.SiteName = entrySiteName.Text;
-            site.Locality = entryLocality.Text;
-            site.Habitat = entryHabitat.Text;
-            site.AssociatedTaxa = entryAssocTaxa.Text;
-            site.LocationNotes = entryLocationNotes.Text;
 
-            // check for duplicate names first
+            site.Locality = entryLocality.Text is null ? "" : entryLocality.Text;
+            site.Habitat = entryHabitat.Text is null ? "" : entryHabitat.Text;
+            site.AssociatedTaxa = entryAssocTaxa.Text is null ? "" : entryAssocTaxa.Text;
+            site.LocationNotes = entryLocationNotes.Text is null ? "" : entryLocationNotes.Text;
+
+            // check for duplicate names before saving
             existingSites = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + site.TripName + "'");
 
             foreach (Site s in existingSites)
@@ -127,6 +127,7 @@ namespace PDSkeleton
                     return;
                 }
             }
+
             // save site to database
             int autoKeyResult = ORM.GetConnection().Insert(site);
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Site " + site.SiteName + " saved!");
@@ -140,7 +141,7 @@ namespace PDSkeleton
             lblStatusMessage.Text = "Getting Location...";
 
             pbProgressStatus.IsVisible = true;
-            await pbProgressStatus.ProgressTo(1.0, 5, Easing.Linear);
+            await pbProgressStatus.ProgressTo(1.0, 5, Easing.Linear); // look into making the progress more realistic...
 
             siteGPS = await CurrentGPS.CurrentLocation();
 

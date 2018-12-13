@@ -43,7 +43,7 @@ namespace PDSkeleton
                 // default 'today' project
                 Project todayProject = new Project
                 {
-                    ProjectName = string.Format("Project-{0}", DateTime.Now.ToShortDateString()),
+                    ProjectName = string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy")),
                     PrimaryCollector = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName,
                     CreatedDate = DateTime.Now
                 };

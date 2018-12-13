@@ -65,9 +65,8 @@ namespace PDSkeleton
 
         public void btnSaveTrip_Clicked(object sender, EventArgs e)
         {
-            if (editing)
+            if (editing) // editing should only require all existing information to be changed
             {
-                // check for empty fields, required for an edit
                 if (!entryAdditionalCollectors.Text.Equals("") && !entryAdditionalCollectors.Text.Equals(""))
                 {
                     trip.AdditionalCollectors = entryAdditionalCollectors.Text;
@@ -89,19 +88,25 @@ namespace PDSkeleton
 
             trip.ProjectName = projectName;
 
+            bool defaultData = false;
+
             // check to make sure name is present
             if (entryTripName.Text is null || entryAdditionalCollectors.Text is null)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Adding default data for Trip");
-                // add default data
-                return;
+                trip.TripName = entryTripName.Text; // only trip name is required
+                // add default date
+                trip.CollectionDate = DateTime.Today;
+                defaultData = true;
             }
 
-            trip.TripName = entryTripName.Text;
-            trip.AdditionalCollectors = entryAdditionalCollectors.Text;
-            trip.CollectionDate = dpCollectionDate.Date;
+            if (!defaultData)
+            {
+                trip.TripName = entryTripName.Text;
+                trip.AdditionalCollectors = entryAdditionalCollectors.Text;
+                trip.CollectionDate = dpCollectionDate.Date;
+            }
 
-            // check for duplicate names first
+            // check for duplicate names before saving
             existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + trip.ProjectName + "'");
 
             foreach (Trip t in existingTrips)

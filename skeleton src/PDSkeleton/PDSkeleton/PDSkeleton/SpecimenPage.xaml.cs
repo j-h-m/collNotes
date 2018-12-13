@@ -29,11 +29,11 @@ namespace PDSkeleton
             specimen = new Specimen();
             this.site = site;
             siteName = site.SiteName;
-            this.Title = siteName + "-" + "s1";
             InitializeComponent();
+            Title = siteName + "-Specimen" + (AppVariables.CollectionCount + 1).ToString();
         }
 
-        // constructor takes Specimen as argument- editing
+        // constructor takes Specimen as argument - editing
         public SpecimenPage(Specimen specimen)
         {
             this.specimen = specimen;
@@ -42,6 +42,7 @@ namespace PDSkeleton
 
             editing = true;
 
+            Title = specimen.FieldIdentification;
             entryFieldID.Text = specimen.FieldIdentification;
             entryFieldID.IsEnabled = false;
             entryOccurrenceNotes.Text = specimen.OccurrenceNotes;
@@ -134,30 +135,25 @@ namespace PDSkeleton
 
             specimen.SiteName = site.SiteName;
 
-            // check to make sure all data is present
-            if (entryFieldID.Text is null || entryOccurrenceNotes.Text is null || entrySubstrate.Text is null || entryIndivCount.Text is null || pickerLifeStage.SelectedItem is null ||
-               entryFieldID.Text.Equals("") || entryOccurrenceNotes.Text.Equals("") || entrySubstrate.Text.Equals("") || entryIndivCount.Text.Equals(""))
-            {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter all information for Specimen!");
-                return;
-            }
 
             specimen.GPSCoordinates = specimenGPS;
-            specimen.FieldIdentification = entryFieldID.Text;
-            specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
-            specimen.Substrate = entrySubstrate.Text;
-            specimen.IndividualCount = entryIndivCount.Text;
+            specimen.OccurrenceNotes = entryOccurrenceNotes.Text is null ? "" : entryOccurrenceNotes.Text;
+            specimen.Substrate = entrySubstrate.Text is null ? "" : entryOccurrenceNotes.Text;
+            specimen.IndividualCount = entryIndivCount.Text is null ? "" : entryIndivCount.Text;
 
+            AppVariables.CollectionCount = AppVariables.CollectionCount > 0 ? AppVariables.CollectionCount : 0;
+
+            specimen.SpecimenNumber = AppVariables.CollectionCount + 1;
+
+            specimen.FieldIdentification = entryFieldID.Text is null ? "specimen-" + specimen.SpecimenNumber.ToString() : entryFieldID.Text;
 
             if (entryOtherLifeStage.IsVisible && !entryOtherLifeStage.Text.Equals("")) {
                 specimen.LifeStage = entryOtherLifeStage.Text;
-            }
-            else if (entryOtherLifeStage.IsVisible){
+            } else if (entryOtherLifeStage.IsVisible){
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Fill in \"Other\" Life Stage!");
                 return;
-            }
-            else {
-                specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+            } else {
+                specimen.LifeStage = pickerLifeStage.SelectedItem is null ? "" : pickerLifeStage.SelectedItem.ToString();
             }
 
             specimen.Cultivated = switchCultivated.IsToggled;
@@ -165,6 +161,9 @@ namespace PDSkeleton
             // save Specimen to database
             int autoKeyResult = ORM.GetConnection().Insert(specimen);
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
+
+            // update CollectionCount
+            AppVariables.CollectionCount = specimen.SpecimenNumber;
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.FieldIdentification);
         }
