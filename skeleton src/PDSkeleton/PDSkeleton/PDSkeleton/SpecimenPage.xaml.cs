@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
 
 /*
  * Specimen Page
  *  - collect Specimen under a Site
- */ 
+ */
 
 namespace PDSkeleton
 {
@@ -42,7 +41,7 @@ namespace PDSkeleton
 
             editing = true;
 
-            Title = specimen.FieldIdentification;
+            Title = specimen.SiteName + "-" + specimen.FieldIdentification;
             entryFieldID.Text = specimen.FieldIdentification;
             entryFieldID.IsEnabled = false;
             entryOccurrenceNotes.Text = specimen.OccurrenceNotes;

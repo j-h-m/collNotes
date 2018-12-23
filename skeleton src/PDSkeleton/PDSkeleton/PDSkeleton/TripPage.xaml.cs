@@ -107,7 +107,7 @@ namespace PDSkeleton
             }
 
             // check for duplicate names before saving
-            existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + trip.ProjectName + "'");
+            existingTrips = ORM.GetTrips(trip.ProjectName);
 
             foreach (Trip t in existingTrips)
             {

@@ -36,7 +36,7 @@ namespace PDSkeleton
         {
             InitializeComponent();
 
-            projectList = ORM.GetConnection().Query<Project>("select * from Project");
+            projectList = ORM.GetProjects();
 
             List<string> projectNameList = new List<string>();
 
@@ -47,7 +47,6 @@ namespace PDSkeleton
 
             pickerExportProject.ItemsSource = projectNameList;
         }
-
 
         // Project Picker event
         //  - sets the selected project when user selects a Project
@@ -94,14 +93,14 @@ namespace PDSkeleton
                 samplingEffort = selectedProject.ProjectName;
 
                 // get Trips for selected Project
-                List<Trip> selectedProjectTrips = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + selectedProject.ProjectName + "'");
+                List<Trip> selectedProjectTrips = ORM.GetTrips(selectedProject.ProjectName);
 
                 // get Sites for each Trip
                 Dictionary<string, List<Site>> sitesForTrips = new Dictionary<string, List<Site>>();
 
                 foreach (Trip trip in selectedProjectTrips)
                 {
-                    List<Site> sites = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + trip.TripName + "'");
+                    List<Site> sites = ORM.GetSites(trip.TripName);
                     sitesForTrips.Add(trip.TripName, sites);
                 }
 
@@ -118,7 +117,7 @@ namespace PDSkeleton
                 {
                     foreach (var site in trip.Value) // go through list<site>
                     {
-                        List<Specimen> specimenList = ORM.GetConnection().Query<Specimen>("select * from Specimen where SiteName = '" + site.SiteName + "'");
+                        List<Specimen> specimenList = ORM.GetSpecimens(site.SiteName);
                         specimenForSites.Add(site.SiteName, specimenList);
                     }
                 }

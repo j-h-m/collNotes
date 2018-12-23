@@ -123,6 +123,26 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
 
             return exists;
         }
+
+        public static List<Project> GetProjects()
+        {
+            return GetConnection().Query<Project>("select * from Project");
+        }
+
+        public static List<Trip> GetTrips(string ProjectName)
+        {
+            return GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + ProjectName + "'");
+        }
+
+        public static List<Site> GetSites(string TripName)
+        {
+            return GetConnection().Query<Site>("select * from Site where TripName = '" + TripName + "'");
+        }
+
+        public static List<Specimen> GetSpecimens(string SiteName)
+        {
+            return GetConnection().Query<Specimen>("select * from Specimen where SiteName = '" + SiteName + "'");
+        }
     }
 
     /*

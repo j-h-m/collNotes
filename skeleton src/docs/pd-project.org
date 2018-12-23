@@ -28,10 +28,10 @@
 *** DONE add collector name / user name
 *** DONE add format selection (Darwin Core for now...)
 *** DONE option to set first specimen number (how can I do this in database?)
-** TODO don't require all fields
+** DONE don't require all fields
 ** TODO default entry in choice list for each (create "one of these")
 ** TODO use defaults if name isn't given (Project-1, Trip-1, Site-1, Specimen-1)
 ** TODO auto generate incrementing number for site / specimen (use recordno + 1)
-*** TODO Project use current date in ISO format
+*** DONE Project use current date in ISO format
 ** TODO create a specimen entry without a Trip/Site associated ("side of the road collecting")
 *** user wants to collect on the fly

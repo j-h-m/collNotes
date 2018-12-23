@@ -88,8 +88,6 @@ namespace PDSkeleton
             project.PrimaryCollector = (entryPrimaryCollectorProject.Text.Equals("") || entryPrimaryCollectorProject.Text is null) ? defaultCollectorName : entryPrimaryCollectorProject.Text;
             project.CreatedDate = dpCreatedDate.Date;
 
-            ORM.GetConnection().CreateTable<Project>();
-
             // check for duplicate names first
             if (ORM.CheckExists(project))
             {

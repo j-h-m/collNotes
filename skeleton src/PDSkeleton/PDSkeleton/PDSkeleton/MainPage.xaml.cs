@@ -32,7 +32,7 @@ namespace PDSkeleton
         {
             try
             {
-                List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
+                List<Project> projectList = ORM.GetProjects();
 
                 string[] projects = new string[projectList.Count + 1];
                 for (int i = 0; i < projects.Length - 1; i++)
@@ -63,7 +63,7 @@ namespace PDSkeleton
                 {
                     projectList.Add(todayProject);
 
-                    projects[projects.Length - 1] = string.Format("Project-{0}", DateTime.Now.ToShortDateString());
+                    projects[projects.Length - 1] = string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"));
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace PDSkeleton
                 {
                     if (p.ProjectName.Equals(action))
                     {
-                        if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToShortDateString())))
+                        if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"))))
                         { // add today project to database if it is selected
                             if (!ORM.CheckExists(p))
                             {
@@ -113,7 +113,7 @@ namespace PDSkeleton
         {
             try
             {
-                List<Project> projectList = ORM.GetConnection().Query<Project>("select * from Project");
+                List<Project> projectList = ORM.GetProjects();
 
                 if (projectList.Count > 0)
                 {

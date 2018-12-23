@@ -9,6 +9,11 @@ namespace PDSkeleton
         public SettingsPage()
         {
             InitializeComponent();
+
+            // load existing settings if exist
+            entryCollectorName.Text = (AppVariables.CollectorName.Equals("")) ? "" : AppVariables.CollectorName;
+            entryStartingRecordNumber.Text = (AppVariables.CollectionCount.Equals("")) ? "" : AppVariables.CollectionCount.ToString();
+            pickerExportFormat.SelectedItem = (AppVariables.DataExportFormat.Equals("")) ? "" : AppVariables.CollectorName;
         }
 
         void pickerExportFormat_SelectedIndexChange(object sender, EventArgs e)
@@ -24,7 +29,7 @@ namespace PDSkeleton
             {
                 AppVariables.CollectorName = entryCollectorName.Text;
             }
-            if (!(pickerExportFormat.SelectedIndex == -1))
+            if (pickerExportFormat.SelectedIndex != -1)
             {
                 AppVariables.DataExportFormat = pickerExportFormat.SelectedItem.ToString();
             }

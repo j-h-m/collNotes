@@ -38,7 +38,7 @@ namespace PDSkeleton
         {
             try
             {
-                List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
+                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
                 if (tripList.Count == 0)
                 {
@@ -81,22 +81,29 @@ namespace PDSkeleton
             try
             {
                 // get all sites for current Project
-                List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
+                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
                 List<Site> allSites = new List<Site>();
 
                 foreach (Trip trip in tripList)
                 {
-                    List<Site> tripSiteList = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + trip.TripName + "'");
+                    List<Site> tripSiteList = ORM.GetSites(trip.TripName);
                     foreach (Site site in tripSiteList)
                     {
                         allSites.Add(site);
                     }
                 }
 
+                /*
+                 * add specimen with no Site selected
+                 *  - how do i tie this to a project
+                 * 
+                 */
+
                 if (allSites.Count == 0)
                 {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Site first!");
+                    return;
                 }
 
                 string[] sites = new string[allSites.Count];

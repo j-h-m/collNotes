@@ -37,7 +37,7 @@ namespace PDSkeleton
         {
             try
             {
-                List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
+                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
                 string[] trips = new string[tripList.Count];
                 for (int i = 0; i < trips.Length; i++)
@@ -67,13 +67,13 @@ namespace PDSkeleton
         {
             try
             {
-                List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
+                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
                 List<Site> siteList = new List<Site>();
 
                 foreach (Trip trip in tripList)
                 {
-                    siteList.AddRange(ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + trip.TripName + "'"));
+                    siteList.AddRange(ORM.GetSites(trip.TripName));
                 }
 
                 string[] sites = new string[siteList.Count];
@@ -104,20 +104,20 @@ namespace PDSkeleton
         {
             try
             {
-                List<Trip> tripList = ORM.GetConnection().Query<Trip>("select * from Trip where ProjectName = '" + project.ProjectName + "'");
+                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
                 List<Site> siteList = new List<Site>();
 
                 foreach (Trip trip in tripList)
                 {
-                    siteList.AddRange(ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + trip.TripName + "'"));
+                    siteList.AddRange(ORM.GetSites(trip.TripName));
                 }
 
                 List<Specimen> specimenList = new List<Specimen>();
 
                 foreach (Site site in siteList)
                 {
-                    specimenList.AddRange(ORM.GetConnection().Query<Specimen>("select * from Specimen where SiteName = '" + site.SiteName + "'"));
+                    specimenList.AddRange(ORM.GetSpecimens(site.SiteName));
                 }
 
                 string[] specimens = new string[specimenList.Count];

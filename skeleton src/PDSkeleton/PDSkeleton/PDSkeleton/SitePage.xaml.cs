@@ -117,7 +117,7 @@ namespace PDSkeleton
             site.LocationNotes = entryLocationNotes.Text is null ? "" : entryLocationNotes.Text;
 
             // check for duplicate names before saving
-            existingSites = ORM.GetConnection().Query<Site>("select * from Site where TripName = '" + site.TripName + "'");
+            existingSites = ORM.GetSites(site.TripName);
 
             foreach (Site s in existingSites)
             {
