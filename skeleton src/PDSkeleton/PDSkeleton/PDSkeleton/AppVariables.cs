@@ -13,6 +13,7 @@ namespace PDSkeleton
     public static class AppVarsFile
     {
         static readonly string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "appvars.txt");
+
         public static void WriteAppVars()
         {
             string vars = "";
