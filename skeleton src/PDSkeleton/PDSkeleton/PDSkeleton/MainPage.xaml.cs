@@ -81,7 +81,7 @@ namespace PDSkeleton
                         { // add today project to database if it is selected
                             if (!ORM.CheckExists(p))
                             {
-                                int autoKeyResult = ORM.GetConnection().Insert(p);
+                                int autoKeyResult = ORM.InsertObject(p);
                                 await Navigation.PushAsync(new CollectingPage(p));
                                 break;
                             }

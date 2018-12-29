@@ -123,14 +123,14 @@ namespace PDSkeleton
                 string[] specimens = new string[specimenList.Count];
                 for (int i = 0; i < specimens.Length; i++)
                 {
-                    specimens[i] = specimenList[i].FieldIdentification;
+                    specimens[i] = specimenList[i].SpecimenName;
                 }
 
                 var action = await DisplayActionSheet("Choose a Specimen", "Cancel", null, specimens);
 
                 foreach (Specimen s in specimenList)
                 {
-                    if (s.FieldIdentification == action)
+                    if (s.SpecimenName.Equals(action))
                     {
                         await Navigation.PushAsync(new SpecimenPage(s));
                         break;

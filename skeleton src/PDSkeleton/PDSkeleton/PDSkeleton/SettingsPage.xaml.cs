@@ -11,9 +11,9 @@ namespace PDSkeleton
             InitializeComponent();
 
             // load existing settings if exist
-            entryCollectorName.Text = (AppVariables.CollectorName.Equals("")) ? "" : AppVariables.CollectorName;
-            entryStartingRecordNumber.Text = (AppVariables.CollectionCount.Equals("")) ? "" : AppVariables.CollectionCount.ToString();
-            pickerExportFormat.SelectedItem = (AppVariables.DataExportFormat.Equals("")) ? "" : AppVariables.CollectorName;
+            entryCollectorName.Text = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
+            entryStartingRecordNumber.Text = (AppVariables.CollectionCount == 0) ? "" : AppVariables.CollectionCount.ToString();
+            pickerExportFormat.SelectedItem = (AppVariables.DataExportFormat is null) ? "" : AppVariables.CollectorName;
         }
 
         void pickerExportFormat_SelectedIndexChange(object sender, EventArgs e)

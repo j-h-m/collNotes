@@ -94,18 +94,6 @@ namespace PDSkeleton
                     }
                 }
 
-                /*
-                 * add specimen with no Site selected
-                 *  - how do i tie this to a project
-                 * 
-                 */
-
-                //if (allSites.Count == 0)
-                //{
-                //    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Site first!");
-                //    return;
-                //}
-
                 string[] sites = new string[allSites.Count + 1];
                 for (int i = 0; i < sites.Length - 1; i++)
                 {
@@ -115,28 +103,47 @@ namespace PDSkeleton
                 sites[allSites.Count] = "Specimen" + (AppVariables.CollectionCount + 1).ToString();
                 AppVariables.CollectionCount += 1;
 
-                var action = await DisplayActionSheet("Choose a Site", "Cancel", null, sites);
+                var action = await DisplayActionSheet("Choose a Site, or add default Specimen", "Cancel", null, sites);
 
-                Debug.WriteLine("Site chosen: " + action);
+                Debug.WriteLine("Action chosen: " + action);
 
-                foreach (var item in sites)
+                if (action.Contains("Specimen"))
                 {
-                    if (item.Contains("Specimen"))
+                    // if trip-today exists, add to it
+                    // else add trip-today, add to it
+                    Trip trip = new Trip();
+                    trip.ProjectName = project.ProjectName;
+                    trip.TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy");
+                    trip.CollectionDate = DateTime.Now;
+                    if (!ORM.CheckExists(trip))
                     {
-                        // if trip-today exists, add to it
-                        // else add trip-today, add to it
-                        Trip trip = new Trip();
-                        trip.ProjectName = project.ProjectName;
-                        trip.TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy");
-                        trip.CollectionDate = DateTime.Now;
-                        // if site-today exists, add to it
-                        // else add site-today, add to it
-                        // ***use data in settings for info
+                        ORM.InsertObject(trip);
                     }
-                    else
+                    // if site-today exists, add to it
+                    // else add site-today, add to it
+                    Site site = new Site();
+                    site.SiteName = "Site-" + DateTime.Now.ToString("MM-dd-yyyy");
+                    site.TripName = trip.TripName;
+                    site.GPSCoordinates = await CurrentGPS.CurrentLocation();
+                    if (!ORM.CheckExists(site))
                     {
-                        await Navigation.PushAsync(new SpecimenPage(ORM.GetSiteByName(item)));
+                        ORM.InsertObject(site);
                     }
+                    // add this specimen to the specimen database
+                    // message user that specimen was added
+                    Specimen specimen = new Specimen();
+                    specimen.SiteName = site.SiteName;
+                    specimen.SpecimenName = action;
+                    specimen.SpecimenNumber = AppVariables.CollectionCount;
+                    specimen.GPSCoordinates = await CurrentGPS.CurrentLocation();
+
+                    ORM.InsertObject(specimen);
+
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(action + " saved!");
+                }
+                else
+                {
+                    await Navigation.PushAsync(new SpecimenPage(ORM.GetSiteByName(action)));
                 }
             }
             catch (Exception ex)

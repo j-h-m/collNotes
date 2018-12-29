@@ -61,7 +61,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
                 Project objProject = (Project)obj;
 
                 // check for duplicate names first
-                List<Project> existingProjects = ORM.GetConnection().Query<Project>("select * from Project");
+                List<Project> existingProjects = GetConnection().Query<Project>("select * from Project");
 
                 foreach (Project p in existingProjects)
                 {
@@ -77,7 +77,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
                 Trip objTrip = (Trip)obj;
 
                 // check for duplicate names first
-                List<Trip> existingTrips = ORM.GetConnection().Query<Trip>("select * from Trip");
+                List<Trip> existingTrips = GetConnection().Query<Trip>("select * from Trip");
 
                 foreach (Trip p in existingTrips)
                 {
@@ -93,7 +93,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
                 Site objSite = (Site)obj;
 
                 // check for duplicate names first
-                List<Site> existingSites = ORM.GetConnection().Query<Site>("select * from Site");
+                List<Site> existingSites = GetConnection().Query<Site>("select * from Site");
 
                 foreach (Site p in existingSites)
                 {
@@ -109,7 +109,7 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
                 Specimen objSpecimen = (Specimen)obj;
 
                 // check for duplicate names first
-                List<Specimen> existingSpecimens = ORM.GetConnection().Query<Specimen>("select * from Specimen");
+                List<Specimen> existingSpecimens = GetConnection().Query<Specimen>("select * from Specimen");
 
                 foreach (Specimen p in existingSpecimens)
                 {
@@ -123,6 +123,35 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
 
             return exists;
         }
+
+        public static int InsertObject(object obj)
+        {
+            int result = 0;
+
+            if (obj.GetType() == typeof(Project))
+            {
+                Project objProject = (Project)obj;
+                result = GetConnection().Insert(objProject);
+            }
+            else if (obj.GetType() == typeof(Trip))
+            {
+                Trip objTrip = (Trip)obj;
+                result = GetConnection().Insert(objTrip);
+            }
+            else if (obj.GetType() == typeof(Site))
+            {
+                Site objSite = (Site)obj;
+                result = GetConnection().Insert(objSite);
+            }
+            else if (obj.GetType() == typeof(Specimen))
+            {
+                Specimen objSpecimen = (Specimen)obj;
+                result = GetConnection().Insert(objSpecimen);
+            }
+
+            return result;
+        }
+    
 
         public static List<Project> GetProjects()
         {
