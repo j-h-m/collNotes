@@ -41,7 +41,7 @@ namespace PDSkeleton
 
             editing = true;
 
-            Title = specimen.SiteName + "-" + specimen.FieldIdentification;
+            Title = specimen.SiteName + "-" + specimen.SpecimenName;
             entryFieldID.Text = specimen.FieldIdentification;
             entryFieldID.IsEnabled = false;
             entryOccurrenceNotes.Text = specimen.OccurrenceNotes;
@@ -116,12 +116,12 @@ namespace PDSkeleton
                     int updateResult = ORM.GetConnection().Update(specimen, typeof(Specimen));
                     if (updateResult == 1)
                     {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.FieldIdentification + " save succeeded.");
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save succeeded.");
                         return;
                     }
                     else
                     {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.FieldIdentification + " save failed");
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save failed");
                         return;
                     }
                 }
@@ -144,7 +144,9 @@ namespace PDSkeleton
 
             specimen.SpecimenNumber = AppVariables.CollectionCount + 1;
 
-            specimen.FieldIdentification = entryFieldID.Text is null ? "specimen-" + specimen.SpecimenNumber.ToString() : entryFieldID.Text;
+            specimen.FieldIdentification = entryFieldID.Text is null ? "Specimen" + specimen.SpecimenNumber.ToString() : entryFieldID.Text;
+
+            specimen.SpecimenName = "Specimen" + specimen.SpecimenNumber;
 
             if (entryOtherLifeStage.IsVisible && !entryOtherLifeStage.Text.Equals("")) {
                 specimen.LifeStage = entryOtherLifeStage.Text;

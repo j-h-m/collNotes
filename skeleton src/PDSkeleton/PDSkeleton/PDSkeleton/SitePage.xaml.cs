@@ -176,6 +176,5 @@ namespace PDSkeleton
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Site");
         }
-
     }
 }

@@ -42,15 +42,16 @@ namespace PDSkeleton
                     // get position
                     position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
 
-                    string fullLocation = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
+                    string fullLocation = string.Format("Time:{0},Lat:{1},Long:{2},Altitude:{3},Altitude_Accuracy:{4},Accuracy:{5},Heading:{6},Speed:{7}",
                         position.Timestamp, position.Latitude, position.Longitude,
                         position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
                     // accuracy - color code output
                     // store: accuracy, altitude
 
                     Debug.WriteLine(fullLocation);
-
-                    return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                    
+                    return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + 
+                        position.Accuracy.ToString() + "," + position.Altitude.ToString();
                 }
                 else
                 {

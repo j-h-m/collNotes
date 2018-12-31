@@ -111,20 +111,24 @@ namespace PDSkeleton
                 {
                     // if trip-today exists, add to it
                     // else add trip-today, add to it
-                    Trip trip = new Trip();
-                    trip.ProjectName = project.ProjectName;
-                    trip.TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy");
-                    trip.CollectionDate = DateTime.Now;
+                    Trip trip = new Trip
+                    {
+                        ProjectName = project.ProjectName,
+                        TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy"),
+                        CollectionDate = DateTime.Now
+                    };
                     if (!ORM.CheckExists(trip))
                     {
                         ORM.InsertObject(trip);
                     }
                     // if site-today exists, add to it
                     // else add site-today, add to it
-                    Site site = new Site();
-                    site.SiteName = "Site-" + DateTime.Now.ToString("MM-dd-yyyy");
-                    site.TripName = trip.TripName;
-                    site.GPSCoordinates = await CurrentGPS.CurrentLocation();
+                    Site site = new Site
+                    {
+                        SiteName = "Site-" + DateTime.Now.ToString("MM-dd-yyyy"),
+                        TripName = trip.TripName,
+                        GPSCoordinates = await CurrentGPS.CurrentLocation()
+                    };
                     if (!ORM.CheckExists(site))
                     {
                         ORM.InsertObject(site);

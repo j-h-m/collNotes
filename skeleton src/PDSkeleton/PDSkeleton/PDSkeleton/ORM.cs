@@ -152,7 +152,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
             return result;
         }
     
-
         public static List<Project> GetProjects()
         {
             return GetConnection().Query<Project>("select * from Project");
@@ -183,7 +182,6 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         {
             List<Trip> results = GetConnection().Query<Trip>("select * from Trip where TripName = '" + name + "'");
             return results.Count > 0 ? results[0] : null;
-
         }
 
         public static Site GetSiteByName(string name)

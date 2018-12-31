@@ -257,7 +257,7 @@ namespace PDSkeleton
                     string coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
                     string minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
 
-                    csvContent += "\"" + siteNumber.ToString() + "\",\"" +                           // site number
+                    csvContent += "\"" + siteNumber.ToString() + "\",\"" +                              // site number
                                             specimenNumber.ToString() + "\",\"" +                       // specimen number
                                             genericColumn2 + "\",\"" +                                  // generic column 2 (additional info)
                                             assColl + "\",\"" +                                         // associated collectors
