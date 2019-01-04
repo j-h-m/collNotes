@@ -2,14 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PDSkeleton.Help">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/PDStyle.css"/>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="1">
-            <Label Text="Help Link"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
+        <StackLayout>
+            <Label Text="Help Link" />
             <Button Text="Help"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
                     x:Name="btnHelp"
                     Clicked="btnHelp_Clicked"/>
         </StackLayout>

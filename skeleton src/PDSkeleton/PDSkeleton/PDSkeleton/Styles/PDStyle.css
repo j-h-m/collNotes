@@ -1,0 +1,30 @@
+﻿^ContentPage {
+    background-color: #19435f;
+    padding: 10;
+}
+
+datepicker,picker,switch
+{
+    color: white;
+    font-size: 10;
+}
+
+entry {
+    color: white;
+    font-size: 10;
+}
+
+label {
+    color: white;
+    align-content: center;
+    align-self: flex-start;
+    font-size: 14;
+}
+
+button {
+    background-color: #3098a3;
+    color: white;
+    align-self: center;
+    font-size: 12;
+    height: 35;
+}

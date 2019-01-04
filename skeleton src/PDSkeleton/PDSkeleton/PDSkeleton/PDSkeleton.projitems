@@ -101,4 +101,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Images\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Styles\PDStyle.css" />
+  </ItemGroup>
 </Project>

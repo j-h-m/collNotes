@@ -175,22 +175,18 @@ namespace PDSkeleton
             lblStatusMessage.TextColor = Color.Orange;
             lblStatusMessage.Text = "Getting Location...";
 
-            pbProgressStatus.IsVisible = true;
-            await pbProgressStatus.ProgressTo(1.0, 5, Easing.Linear);
 
             specimenGPS = await CurrentGPS.CurrentLocation();
 
 
             if (specimenGPS.Equals(""))
             {
-                pbProgressStatus.IsVisible = false;
                 lblStatusMessage.TextColor = Color.Red;
                 lblStatusMessage.Text = "Failed to get location";
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?"); 
             }
             else
             {
-                pbProgressStatus.IsVisible = false;
                 lblStatusMessage.TextColor = Color.Blue;
                 lblStatusMessage.Text = "Location: " + specimenGPS;
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + specimenGPS);

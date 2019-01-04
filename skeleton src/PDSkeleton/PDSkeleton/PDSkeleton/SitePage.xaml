@@ -3,95 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="PDSkeleton.SitePage" 
              Title="Site">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/PDStyle.css"/>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-        <StackLayout Spacing="0" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Site Name:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
+            <StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Site Name:" />
                     <Entry x:Name="entrySiteName"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       Placeholder="Site name" />
-                </StackLayout> 
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Locality"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
+                           PlaceholderColor="White"
+                           Placeholder="Site name" />
+                    <Label Text="Locality" />
                     <Entry Placeholder="10km from trail head..."
+                           PlaceholderColor="White"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryLocality" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Habitat"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
+                           x:Name="entryLocality" />
+                    <Label Text="Habitat" />
                     <Entry Placeholder="Pine Forest"
+                           PlaceholderColor="White"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryHabitat" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Associated Taxa"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"/>
+                           x:Name="entryHabitat" />
+                    <Label Text="Associated Taxa" />
                     <Entry Placeholder="Site wide 'field calls'"
+                           PlaceholderColor="White"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryAssocTaxa" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Location Notes"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
+                           x:Name="entryAssocTaxa" />
+                    <Label Text="Location Notes" />
                     <Entry Placeholder="Popular campground"
+                           PlaceholderColor="White"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       x:Name="entryLocationNotes" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
+                           x:Name="entryLocationNotes" />
                     <Label x:Name="lblStatusMessage"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           IsVisible="false" />              
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <ProgressBar x:Name="pbProgressStatus"
-                                 VerticalOptions="Center"
-                                 HorizontalOptions="CenterAndExpand"
-                                 IsVisible="false" 
-                                 Progress=".1" 
-                                 ProgressColor="Lime" />                    
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
+                           IsVisible="false"/>
                     <Button x:Name="btnSitePhoto"
                         Text="Take Photo"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
                         Clicked="btnSitePhoto_Clicked"/>
                     <Button Text="Set GPS"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
                         x:Name="btnSetSiteGPS"
                         Clicked="btnSetSiteGPS_Clicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">               
                     <Button x:Name="btnNewSite"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
                         Text="New Site" 
                         Clicked="btnNewSite_Clicked"/>
                     <Button x:Name="btnSaveSite"
                         Text="Save Site"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
                         Clicked="btnSaveSite_Clicked"/>                     
                 </StackLayout>
             </StackLayout>

@@ -3,55 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="PDSkeleton.TripPage" 
              Title="Trip">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/PDStyle.css"/>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Spacing="1" Padding="1">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Trip Name:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Trip Name:" />
                     <Entry x:Name="entryTripName"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       Placeholder="Trip name"/>
-                </StackLayout>               
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Additional Collectors:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
+                           PlaceholderColor="White"
+                           Placeholder="Trip name"/>
+                    <Label Text="Additional Collectors:" />
                     <Entry x:Name="entryAdditionalCollectors"
                            Keyboard="Text"
-                       VerticalOptions="Center"
-                       HorizontalOptions="FillAndExpand"
-                       Placeholder="First Last, ... " />
-                </StackLayout>               
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Collection Date:"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
+                           PlaceholderColor="White"
+                           Placeholder="First Last, ... " />
+                    <Label Text="Collection Date:" />
                     <DatePicker x:Name="dpCollectionDate"
                         VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
+                        HorizontalOptions="Center"
                         DateSelected="dpCollectionDate_DateSelected" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" >
                     <Button x:Name="btnGroupPhotoTrip"
                         Text="Group Photo"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center" 
                         Clicked="btnGroupPhotoTrip_Clicked" />
-                </StackLayout>            
-                <StackLayout Orientation="Horizontal">
                     <Button x:Name="btnNewTrip"
                         Text="New Trip"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
                         Clicked="btnNewTrip_Clicked" />
                     <Button x:Name="btnSaveTrip"
                         Text="Save Trip"
-                        VerticalOptions="Center"
                         Clicked="btnSaveTrip_Clicked" />
                 </StackLayout>
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
