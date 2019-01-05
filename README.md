@@ -7,6 +7,6 @@ Build testing with [Appveyor](https://www.appveyor.com/).
 
 # Skeleton Solution (i.e subject to change)
 ## Android
-![Android Screenshot](/images/android-screenshot.png)
+![Android Screenshot](/data/images/android-screenshot.png)
 ## iOS
-![iOS Screenshot](https://github.com/j-h-m/pd-project-xamarin/blob/master/images/ios%20-%20screenshot.png)
+![iOS Screenshot](/data/images/ios%20-%20screenshot.png)
