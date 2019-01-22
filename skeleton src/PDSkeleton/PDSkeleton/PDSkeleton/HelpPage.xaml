@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PDSkeleton.Help">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/PDStyle.css"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Help Link" />
+            <Button Text="Help"
+                    x:Name="btnHelp"
+                    Clicked="btnHelp_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
