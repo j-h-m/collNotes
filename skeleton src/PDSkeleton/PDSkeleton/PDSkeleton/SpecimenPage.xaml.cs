@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -137,7 +137,7 @@ namespace PDSkeleton
 
             specimen.GPSCoordinates = specimenGPS;
             specimen.OccurrenceNotes = entryOccurrenceNotes.Text is null ? "" : entryOccurrenceNotes.Text;
-            specimen.Substrate = entrySubstrate.Text is null ? "" : entryOccurrenceNotes.Text;
+            specimen.Substrate = entrySubstrate.Text is null ? "" : entrySubstrate.Text;
             specimen.IndividualCount = entryIndivCount.Text is null ? "" : entryIndivCount.Text;
 
             AppVariables.CollectionCount = AppVariables.CollectionCount > 0 ? AppVariables.CollectionCount : 0;

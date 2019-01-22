@@ -34,10 +34,11 @@
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Vegetative</x:String>
-                                <x:String>Early Inflorescence</x:String>
-                                <x:String>Peak Inflorescence</x:String>
-                                <x:String>Late Inflorescence</x:String>
-                                <x:String>Fruit/Seed Bearing</x:String>
+                                <x:String>Reproductive</x:String>
+                                <x:String>  Early Reproductive</x:String>
+                                <x:String>  Peak Reproductive</x:String>
+                                <x:String>  Late Reproductive</x:String>
+                                <x:String>  Fruit/Seed Bearing</x:String>
                                 <x:String>Other</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
