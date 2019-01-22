@@ -10,7 +10,7 @@
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Collector Name:" />
+                    <Label Text="Default Primary Collector:" />
                     <Entry Placeholder="John Doe"
                            PlaceholderColor="White"
                            Keyboard="Text"
@@ -18,6 +18,7 @@
                     <Label Text="Format:" />
                     <Picker x:Name="pickerExportFormat"
                             Title="Select Data Format" 
+                            SelectedIndex = 0
                             SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -25,7 +26,7 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Text="Starting Record Number:" />
+                    <Label Text="Starting Field Number:" />
                     <Entry Placeholder="1000000"
                            PlaceholderColor="White"
                        Keyboard="Numeric"

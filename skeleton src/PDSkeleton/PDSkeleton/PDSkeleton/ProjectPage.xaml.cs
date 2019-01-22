@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -91,7 +91,7 @@ namespace PDSkeleton
             // check for duplicate names first
             if (ORM.CheckExists(project))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Unique name required to identify Project");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert($"'{project}' already exists. Enter a Unique name for a new.");
                 return;
             }
 
