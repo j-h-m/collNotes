@@ -18,7 +18,7 @@
                     <Label Text="Format:" />
                     <Picker x:Name="pickerExportFormat"
                             Title="Select Data Format" 
-                            SelectedIndex = 0
+                            SelectedIndex = "0"
                             SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
