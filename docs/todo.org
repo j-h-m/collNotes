@@ -1,0 +1,12 @@
+#+TITLE: todo list
+#+DATE: <2019-01-24 Thu>
+#+AUTHOR: Jacob Motley
+* TODO preserve last selected project between sessions
+* TODO after saving project, navigate to plant collect menu
+* TODO suggest default name for trip
+* TODO after saving trip, navigate to site page
+* TODO check all fields in CSV
+** TODO check occurrence notes
+** TODO check gps coordinate, extra information
+* TODO load exported csv into qt desktop
+ - double check that all fields are being exported correctly

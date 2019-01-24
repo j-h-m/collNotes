@@ -1,0 +1,54 @@
+			                   
+			       TODO LIST
+
+			      Jacob Motley
+			                   
+
+
+			    <2019-01-24 Thu>
+
+
+Table of Contents
+                 
+
+1 TODO preserve last selected project between sessions
+2 TODO after saving project, navigate to plant collect menu
+3 TODO suggest default name for trip
+4 TODO after saving trip, navigate to site page
+5 TODO check all fields in CSV
+.. 5.1 TODO check occurrence notes
+.. 5.2 TODO check gps coordinate, extra information
+6 TODO load exported csv into qt desktop
+
+
+1 TODO preserve last selected project between sessions
+                                                      
+
+
+2 TODO after saving project, navigate to plant collect menu
+                                                           
+
+
+3 TODO suggest default name for trip
+                                    
+
+
+4 TODO after saving trip, navigate to site page
+                                               
+
+
+5 TODO check all fields in CSV
+                              
+
+5.1 TODO check occurrence notes
+                               
+
+
+5.2 TODO check gps coordinate, extra information
+                                                
+
+
+6 TODO load exported csv into qt desktop
+                                        
+
+    double check that all fields are being exported correctly
