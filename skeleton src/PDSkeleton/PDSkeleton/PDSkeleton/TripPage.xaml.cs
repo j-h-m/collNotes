@@ -28,7 +28,11 @@ namespace PDSkeleton
             this.project = project;
             projectName = project.ProjectName;
             trip = new Trip();
+
             InitializeComponent();
+
+            List<Trip> trips = ORM.GetTrips(projectName);
+            entryTripName.Text = projectName + " - Trip" + (trips.Count + 1).ToString();
         }
 
         // constructor for editing
@@ -63,7 +67,7 @@ namespace PDSkeleton
             await TakePhoto.CallCamera(projectName + "-" + trip.TripName);
         }
 
-        public void btnSaveTrip_Clicked(object sender, EventArgs e)
+        public async void btnSaveTrip_Clicked(object sender, EventArgs e)
         {
             if (editing) // editing should only require all existing information to be changed
             {
@@ -107,15 +111,10 @@ namespace PDSkeleton
             }
 
             // check for duplicate names before saving
-            existingTrips = ORM.GetTrips(trip.ProjectName);
-
-            foreach (Trip t in existingTrips)
+            if (ORM.CheckExists(trip))
             {
-                if (t.TripName.Equals(trip.TripName))
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a trip with the same name!");
-                    return;
-                }
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a trip with the same name!");
+                return;
             }
 
             // save trip to database
@@ -123,6 +122,9 @@ namespace PDSkeleton
             Debug.WriteLine("inserted trip, recordno is: " + autoKeyResult.ToString());
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved Trip " + trip.TripName);
+
+            // automatically navigate to Site page after saving Trip
+            await Navigation.PushAsync(new SitePage(trip));
         }
 
         public void btnNewTrip_Clicked(object sender, EventArgs e)

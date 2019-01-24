@@ -131,17 +131,14 @@ namespace PDSkeleton
                 // csv content string to write to file
                 string csvContent = "";
 
-                if (AppVariables.DataExportFormat is null)
+                switch (AppVariables.DataExportFormat)
                 {
-                    AppVariables.DataExportFormat = "Darwin Core"; // default is darwin core
-                }
-                if (AppVariables.DataExportFormat.Equals("Darwin Core"))
-                {
-                    csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
-                }
-                else // default Darwin Core format
-                {
-                    csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
+                    case "Darwin Core":
+                        csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
+                        break;
+                    default:
+                        csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
+                        break;
                 }
 
                 string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
@@ -244,7 +241,7 @@ namespace PDSkeleton
                 // specimen level data
                 foreach (Specimen spec in sitesSpecimen.Value)
                 {
-                    int specimenNumber = spec.RecordNo;
+                    int specimenNumber = spec.SpecimenNumber; // should match a collector's desired collection count*
                     string genericColumn2 = spec.AdditionalInfo;
                     string individualCount = spec.IndividualCount;
                     string reproductiveCondition = spec.LifeStage;

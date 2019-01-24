@@ -8,6 +8,8 @@ namespace PDSkeleton
         public static int CollectionCount { get; set; }
         public static string DataExportFormat { get; set; }
         public static string CollectorName { get; set; }
+
+        public static string LastProject { get; set; }
     }
 
     public static class AppVarsFile
@@ -28,6 +30,10 @@ namespace PDSkeleton
             if (AppVariables.DataExportFormat != null)
             {
                 vars += "DF-" + AppVariables.DataExportFormat + "|";
+            }
+            if (AppVariables.LastProject != null)
+            {
+                vars += "LP-" + AppVariables.LastProject + "|";
             }
 
             string[] varSplit = vars.Split('|');
@@ -68,6 +74,9 @@ namespace PDSkeleton
                                 break;
                             case "DF":
                                 AppVariables.DataExportFormat = item.Substring(3);
+                                break;
+                            case "LP":
+                                AppVariables.LastProject = item.Substring(3);
                                 break;
                             default:
                                 break;

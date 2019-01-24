@@ -47,7 +47,7 @@ namespace PDSkeleton
         // SaveProject button event
         //  - checks for required data on click
         //  - writes Project to the local database
-        private void btnSaveProject_Clicked(object sender, EventArgs e)
+        private async void btnSaveProject_Clicked(object sender, EventArgs e)
         {
             if (editing)
             {
@@ -100,6 +100,9 @@ namespace PDSkeleton
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved");
+
+            // automatically navigate to the collecting page after saving the project
+            await Navigation.PushAsync(new CollectingPage(project));
         }
 
         // NewProject button event

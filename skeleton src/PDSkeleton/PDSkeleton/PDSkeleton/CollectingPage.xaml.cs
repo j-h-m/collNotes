@@ -20,6 +20,7 @@ namespace PDSkeleton
         public CollectingPage (Project project)
         {
             this.project = project;
+            AppVariables.LastProject = project.ProjectName;
             InitializeComponent();
         }
 

@@ -2,11 +2,12 @@
 #+DATE: <2019-01-24 Thu>
 #+AUTHOR: Jacob Motley
 * TODO preserve last selected project between sessions
-* TODO after saving project, navigate to plant collect menu
-* TODO suggest default name for trip
-* TODO after saving trip, navigate to site page
-* TODO check all fields in CSV
-** TODO check occurrence notes
-** TODO check gps coordinate, extra information
+** TODO what do we do with it once the app loads?
+* DONE after saving project, navigate to plant collect menu
+* DONE suggest default name for trip
+* DONE after saving trip, navigate to site page
+* DONE check all fields in CSV
+** DONE check occurrence notes
+** DONE check gps coordinate, extra information
 * TODO load exported csv into qt desktop
  - double check that all fields are being exported correctly

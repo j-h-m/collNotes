@@ -12,39 +12,43 @@ Table of Contents
                  
 
 1 TODO preserve last selected project between sessions
-2 TODO after saving project, navigate to plant collect menu
-3 TODO suggest default name for trip
-4 TODO after saving trip, navigate to site page
-5 TODO check all fields in CSV
-.. 5.1 TODO check occurrence notes
-.. 5.2 TODO check gps coordinate, extra information
+.. 1.1 TODO what do we do with it once the app loads?
+2 DONE after saving project, navigate to plant collect menu
+3 DONE suggest default name for trip
+4 DONE after saving trip, navigate to site page
+5 DONE check all fields in CSV
+.. 5.1 DONE check occurrence notes
+.. 5.2 DONE check gps coordinate, extra information
 6 TODO load exported csv into qt desktop
 
 
 1 TODO preserve last selected project between sessions
                                                       
 
+1.1 TODO what do we do with it once the app loads?
+                                                  
 
-2 TODO after saving project, navigate to plant collect menu
+
+2 DONE after saving project, navigate to plant collect menu
                                                            
 
 
-3 TODO suggest default name for trip
+3 DONE suggest default name for trip
                                     
 
 
-4 TODO after saving trip, navigate to site page
+4 DONE after saving trip, navigate to site page
                                                
 
 
-5 TODO check all fields in CSV
+5 DONE check all fields in CSV
                               
 
-5.1 TODO check occurrence notes
+5.1 DONE check occurrence notes
                                
 
 
-5.2 TODO check gps coordinate, extra information
+5.2 DONE check gps coordinate, extra information
                                                 
 
 
