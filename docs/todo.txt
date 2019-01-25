@@ -1,15 +1,15 @@
-			                   
+			     ━━━━━━━━━━━━━━
 			       TODO LIST
 
 			      Jacob Motley
-			                   
+			     ━━━━━━━━━━━━━━
 
 
 			    <2019-01-24 Thu>
 
 
 Table of Contents
-                 
+─────────────────
 
 1 TODO preserve last selected project between sessions
 .. 1.1 TODO what do we do with it once the app loads?
@@ -20,39 +20,73 @@ Table of Contents
 .. 5.1 DONE check occurrence notes
 .. 5.2 DONE check gps coordinate, extra information
 6 TODO load exported csv into qt desktop
+7 TODO give the app a name
+.. 7.1 app pair naming idea
 
 
 1 TODO preserve last selected project between sessions
-                                                      
+══════════════════════════════════════════════════════
 
 1.1 TODO what do we do with it once the app loads?
-                                                  
+──────────────────────────────────────────────────
 
 
 2 DONE after saving project, navigate to plant collect menu
-                                                           
+═══════════════════════════════════════════════════════════
 
 
 3 DONE suggest default name for trip
-                                    
+════════════════════════════════════
 
 
 4 DONE after saving trip, navigate to site page
-                                               
+═══════════════════════════════════════════════
 
 
 5 DONE check all fields in CSV
-                              
+══════════════════════════════
 
 5.1 DONE check occurrence notes
-                               
+───────────────────────────────
 
 
 5.2 DONE check gps coordinate, extra information
-                                                
+────────────────────────────────────────────────
 
 
 6 TODO load exported csv into qt desktop
-                                        
+════════════════════════════════════════
 
-    double check that all fields are being exported correctly
+  • double check that all fields are being exported correctly
+
+
+7 TODO give the app a name
+══════════════════════════
+
+  I like the idea of having a 1-2 syllable name for an application.
+  Keeps it simple and easy to remember.
+  • pacquisition — plant acquisition?
+  • herbacq — herbaria acquisition? // this is probably the wrong use of
+    the word, but maybe its catchy?
+  • plantacq — plant acquisition?
+  • specacq — specimen acquisition?
+  • collspec – collect specimen?
+  • plantcoll - plant collecting?
+  • specnotes - specimen notes?
+  • collnotes - collecting notes?
+
+
+7.1 app pair naming idea
+────────────────────────
+
+  • Give both the desktop and mobile apps a prefix like spec* or
+    coll*. Distinguish with a suffix like *notes for mobile and *book
+    for the desktop.
+  • This will hopefully help the user understand that the two are
+    complementary.
+  • example:
+    • mobile - specnotes
+    • desktop - specbook
+  • another example:
+    • mobile - collnotes
+    • desktop - collbook

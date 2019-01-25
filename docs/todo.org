@@ -11,3 +11,27 @@
 ** DONE check gps coordinate, extra information
 * TODO load exported csv into qt desktop
  - double check that all fields are being exported correctly
+* TODO give the app a name
+I like the idea of having a 1-2 syllable name for an application.
+Keeps it simple and easy to remember.
+ - pacquisition --- plant acquisition?
+ - herbacq --- herbaria acquisition? // this is probably the wrong use
+   of the word, but maybe its catchy?
+ - plantacq --- plant acquisition?
+ - specacq --- specimen acquisition?
+ - collspec -- collect specimen?
+ - plantcoll - plant collecting?
+ - specnotes - specimen notes?
+ - collnotes - collecting notes?
+** app pair naming idea
+ - Give both the desktop and mobile apps a prefix like
+   spec* or coll*. Distinguish with a suffix like *notes
+   for mobile and *book for the desktop.
+ - This will hopefully help the user understand that the
+   two are complementary.
+ - example:
+   - mobile - specnotes
+   - desktop - specbook
+ - another example:
+   - mobile - collnotes
+   - desktop - collbook
