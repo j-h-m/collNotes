@@ -1,0 +1,7 @@
+#+TITLE: nuget-pkgs
+#+DATE: <2019-01-29 Tue>
+#+AUTHOR: Jacob Motley
+* Nuget Pkgs Installed in PD Skeleton
+** Plugin.(Permissions/ShareFile)
+** sqlite-net-pcl
+** Xam.Plugin.(Geolocator/Media/Messaging)

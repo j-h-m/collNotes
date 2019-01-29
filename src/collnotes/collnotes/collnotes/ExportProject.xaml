@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:collnotes"
+    x:Class="collnotes.ExportProject"
+    Title="Export Project">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/style.css"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical">
+                <Label Text="Choose a Project:" />
+                <control:CustomPicker
+                    x:Name="pickerExportProject"
+                    PlaceholderColor="#ffffff"
+                    Title="Select Project" 
+                    SelectedIndexChanged="pickerExportProject_SelectedIndexChanged"/>
+                <Button x:Name="btnExportProjectCSV"
+                        Text="Export Project Data"
+                        BorderRadius="25"
+                        Clicked="btnExportProjectCSV_Clicked"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="collnotes.TripPage"
+    Title="Trip">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/style.css"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Trip Name:" />
+                    <Entry x:Name="entryTripName"
+                           Keyboard="Text"
+                           PlaceholderColor="White"
+                           Placeholder="Trip name"/>
+                    <Label Text="Additional Collectors:" />
+                    <Entry x:Name="entryAdditionalCollectors"
+                           Keyboard="Text"
+                           PlaceholderColor="White"
+                           Placeholder="First Last, ... " />
+                    <Label Text="Collection Date:" />
+                    <DatePicker x:Name="dpCollectionDate"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        DateSelected="dpCollectionDate_DateSelected" />
+                    <Button x:Name="btnNewTrip"
+                        BorderRadius="25"
+                        Text="New Trip"
+                        Clicked="btnNewTrip_Clicked" />
+                    <Button x:Name="btnSaveTrip"
+                        BorderRadius="25"
+                        Text="Save Trip"
+                        Clicked="btnSaveTrip_Clicked" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

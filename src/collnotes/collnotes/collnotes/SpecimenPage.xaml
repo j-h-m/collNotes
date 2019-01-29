@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:collnotes" 
+    x:Class="collnotes.SpecimenPage"
+    Title="Specimen">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/style.css"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+          <StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Field ID" />
+                    <Entry Placeholder="Binomial or Common"
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                       x:Name="entryFieldID" />
+                    <Label Text="Occurrence Notes" />
+                    <Entry Placeholder="Tallest in the stand"
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                       x:Name="entryOccurrenceNotes" />
+                    <Label Text="Substrate" />
+                    <Entry Placeholder="mycorrhizal with Ent."
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                       x:Name="entrySubstrate" />
+                    <Label Text="Life Stage" />
+                    <control:CustomPicker x:Name="pickerLifeStage"
+                            PlaceholderColor="#ffffff"         
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Title="Select A Life Stage" 
+                            SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Vegetative</x:String>
+                                <x:String>Reproductive</x:String>
+                                <x:String>  Early Reproductive</x:String>
+                                <x:String>  Peak Reproductive</x:String>
+                                <x:String>  Late Reproductive</x:String>
+                                <x:String>  Fruit/Seed Bearing</x:String>
+                                <x:String>Other</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </control:CustomPicker>
+                    <Label Text="Other"
+                           x:Name="lblOtherLifeStage"
+                           IsVisible="false" />
+                    <Entry Placeholder="Other..."
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                           x:Name="entryOtherLifeStage" 
+                           IsVisible="false" />
+                    <Label Text="Cultivated" />
+                    <Switch x:Name="switchCultivated"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Toggled="switchCultivated_Toggled"/>
+                    <Label Text="Indiv. Count ≥" />
+                    <Entry Placeholder="Est. qty. ≥"
+                           PlaceholderColor="White"
+                           Keyboard="Numeric"
+                       x:Name="entryIndivCount" />
+                    <Label x:Name="lblStatusMessage"
+                           IsVisible="false" />
+                    <Button Text="Take Photo"
+                        x:Name="btnSetSpecimenPhoto"
+                        Clicked="btnSetSpecimenPhoto_Clicked"/>
+                    <Button Text="New Specimen"
+                            BorderRadius="25"
+                        x:Name="btnNewSpecimen"
+                        Clicked="btnNewSpecimen_Clicked"/>
+                    <Button Text="Save Specimen"
+                            BorderRadius="25"
+                        x:Name="btnSaveSpecimen"
+                        Clicked="btnSaveSpecimen_Clicked"/>     
+                </StackLayout>
+            </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

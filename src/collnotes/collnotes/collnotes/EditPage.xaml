@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:EditPage"
+    x:Class="collnotes.EditPage"
+    Title="Edit Project Data" 
+    BackgroundColor="Teal">
+    <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="btnEditProject"
+                Text="Edit This Project"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnEditProject_Clicked"
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="IndianRed"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnEditTrip"
+                Text="Edit Trip"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnEditTrip_Clicked"
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnEditSite"
+                Text="Edit Site"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnEditSite_Clicked"
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="Orange"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10"/>
+        <Button x:Name="btnEditSpecimen"
+                Text="Edit Specimen"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnEditSpecimen_Clicked"
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="ForestGreen"
+                TextColor="White"
+                BorderRadius="25"
+                BorderWidth="10" /> 
+    </Grid>
+</ContentPage>

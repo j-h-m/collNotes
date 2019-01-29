@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="collnotes.ProjectPage"
+    Title="Project">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/style.css"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Project Name:" />
+                    <Entry x:Name="entryProjectName"
+                       Keyboard="Text"
+                       Placeholder="Flora of Mars"
+                       PlaceholderColor="White" />
+                    <Label Text="Primary Collector:" />
+                    <Entry x:Name="entryPrimaryCollectorProject"
+                       Keyboard="Text"
+                       Placeholder="John Doe"
+                       PlaceholderColor="White" />
+                    <Label Text="Created Date:" />
+                    <DatePicker x:Name="dpCreatedDate"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       DateSelected="dpCreatedDate_DateSelected"/>
+                    <Button x:Name="btnNewProject"
+                        BorderRadius="25"
+                        Text="New Project"
+                        Clicked="btnNewProject_Clicked" />
+                    <Button x:Name="btnSaveProject"
+                        BorderRadius="25"
+                        Text="Save Project"
+                        Clicked="btnSaveProject_Clicked" />                
+                </StackLayout>            
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

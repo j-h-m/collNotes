@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="collnotes.CollectingPage"
+    Title="Plant Collect"
+    BackgroundColor="Teal">
+    <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnAddTrip"
+                Text="Add Trip"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnAddTrip_Clicked"
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                BorderWidth="10"
+                BorderRadius="25"/>
+        <Button x:Name="btnAddSite"
+                Text="Add Site"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnAddSite_Clicked"
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="Orange"
+                TextColor="White"
+                BorderWidth="10"
+                BorderRadius="25"/>
+        <Button x:Name="btnAddSpecimen"
+                Text="Add Specimen"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnAddSpecimen_Clicked"
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="ForestGreen"
+                TextColor="White"
+                BorderWidth="10"
+                BorderRadius="25"/>
+        <Button x:Name="btnEditPage"
+                Text="Edit Project Data"
+                FontSize="Large"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Clicked="btnEditPage_Clicked"
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="IndianRed"
+                TextColor="White"
+                BorderWidth="10"
+                BorderRadius="25" /> 
+    </Grid>
+</ContentPage>

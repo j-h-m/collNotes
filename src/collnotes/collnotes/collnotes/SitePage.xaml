@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="collnotes.SitePage"
+    Title="Site">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/style.css"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Site Name:" />
+                    <Entry x:Name="entrySiteName"
+                           Keyboard="Text"
+                           PlaceholderColor="White"
+                           Placeholder="Site name" />
+                    <Label Text="Locality" />
+                    <Entry Placeholder="10km from trail head..."
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                           x:Name="entryLocality" />
+                    <Label Text="Habitat" />
+                    <Entry Placeholder="Pine Forest"
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                           x:Name="entryHabitat" />
+                    <Label Text="Associated Taxa" />
+                    <Entry Placeholder="Site wide 'field calls'"
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                           x:Name="entryAssocTaxa" />
+                    <Label Text="Location Notes" />
+                    <Entry Placeholder="Popular campground"
+                           PlaceholderColor="White"
+                           Keyboard="Text"
+                           x:Name="entryLocationNotes" />
+                    <Label x:Name="lblStatusMessage"
+                           IsVisible="false"/>
+                    <Button x:Name="btnSitePhoto"
+                        Text="Take Photo"
+                        Clicked="btnSitePhoto_Clicked"/>
+                    <Button Text="Set GPS"
+                        x:Name="btnSetSiteGPS"
+                        Clicked="btnSetSiteGPS_Clicked"/>
+                    <Button x:Name="btnNewSite"
+                        Text="New Site" 
+                        Clicked="btnNewSite_Clicked"/>
+                    <Button x:Name="btnSaveSite"
+                        Text="Save Site"
+                        BorderRadius="25"
+                        Clicked="btnSaveSite_Clicked"/>                     
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
