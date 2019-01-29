@@ -14,10 +14,9 @@ namespace PDSkeleton
     {
         private Project project;
         private Trip trip;
-        private List<Trip> existingTrips;
 
         private bool editing = false;
-        private string projectName = "";
+        private bool dateChanged = false;
 
         // default constructor for xaml preview
         public TripPage() { }
@@ -26,13 +25,15 @@ namespace PDSkeleton
         public TripPage(Project project)
         {
             this.project = project;
-            projectName = project.ProjectName;
             trip = new Trip();
-
             InitializeComponent();
+            LoadDefaults();
+        }
 
-            List<Trip> trips = ORM.GetTrips(projectName);
-            entryTripName.Text = projectName + " - Trip" + (trips.Count + 1).ToString();
+        private void LoadDefaults()
+        {
+            entryTripName.Text = "Trip-" + (ORM.GetAllSitesCount() + 1).ToString();
+            dpCollectionDate.Date = DateTime.Today;
         }
 
         // constructor for editing
@@ -40,7 +41,6 @@ namespace PDSkeleton
         {
             this.trip = trip;
             editing = true;
-            projectName = trip.ProjectName;
             InitializeComponent();
 
             entryTripName.Text = trip.TripName;
@@ -54,61 +54,56 @@ namespace PDSkeleton
         public void dpCollectionDate_DateSelected(object sender, EventArgs e)
         {
             trip.CollectionDate = dpCollectionDate.Date;
+            dateChanged = true;
         }
 
-        public async void btnGroupPhotoTrip_Clicked(object sender, EventArgs e)
-        {
-            if (entryTripName.Text == null || projectName.Equals("") || entryTripName.Text.Equals(""))
-            {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
-                return;
-            }
+        // may get rid if this button
+        //public async void btnGroupPhotoTrip_Clicked(object sender, EventArgs e)
+        //{
+        //    if (entryTripName.Text == null || entryTripName.Text.Equals(""))
+        //    {
+        //        DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Trip name before taking photo");
+        //        return;
+        //    }
 
-            await TakePhoto.CallCamera(projectName + "-" + trip.TripName);
-        }
+        //    await TakePhoto.CallCamera(project.ProjectName + "-" + trip.TripName);
+        //}
+        // xaml code
+        //<Button x:Name="btnGroupPhotoTrip"
+        //Text="Group Photo"
+        //Clicked="btnGroupPhotoTrip_Clicked" />
 
         public async void btnSaveTrip_Clicked(object sender, EventArgs e)
         {
-            if (editing) // editing should only require all existing information to be changed
+            if (editing)
             {
-                if (!entryAdditionalCollectors.Text.Equals("") && !entryAdditionalCollectors.Text.Equals(""))
-                {
-                    trip.AdditionalCollectors = entryAdditionalCollectors.Text;
-                    trip.CollectionDate = dpCollectionDate.Date;
+                trip.AdditionalCollectors = (entryAdditionalCollectors.Text is null) ? "" : entryAdditionalCollectors.Text;
+                trip.CollectionDate = dateChanged ? dpCollectionDate.Date : trip.CollectionDate;
 
-                    int updateResult = ORM.GetConnection().Update(trip, typeof(Trip));
-                    if (updateResult == 1) // what is result of above call?
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " save succeeded.");
-                        return;
-                    }
-                    else
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " save failed.");
-                        return;
-                    }
+                int updateResult = ORM.GetConnection().Update(trip, typeof(Trip));
+                if (updateResult == 1)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " update succeeded.");
+                    return;
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " update failed.");
+                    return;
                 }
             }
 
-            trip.ProjectName = projectName;
-
-            bool defaultData = false;
-
             // check to make sure name is present
-            if (entryTripName.Text is null || entryAdditionalCollectors.Text is null)
+            if (entryTripName.Text is null || entryTripName.Text.Equals(""))
             {
-                trip.TripName = entryTripName.Text; // only trip name is required
-                // add default date
-                trip.CollectionDate = DateTime.Today;
-                defaultData = true;
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Trip name is required.");
+                return;
             }
 
-            if (!defaultData)
-            {
-                trip.TripName = entryTripName.Text;
-                trip.AdditionalCollectors = entryAdditionalCollectors.Text;
-                trip.CollectionDate = dpCollectionDate.Date;
-            }
+            trip.ProjectName = project.ProjectName;
+            trip.TripName = entryTripName.Text;
+            trip.AdditionalCollectors = (entryAdditionalCollectors.Text is null) ? "" : entryAdditionalCollectors.Text;
+            trip.CollectionDate = dpCollectionDate.Date;
 
             // check for duplicate names before saving
             if (ORM.CheckExists(trip))
@@ -121,7 +116,7 @@ namespace PDSkeleton
             int autoKeyResult = ORM.GetConnection().Insert(trip);
             Debug.WriteLine("inserted trip, recordno is: " + autoKeyResult.ToString());
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved Trip " + trip.TripName);
+            // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved Trip " + trip.TripName);
 
             // automatically navigate to Site page after saving Trip
             await Navigation.PushAsync(new SitePage(trip));
@@ -133,7 +128,9 @@ namespace PDSkeleton
 
             entryTripName.Text = "";
             entryAdditionalCollectors.Text = "";
-            dpCollectionDate.Date = DateTime.Today;
+            trip.ProjectName = project.ProjectName;
+
+            LoadDefaults();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Trip");
         }

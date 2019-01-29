@@ -18,7 +18,6 @@ namespace PDSkeleton
 
         private string siteGPS = "";
         private bool editing = false;
-        private string tripName = "";
 
         // default constructor for xaml preview
         public SitePage() { }
@@ -29,14 +28,18 @@ namespace PDSkeleton
         {
             site = new Site();
             this.trip = trip;
-            tripName = trip.TripName;
             InitializeComponent();
+            LoadDefaults();
+        }
+
+        private void LoadDefaults()
+        {
+            entrySiteName.Text = "Site-" + (ORM.GetAllSitesCount() + 1).ToString();
         }
 
         public SitePage(Site site)
         {
             this.site = site;
-            tripName = site.TripName;
             editing = true;
             InitializeComponent();
 
@@ -53,54 +56,47 @@ namespace PDSkeleton
         public async void btnSitePhoto_Clicked(object sender, EventArgs e)
         {
             // get site name
-            if (entrySiteName.Text == null)
+            if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a Site name before taking photo");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Name the Site before taking photo.");
                 return;
             }
 
-            if (tripName.Equals("") || entrySiteName.Text.Equals(""))
-            {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Select a Site and name the Site before taking photo");
-                return;
-            }
-            await TakePhoto.CallCamera(tripName + "-" + entrySiteName.Text);
+            await TakePhoto.CallCamera(trip.TripName + "-" + entrySiteName.Text);
         }
 
-        public void btnSaveSite_Clicked(object sender, EventArgs e)
+        public async void btnSaveSite_Clicked(object sender, EventArgs e)
         {
             if (editing) // editing should only require all existing information to be changed
             {
-                if (!entryHabitat.Text.Equals("") && !entryLocality.Text.Equals("") && !entryAssocTaxa.Text.Equals("") && entryLocationNotes.Text.Equals("") &&
-                   !(entryHabitat.Text is null) && !(entryLocality.Text is null) && !(entryAssocTaxa.Text is null) && !(entryLocationNotes.Text is null))
-                {
-                    site.AssociatedTaxa = entryAssocTaxa.Text;
-                    site.GPSCoordinates = (siteGPS.Equals("")) ? site.GPSCoordinates : siteGPS;
-                    site.Habitat = entryHabitat.Text;
-                    site.Locality = entryLocality.Text;
-                    site.LocationNotes = entryLocationNotes.Text;
+                site.AssociatedTaxa = (entryAssocTaxa.Text is null) ? "" : entryAssocTaxa.Text;
+                site.GPSCoordinates = siteGPS.Equals("") ? site.GPSCoordinates : siteGPS;
+                site.Habitat = (entryHabitat.Text is null) ? "" : entryHabitat.Text;
+                site.Locality = (entryLocality.Text is null) ? "" : entryLocality.Text;
+                site.LocationNotes = (entryLocationNotes.Text is null) ? "" : entryLocationNotes.Text;
 
-                    int updateResult = ORM.GetConnection().Update(site, typeof(Site));
-                    if (updateResult == 1)
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " save succeeded.");
-                        return;
-                    }
-                    else
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " save failed.");
-                        return;
-                    }
+                int updateResult = ORM.GetConnection().Update(site, typeof(Site));
+                if (updateResult == 1)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update succeeded.");
+                    return;
                 }
                 else
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Site!");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update failed.");
                     return;
                 }
             }
 
+            if (siteGPS.Equals(""))
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Record the Site GPS first!");
+                return;
+            }
+
+            // saving new Site
             site.GPSCoordinates = siteGPS;
-            site.TripName = tripName;
+            site.TripName = trip.TripName;
 
             // only require name to save Site
             if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
@@ -117,21 +113,18 @@ namespace PDSkeleton
             site.LocationNotes = entryLocationNotes.Text is null ? "" : entryLocationNotes.Text;
 
             // check for duplicate names before saving
-            existingSites = ORM.GetSites(site.TripName);
-
-            foreach (Site s in existingSites)
+            if (ORM.CheckExists(site))
             {
-                if (s.SiteName.Equals(site.SiteName))
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a site with the same name!");
-                    return;
-                }
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a site with the same name!");
+                return;
             }
 
             // save site to database
             int autoKeyResult = ORM.GetConnection().Insert(site);
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Site " + site.SiteName + " saved!");
+            // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Site " + site.SiteName + " saved!");
             Debug.WriteLine("inserted site, recordno is: " + autoKeyResult.ToString());
+            // automatically navigate to the specimen page after creating the site
+            await Navigation.PushAsync(new SpecimenPage(site));
         }
 
         public async void btnSetSiteGPS_Clicked(object sender, EventArgs e)
@@ -146,13 +139,11 @@ namespace PDSkeleton
             {
                 lblStatusMessage.TextColor = Color.Red;
                 lblStatusMessage.Text = "Failed to get location";
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?");
             }
             else
             {
-                lblStatusMessage.TextColor = Color.Blue;
-                lblStatusMessage.Text = "Location: " + siteGPS;
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + siteGPS);
+                lblStatusMessage.TextColor = Color.Green;
+                lblStatusMessage.Text = "Location Received";
             }
         }
 
@@ -165,9 +156,12 @@ namespace PDSkeleton
             entryHabitat.Text = "";
             entryAssocTaxa.Text = "";
             entryLocationNotes.Text = "";
+            siteGPS = "";
 
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
+
+            LoadDefaults();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Site");
         }

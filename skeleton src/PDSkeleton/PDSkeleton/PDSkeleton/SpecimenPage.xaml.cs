@@ -17,7 +17,6 @@ namespace PDSkeleton
         private bool editing = false;
 
         private string specimenGPS = "";
-        private string siteName = "";
 
         // default constructor for xaml preview
         public SpecimenPage() { }
@@ -27,21 +26,25 @@ namespace PDSkeleton
         {
             specimen = new Specimen();
             this.site = site;
-            siteName = site.SiteName;
             InitializeComponent();
-            Title = siteName + "-Specimen" + (AppVariables.CollectionCount + 1).ToString();
+        }
+
+        private void LoadDefaults()
+        {
+            Title = "(" + site.SiteName + ")" + site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+            specimenGPS = site.GPSCoordinates;
         }
 
         // constructor takes Specimen as argument - editing
         public SpecimenPage(Specimen specimen)
         {
             this.specimen = specimen;
-            siteName = specimen.SiteName;
+            Site site = ORM.GetSiteByName(specimen.SiteName);
             InitializeComponent();
 
             editing = true;
 
-            Title = specimen.SiteName + "-" + specimen.SpecimenName;
+            Title = site.RecordNo + "-" + specimen.SpecimenNumber;
             entryFieldID.Text = specimen.FieldIdentification;
             entryFieldID.IsEnabled = false;
             entryOccurrenceNotes.Text = specimen.OccurrenceNotes;
@@ -73,7 +76,7 @@ namespace PDSkeleton
             }
         }
 
-        // switch cultivated? event
+        // switch cultivated event
         public void switchCultivated_Toggled(object sender, EventArgs e)
         {
             specimen.Cultivated = switchCultivated.IsToggled;
@@ -82,71 +85,53 @@ namespace PDSkeleton
         // specimen photo button event
         public async void btnSetSpecimenPhoto_Clicked(object sender, EventArgs e)
         {
-            // get specimen name first
-            if (entryFieldID.Text == null)
-            {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need a specimen field ID before taking photo");
-                return;
-            }
-
-            if (siteName.Equals("") || entryFieldID.Text.Equals(""))
-            {
-                // toast need specimen id
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter specimen field ID before taking photo");
-                return;
-            }
-
-            await TakePhoto.CallCamera(siteName + "-" + entryFieldID.Text);
+            await TakePhoto.CallCamera(site.RecordNo.ToString() + "-" + specimen.SpecimenNumber.ToString());
         }
 
         public void btnSaveSpecimen_Clicked(object sender, EventArgs e)
         {
             if (editing)
             {
-                if (!entrySubstrate.Text.Equals("") && !entryIndivCount.Text.Equals("") && !entryOccurrenceNotes.Text.Equals("") && !(pickerLifeStage.SelectedItem is null) &&
-                   !(entrySubstrate.Text is null) && !(entryIndivCount.Text is null) && !(entryOccurrenceNotes.Text is null))
-                {
-                    specimen.Substrate = entrySubstrate.Text;
-                    specimen.IndividualCount = entryIndivCount.Text;
-                    specimen.Cultivated = switchCultivated.IsToggled;
-                    specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
-                    specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
-                    specimen.GPSCoordinates = (specimenGPS.Equals("")) ? specimen.GPSCoordinates : specimenGPS;
+                specimen.Substrate = entrySubstrate.Text;
+                specimen.IndividualCount = entryIndivCount.Text;
+                specimen.Cultivated = switchCultivated.IsToggled;
+                specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
+                specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
+                specimen.GPSCoordinates = specimenGPS.Equals("") ? specimen.GPSCoordinates : specimenGPS;
 
-                    int updateResult = ORM.GetConnection().Update(specimen, typeof(Specimen));
-                    if (updateResult == 1)
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save succeeded.");
-                        return;
-                    }
-                    else
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save failed");
-                        return;
-                    }
+                int updateResult = ORM.GetConnection().Update(specimen, typeof(Specimen));
+                if (updateResult == 1)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save succeeded.");
+                    return;
                 }
                 else
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Need all info to save Specimen!");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save failed");
                     return;
                 }
             }
 
+            if (specimenGPS.Equals(""))
+            {
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Record the Specimen GPS first!");
+                return;
+            }
+
             specimen.SiteName = site.SiteName;
-
-
             specimen.GPSCoordinates = specimenGPS;
             specimen.OccurrenceNotes = entryOccurrenceNotes.Text is null ? "" : entryOccurrenceNotes.Text;
             specimen.Substrate = entrySubstrate.Text is null ? "" : entrySubstrate.Text;
             specimen.IndividualCount = entryIndivCount.Text is null ? "" : entryIndivCount.Text;
+            specimen.Cultivated = switchCultivated.IsToggled;
 
             AppVariables.CollectionCount = AppVariables.CollectionCount > 0 ? AppVariables.CollectionCount : 0;
 
             specimen.SpecimenNumber = AppVariables.CollectionCount + 1;
 
-            specimen.FieldIdentification = entryFieldID.Text is null ? "Specimen" + specimen.SpecimenNumber.ToString() : entryFieldID.Text;
+            specimen.FieldIdentification = entryFieldID.Text is null ? "" : entryFieldID.Text;
 
-            specimen.SpecimenName = "Specimen" + specimen.SpecimenNumber;
+            specimen.SpecimenName = "Specimen-" + specimen.SpecimenNumber;
 
             if (entryOtherLifeStage.IsVisible && !entryOtherLifeStage.Text.Equals("")) {
                 specimen.LifeStage = entryOtherLifeStage.Text;
@@ -157,8 +142,6 @@ namespace PDSkeleton
                 specimen.LifeStage = pickerLifeStage.SelectedItem is null ? "" : pickerLifeStage.SelectedItem.ToString();
             }
 
-            specimen.Cultivated = switchCultivated.IsToggled;
-
             // save Specimen to database
             int autoKeyResult = ORM.GetConnection().Insert(specimen);
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
@@ -166,7 +149,7 @@ namespace PDSkeleton
             // update CollectionCount
             AppVariables.CollectionCount = specimen.SpecimenNumber;
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.FieldIdentification);
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.SpecimenName);
         }
 
         public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
@@ -183,13 +166,11 @@ namespace PDSkeleton
             {
                 lblStatusMessage.TextColor = Color.Red;
                 lblStatusMessage.Text = "Failed to get location";
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Failed to get GPS location. Is Location enabled?"); 
             }
             else
             {
-                lblStatusMessage.TextColor = Color.Blue;
-                lblStatusMessage.Text = "Location: " + specimenGPS;
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Location: " + specimenGPS);
+                lblStatusMessage.TextColor = Color.Green;
+                lblStatusMessage.Text = "Location received";
             }
         }
 
@@ -212,6 +193,8 @@ namespace PDSkeleton
 
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
+
+            LoadDefaults();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Specimen");
         }

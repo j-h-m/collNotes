@@ -16,13 +16,23 @@ namespace PDSkeleton
         private Project project;
 
         private bool editing = false;
+        private bool dateChanged = false;
 
         // constructor for collecting
 		public ProjectPage()
 		{
             project = new Project();
 			InitializeComponent();
+            LoadDefaults();
 		}
+
+        // load appvariable data
+        private void LoadDefaults()
+        {
+            entryPrimaryCollectorProject.Text = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
+            entryProjectName.Text = "Project-" + (ORM.GetAllProjectsCount() + 1).ToString();
+            dpCreatedDate.Date = DateTime.Today;
+        }
 
         // constructor for editing
         public ProjectPage(Project project)
@@ -42,6 +52,7 @@ namespace PDSkeleton
         private void dpCreatedDate_DateSelected(object sender, DateChangedEventArgs e)
         {
             project.CreatedDate = dpCreatedDate.Date;
+            dateChanged = true;
         }
 
         // SaveProject button event
@@ -51,26 +62,18 @@ namespace PDSkeleton
         {
             if (editing)
             {
-                if (!(entryPrimaryCollectorProject.Text is null) || !entryPrimaryCollectorProject.Text.Equals(""))
-                {
-                    project.PrimaryCollector = entryPrimaryCollectorProject.Text;
-                    project.CreatedDate = dpCreatedDate.Date;
+                project.PrimaryCollector = (entryPrimaryCollectorProject.Text is null) ? "" : entryPrimaryCollectorProject.Text;
+                project.CreatedDate = dateChanged ? dpCreatedDate.Date : project.CreatedDate;
 
-                    int updateResult = ORM.GetConnection().Update(project, typeof(Project));
-                    if (updateResult == 1)
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update succeeded.");
-                        return;
-                    }
-                    else
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update failed.");
-                        return;
-                    }
+                int updateResult = ORM.GetConnection().Update(project, typeof(Project));
+                if (updateResult == 1)
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update succeeded.");
+                    return;
                 }
                 else
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Update requires some info to be changed.");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update failed.");
                     return;
                 }
             }
@@ -78,20 +81,18 @@ namespace PDSkeleton
             // check to make sure name is present
             if (entryProjectName.Text is null || entryProjectName.Text.Equals(""))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Unique name required to identify Project");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project name is required.");
                 return;
             }
 
             project.ProjectName = entryProjectName.Text;
-            // check for default collector name and use if primary collector wasn't given
-            string defaultCollectorName = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
-            project.PrimaryCollector = (entryPrimaryCollectorProject.Text.Equals("") || entryPrimaryCollectorProject.Text is null) ? defaultCollectorName : entryPrimaryCollectorProject.Text;
+            project.PrimaryCollector = entryPrimaryCollectorProject.Text;
             project.CreatedDate = dpCreatedDate.Date;
 
             // check for duplicate names first
             if (ORM.CheckExists(project))
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert($"'{project}' already exists. Enter a Unique name for a new.");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert($"'{project.ProjectName}' already exists. Enter a Unique name for a new.");
                 return;
             }
 
@@ -99,7 +100,7 @@ namespace PDSkeleton
             int autoKeyResult = ORM.GetConnection().Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved");
+            // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved");
 
             // automatically navigate to the collecting page after saving the project
             await Navigation.PushAsync(new CollectingPage(project));
@@ -110,10 +111,7 @@ namespace PDSkeleton
         private void btnNewProject_Clicked(object sender, EventArgs e)
         {
             project = new Project();
-
-            entryProjectName.Text = "";
-            entryPrimaryCollectorProject.Text = "";
-
+            LoadDefaults();
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Project");
         }
     }

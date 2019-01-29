@@ -8,7 +8,6 @@ namespace PDSkeleton
         public static int CollectionCount { get; set; }
         public static string DataExportFormat { get; set; }
         public static string CollectorName { get; set; }
-
         public static string LastProject { get; set; }
     }
 

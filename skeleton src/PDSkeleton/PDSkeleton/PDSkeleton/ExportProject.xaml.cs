@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 /*
  * Export Project page
@@ -21,9 +22,6 @@ namespace PDSkeleton
         private Project selectedProject;
         private List<Project> projectList;
         private string crlf = Environment.NewLine;
-
-        private string recordedBy;
-        private string samplingEffort;
 
         public enum DataExportType
         {
@@ -50,7 +48,7 @@ namespace PDSkeleton
 
         // Project Picker event
         //  - sets the selected project when user selects a Project
-        public void pickerExportProject_SelectedIndexChanged(object sender, EventArgs e)
+        public async void pickerExportProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -59,19 +57,29 @@ namespace PDSkeleton
                     if (p.ProjectName.Equals(pickerExportProject.SelectedItem.ToString()))
                     {
                         selectedProject = p;
-                        return;
+                        break;
                     }
+                }
+
+                if (!(selectedProject is null))
+                {
+                    await CSVExport_Helper();
                 }
             }
             catch (Exception ex)
             {
-                string exMsg = ex.Message;
+                Debug.WriteLine(ex.Message);
             }
         }
 
         // Export CSV button event
         //  - creates the CSV for export of the selected Project
         public async void btnExportProjectCSV_Clicked(object sender, EventArgs e)
+        {
+            await CSVExport_Helper();
+        }
+
+        private async Task CSVExport_Helper()
         {
             var result = await CheckExternalFilePermissions();
 
@@ -88,10 +96,6 @@ namespace PDSkeleton
                     return;
                 }
 
-                // data from project
-                recordedBy = selectedProject.PrimaryCollector;
-                samplingEffort = selectedProject.ProjectName;
-
                 // get Trips for selected Project
                 List<Trip> selectedProjectTrips = ORM.GetTrips(selectedProject.ProjectName);
 
@@ -106,7 +110,7 @@ namespace PDSkeleton
 
                 if (sitesForTrips.Count == 0)
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Missing data");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No trips.");
                     return;
                 }
 
@@ -117,14 +121,14 @@ namespace PDSkeleton
                 {
                     foreach (var site in trip.Value) // go through list<site>
                     {
-                        List<Specimen> specimenList = ORM.GetSpecimens(site.SiteName);
+                        List<Specimen> specimenList = ORM.GetSpecimen(site.SiteName);
                         specimenForSites.Add(site.SiteName, specimenList);
                     }
                 }
 
                 if (specimenForSites.Count == 0)
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Missing data");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No sites.");
                     return;
                 }
 
@@ -155,7 +159,8 @@ namespace PDSkeleton
             }
             catch (Exception ex)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Error: " + ex.Message);
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Export failed.");
+                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -181,9 +186,9 @@ namespace PDSkeleton
         {
             string csvContent = "";
 
-            // 27 column header -- changed samplingEffort ---> Label Project
+            // 27 column header -- changed samplingEffort ---> Label Project --- added samplingEffort back for project date info
             csvContent += "siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
-                "Label Project,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
+                "Label Project,samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
                 "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + crlf;
 
             foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites)
@@ -192,44 +197,18 @@ namespace PDSkeleton
                 string siteName = sitesSpecimen.Key;
                 string tripName = "";
 
-                Site refSite = null;
+                Site refSite = ORM.GetSiteByName(siteName);
+                Trip trip = ORM.GetTripByName(refSite.TripName);
+                tripName = trip.TripName;
 
-                foreach (KeyValuePair<string, List<Site>> sitesTrip in sitesForTrips)
-                {
-                    foreach (Site site in sitesTrip.Value)
-                    {
-                        if (siteName == site.SiteName)
-                        {
-                            refSite = site;
-                            tripName = sitesTrip.Key;
-                            break;
-                        }
-                    }
-                    if (!tripName.Equals(""))
-                    {
-                        break;
-                    }
-                }
-
-                Trip trip = null;
-                foreach (Trip t in selectedProjectTrips)
-                {
-                    if (tripName.Equals(t.TripName))
-                    {
-                        trip = t;
-                        break;
-                    }
-                }
+                // project level data
+                string recordedBy = selectedProject.PrimaryCollector;
+                string samplingEffort = selectedProject.ProjectName + "," + selectedProject.CreatedDate.ToString("yyyy-MM-dd");
+                string labelProject = selectedProject.ProjectName;
 
                 // trip level data
-                string assColl = "";
-                DateTime eventDate = DateTime.Now;
-
-                if (trip != null)
-                {
-                    assColl = trip.AdditionalCollectors;
-                    eventDate = trip.CollectionDate;
-                }
+                string assColl = trip.AdditionalCollectors;
+                DateTime eventDate = trip.CollectionDate;
 
                 // site level data
                 string habitat = refSite.Habitat;
@@ -239,23 +218,45 @@ namespace PDSkeleton
                 int siteNumber = refSite.RecordNo;
 
                 // specimen level data
-                foreach (Specimen spec in sitesSpecimen.Value)
+                // foreach (Specimen spec in sitesSpecimen.Value)
+                for (int i = -1; i < sitesSpecimen.Value.Count; i++)
                 {
-                    int specimenNumber = spec.SpecimenNumber; // should match a collector's desired collection count*
-                    string genericColumn2 = spec.AdditionalInfo;
-                    string individualCount = spec.IndividualCount;
-                    string reproductiveCondition = spec.LifeStage;
-                    string occurrenceRemarks = spec.OccurrenceNotes;
-                    string substrate = spec.Substrate;
-                    string establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
-                    string genericColumn1 = spec.FieldIdentification;
-                    string latitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[0] : "";
-                    string longitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[1] : "";
-                    string coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
-                    string minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
+                    int specimenNumber;
+                    string genericColumn2, individualCount, reproductiveCondition, occurrenceRemarks, substrate, establishmentMeans, genericColumn1, latitude, longitude, coordinateUncertaintyMeters, minimumElevationMeters;
+                    if (i == -1) // add the site # record
+                    {
+                        specimenNumber = -1; // should match a collector's desired collection count*
+                        genericColumn2 = "";
+                        individualCount = "";
+                        reproductiveCondition = "";
+                        occurrenceRemarks = "";
+                        substrate = "";
+                        establishmentMeans = "";
+                        genericColumn1 = "";
+                        latitude = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[0] : "";
+                        longitude = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[1] : "";
+                        coordinateUncertaintyMeters = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[2] : "";
+                        minimumElevationMeters = (!refSite.GPSCoordinates.Equals("")) ? minimumElevationMeters = refSite.GPSCoordinates.Split(',')[3] : "";
+                    }
+                    else
+                    {
+                        Specimen spec = sitesSpecimen.Value[i];
+                        specimenNumber = spec.SpecimenNumber; // should match a collector's desired collection count*
+                        genericColumn2 = spec.AdditionalInfo;
+                        individualCount = spec.IndividualCount;
+                        reproductiveCondition = spec.LifeStage;
+                        occurrenceRemarks = spec.OccurrenceNotes;
+                        substrate = spec.Substrate;
+                        establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
+                        genericColumn1 = spec.FieldIdentification;
+                        latitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[0] : "";
+                        longitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[1] : "";
+                        coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
+                        minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
+                    }
 
                     csvContent += "\"" + siteNumber.ToString() + "\",\"" +                              // site number
-                                            specimenNumber.ToString() + "\",\"" +                       // specimen number
+                    ((specimenNumber == -1) ? "#" : specimenNumber.ToString()) + "\",\"" +              // specimen number
                                             genericColumn2 + "\",\"" +                                  // generic column 2 (additional info)
                                             assColl + "\",\"" +                                         // associated collectors
                                             habitat + "\",\"" +                                         // habitat
@@ -265,7 +266,8 @@ namespace PDSkeleton
                                             locationNotes + "\",\"" +                                   // location remarks
                                             occurrenceRemarks + "\",\"" +                               // occurrence remarks
                                             recordedBy + "\",\"" +                                      // recorded by (primary collector)
-                                            samplingEffort + "\",\"" +                                  // sampling effort (project name)
+                                            labelProject + "\",\"" +                                    // Label Project (project name)
+                                            samplingEffort + "\",\"" +                                  // sampling effort (project name, created date)
                                             substrate + "\",\"" +                                       // substrate
                                             associatedTaxa + "\",\"" +                                  // associated taxa
                                             eventDate.ToString("yyyy-MM-dd") + "\",\"" +                // event date - ISO Format*

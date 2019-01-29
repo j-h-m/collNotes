@@ -28,12 +28,14 @@ namespace PDSkeleton
 
 		protected override void OnSleep ()
 		{
-			// Handle when your app sleeps
+            // Handle when your app sleeps
+            AppVarsFile.WriteAppVars();
 		}
 
 		protected override void OnResume ()
 		{
-			// Handle when your app resumes
+            // Handle when your app resumes
+            bool result = AppVarsFile.ReadAppVars();
 		}
 	}
 }

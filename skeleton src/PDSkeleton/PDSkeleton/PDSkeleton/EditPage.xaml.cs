@@ -117,7 +117,7 @@ namespace PDSkeleton
 
                 foreach (Site site in siteList)
                 {
-                    specimenList.AddRange(ORM.GetSpecimens(site.SiteName));
+                    specimenList.AddRange(ORM.GetSpecimen(site.SiteName));
                 }
 
                 string[] specimens = new string[specimenList.Count];

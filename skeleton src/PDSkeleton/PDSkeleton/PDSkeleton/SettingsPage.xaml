@@ -17,7 +17,7 @@
                            x:Name="entryCollectorName" />
                     <Label Text="Format:" />
                     <Picker x:Name="pickerExportFormat"
-                            Title="Select Data Format" 
+                            Title="Select Data Format"
                             SelectedIndex = "0"
                             SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
                         <Picker.ItemsSource>

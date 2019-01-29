@@ -25,9 +25,6 @@
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         DateSelected="dpCollectionDate_DateSelected" />
-                    <Button x:Name="btnGroupPhotoTrip"
-                        Text="Group Photo"
-                        Clicked="btnGroupPhotoTrip_Clicked" />
                     <Button x:Name="btnNewTrip"
                         Text="New Trip"
                         Clicked="btnNewTrip_Clicked" />
