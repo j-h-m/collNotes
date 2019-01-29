@@ -160,6 +160,8 @@ namespace PDSkeleton
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
 
+            site.TripName = trip.TripName;
+
             LoadDefaults();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Site");

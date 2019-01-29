@@ -58,8 +58,8 @@
                         VerticalOptions="Center"
                         HorizontalOptions="Start"
                         Toggled="switchCultivated_Toggled"/>
-                    <Label Text="Indiv. Count" />
-                    <Entry Placeholder="Est. qty."
+                    <Label Text="Indiv. Count ≥" />
+                    <Entry Placeholder="Est. qty. ≥"
                            PlaceholderColor="White"
                            Keyboard="Numeric"
                        x:Name="entryIndivCount" />
@@ -68,10 +68,6 @@
                     <Button Text="Take Photo"
                         x:Name="btnSetSpecimenPhoto"
                         Clicked="btnSetSpecimenPhoto_Clicked"/>
-                    <Button Text="Set GPS"
-                            BorderRadius="25"
-                        x:Name="btnSetSpecimenGPS"
-                        Clicked="btnSetSpecimenGPS_Clicked"/>
                     <Button Text="New Specimen"
                             BorderRadius="25"
                         x:Name="btnNewSpecimen"

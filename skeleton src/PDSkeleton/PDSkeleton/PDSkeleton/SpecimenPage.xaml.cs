@@ -16,8 +16,6 @@ namespace PDSkeleton
 
         private bool editing = false;
 
-        private string specimenGPS = "";
-
         // default constructor for xaml preview
         public SpecimenPage() { }
 
@@ -32,7 +30,6 @@ namespace PDSkeleton
         private void LoadDefaults()
         {
             Title = "(" + site.SiteName + ")" + site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
-            specimenGPS = site.GPSCoordinates;
         }
 
         // constructor takes Specimen as argument - editing
@@ -97,7 +94,7 @@ namespace PDSkeleton
                 specimen.Cultivated = switchCultivated.IsToggled;
                 specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
                 specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
-                specimen.GPSCoordinates = specimenGPS.Equals("") ? specimen.GPSCoordinates : specimenGPS;
+                specimen.GPSCoordinates = site.GPSCoordinates;
 
                 int updateResult = ORM.GetConnection().Update(specimen, typeof(Specimen));
                 if (updateResult == 1)
@@ -112,14 +109,8 @@ namespace PDSkeleton
                 }
             }
 
-            if (specimenGPS.Equals(""))
-            {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Record the Specimen GPS first!");
-                return;
-            }
-
             specimen.SiteName = site.SiteName;
-            specimen.GPSCoordinates = specimenGPS;
+            specimen.GPSCoordinates = site.GPSCoordinates;
             specimen.OccurrenceNotes = entryOccurrenceNotes.Text is null ? "" : entryOccurrenceNotes.Text;
             specimen.Substrate = entrySubstrate.Text is null ? "" : entrySubstrate.Text;
             specimen.IndividualCount = entryIndivCount.Text is null ? "" : entryIndivCount.Text;
@@ -152,33 +143,35 @@ namespace PDSkeleton
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.SpecimenName);
         }
 
-        public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
-        {
-            lblStatusMessage.IsVisible = true;
-            lblStatusMessage.TextColor = Color.Orange;
-            lblStatusMessage.Text = "Getting Location...";
+        //public async void btnSetSpecimenGPS_Clicked(object sender, EventArgs e)
+        //{
+        //    lblStatusMessage.IsVisible = true;
+        //    lblStatusMessage.TextColor = Color.Orange;
+        //    lblStatusMessage.Text = "Getting Location...";
 
 
-            specimenGPS = await CurrentGPS.CurrentLocation();
+        //    specimenGPS = await CurrentGPS.CurrentLocation();
 
 
-            if (specimenGPS.Equals(""))
-            {
-                lblStatusMessage.TextColor = Color.Red;
-                lblStatusMessage.Text = "Failed to get location";
-            }
-            else
-            {
-                lblStatusMessage.TextColor = Color.Green;
-                lblStatusMessage.Text = "Location received";
-            }
-        }
+        //    if (specimenGPS.Equals(""))
+        //    {
+        //        lblStatusMessage.TextColor = Color.Red;
+        //        lblStatusMessage.Text = "Failed to get location";
+        //    }
+        //    else
+        //    {
+        //        lblStatusMessage.TextColor = Color.Green;
+        //        lblStatusMessage.Text = "Location received";
+        //    }
+        //}
+        //<Button Text = "Set GPS"
+        //BorderRadius="25"
+        //x:Name="btnSetSpecimenGPS"
+        //Clicked="btnSetSpecimenGPS_Clicked"/>
 
         public void btnNewSpecimen_Clicked(object sender, EventArgs e)
         {
             specimen = new Specimen();
-
-            specimenGPS = "";
 
             entryFieldID.Text = "";
             entryOccurrenceNotes.Text = "";
@@ -193,6 +186,8 @@ namespace PDSkeleton
 
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
+
+            specimen.SiteName = site.SiteName;
 
             LoadDefaults();
 

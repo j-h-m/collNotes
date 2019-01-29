@@ -20,6 +20,10 @@
                         Text="Export Project Data"
                         BorderRadius="25"
                         Clicked="btnExportProjectCSV_Clicked"/>
+                <Button x:Name="btnExportDatabase"
+                        Text="Export Sqlite DB"
+                        BorderRadius="25"
+                        Clicked="btnExportDatabase_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
