@@ -26,9 +26,11 @@
                        HorizontalOptions="Center"
                        DateSelected="dpCreatedDate_DateSelected"/>
                     <Button x:Name="btnNewProject"
+                        BorderRadius="25"
                         Text="New Project"
                         Clicked="btnNewProject_Clicked" />
                     <Button x:Name="btnSaveProject"
+                        BorderRadius="25"
                         Text="Save Project"
                         Clicked="btnSaveProject_Clicked" />                
                 </StackLayout>            

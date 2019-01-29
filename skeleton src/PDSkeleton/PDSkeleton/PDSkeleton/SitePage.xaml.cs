@@ -14,7 +14,6 @@ namespace PDSkeleton
     {
         private Trip trip;
         private Site site;
-        private List<Site> existingSites;
 
         private string siteGPS = "";
         private bool editing = false;

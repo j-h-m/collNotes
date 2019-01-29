@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:control="clr-namespace:PDSkeleton"
         x:Class="PDSkeleton.SettingsPage"
         Title="Settings" >
     <ContentPage.Resources>
@@ -16,22 +17,25 @@
                            Keyboard="Text"
                            x:Name="entryCollectorName" />
                     <Label Text="Format:" />
-                    <Picker x:Name="pickerExportFormat"
-                            Title="Select Data Format"
-                            SelectedIndex = "0"
-                            SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
+                    <control:CustomPicker
+                        x:Name="pickerExportFormat"
+                        Title="Select Data Format"
+                        PlaceholderColor="#ffffff"
+                        SelectedIndex = "0"
+                        SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Darwin Core</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
-                    </Picker>
+                    </control:CustomPicker>
                     <Label Text="Starting Field Number:" />
                     <Entry Placeholder="1000000"
                            PlaceholderColor="White"
                        Keyboard="Numeric"
                        x:Name="entryStartingRecordNumber" />
                     <Button Text="Save Settings"
+                            BorderRadius="25"
                             x:Name="btnSaveSettings"
                             Clicked="btnSaveSettings_Clicked" />
                 </StackLayout>

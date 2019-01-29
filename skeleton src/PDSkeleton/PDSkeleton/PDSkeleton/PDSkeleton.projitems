@@ -79,6 +79,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AppVariables.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomPicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)HelpPage.xaml">

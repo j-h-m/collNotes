@@ -15,6 +15,7 @@ namespace PDSkeleton
     public static class ORM
     {
         private static SQLiteConnection Connection = null;
+        public static string SqliteFileName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "Library/PD_Project_Records.db3";
 
         private static void SetConnection()
         {

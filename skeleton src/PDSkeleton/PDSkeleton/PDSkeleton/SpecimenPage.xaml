@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:control="clr-namespace:PDSkeleton"             
              x:Class="PDSkeleton.SpecimenPage" 
              Title="Specimen">
     <ContentPage.Resources>
@@ -26,7 +27,8 @@
                            Keyboard="Text"
                        x:Name="entrySubstrate" />
                     <Label Text="Life Stage" />
-                    <Picker x:Name="pickerLifeStage"
+                    <control:CustomPicker x:Name="pickerLifeStage"
+                            PlaceholderColor="#ffffff"         
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             Title="Select A Life Stage" 
@@ -42,7 +44,7 @@
                                 <x:String>Other</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
-                    </Picker>
+                    </control:CustomPicker>
                     <Label Text="Other"
                            x:Name="lblOtherLifeStage"
                            IsVisible="false" />
@@ -67,12 +69,15 @@
                         x:Name="btnSetSpecimenPhoto"
                         Clicked="btnSetSpecimenPhoto_Clicked"/>
                     <Button Text="Set GPS"
+                            BorderRadius="25"
                         x:Name="btnSetSpecimenGPS"
                         Clicked="btnSetSpecimenGPS_Clicked"/>
                     <Button Text="New Specimen"
+                            BorderRadius="25"
                         x:Name="btnNewSpecimen"
                         Clicked="btnNewSpecimen_Clicked"/>
                     <Button Text="Save Specimen"
+                            BorderRadius="25"
                         x:Name="btnSaveSpecimen"
                         Clicked="btnSaveSpecimen_Clicked"/>     
                 </StackLayout>

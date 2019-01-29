@@ -7,8 +7,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Help Link" />
+            <Label Text="Help Link" 
+                   XAlign="Center" />
             <Button Text="Help"
+                    BorderRadius="25"
                     x:Name="btnHelp"
                     Clicked="btnHelp_Clicked"/>
         </StackLayout>

@@ -72,6 +72,11 @@ namespace PDSkeleton
             }
         }
 
+        private void ExportDatabaseFile() 
+        {
+            CrossShareFile.Current.ShareLocalFile(ORM.SqliteFileName, "Share Sqlite DB File");
+        }
+
         // Export CSV button event
         //  - creates the CSV for export of the selected Project
         public async void btnExportProjectCSV_Clicked(object sender, EventArgs e)

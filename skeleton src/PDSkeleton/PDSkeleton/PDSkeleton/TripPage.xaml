@@ -26,9 +26,11 @@
                         HorizontalOptions="Center"
                         DateSelected="dpCollectionDate_DateSelected" />
                     <Button x:Name="btnNewTrip"
+                        BorderRadius="25"
                         Text="New Trip"
                         Clicked="btnNewTrip_Clicked" />
                     <Button x:Name="btnSaveTrip"
+                        BorderRadius="25"
                         Text="Save Trip"
                         Clicked="btnSaveTrip_Clicked" />
                 </StackLayout>

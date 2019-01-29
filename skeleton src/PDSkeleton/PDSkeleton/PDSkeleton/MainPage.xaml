@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PDSkeleton"
              x:Class="PDSkeleton.MainPage"
-             Title="Plant Collector"
+             Title="collnotes"
              BackgroundColor="Teal">
     <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
         <Grid.RowDefinitions>
@@ -16,6 +16,7 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="btnCreateProject"
                 Text="Create Project"
+                FontSize="Large"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="NewProject_OnClick"
@@ -23,10 +24,11 @@
                 Grid.Column="0"
                 BackgroundColor="DodgerBlue"
                 TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BorderWidth="10"
+                BorderRadius="25" />
         <Button x:Name="btnCollect"
                 Text="Plant Collect"
+                FontSize="Large"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Collect_OnClick"
@@ -34,10 +36,11 @@
                 Grid.Column="1"
                 BackgroundColor="Orange"
                 TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BorderWidth="10"
+                BorderRadius="25" />
         <Button x:Name="btnExportProject"
                 Text="Export Project"
+                FontSize="Large"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="ExportProject_OnClick"
@@ -45,10 +48,11 @@
                 Grid.Column="0"
                 BackgroundColor="IndianRed"
                 TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BorderWidth="10"
+                BorderRadius="25" />
         <Button x:Name="btnSettings"
                 Text="Settings"
+                FontSize="Large"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Clicked="Settings_OnClick"
@@ -56,7 +60,7 @@
                 Grid.Column="1"
                 BackgroundColor="ForestGreen"
                 TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BorderWidth="10"
+                BorderRadius="25" />
     </Grid>
 </ContentPage>

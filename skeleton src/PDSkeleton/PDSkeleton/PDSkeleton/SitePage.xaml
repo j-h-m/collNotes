@@ -48,6 +48,7 @@
                         Clicked="btnNewSite_Clicked"/>
                     <Button x:Name="btnSaveSite"
                         Text="Save Site"
+                        BorderRadius="25"
                         Clicked="btnSaveSite_Clicked"/>                     
                 </StackLayout>
             </StackLayout>

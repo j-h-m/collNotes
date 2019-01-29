@@ -16,6 +16,8 @@ namespace PDSkeleton
         // fields
         private Project project;
 
+        public CollectingPage() { }
+
         // constructor accepts selected Project from MainPage
         public CollectingPage (Project project)
         {

@@ -1,6 +1,6 @@
 ﻿^ContentPage {
     background-color: #19435f;
-    padding: 10;
+    padding: 15;
 }
 
 datepicker,picker,switch
@@ -10,7 +10,7 @@ datepicker,picker,switch
 }
 
 entry {
-    color: white;
+    color: black;
     font-size: 18;
 }
 
@@ -27,4 +27,5 @@ button {
     align-self: center;
     font-size: 18;
     height: 50;
+    margin-top: 10;
 }
