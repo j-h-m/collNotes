@@ -67,14 +67,15 @@
                     <Label x:Name="lblStatusMessage"
                            IsVisible="false" />
                     <Button Text="Take Photo"
+                        BorderRadius="25"
                         x:Name="btnSetSpecimenPhoto"
                         Clicked="btnSetSpecimenPhoto_Clicked"/>
                     <Button Text="New Specimen"
-                            BorderRadius="25"
+                        BorderRadius="25"
                         x:Name="btnNewSpecimen"
                         Clicked="btnNewSpecimen_Clicked"/>
                     <Button Text="Save Specimen"
-                            BorderRadius="25"
+                        BorderRadius="25"
                         x:Name="btnSaveSpecimen"
                         Clicked="btnSaveSpecimen_Clicked"/>     
                 </StackLayout>

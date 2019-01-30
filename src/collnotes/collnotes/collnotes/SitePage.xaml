@@ -39,12 +39,15 @@
                     <Label x:Name="lblStatusMessage"
                            IsVisible="false"/>
                     <Button x:Name="btnSitePhoto"
+                        BorderRadius="25"
                         Text="Take Photo"
                         Clicked="btnSitePhoto_Clicked"/>
                     <Button Text="Set GPS"
+                        BorderRadius="25"
                         x:Name="btnSetSiteGPS"
                         Clicked="btnSetSiteGPS_Clicked"/>
                     <Button x:Name="btnNewSite"
+                        BorderRadius="25"
                         Text="New Site" 
                         Clicked="btnNewSite_Clicked"/>
                     <Button x:Name="btnSaveSite"

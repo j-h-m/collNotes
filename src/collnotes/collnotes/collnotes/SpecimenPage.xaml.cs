@@ -25,7 +25,7 @@ namespace collnotes
         public SpecimenPage(Specimen specimen)
         {
             this.specimen = specimen;
-            Site site = ORM.GetSiteByName(specimen.SiteName);
+            site = ORM.GetSiteByName(specimen.SiteName);
             InitializeComponent();
 
             editing = true;
@@ -136,7 +136,7 @@ namespace collnotes
             // update CollectionCount
             AppVariables.CollectionCount = specimen.SpecimenNumber;
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved specimen " + specimen.SpecimenName);
+            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved " + specimen.SpecimenName);
         }
 
         public void btnNewSpecimen_Clicked(object sender, EventArgs e)
