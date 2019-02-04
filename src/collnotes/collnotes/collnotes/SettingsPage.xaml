@@ -12,18 +12,24 @@
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Default Primary Collector:" />
+                    <Label Text="Default Primary Collector:"/>
                     <Entry Placeholder="John Doe"
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                           x:Name="entryCollectorName" />
+                           x:Name="entryCollectorName">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Format:" />
                     <control:CustomPicker
+                        FontSize="28"
                         x:Name="pickerExportFormat"
                         Title="Select Data Format"
-                        PlaceholderColor="#ffffff"
                         SelectedIndex = "0"
                         SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
+                        <control:CustomPicker.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </control:CustomPicker.TextColor>
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Darwin Core</x:String>
@@ -32,9 +38,12 @@
                     </control:CustomPicker>
                     <Label Text="Starting Field Number:" />
                     <Entry Placeholder="1000000"
-                           PlaceholderColor="White"
-                       Keyboard="Numeric"
-                       x:Name="entryStartingRecordNumber" />
+                           Keyboard="Numeric"
+                           x:Name="entryStartingRecordNumber">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Button Text="Save Settings"
                             BorderRadius="25"
                             x:Name="btnSaveSettings"

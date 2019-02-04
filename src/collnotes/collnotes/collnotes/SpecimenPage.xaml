@@ -14,26 +14,38 @@
                 <StackLayout Orientation="Vertical">
                     <Label Text="Field ID" />
                     <Entry Placeholder="Binomial or Common"
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                       x:Name="entryFieldID" />
+                       x:Name="entryFieldID">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Occurrence Notes" />
                     <Entry Placeholder="Tallest in the stand"
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                       x:Name="entryOccurrenceNotes" />
+                       x:Name="entryOccurrenceNotes">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Substrate" />
                     <Entry Placeholder="mycorrhizal with Ent."
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                       x:Name="entrySubstrate" />
+                       x:Name="entrySubstrate">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Life Stage" />
                     <control:CustomPicker x:Name="pickerLifeStage"
-                            PlaceholderColor="#ffffff"         
+                          FontSize="28"      
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             Title="Select A Life Stage" 
                             SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
+                        <control:CustomPicker.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </control:CustomPicker.TextColor> 
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Vegetative</x:String>
@@ -50,10 +62,13 @@
                            x:Name="lblOtherLifeStage"
                            IsVisible="false" />
                     <Entry Placeholder="Other..."
-                           PlaceholderColor="White"
                            Keyboard="Text"
                            x:Name="entryOtherLifeStage" 
-                           IsVisible="false" />
+                           IsVisible="false">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Cultivated" />
                     <Switch x:Name="switchCultivated"
                         VerticalOptions="Center"
@@ -61,9 +76,12 @@
                         Toggled="switchCultivated_Toggled"/>
                     <Label Text="Indiv. Count ≥" />
                     <Entry Placeholder="Est. qty. ≥"
-                           PlaceholderColor="White"
                            Keyboard="Numeric"
-                       x:Name="entryIndivCount" />
+                       x:Name="entryIndivCount">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label x:Name="lblStatusMessage"
                            IsVisible="false" />
                     <Button Text="Take Photo"

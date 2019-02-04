@@ -15,7 +15,6 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
         <Button x:Name="btnEditProject"
                 Text="Edit This Project"
                 FontSize="Large"

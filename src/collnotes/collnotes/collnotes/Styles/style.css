@@ -3,14 +3,17 @@
     padding: 15;
 }
 
-datepicker,picker,switch,custompicker
+switch
 {
     color: white;
     font-size: 18;
 }
 
+datepicker {
+    font-size: 18;
+}
+
 entry {
-    color: white;
     font-size: 18;
 }
 

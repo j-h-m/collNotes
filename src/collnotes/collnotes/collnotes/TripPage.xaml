@@ -14,18 +14,28 @@
                     <Label Text="Trip Name:" />
                     <Entry x:Name="entryTripName"
                            Keyboard="Text"
-                           PlaceholderColor="White"
-                           Placeholder="Trip name"/>
+                           Placeholder="Trip name">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Additional Collectors:" />
                     <Entry x:Name="entryAdditionalCollectors"
                            Keyboard="Text"
-                           PlaceholderColor="White"
-                           Placeholder="First Last, ... " />
+                           Placeholder="First Last, ... ">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Collection Date:" />
                     <DatePicker x:Name="dpCollectionDate"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
-                        DateSelected="dpCollectionDate_DateSelected" />
+                        DateSelected="dpCollectionDate_DateSelected">
+                        <DatePicker.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </DatePicker.TextColor>
+                    </DatePicker>
                     <Button x:Name="btnNewTrip"
                         BorderRadius="25"
                         Text="New Trip"

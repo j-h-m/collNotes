@@ -14,38 +14,54 @@
                     <Label Text="Site Name:" />
                     <Entry x:Name="entrySiteName"
                            Keyboard="Text"
-                           PlaceholderColor="White"
-                           Placeholder="Site name" />
+                           Placeholder="Site name">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Locality" />
                     <Entry Placeholder="10km from trail head..."
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                           x:Name="entryLocality" />
+                           x:Name="entryLocality" >
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Habitat" />
                     <Entry Placeholder="Pine Forest"
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                           x:Name="entryHabitat" />
+                           x:Name="entryHabitat">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Associated Taxa" />
                     <Entry Placeholder="Site wide 'field calls'"
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                           x:Name="entryAssocTaxa" />
+                           x:Name="entryAssocTaxa">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
                     <Label Text="Location Notes" />
                     <Entry Placeholder="Popular campground"
-                           PlaceholderColor="White"
                            Keyboard="Text"
-                           x:Name="entryLocationNotes" />
-                    <Label x:Name="lblStatusMessage"
-                           IsVisible="false"/>
-                    <Button x:Name="btnSitePhoto"
-                        BorderRadius="25"
-                        Text="Take Photo"
-                        Clicked="btnSitePhoto_Clicked"/>
+                           x:Name="entryLocationNotes">
+                        <Entry.TextColor>
+                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
+                        </Entry.TextColor>
+                    </Entry>
+                    <Label x:Name="lblStatusMessage" 
+                           Text="Remember to get Location!"
+                           TextColor="Red"/>
                     <Button Text="Set GPS"
                         BorderRadius="25"
                         x:Name="btnSetSiteGPS"
                         Clicked="btnSetSiteGPS_Clicked"/>
+                    <Button x:Name="btnSitePhoto"
+                        BorderRadius="25"
+                        Text="Take Photo"
+                        Clicked="btnSitePhoto_Clicked"/>
                     <Button x:Name="btnNewSite"
                         BorderRadius="25"
                         Text="New Site" 
