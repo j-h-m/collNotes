@@ -27,8 +27,7 @@ namespace collnotes
 
             List<string> projectNameList = new List<string>();
 
-            foreach (Project p in projectList)
-            {
+            foreach (Project p in projectList) {
                 projectNameList.Add(p.ProjectName);
             }
 
@@ -39,17 +38,14 @@ namespace collnotes
         {
             try
             {
-                foreach (Project p in projectList)
-                {
-                    if (p.ProjectName.Equals(pickerExportProject.SelectedItem.ToString()))
-                    {
+                foreach (Project p in projectList) {
+                    if (p.ProjectName.Equals(pickerExportProject.SelectedItem.ToString())) {
                         selectedProject = p;
                         break;
                     }
                 }
 
-                if (!(selectedProject is null))
-                {
+                if (!(selectedProject is null)) {
                     await CSVExport_Helper();
                 }
             }
@@ -68,15 +64,13 @@ namespace collnotes
         {
             var result = await CheckExternalFilePermissions();
 
-            if (!result)
-            {
+            if (!result) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Storage permission required for data export!");
             }
 
             try
             {
-                if (selectedProject == null)
-                {
+                if (selectedProject == null) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("Select a Project first");
                     return;
                 }
@@ -87,14 +81,12 @@ namespace collnotes
                 // get Sites for each Trip
                 Dictionary<string, List<Site>> sitesForTrips = new Dictionary<string, List<Site>>();
 
-                foreach (Trip trip in selectedProjectTrips)
-                {
+                foreach (Trip trip in selectedProjectTrips) {
                     List<Site> sites = ORM.GetSites(trip.TripName);
                     sitesForTrips.Add(trip.TripName, sites);
                 }
 
-                if (sitesForTrips.Count == 0)
-                {
+                if (sitesForTrips.Count == 0) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("No trips.");
                     return;
                 }
@@ -102,17 +94,14 @@ namespace collnotes
                 // get Specimen for each Site
                 Dictionary<string, List<Specimen>> specimenForSites = new Dictionary<string, List<Specimen>>();
 
-                foreach (var trip in sitesForTrips) // trip, list<site>
-                {
-                    foreach (var site in trip.Value) // go through list<site>
-                    {
+                foreach (var trip in sitesForTrips) { // trip, list<site>
+                    foreach (var site in trip.Value) { // go through list<site>
                         List<Specimen> specimenList = ORM.GetSpecimen(site.SiteName);
                         specimenForSites.Add(site.SiteName, specimenList);
                     }
                 }
 
-                if (specimenForSites.Count == 0)
-                {
+                if (specimenForSites.Count == 0) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("No sites.");
                     return;
                 }
@@ -120,8 +109,7 @@ namespace collnotes
                 // csv content string to write to file
                 string csvContent = "";
 
-                switch (AppVariables.DataExportFormat)
-                {
+                switch (AppVariables.DataExportFormat) {
                     case "Darwin Core":
                         csvContent = CreateCSVForExport(DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
                         break;
@@ -157,8 +145,7 @@ namespace collnotes
             string csvContent = "";
 
             // call function to generate csv data based on format
-            switch (det)
-            {
+            switch (det) {
                 case DataExportType.DarwinCore:
                     csvContent = GenDarwinCore(selectedProjectTrips, specimenForSites, sitesForTrips);
                     break;
@@ -176,8 +163,7 @@ namespace collnotes
                 "Label Project,samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
                 "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + Environment.NewLine;
 
-            foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites)
-            {
+            foreach (KeyValuePair<string, List<Specimen>> sitesSpecimen in specimenForSites) {
                 // get site, trip info using the site name
                 string siteName = sitesSpecimen.Key;
                 string tripName = "";
@@ -204,12 +190,10 @@ namespace collnotes
 
                 // specimen level data
                 // foreach (Specimen spec in sitesSpecimen.Value)
-                for (int i = -1; i < sitesSpecimen.Value.Count; i++)
-                {
+                for (int i = -1; i < sitesSpecimen.Value.Count; i++) {
                     int specimenNumber;
                     string genericColumn2, individualCount, reproductiveCondition, occurrenceRemarks, substrate, establishmentMeans, genericColumn1, latitude, longitude, coordinateUncertaintyMeters, minimumElevationMeters;
-                    if (i == -1) // add the site # record
-                    {
+                    if (i == -1) { // add the site # record
                         specimenNumber = -1; // should match a collector's desired collection count*
                         genericColumn2 = "";
                         individualCount = "";
@@ -222,9 +206,7 @@ namespace collnotes
                         longitude = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[1] : "";
                         coordinateUncertaintyMeters = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[2] : "";
                         minimumElevationMeters = (!refSite.GPSCoordinates.Equals("")) ? minimumElevationMeters = refSite.GPSCoordinates.Split(',')[3] : "";
-                    }
-                    else
-                    {
+                    } else {
                         Specimen spec = sitesSpecimen.Value[i];
                         specimenNumber = spec.SpecimenNumber; // should match a collector's desired collection count*
                         genericColumn2 = spec.AdditionalInfo;
@@ -272,10 +254,8 @@ namespace collnotes
         public async Task<bool> CheckExternalFilePermissions()
         {
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-            if (status != PermissionStatus.Granted)
-            {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
-                {
+            if (status != PermissionStatus.Granted) {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage)) {
                     return false;
                 }
 
@@ -285,12 +265,9 @@ namespace collnotes
                     status = results[Permission.Storage];
             }
 
-            if (status == PermissionStatus.Granted)
-            {
+            if (status == PermissionStatus.Granted) {
                 return true;
-            }
-            else if (status != PermissionStatus.Unknown)
-            {
+            } else if (status != PermissionStatus.Unknown) {
                 return false;
             }
 

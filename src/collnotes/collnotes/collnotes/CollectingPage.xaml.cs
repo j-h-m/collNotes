@@ -32,15 +32,13 @@ namespace collnotes
             {
                 List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
-                if (tripList.Count == 0)
-                {
+                if (tripList.Count == 0) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Trip first!");
                     return;
                 }
 
                 string[] trips = new string[tripList.Count];
-                for (int i = 0; i < trips.Length; i++)
-                {
+                for (int i = 0; i < trips.Length; i++) {
                     trips[i] = tripList[i].TripName;
                 }
 
@@ -48,10 +46,8 @@ namespace collnotes
 
                 Debug.WriteLine("Trip chosen: " + action);
 
-                foreach (Trip t in tripList)
-                {
-                    if (t.TripName == action)
-                    {
+                foreach (Trip t in tripList) {
+                    if (t.TripName == action) {
                         await Navigation.PushAsync(new SitePage(t));
                         break;
                     }
@@ -74,18 +70,15 @@ namespace collnotes
 
                 List<Site> allSites = new List<Site>();
 
-                foreach (Trip trip in tripList)
-                {
+                foreach (Trip trip in tripList) {
                     List<Site> tripSiteList = ORM.GetSites(trip.TripName);
-                    foreach (Site site in tripSiteList)
-                    {
+                    foreach (Site site in tripSiteList) {
                         allSites.Add(site);
                     }
                 }
 
                 string[] sites = new string[allSites.Count + 1];
-                for (int i = 0; i < sites.Length - 1; i++)
-                {
+                for (int i = 0; i < sites.Length - 1; i++) {
                     sites[i] = allSites[i].SiteName;
                 }
 
@@ -96,8 +89,7 @@ namespace collnotes
 
                 Debug.WriteLine("Action chosen: " + action);
 
-                if (action.Contains("Specimen"))
-                {
+                if (action.Contains("Specimen")) {
                     // if trip-today exists, add to it
                     // else add trip-today, add to it
                     Trip trip = new Trip
@@ -106,8 +98,7 @@ namespace collnotes
                         TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy"),
                         CollectionDate = DateTime.Now
                     };
-                    if (!ORM.CheckExists(trip))
-                    {
+                    if (!ORM.CheckExists(trip)) {
                         ORM.InsertObject(trip);
                     }
                     // if site-today exists, add to it
@@ -118,8 +109,7 @@ namespace collnotes
                         TripName = trip.TripName,
                         GPSCoordinates = await CurrentGPS.CurrentLocation()
                     };
-                    if (!ORM.CheckExists(site))
-                    {
+                    if (!ORM.CheckExists(site)) {
                         ORM.InsertObject(site);
                     }
                     // add this specimen to the specimen database
@@ -134,8 +124,7 @@ namespace collnotes
 
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(action + " saved!");
                 }
-                else
-                {
+                else {
                     await Navigation.PushAsync(new SpecimenPage(ORM.GetSiteByName(action)));
                 }
             }

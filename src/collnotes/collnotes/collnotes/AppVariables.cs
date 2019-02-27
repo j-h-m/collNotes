@@ -18,53 +18,42 @@ namespace collnotes
         public static void WriteAppVars()
         {
             string vars = "";
-            if (AppVariables.CollectorName != null)
-            {
+            if (AppVariables.CollectorName != null) {
                 vars += "CN-" + AppVariables.CollectorName + "|";
             }
-            if (AppVariables.CollectionCount != 0)
-            {
+            if (AppVariables.CollectionCount != 0) {
                 vars += "CC-" + AppVariables.CollectionCount.ToString() + "|";
             }
-            if (AppVariables.DataExportFormat != null)
-            {
+            if (AppVariables.DataExportFormat != null) {
                 vars += "DF-" + AppVariables.DataExportFormat + "|";
             }
-            if (AppVariables.LastProject != null)
-            {
+            if (AppVariables.LastProject != null) {
                 vars += "LP-" + AppVariables.LastProject + "|";
             }
 
             string[] varSplit = vars.Split('|');
 
-            if (varSplit.Length > 0)
-            {
+            if (varSplit.Length > 0) {
                 File.WriteAllText(filePath, vars);
             }
         }
 
         public static bool ReadAppVars()
         {
-            if (!File.Exists(filePath))
-            {
+            if (!File.Exists(filePath)) {
                 return false;
             }
-            else 
-            {
+            else  {
                 string vars = File.ReadAllText(filePath);
 
                 string[] varSplit = vars.Split('|');
 
-                if (varSplit.Length > 0)
-                {
-                    foreach (var item in varSplit)
-                    {
-                        if (item.Equals(""))
-                        {
+                if (varSplit.Length > 0) {
+                    foreach (var item in varSplit) {
+                        if (item.Equals("")) {
                             break;
                         }
-                        switch (item.Substring(0,2))
-                        {
+                        switch (item.Substring(0,2)) {
                             case "CN":
                                 AppVariables.CollectorName = item.Substring(3);
                                 break;

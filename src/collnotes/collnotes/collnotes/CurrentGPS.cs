@@ -24,10 +24,8 @@ namespace collnotes
                 locator.DesiredAccuracy = 100; // 100 is highest accuracy, see Plugin doc about this value
 
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (status != PermissionStatus.Granted)
-                {
-                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-                    {
+                if (status != PermissionStatus.Granted) {
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location)) {
                         return "";
                     }
 
@@ -37,8 +35,7 @@ namespace collnotes
                         status = results[Permission.Location];
                 }
 
-                if (status == PermissionStatus.Granted)
-                {
+                if (status == PermissionStatus.Granted) {
                     // get position
                     position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
 
@@ -53,8 +50,7 @@ namespace collnotes
                     return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + 
                         position.Accuracy.ToString() + "," + position.Altitude.ToString();
                 }
-                else
-                {
+                else {
                     return "";
                 }
             }

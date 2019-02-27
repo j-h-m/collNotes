@@ -31,6 +31,8 @@ namespace collnotes
             editing = true;
             InitializeComponent();
 
+            this.Title = site.RecordNo.ToString() + "-#";
+
             entrySiteName.Text = site.SiteName;
             entrySiteName.IsEnabled = false;
             btnNewSite.IsEnabled = false;
@@ -43,13 +45,13 @@ namespace collnotes
         private void LoadDefaults()
         {
             entrySiteName.Text = "Site-" + (ORM.GetAllSitesCount() + 1).ToString();
+            this.Title = (ORM.GetAllSitesCount() + 1).ToString() + "-#";
         }
 
         public async void btnSitePhoto_Clicked(object sender, EventArgs e)
         {
             // get site name
-            if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
-            {
+            if (entrySiteName.Text is null || entrySiteName.Text.Equals("")) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Name the Site before taking photo.");
                 return;
             }
@@ -59,8 +61,7 @@ namespace collnotes
 
         public async void btnSaveSite_Clicked(object sender, EventArgs e)
         {
-            if (editing) // editing should only require all existing information to be changed
-            {
+            if (editing) { // editing should only require all existing information to be changed
                 site.AssociatedTaxa = (entryAssocTaxa.Text is null) ? "" : entryAssocTaxa.Text;
                 site.GPSCoordinates = siteGPS.Equals("") ? site.GPSCoordinates : siteGPS;
                 site.Habitat = (entryHabitat.Text is null) ? "" : entryHabitat.Text;
@@ -68,20 +69,16 @@ namespace collnotes
                 site.LocationNotes = (entryLocationNotes.Text is null) ? "" : entryLocationNotes.Text;
 
                 int updateResult = ORM.GetConnection().Update(site, typeof(Site));
-                if (updateResult == 1)
-                {
+                if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update succeeded.");
                     return;
-                }
-                else
-                {
+                } else {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update failed.");
                     return;
                 }
             }
 
-            if (siteGPS.Equals(""))
-            {
+            if (siteGPS.Equals("")) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Record the Site GPS first!");
                 return;
             }
@@ -91,8 +88,7 @@ namespace collnotes
             site.TripName = trip.TripName;
 
             // only require name to save Site
-            if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
-            {
+            if (entrySiteName.Text is null || entrySiteName.Text.Equals("")) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter a name for Site!");
                 return;
             }
@@ -105,8 +101,7 @@ namespace collnotes
             site.LocationNotes = entryLocationNotes.Text is null ? "" : entryLocationNotes.Text;
 
             // check for duplicate names before saving
-            if (ORM.CheckExists(site))
-            {
+            if (ORM.CheckExists(site)) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a site with the same name!");
                 return;
             }
@@ -117,6 +112,8 @@ namespace collnotes
             Debug.WriteLine("inserted site, recordno is: " + autoKeyResult.ToString());
             // automatically navigate to the specimen page after creating the site
             await Navigation.PushAsync(new SpecimenPage(site));
+
+            btnNewSite_Clicked(this, e);
         }
 
         public async void btnSetSiteGPS_Clicked(object sender, EventArgs e)
@@ -127,13 +124,10 @@ namespace collnotes
 
             siteGPS = await CurrentGPS.CurrentLocation();
 
-            if (siteGPS.Equals(""))
-            {
+            if (siteGPS.Equals("")) {
                 lblStatusMessage.TextColor = Color.Red;
                 lblStatusMessage.Text = "Failed to get location";
-            }
-            else
-            {
+            } else {
                 lblStatusMessage.TextColor = Color.Green;
                 lblStatusMessage.Text = "Location Received";
             }
@@ -157,7 +151,7 @@ namespace collnotes
 
             LoadDefaults();
 
-            DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Site");
+            //DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Site");
         }
     }
 }

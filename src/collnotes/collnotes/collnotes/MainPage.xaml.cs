@@ -25,8 +25,7 @@ namespace collnotes
                 List<Project> projectList = ORM.GetProjects();
 
                 string[] projects = new string[projectList.Count + 1];
-                for (int i = 0; i < projects.Length - 1; i++)
-                {
+                for (int i = 0; i < projects.Length - 1; i++) {
                     projects[i] = projectList[i].ProjectName;
                 }
 
@@ -40,49 +39,35 @@ namespace collnotes
 
                 bool dayPExists = false;
 
-                foreach (var p in projectList)
-                {
-                    if (p.ProjectName.Equals(todayProject.ProjectName))
-                    {
+                foreach (var p in projectList) {
+                    if (p.ProjectName.Equals(todayProject.ProjectName)) {
                         dayPExists = true;
                         break;
                     }
                 }
 
-                if (!dayPExists)
-                {
+                if (!dayPExists) {
                     projectList.Add(todayProject);
-
                     projects[projects.Length - 1] = string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"));
-                }
-                else
-                {
+                } else {
                     projects = (from p in projectList
                                 select p.ProjectName).ToArray();
                 }
 
                 var action = await DisplayActionSheet("Choose a project", "Cancel", null, projects);
 
-                foreach (Project p in projectList)
-                {
-                    if (p.ProjectName.Equals(action))
-                    {
-                        if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"))))
-                        { // add today project to database if it is selected
-                            if (!ORM.CheckExists(p))
-                            {
+                foreach (Project p in projectList) {
+                    if (p.ProjectName.Equals(action)) {
+                        if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy")))) { // add today project to database if it is selected
+                            if (!ORM.CheckExists(p)) {
                                 int autoKeyResult = ORM.InsertObject(p);
                                 await Navigation.PushAsync(new CollectingPage(p));
                                 break;
-                            }
-                            else
-                            {
+                            } else {
                                 await Navigation.PushAsync(new CollectingPage(p));
                                 break;
                             }
-                        }
-                        else
-                        {
+                        } else {
                             await Navigation.PushAsync(new CollectingPage(p));
                             break;
                         }
@@ -102,12 +87,9 @@ namespace collnotes
             {
                 List<Project> projectList = ORM.GetProjects();
 
-                if (projectList.Count > 0)
-                {
+                if (projectList.Count > 0) {
                     await Navigation.PushAsync(new ExportProject());
-                }
-                else
-                {
+                } else {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("No projects to export!");
                 }
             }

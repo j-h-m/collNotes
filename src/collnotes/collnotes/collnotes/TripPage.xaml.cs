@@ -52,27 +52,22 @@ namespace collnotes
 
         public async void btnSaveTrip_Clicked(object sender, EventArgs e)
         {
-            if (editing)
-            {
+            if (editing) {
                 trip.AdditionalCollectors = (entryAdditionalCollectors.Text is null) ? "" : entryAdditionalCollectors.Text;
                 trip.CollectionDate = dateChanged ? dpCollectionDate.Date : trip.CollectionDate;
 
                 int updateResult = ORM.GetConnection().Update(trip, typeof(Trip));
-                if (updateResult == 1)
-                {
+                if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " update succeeded.");
                     return;
-                }
-                else
-                {
+                } else {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " update failed.");
                     return;
                 }
             }
 
             // check to make sure name is present
-            if (entryTripName.Text is null || entryTripName.Text.Equals(""))
-            {
+            if (entryTripName.Text is null || entryTripName.Text.Equals("")) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Trip name is required.");
                 return;
             }
@@ -83,8 +78,7 @@ namespace collnotes
             trip.CollectionDate = dpCollectionDate.Date;
 
             // check for duplicate names before saving
-            if (ORM.CheckExists(trip))
-            {
+            if (ORM.CheckExists(trip)) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a trip with the same name!");
                 return;
             }
@@ -106,7 +100,6 @@ namespace collnotes
             entryTripName.Text = "";
             entryAdditionalCollectors.Text = "";
             trip.ProjectName = project.ProjectName;
-
             LoadDefaults();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Trip");

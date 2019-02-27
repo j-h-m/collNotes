@@ -46,27 +46,22 @@ namespace collnotes
 
         private async void btnSaveProject_Clicked(object sender, EventArgs e)
         {
-            if (editing)
-            {
+            if (editing) {
                 project.PrimaryCollector = (entryPrimaryCollectorProject.Text is null) ? "" : entryPrimaryCollectorProject.Text;
                 project.CreatedDate = dateChanged ? dpCreatedDate.Date : project.CreatedDate;
 
                 int updateResult = ORM.GetConnection().Update(project, typeof(Project));
-                if (updateResult == 1)
-                {
+                if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update succeeded.");
                     return;
-                }
-                else
-                {
+                } else {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update failed.");
                     return;
                 }
             }
 
             // check to make sure name is present
-            if (entryProjectName.Text is null || entryProjectName.Text.Equals(""))
-            {
+            if (entryProjectName.Text is null || entryProjectName.Text.Equals("")) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project name is required.");
                 return;
             }
@@ -76,8 +71,7 @@ namespace collnotes
             project.CreatedDate = dpCreatedDate.Date;
 
             // check for duplicate names first
-            if (ORM.CheckExists(project))
-            {
+            if (ORM.CheckExists(project)) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert($"'{project.ProjectName}' already exists. Enter a Unique name for a new.");
                 return;
             }

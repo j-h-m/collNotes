@@ -18,17 +18,14 @@ namespace collnotes
             var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
             var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
 
-            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            {
+            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted) {
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
                 cameraStatus = results[Permission.Camera];
                 storageStatus = results[Permission.Storage];
             }
 
-            if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
-            {
-                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-                {
+            if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted) {
+                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions {
                     SaveToAlbum = true,
                     Directory = "PD-Photos",
                     Name = fileNamePrefix + "-" + DateTime.Now.ToString("MM-dd-yyyy")

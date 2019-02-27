@@ -32,17 +32,14 @@ namespace collnotes
                 List<Trip> tripList = ORM.GetTrips(project.ProjectName);
 
                 string[] trips = new string[tripList.Count];
-                for (int i = 0; i < trips.Length; i++)
-                {
+                for (int i = 0; i < trips.Length; i++) {
                     trips[i] = tripList[i].TripName;
                 }
 
                 var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);
 
-                foreach (Trip t in tripList)
-                {
-                    if (t.TripName == action)
-                    {
+                foreach (Trip t in tripList) {
+                    if (t.TripName == action) {
                         await Navigation.PushAsync(new TripPage(t));
                         break;
                     }
@@ -63,23 +60,19 @@ namespace collnotes
 
                 List<Site> siteList = new List<Site>();
 
-                foreach (Trip trip in tripList)
-                {
+                foreach (Trip trip in tripList) {
                     siteList.AddRange(ORM.GetSites(trip.TripName));
                 }
 
                 string[] sites = new string[siteList.Count];
-                for (int i = 0; i < sites.Length; i++)
-                {
+                for (int i = 0; i < sites.Length; i++) {
                     sites[i] = siteList[i].SiteName;
                 }
 
                 var action = await DisplayActionSheet("Choose a Site", "Cancel", null, sites);
 
-                foreach (Site s in siteList)
-                {
-                    if (s.SiteName == action)
-                    {
+                foreach (Site s in siteList) {
+                    if (s.SiteName == action) {
                         await Navigation.PushAsync(new SitePage(s));
                         break;
                     }
@@ -100,30 +93,25 @@ namespace collnotes
 
                 List<Site> siteList = new List<Site>();
 
-                foreach (Trip trip in tripList)
-                {
+                foreach (Trip trip in tripList) {
                     siteList.AddRange(ORM.GetSites(trip.TripName));
                 }
 
                 List<Specimen> specimenList = new List<Specimen>();
 
-                foreach (Site site in siteList)
-                {
+                foreach (Site site in siteList) {
                     specimenList.AddRange(ORM.GetSpecimen(site.SiteName));
                 }
 
                 string[] specimens = new string[specimenList.Count];
-                for (int i = 0; i < specimens.Length; i++)
-                {
+                for (int i = 0; i < specimens.Length; i++) {
                     specimens[i] = specimenList[i].SpecimenName;
                 }
 
                 var action = await DisplayActionSheet("Choose a Specimen", "Cancel", null, specimens);
 
-                foreach (Specimen s in specimenList)
-                {
-                    if (s.SpecimenName.Equals(action))
-                    {
+                foreach (Specimen s in specimenList) {
+                    if (s.SpecimenName.Equals(action)) {
                         await Navigation.PushAsync(new SpecimenPage(s));
                         break;
                     }

@@ -16,21 +16,17 @@ namespace collnotes
             pickerExportFormat.SelectedItem = (AppVariables.DataExportFormat is null) ? "" : AppVariables.DataExportFormat;
         }
 
-        void pickerExportFormat_SelectedIndexChange(object sender, EventArgs e)
-        { }
+        void pickerExportFormat_SelectedIndexChange(object sender, EventArgs e) { }
 
         void btnSaveSettings_Clicked(object sender, EventArgs e)
         {
-            if (!entryStartingRecordNumber.Text.Equals(""))
-            {
+            if (!entryStartingRecordNumber.Text.Equals("")) {
                 AppVariables.CollectionCount = int.Parse(entryStartingRecordNumber.Text);
             }
-            if (!entryCollectorName.Text.Equals(""))
-            {
+            if (!entryCollectorName.Text.Equals("")) {
                 AppVariables.CollectorName = entryCollectorName.Text;
             }
-            if (pickerExportFormat.SelectedIndex != -1)
-            {
+            if (pickerExportFormat.SelectedIndex != -1) {
                 AppVariables.DataExportFormat = pickerExportFormat.SelectedItem.ToString();
             }
 
