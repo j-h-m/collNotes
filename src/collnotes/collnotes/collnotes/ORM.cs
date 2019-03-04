@@ -26,7 +26,9 @@ namespace collnotes
         public static SQLiteConnection GetConnection()
         {
             if (Connection != null)
+            {
                 return Connection;
+            }
             else
             {
                 SetConnection();
@@ -186,6 +188,20 @@ string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Persona
         public static int GetAllSitesCount()
         {
             return GetConnection().Query<Site>("select * from Site").Count;
+        }
+
+        public static int GetSpecimenCount()
+        {
+            int count = 0;
+            try
+            {
+                count = GetConnection().Query<Specimen>("select * from Specimen").Count;
+            }
+            catch (Exception ex)
+            {
+                count = 0;
+            }
+            return count;
         }
 
         public static Project GetProjectByName(string name)

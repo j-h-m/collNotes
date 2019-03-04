@@ -82,12 +82,15 @@ namespace collnotes
                     sites[i] = allSites[i].SiteName;
                 }
 
-                sites[allSites.Count] = "Specimen" + (AppVariables.CollectionCount + 1).ToString();
-                AppVariables.CollectionCount += 1;
+                sites[allSites.Count] = "Specimen-" + (AppVariables.CollectionCount + 1).ToString();
 
                 var action = await DisplayActionSheet("Choose a Site, or add default Specimen", "Cancel", null, sites);
 
                 Debug.WriteLine("Action chosen: " + action);
+
+                if (action.Equals("Cancel")) {
+                    return;
+                }
 
                 if (action.Contains("Specimen")) {
                     // if trip-today exists, add to it
@@ -114,13 +117,16 @@ namespace collnotes
                     }
                     // add this specimen to the specimen database
                     // message user that specimen was added
-                    Specimen specimen = new Specimen();
-                    specimen.SiteName = site.SiteName;
-                    specimen.SpecimenName = action;
-                    specimen.SpecimenNumber = AppVariables.CollectionCount;
-                    specimen.GPSCoordinates = await CurrentGPS.CurrentLocation();
+                    Specimen specimen = new Specimen
+                    {
+                        SiteName = site.SiteName,
+                        SpecimenName = action,
+                        SpecimenNumber = AppVariables.CollectionCount,
+                        GPSCoordinates = site.GPSCoordinates
+                    };
 
                     ORM.InsertObject(specimen);
+                    AppVariables.CollectionCount += 1;
 
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(action + " saved!");
                 }

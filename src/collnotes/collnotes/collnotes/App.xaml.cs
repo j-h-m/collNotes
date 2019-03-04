@@ -20,6 +20,11 @@ namespace collnotes
             // Handle when your app starts
             // load app variables from file
             bool result = AppVarsFile.ReadAppVars();
+
+            if (!result) {
+                AppVariables.CollectionCount = ORM.GetSpecimenCount();
+            }
+
             // create tables for ORM, if not already created
             ORM.GetConnection().CreateTable<Project>();
             ORM.GetConnection().CreateTable<Trip>();

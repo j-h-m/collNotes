@@ -154,14 +154,6 @@ namespace collnotes
             return csvContent;
         }
 
-        //                      | |        | | | | (_)
-        // ___ _ __   __ _  __ _| |__ ___| |_| |_ _ 
-        /// __| '_ \ / _` |/ _` | '_ \ / _ \ __| __| |
-        //\__ \ |_) | (_| | (_| | | | |  __/ |_| |_| |
-        //|___/ .__/ \__,_|\__, |_| |_|\___|\__|\__|_|
-        //| |           __/ |                     
-        //|_|          |___/                      
-
         private string GenDarwinCore(List<Trip> selectedProjectTrips, Dictionary<string, List<Specimen>> specimenForSites, Dictionary<string, List<Site>> sitesForTrips)
         {
             string csvContent = "";
