@@ -10,7 +10,12 @@ using Plugin.Permissions;
 
 namespace collnotes.Droid
 {
-    [Activity(Label = "collnotes", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "collnotes", 
+        Icon = "@drawable/icon",
+        RoundIcon = "@drawable/icon_round",
+        Theme = "@style/MainTheme", 
+        MainLauncher = true, 
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
