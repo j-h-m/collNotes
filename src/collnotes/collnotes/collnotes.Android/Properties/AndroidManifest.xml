@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.thc.collnotes" android:installLocation="auto" android:versionName="1.1" android:versionCode="2">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.thc.collnotes" android:installLocation="auto" android:versionName="1.2" android:versionCode="3">
 	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -7,7 +7,7 @@
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<application android:label="collnotes.Android" android:icon="@drawable/icon">
-		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.pdsolution.collnotes.fileprovider" android:exported="false" android:grantUriPermissions="true">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.thc.collnotes.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
 	</application>
