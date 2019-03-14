@@ -1,7 +1,5 @@
 # collNotes - ![Build status](https://ci.appveyor.com/api/projects/status/gyx4070e1qxhd1lm?svg=true)
 
-A pdProject app that pairs with [collBook](https://github.com/CapPow/collBook).
+collNotes is an Android and iOS App, using Xamarin technology. Replaces, or supplements, a field biologist's traditional journal.
 
-Xamarin Forms app that targets iOS and Android devices.
-
-Build testing with [Appveyor](https://www.appveyor.com/).
+collNotes sister app [collBook](https://github.com/CapPow/collBook).

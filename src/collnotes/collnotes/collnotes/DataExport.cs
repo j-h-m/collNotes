@@ -33,7 +33,7 @@ namespace collnotes
             string csvContent = "";
 
             // 27 column header
-            csvContent += "siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
+            csvContent += "recordNumber,siteNumber,specimenNumber,genericcolumn2,associatedCollectors,habitat,individualCount,reproductiveCondition,locality,locationRemarks,occurrenceRemarks,recordedBy," +
                 "Label Project,samplingEffort,substrate,associatedTaxa,eventDate,establishmentMeans,genericcolumn1,decimalLatitude,decimalLongitude,coordinateUncertaintyInMeters,minimumElevationInMeters," +
                 "scientificName,scientificNameAuthorship,country,stateProvince,county,path" + Environment.NewLine;
 
