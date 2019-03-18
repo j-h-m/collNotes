@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
 
 namespace collnotes
 {

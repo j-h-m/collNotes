@@ -7,6 +7,8 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using collnotes.Data;
+using collnotes.Interfaces;
 
 namespace collnotes
 {
@@ -18,7 +20,7 @@ namespace collnotes
         public ExportProject()
         {
             InitializeComponent();
-            projectList = ORM.GetProjects();
+            projectList = DataFunctions.GetProjects();
 
             List<string> projectNameList = new List<string>();
 
@@ -71,13 +73,13 @@ namespace collnotes
                 }
 
                 // get Trips for selected Project
-                List<Trip> selectedProjectTrips = ORM.GetTrips(selectedProject.ProjectName);
+                List<Trip> selectedProjectTrips = DataFunctions.GetTrips(selectedProject.ProjectName);
 
                 // get Sites for each Trip
                 Dictionary<string, List<Site>> sitesForTrips = new Dictionary<string, List<Site>>();
 
                 foreach (Trip trip in selectedProjectTrips) {
-                    List<Site> sites = ORM.GetSites(trip.TripName);
+                    List<Site> sites = DataFunctions.GetSites(trip.TripName);
                     sitesForTrips.Add(trip.TripName, sites);
                 }
 
@@ -91,7 +93,7 @@ namespace collnotes
 
                 foreach (var trip in sitesForTrips) { // trip, list<site>
                     foreach (var site in trip.Value) { // go through list<site>
-                        List<Specimen> specimenList = ORM.GetSpecimen(site.SiteName);
+                        List<Specimen> specimenList = DataFunctions.GetSpecimen(site.SiteName);
                         specimenForSites.Add(site.SiteName, specimenList);
                     }
                 }
@@ -106,10 +108,10 @@ namespace collnotes
 
                 switch (AppVariables.DataExportFormat) {
                     case "Darwin Core":
-                        csvContent = DataExport.CreateCSVForExport(selectedProject, DataExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
+                        csvContent = CSVExport.CreateCSVForExport(selectedProject, CSVExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
                         break;
                     default:
-                        csvContent = DataExport.CreateCSVForExport(selectedProject, DataExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
+                        csvContent = CSVExport.CreateCSVForExport(selectedProject, CSVExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
                         break;
                 }
 

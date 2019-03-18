@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
+using collnotes.Plugins;
 
 namespace collnotes
 {
@@ -44,8 +47,8 @@ namespace collnotes
 
         private void LoadDefaults()
         {
-            entrySiteName.Text = "Site-" + (ORM.GetAllSitesCount() + 1).ToString();
-            this.Title = (ORM.GetAllSitesCount() + 1).ToString() + "-#";
+            entrySiteName.Text = "Site-" + (DataFunctions.GetAllSitesCount() + 1).ToString();
+            this.Title = (DataFunctions.GetAllSitesCount() + 1).ToString() + "-#";
         }
 
         public async void btnSitePhoto_Clicked(object sender, EventArgs e)
@@ -68,7 +71,7 @@ namespace collnotes
                 site.Locality = (entryLocality.Text is null) ? "" : entryLocality.Text;
                 site.LocationNotes = (entryLocationNotes.Text is null) ? "" : entryLocationNotes.Text;
 
-                int updateResult = ORM.GetConnection().Update(site, typeof(Site));
+                int updateResult = DatabaseFile.GetConnection().Update(site, typeof(Site));
                 if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update succeeded.");
                     return;
@@ -101,13 +104,13 @@ namespace collnotes
             site.LocationNotes = entryLocationNotes.Text is null ? "" : entryLocationNotes.Text;
 
             // check for duplicate names before saving
-            if (ORM.CheckExists(site)) {
+            if (DataFunctions.CheckExists(site)) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a site with the same name!");
                 return;
             }
 
             // save site to database
-            int autoKeyResult = ORM.GetConnection().Insert(site);
+            int autoKeyResult = DatabaseFile.GetConnection().Insert(site);
             // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Site " + site.SiteName + " saved!");
             Debug.WriteLine("inserted site, recordno is: " + autoKeyResult.ToString());
             // automatically navigate to the specimen page after creating the site
@@ -122,14 +125,33 @@ namespace collnotes
             lblStatusMessage.TextColor = Color.Orange;
             lblStatusMessage.Text = "Getting Location...";
 
-            siteGPS = await CurrentGPS.CurrentLocation();
+            Plugin.Geolocator.Abstractions.Position currentPosition;
+            currentPosition = await CurrentGPS.CurrentLocation();
 
-            if (siteGPS.Equals("")) {
+            if (currentPosition is null)
+            {
                 lblStatusMessage.TextColor = Color.Red;
                 lblStatusMessage.Text = "Failed to get location";
-            } else {
-                lblStatusMessage.TextColor = Color.Green;
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("collNotes requires Location permission, and Location must be enabled!");
+            }
+            else
+            {
+                if (currentPosition.Accuracy >= 80 && currentPosition.Accuracy <= 100)
+                {
+                    lblStatusMessage.TextColor = Color.Green;
+                }
+                else if (currentPosition.Accuracy >= 50 && currentPosition.Accuracy < 80)
+                {
+                    lblStatusMessage.TextColor = Color.Yellow;
+                }
+                else
+                {
+                    lblStatusMessage.TextColor = Color.Orange;
+                }
                 lblStatusMessage.Text = "Location Received";
+
+                siteGPS = currentPosition.Latitude.ToString() + "," + currentPosition.Longitude.ToString() + "," + currentPosition.Accuracy.ToString() + "," + currentPosition.Altitude.ToString();
+
             }
         }
 
@@ -150,8 +172,6 @@ namespace collnotes
             site.TripName = trip.TripName;
 
             LoadDefaults();
-
-            //DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Site");
         }
     }
 }

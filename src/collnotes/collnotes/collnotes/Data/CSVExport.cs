@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace collnotes
+namespace collnotes.Data
 {
-    public class DataExport
+    public class CSVExport
     {
         public enum DataExportType
         {
@@ -43,8 +44,8 @@ namespace collnotes
                 string siteName = sitesSpecimen.Key;
                 string tripName = "";
 
-                Site refSite = ORM.GetSiteByName(siteName);
-                Trip trip = ORM.GetTripByName(refSite.TripName);
+                Site refSite = DataFunctions.GetSiteByName(siteName);
+                Trip trip = DataFunctions.GetTripByName(refSite.TripName);
                 tripName = trip.TripName;
 
                 // project level data

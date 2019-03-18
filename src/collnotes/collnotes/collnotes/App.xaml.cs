@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using collnotes.Data;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace collnotes
@@ -22,14 +23,14 @@ namespace collnotes
             bool result = AppVarsFile.ReadAppVars();
 
             if (!result) {
-                AppVariables.CollectionCount = ORM.GetSpecimenCount();
+                AppVariables.CollectionCount = DataFunctions.GetSpecimenCount();
             }
 
             // create tables for ORM, if not already created
-            ORM.GetConnection().CreateTable<Project>();
-            ORM.GetConnection().CreateTable<Trip>();
-            ORM.GetConnection().CreateTable<Site>();
-            ORM.GetConnection().CreateTable<Specimen>();
+            DatabaseFile.GetConnection().CreateTable<Project>();
+            DatabaseFile.GetConnection().CreateTable<Trip>();
+            DatabaseFile.GetConnection().CreateTable<Site>();
+            DatabaseFile.GetConnection().CreateTable<Specimen>();
         }
 
         protected override void OnSleep()

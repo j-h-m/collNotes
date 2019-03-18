@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
 
 namespace collnotes
 {
@@ -29,7 +31,7 @@ namespace collnotes
         {
             try
             {
-                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
+                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
 
                 string[] trips = new string[tripList.Count];
                 for (int i = 0; i < trips.Length; i++) {
@@ -56,12 +58,12 @@ namespace collnotes
         {
             try
             {
-                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
+                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
 
                 List<Site> siteList = new List<Site>();
 
                 foreach (Trip trip in tripList) {
-                    siteList.AddRange(ORM.GetSites(trip.TripName));
+                    siteList.AddRange(DataFunctions.GetSites(trip.TripName));
                 }
 
                 string[] sites = new string[siteList.Count];
@@ -89,18 +91,18 @@ namespace collnotes
         {
             try
             {
-                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
+                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
 
                 List<Site> siteList = new List<Site>();
 
                 foreach (Trip trip in tripList) {
-                    siteList.AddRange(ORM.GetSites(trip.TripName));
+                    siteList.AddRange(DataFunctions.GetSites(trip.TripName));
                 }
 
                 List<Specimen> specimenList = new List<Specimen>();
 
                 foreach (Site site in siteList) {
-                    specimenList.AddRange(ORM.GetSpecimen(site.SiteName));
+                    specimenList.AddRange(DataFunctions.GetSpecimen(site.SiteName));
                 }
 
                 string[] specimens = new string[specimenList.Count];

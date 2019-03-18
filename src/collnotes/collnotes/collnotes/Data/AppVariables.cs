@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace collnotes
+namespace collnotes.Data
 {
     public static class AppVariables
     {

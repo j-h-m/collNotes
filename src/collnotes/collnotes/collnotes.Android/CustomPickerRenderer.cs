@@ -1,9 +1,8 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using collnotes;
-
+using collnotes.Custom;
 
 [assembly: ExportRenderer(typeof(CustomPicker), typeof(CustomPickerRenderer))]
 namespace collnotes

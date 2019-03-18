@@ -1,10 +1,8 @@
-﻿using System;
-using Foundation;
-using UIKit;
+﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using collnotes;
-
+using collnotes.Custom;
 
 [assembly: ExportRenderer(typeof(CustomPicker), typeof(CustomPickerRenderer))]
 namespace collnotes

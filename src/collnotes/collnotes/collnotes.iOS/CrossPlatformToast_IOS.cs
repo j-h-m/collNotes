@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using collnotes.Interfaces;
+using Foundation;
 using UIKit;
 
 [assembly: Xamarin.Forms.Dependency(typeof(collnotes.iOS.CrossPlatformToast_IOS))]

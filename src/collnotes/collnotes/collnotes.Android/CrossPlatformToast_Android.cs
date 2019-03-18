@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
+using collnotes.Interfaces;
 
 [assembly: Xamarin.Forms.Dependency(typeof(collnotes.Droid.CrossPlatformToast_Android))]
 namespace collnotes.Droid

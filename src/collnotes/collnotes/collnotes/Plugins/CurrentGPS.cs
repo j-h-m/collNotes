@@ -10,11 +10,11 @@ using System.Diagnostics;
  * Returns a string containing the latitude, longitude coordinate pair as well as error and altitude in Meters.
  */
 
-namespace collnotes
+namespace collnotes.Plugins
 {
     public static class CurrentGPS
     {
-        public async static System.Threading.Tasks.Task<String> CurrentLocation()
+        public async static System.Threading.Tasks.Task<Position> CurrentLocation()
         {
             Position position = null;
 
@@ -26,7 +26,7 @@ namespace collnotes
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status != PermissionStatus.Granted) {
                     if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location)) {
-                        return "";
+                        return null;
                     }
 
                     var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
@@ -38,26 +38,16 @@ namespace collnotes
                 if (status == PermissionStatus.Granted) {
                     // get position
                     position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
-
-                    string fullLocation = string.Format("Time:{0},Lat:{1},Long:{2},Altitude:{3},Altitude_Accuracy:{4},Accuracy:{5},Heading:{6},Speed:{7}",
-                        position.Timestamp, position.Latitude, position.Longitude,
-                        position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
-                    // accuracy - color code output
-                    // store: accuracy, altitude
-
-                    Debug.WriteLine(fullLocation);
-                    
-                    return position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + 
-                        position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                    return position;
                 }
                 else {
-                    return "";
+                    return null;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Unable to get location: " + ex);
-                return "";
+                return null;
             }
         }
     }

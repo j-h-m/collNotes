@@ -1,4 +1,5 @@
-﻿using System;
+﻿using collnotes.Interfaces;
+using System;
 
 [assembly: Xamarin.Forms.Dependency(typeof(collnotes.iOS.CrossPlatformShareFile_IOS))]
 namespace collnotes.iOS

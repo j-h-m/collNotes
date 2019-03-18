@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
 
 namespace collnotes
 {
@@ -22,7 +24,7 @@ namespace collnotes
         {
             try
             {
-                List<Project> projectList = ORM.GetProjects();
+                List<Project> projectList = DataFunctions.GetProjects();
 
                 string[] projects = new string[projectList.Count + 1];
                 for (int i = 0; i < projects.Length - 1; i++) {
@@ -59,8 +61,8 @@ namespace collnotes
                 foreach (Project p in projectList) {
                     if (p.ProjectName.Equals(action)) {
                         if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy")))) { // add today project to database if it is selected
-                            if (!ORM.CheckExists(p)) {
-                                int autoKeyResult = ORM.InsertObject(p);
+                            if (!DataFunctions.CheckExists(p)) {
+                                int autoKeyResult = DataFunctions.InsertObject(p);
                                 await Navigation.PushAsync(new CollectingPage(p));
                                 break;
                             } else {
@@ -85,7 +87,7 @@ namespace collnotes
         {
             try
             {
-                List<Project> projectList = ORM.GetProjects();
+                List<Project> projectList = DataFunctions.GetProjects();
 
                 if (projectList.Count > 0) {
                     await Navigation.PushAsync(new ExportProject());

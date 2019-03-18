@@ -2,7 +2,7 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:control="clr-namespace:collnotes" 
+    xmlns:control="clr-namespace:collnotes.Custom" 
     x:Class="collnotes.SpecimenPage"
     Title="Specimen">
     <ContentPage.Resources>
@@ -45,30 +45,18 @@
                             SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
                         <control:CustomPicker.TextColor>
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </control:CustomPicker.TextColor> 
+                        </control:CustomPicker.TextColor>
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Vegetative</x:String>
                                 <x:String>Reproductive</x:String>
-                                <x:String>  Early Reproductive</x:String>
-                                <x:String>  Peak Reproductive</x:String>
-                                <x:String>  Late Reproductive</x:String>
-                                <x:String>  Fruit/Seed Bearing</x:String>
-                                <x:String>Other</x:String>
+                                <x:String>Early Reproductive</x:String>
+                                <x:String>Peak Reproductive</x:String>
+                                <x:String>Late Reproductive</x:String>
+                                <x:String>Fruit/Seed Bearing</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
                     </control:CustomPicker>
-                    <Label Text="Other"
-                           x:Name="lblOtherLifeStage"
-                           IsVisible="false" />
-                    <Entry Placeholder="Other..."
-                           Keyboard="Text"
-                           x:Name="entryOtherLifeStage" 
-                           IsVisible="false">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
                     <Label Text="Cultivated" />
                     <Switch x:Name="switchCultivated"
                         VerticalOptions="Center"

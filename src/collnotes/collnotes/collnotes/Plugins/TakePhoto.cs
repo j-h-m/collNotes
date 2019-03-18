@@ -9,11 +9,11 @@ using Plugin.Permissions.Abstractions;
  *  - May want to look at saving to an album with the Project name?
  */
 
-namespace collnotes
+namespace collnotes.Plugins
 {
     public static class TakePhoto
     {
-        public async static Task<Plugin.Media.Abstractions.MediaFile> CallCamera(string fileNamePrefix)
+        public async static Task<Plugin.Media.Abstractions.MediaFile> CallCamera(string fileName)
         {
             var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
             var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
@@ -27,8 +27,8 @@ namespace collnotes
             if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted) {
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions {
                     SaveToAlbum = true,
-                    Directory = "PD-Photos",
-                    Name = fileNamePrefix + "-" + DateTime.Now.ToString("MM-dd-yyyy")
+                    Directory = "collNotes",
+                    Name = fileName
                 });
             }
 

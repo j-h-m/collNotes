@@ -1,4 +1,4 @@
-﻿namespace collnotes
+﻿namespace collnotes.Interfaces
 {
     // interface for cross platform toast-like feedback
     public interface ICrossPlatformToast

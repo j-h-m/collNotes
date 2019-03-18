@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
 
 namespace collnotes
 {
@@ -40,7 +42,7 @@ namespace collnotes
 
         private void LoadDefaults()
         {
-            entryTripName.Text = "Trip-" + (ORM.GetAllSitesCount() + 1).ToString();
+            entryTripName.Text = "Trip-" + (DataFunctions.GetAllTripsCount() + 1).ToString();
             dpCollectionDate.Date = DateTime.Today;
         }
 
@@ -56,7 +58,7 @@ namespace collnotes
                 trip.AdditionalCollectors = (entryAdditionalCollectors.Text is null) ? "" : entryAdditionalCollectors.Text;
                 trip.CollectionDate = dateChanged ? dpCollectionDate.Date : trip.CollectionDate;
 
-                int updateResult = ORM.GetConnection().Update(trip, typeof(Trip));
+                int updateResult = DatabaseFile.GetConnection().Update(trip, typeof(Trip));
                 if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(trip.TripName + " update succeeded.");
                     return;
@@ -78,13 +80,13 @@ namespace collnotes
             trip.CollectionDate = dpCollectionDate.Date;
 
             // check for duplicate names before saving
-            if (ORM.CheckExists(trip)) {
+            if (DataFunctions.CheckExists(trip)) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a trip with the same name!");
                 return;
             }
 
             // save trip to database
-            int autoKeyResult = ORM.GetConnection().Insert(trip);
+            int autoKeyResult = DatabaseFile.GetConnection().Insert(trip);
             Debug.WriteLine("inserted trip, recordno is: " + autoKeyResult.ToString());
 
             // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved Trip " + trip.TripName);

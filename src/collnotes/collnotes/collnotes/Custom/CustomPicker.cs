@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace collnotes
+namespace collnotes.Custom
 {
     public class CustomPicker : Picker
     {

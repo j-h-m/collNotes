@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
+using collnotes.Plugins;
 
 namespace collnotes
 {
@@ -20,13 +23,16 @@ namespace collnotes
             specimen = new Specimen();
             this.site = site;
             InitializeComponent();
-            LoadDefaults();
+            if (AppVariables.CollectionCount > 0)
+                this.Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+            else
+                this.Title = site.RecordNo.ToString() + "-1";
         }
 
         public SpecimenPage(Specimen specimen)
         {
             this.specimen = specimen;
-            site = ORM.GetSiteByName(specimen.SiteName);
+            site = DataFunctions.GetSiteByName(specimen.SiteName);
             InitializeComponent();
 
             editing = true;
@@ -42,11 +48,6 @@ namespace collnotes
             btnNewSpecimen.IsEnabled = false;
         }
 
-        private void LoadDefaults()
-        {
-            this.Title = site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString();
-        }
-
         public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
             // picker reset for new Specimen
@@ -54,13 +55,6 @@ namespace collnotes
                 return;
             }
             specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
-            if (specimen.LifeStage.Equals("Other")) {
-                lblOtherLifeStage.IsVisible = true;
-                entryOtherLifeStage.IsVisible = true;
-            } else {
-                lblOtherLifeStage.IsVisible = false;
-                entryOtherLifeStage.IsVisible = false;
-            }
         }
 
         public void switchCultivated_Toggled(object sender, EventArgs e)
@@ -84,7 +78,7 @@ namespace collnotes
                 specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
                 specimen.GPSCoordinates = site.GPSCoordinates;
 
-                int updateResult = ORM.GetConnection().Update(specimen, typeof(Specimen));
+                int updateResult = DatabaseFile.GetConnection().Update(specimen, typeof(Specimen));
                 if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save succeeded.");
                     return;
@@ -101,7 +95,7 @@ namespace collnotes
             specimen.IndividualCount = entryIndivCount.Text is null ? "" : entryIndivCount.Text;
             specimen.Cultivated = switchCultivated.IsToggled;
 
-            AppVariables.CollectionCount = AppVariables.CollectionCount > 0 ? AppVariables.CollectionCount : 1;
+            AppVariables.CollectionCount = AppVariables.CollectionCount > 0 ? AppVariables.CollectionCount + 1 : 1;
 
             specimen.SpecimenNumber = AppVariables.CollectionCount;
 
@@ -109,17 +103,10 @@ namespace collnotes
 
             specimen.SpecimenName = "Specimen-" + specimen.SpecimenNumber;
 
-            if (entryOtherLifeStage.IsVisible && !entryOtherLifeStage.Text.Equals("")) {
-                specimen.LifeStage = entryOtherLifeStage.Text;
-            } else if (entryOtherLifeStage.IsVisible) {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Fill in \"Other\" Life Stage!");
-                return;
-            } else {
-                specimen.LifeStage = pickerLifeStage.SelectedItem is null ? "" : pickerLifeStage.SelectedItem.ToString();
-            }
+            specimen.LifeStage = pickerLifeStage.SelectedItem is null ? "" : pickerLifeStage.SelectedItem.ToString();
 
             // save Specimen to database
-            int autoKeyResult = ORM.GetConnection().Insert(specimen);
+            int autoKeyResult = DatabaseFile.GetConnection().Insert(specimen);
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
 
             // update CollectionCount
@@ -141,18 +128,12 @@ namespace collnotes
             switchCultivated.IsToggled = false;
             entryIndivCount.Text = "";
 
-            lblOtherLifeStage.IsVisible = false;
-            entryOtherLifeStage.IsVisible = false;
-            entryOtherLifeStage.Text = "";
-
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
 
             specimen.SiteName = site.SiteName;
 
-            LoadDefaults();
-
-            //DependencyService.Get<ICrossPlatformToast>().ShortAlert("Cleared for new Specimen");
+            this.Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿[assembly: Xamarin.Forms.Dependency(typeof(collnotes.Droid.CrossPlatformShareFile_Android))]
+﻿using collnotes.Interfaces;
+
+[assembly: Xamarin.Forms.Dependency(typeof(collnotes.Droid.CrossPlatformShareFile_Android))]
 namespace collnotes.Droid
 {
     public class CrossPlatformShareFile_Android : ICrossPlatform_GetShareFolder

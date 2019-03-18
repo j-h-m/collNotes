@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
+using collnotes.Data;
+using collnotes.Interfaces;
+using collnotes.Plugins;
 
 namespace collnotes
 {
@@ -30,7 +33,7 @@ namespace collnotes
         {
             try
             {
-                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
+                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
 
                 if (tripList.Count == 0) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("Create Trip first!");
@@ -66,12 +69,12 @@ namespace collnotes
             try
             {
                 // get all sites for current Project
-                List<Trip> tripList = ORM.GetTrips(project.ProjectName);
+                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
 
                 List<Site> allSites = new List<Site>();
 
                 foreach (Trip trip in tripList) {
-                    List<Site> tripSiteList = ORM.GetSites(trip.TripName);
+                    List<Site> tripSiteList = DataFunctions.GetSites(trip.TripName);
                     foreach (Site site in tripSiteList) {
                         allSites.Add(site);
                     }
@@ -101,20 +104,21 @@ namespace collnotes
                         TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy"),
                         CollectionDate = DateTime.Now
                     };
-                    if (!ORM.CheckExists(trip)) {
-                        ORM.InsertObject(trip);
+                    if (!DataFunctions.CheckExists(trip)) {
+                        DataFunctions.InsertObject(trip);
                     }
                     // if site-today exists, add to it
                     // else add site-today, add to it
                     Site site = new Site
                     {
                         SiteName = "Site-" + DateTime.Now.ToString("MM-dd-yyyy"),
-                        TripName = trip.TripName,
-                        GPSCoordinates = await CurrentGPS.CurrentLocation()
+                        TripName = trip.TripName
                     };
-                    if (!ORM.CheckExists(site)) {
-                        ORM.InsertObject(site);
-                    }
+                    Plugin.Geolocator.Abstractions.Position position = await CurrentGPS.CurrentLocation();
+                    if (!(position is null))
+                        site.GPSCoordinates = position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                    if (!DataFunctions.CheckExists(site))
+                        DataFunctions.InsertObject(site);
                     // add this specimen to the specimen database
                     // message user that specimen was added
                     Specimen specimen = new Specimen
@@ -125,13 +129,13 @@ namespace collnotes
                         GPSCoordinates = site.GPSCoordinates
                     };
 
-                    ORM.InsertObject(specimen);
+                    DataFunctions.InsertObject(specimen);
                     AppVariables.CollectionCount += 1;
 
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(action + " saved!");
                 }
                 else {
-                    await Navigation.PushAsync(new SpecimenPage(ORM.GetSiteByName(action)));
+                    await Navigation.PushAsync(new SpecimenPage(DataFunctions.GetSiteByName(action)));
                 }
             }
             catch (Exception ex)

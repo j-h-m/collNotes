@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using collnotes.Data;
+using collnotes.Interfaces;
 
 namespace collnotes
 {
@@ -34,7 +36,7 @@ namespace collnotes
         private void LoadDefaults()
         {
             entryPrimaryCollectorProject.Text = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
-            entryProjectName.Text = "Project-" + (ORM.GetAllProjectsCount() + 1).ToString();
+            entryProjectName.Text = "Project-" + (DataFunctions.GetAllProjectsCount() + 1).ToString();
             dpCreatedDate.Date = DateTime.Today;
         }
 
@@ -50,7 +52,7 @@ namespace collnotes
                 project.PrimaryCollector = (entryPrimaryCollectorProject.Text is null) ? "" : entryPrimaryCollectorProject.Text;
                 project.CreatedDate = dateChanged ? dpCreatedDate.Date : project.CreatedDate;
 
-                int updateResult = ORM.GetConnection().Update(project, typeof(Project));
+                int updateResult = DatabaseFile.GetConnection().Update(project, typeof(Project));
                 if (updateResult == 1) {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update succeeded.");
                     return;
@@ -71,13 +73,13 @@ namespace collnotes
             project.CreatedDate = dpCreatedDate.Date;
 
             // check for duplicate names first
-            if (ORM.CheckExists(project)) {
+            if (DataFunctions.CheckExists(project)) {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert($"'{project.ProjectName}' already exists. Enter a Unique name for a new.");
                 return;
             }
 
             // save project to database
-            int autoKeyResult = ORM.GetConnection().Insert(project);
+            int autoKeyResult = DatabaseFile.GetConnection().Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
 
             // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved");
