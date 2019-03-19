@@ -20,13 +20,29 @@ namespace collnotes
 
         void btnSaveSettings_Clicked(object sender, EventArgs e)
         {
-            if (!entryStartingRecordNumber.Text.Equals("")) {
-                AppVariables.CollectionCount = int.Parse(entryStartingRecordNumber.Text);
+            if (!entryStartingRecordNumber.Text.Equals(""))
+            {
+                int currentSpecimenCount = DataFunctions.GetSpecimenCount();
+                if (currentSpecimenCount > 0)
+                {
+                    int userEntered = int.Parse(entryStartingRecordNumber.Text);
+                    if (userEntered < currentSpecimenCount) // the user should not be able to set the collection count to a value lower than the current total
+                    {
+                        DependencyService.Get<ICrossPlatformToast>().ShortAlert("You cannot set the Specimen Count lower than the current total.");
+                        return;
+                    }
+                    else
+                    {
+                        AppVariables.CollectionCount = userEntered;
+                    }
+                }
             }
-            if (!entryCollectorName.Text.Equals("")) {
+            if (!entryCollectorName.Text.Equals(""))
+            {
                 AppVariables.CollectorName = entryCollectorName.Text;
             }
-            if (pickerExportFormat.SelectedIndex != -1) {
+            if (pickerExportFormat.SelectedIndex != -1)
+            {
                 AppVariables.DataExportFormat = pickerExportFormat.SelectedItem.ToString();
             }
 

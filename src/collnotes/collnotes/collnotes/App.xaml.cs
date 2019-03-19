@@ -22,7 +22,8 @@ namespace collnotes
             // load app variables from file
             bool result = AppVarsFile.ReadAppVars();
 
-            if (!result) {
+            if (!result)
+            {
                 AppVariables.CollectionCount = DataFunctions.GetSpecimenCount();
             }
 

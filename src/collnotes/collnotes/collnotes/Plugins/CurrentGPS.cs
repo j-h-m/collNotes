@@ -21,26 +21,33 @@ namespace collnotes.Plugins
             try
             {
                 var locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 100; // 100 is highest accuracy, see Plugin doc about this value
+                // locator.DesiredAccuracy = 100; // 100 is highest accuracy, see Plugin doc about this value
+                locator.DesiredAccuracy = 50;
 
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (status != PermissionStatus.Granted) {
-                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location)) {
+                if (status != PermissionStatus.Granted)
+                {
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                    {
                         return null;
                     }
 
                     var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
                     //Best practice to always check that the key exists
                     if (results.ContainsKey(Permission.Location))
+                    {
                         status = results[Permission.Location];
+                    }
                 }
 
-                if (status == PermissionStatus.Granted) {
-                    // get position
-                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
+                if (status == PermissionStatus.Granted)
+                {
+                    // position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
+                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10), null, true);
                     return position;
                 }
-                else {
+                else
+                {
                     return null;
                 }
             }

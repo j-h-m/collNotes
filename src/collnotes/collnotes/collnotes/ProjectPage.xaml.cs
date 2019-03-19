@@ -48,22 +48,27 @@ namespace collnotes
 
         private async void btnSaveProject_Clicked(object sender, EventArgs e)
         {
-            if (editing) {
+            if (editing)
+            {
                 project.PrimaryCollector = (entryPrimaryCollectorProject.Text is null) ? "" : entryPrimaryCollectorProject.Text;
                 project.CreatedDate = dateChanged ? dpCreatedDate.Date : project.CreatedDate;
 
                 int updateResult = DatabaseFile.GetConnection().Update(project, typeof(Project));
-                if (updateResult == 1) {
+                if (updateResult == 1)
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update succeeded.");
                     return;
-                } else {
+                }
+                else
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(project.ProjectName + " update failed.");
                     return;
                 }
             }
 
             // check to make sure name is present
-            if (entryProjectName.Text is null || entryProjectName.Text.Equals("")) {
+            if (entryProjectName.Text is null || entryProjectName.Text.Equals(""))
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project name is required.");
                 return;
             }
@@ -73,7 +78,8 @@ namespace collnotes
             project.CreatedDate = dpCreatedDate.Date;
 
             // check for duplicate names first
-            if (DataFunctions.CheckExists(project)) {
+            if (DataFunctions.CheckExists(project))
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert($"'{project.ProjectName}' already exists. Enter a Unique name for a new.");
                 return;
             }
@@ -81,8 +87,6 @@ namespace collnotes
             // save project to database
             int autoKeyResult = DatabaseFile.GetConnection().Insert(project);
             Debug.WriteLine("inserted project, recordno is: " + autoKeyResult.ToString());
-
-            // DependencyService.Get<ICrossPlatformToast>().ShortAlert("Project " + project.ProjectName + " saved");
 
             // automatically navigate to the collecting page after saving the project
             await Navigation.PushAsync(new CollectingPage(project));

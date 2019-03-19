@@ -34,7 +34,7 @@ namespace collnotes
             editing = true;
             InitializeComponent();
 
-            this.Title = site.RecordNo.ToString() + "-#";
+            Title = site.RecordNo.ToString() + "-#";
 
             entrySiteName.Text = site.SiteName;
             entrySiteName.IsEnabled = false;
@@ -48,13 +48,14 @@ namespace collnotes
         private void LoadDefaults()
         {
             entrySiteName.Text = "Site-" + (DataFunctions.GetAllSitesCount() + 1).ToString();
-            this.Title = (DataFunctions.GetAllSitesCount() + 1).ToString() + "-#";
+            Title = (DataFunctions.GetAllSitesCount() + 1).ToString() + "-#";
         }
 
         public async void btnSitePhoto_Clicked(object sender, EventArgs e)
         {
             // get site name
-            if (entrySiteName.Text is null || entrySiteName.Text.Equals("")) {
+            if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Name the Site before taking photo.");
                 return;
             }
@@ -64,7 +65,8 @@ namespace collnotes
 
         public async void btnSaveSite_Clicked(object sender, EventArgs e)
         {
-            if (editing) { // editing should only require all existing information to be changed
+            if (editing)
+            { // editing should only require all existing information to be changed
                 site.AssociatedTaxa = (entryAssocTaxa.Text is null) ? "" : entryAssocTaxa.Text;
                 site.GPSCoordinates = siteGPS.Equals("") ? site.GPSCoordinates : siteGPS;
                 site.Habitat = (entryHabitat.Text is null) ? "" : entryHabitat.Text;
@@ -72,16 +74,20 @@ namespace collnotes
                 site.LocationNotes = (entryLocationNotes.Text is null) ? "" : entryLocationNotes.Text;
 
                 int updateResult = DatabaseFile.GetConnection().Update(site, typeof(Site));
-                if (updateResult == 1) {
+                if (updateResult == 1)
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update succeeded.");
                     return;
-                } else {
+                }
+                else
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update failed.");
                     return;
                 }
             }
 
-            if (siteGPS.Equals("")) {
+            if (siteGPS.Equals(""))
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Record the Site GPS first!");
                 return;
             }
@@ -91,7 +97,8 @@ namespace collnotes
             site.TripName = trip.TripName;
 
             // only require name to save Site
-            if (entrySiteName.Text is null || entrySiteName.Text.Equals("")) {
+            if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Must enter a name for Site!");
                 return;
             }
@@ -104,7 +111,8 @@ namespace collnotes
             site.LocationNotes = entryLocationNotes.Text is null ? "" : entryLocationNotes.Text;
 
             // check for duplicate names before saving
-            if (DataFunctions.CheckExists(site)) {
+            if (DataFunctions.CheckExists(site))
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("You already have a site with the same name!");
                 return;
             }
@@ -136,15 +144,18 @@ namespace collnotes
             }
             else
             {
-                if (currentPosition.Accuracy >= 80 && currentPosition.Accuracy <= 100)
+                // 0 - 20    good
+                // 21 - 30   ok
+                // 31 - ...  poor
+                if (currentPosition.Accuracy >= 0 && currentPosition.Accuracy <= 20)
                 {
                     lblStatusMessage.TextColor = Color.Green;
                 }
-                else if (currentPosition.Accuracy >= 50 && currentPosition.Accuracy < 80)
+                else if (currentPosition.Accuracy >= 21 && currentPosition.Accuracy <= 30)
                 {
                     lblStatusMessage.TextColor = Color.Yellow;
                 }
-                else
+                else // 31 or greater
                 {
                     lblStatusMessage.TextColor = Color.Orange;
                 }
@@ -165,7 +176,6 @@ namespace collnotes
             entryAssocTaxa.Text = "";
             entryLocationNotes.Text = "";
             siteGPS = "";
-
             lblStatusMessage.IsVisible = false;
             lblStatusMessage.Text = "";
 

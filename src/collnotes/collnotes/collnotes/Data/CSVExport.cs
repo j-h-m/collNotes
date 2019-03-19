@@ -59,8 +59,8 @@ namespace collnotes.Data
 
                 // adjust recordedBy for associated collectors
                 //recordedBy += "|" + (from foo in trip.AdditionalCollectors.Split(',') where !foo.Equals("") select (foo + "|"));
-                string[] assCollArray = trip.AdditionalCollectors.Split(',');
-                if (assCollArray.Length > 0)
+                string[] assCollArray = trip.AdditionalCollectors?.Split(',');
+                if (assCollArray?.Length > 0)
                 {
                     for (int i = 0; i < assCollArray.Length; i++)
                     {
@@ -102,10 +102,11 @@ namespace collnotes.Data
                         substrate = "";
                         establishmentMeans = "";
                         genericColumn1 = "";
-                        latitude = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[0] : "";
-                        longitude = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[1] : "";
-                        coordinateUncertaintyMeters = (!refSite.GPSCoordinates.Equals("")) ? refSite.GPSCoordinates.Split(',')[2] : "";
-                        minimumElevationMeters = (!refSite.GPSCoordinates.Equals("")) ? minimumElevationMeters = refSite.GPSCoordinates.Split(',')[3] : "";
+                        string[] gpsSplit = refSite.GPSCoordinates.Split(',');
+                        latitude = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[0] : "";
+                        longitude = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[1] : "";
+                        coordinateUncertaintyMeters = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[2] : "";
+                        minimumElevationMeters = (!refSite.GPSCoordinates.Equals("")) ? minimumElevationMeters = gpsSplit[3] : "";
                     }
                     else
                     {
@@ -119,10 +120,11 @@ namespace collnotes.Data
                         substrate = spec.Substrate;
                         establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
                         genericColumn1 = spec.FieldIdentification;
-                        latitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[0] : "";
-                        longitude = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[1] : "";
-                        coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? spec.GPSCoordinates.Split(',')[2] : "";
-                        minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = spec.GPSCoordinates.Split(',')[3] : "";
+                        string[] gpsSplit = refSite.GPSCoordinates.Split(',');
+                        latitude = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[0] : "";
+                        longitude = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[1] : "";
+                        coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[2] : "";
+                        minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = gpsSplit[3] : "";
                     }
 
                     csvContent += "\"" + recordNumber + "\",\"" +                                       // record number
@@ -151,7 +153,6 @@ namespace collnotes.Data
                                             "\"," + "," + "," + "," + "," + "," + Environment.NewLine;  // 6 empty columns for desktop determinations
                 } // wrap fields in double quotes and test with user input fields including commas and try single quotes
             }
-
             return csvContent;
         }
     }

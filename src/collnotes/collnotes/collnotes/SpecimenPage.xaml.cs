@@ -24,9 +24,13 @@ namespace collnotes
             this.site = site;
             InitializeComponent();
             if (AppVariables.CollectionCount > 0)
-                this.Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+            {
+                Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+            }
             else
-                this.Title = site.RecordNo.ToString() + "-1";
+            {
+                Title = site.RecordNo.ToString() + "-1";
+            }
         }
 
         public SpecimenPage(Specimen specimen)
@@ -37,7 +41,7 @@ namespace collnotes
 
             editing = true;
 
-            this.Title = site.RecordNo + "-" + specimen.SpecimenNumber;
+            Title = site.RecordNo + "-" + specimen.SpecimenNumber;
             entryFieldID.Text = specimen.FieldIdentification;
             entryFieldID.IsEnabled = false;
             entryOccurrenceNotes.Text = specimen.OccurrenceNotes;
@@ -50,8 +54,8 @@ namespace collnotes
 
         public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
-            // picker reset for new Specimen
-            if (pickerLifeStage.SelectedItem == null) {
+            if (pickerLifeStage.SelectedItem == null)
+            {
                 return;
             }
             specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
@@ -79,10 +83,13 @@ namespace collnotes
                 specimen.GPSCoordinates = site.GPSCoordinates;
 
                 int updateResult = DatabaseFile.GetConnection().Update(specimen, typeof(Specimen));
-                if (updateResult == 1) {
+                if (updateResult == 1)
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save succeeded.");
                     return;
-                } else {
+                }
+                else
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save failed");
                     return;
                 }
@@ -105,12 +112,8 @@ namespace collnotes
 
             specimen.LifeStage = pickerLifeStage.SelectedItem is null ? "" : pickerLifeStage.SelectedItem.ToString();
 
-            // save Specimen to database
             int autoKeyResult = DatabaseFile.GetConnection().Insert(specimen);
             Debug.WriteLine("inserted specimen, recordno is: " + autoKeyResult.ToString());
-
-            // update CollectionCount
-            AppVariables.CollectionCount += 1;
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved " + specimen.SpecimenName);
 
@@ -133,7 +136,7 @@ namespace collnotes
 
             specimen.SiteName = site.SiteName;
 
-            this.Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+            Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
         }
     }
 }

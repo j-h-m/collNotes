@@ -24,7 +24,8 @@ namespace collnotes
 
             List<string> projectNameList = new List<string>();
 
-            foreach (Project p in projectList) {
+            foreach (Project p in projectList)
+            {
                 projectNameList.Add(p.ProjectName);
             }
 
@@ -35,14 +36,17 @@ namespace collnotes
         {
             try
             {
-                foreach (Project p in projectList) {
-                    if (p.ProjectName.Equals(pickerExportProject.SelectedItem.ToString())) {
+                foreach (Project p in projectList)
+                {
+                    if (p.ProjectName.Equals(pickerExportProject.SelectedItem.ToString()))
+                    {
                         selectedProject = p;
                         break;
                     }
                 }
 
-                if (!(selectedProject is null)) {
+                if (!(selectedProject is null))
+                {
                     await CSVExport_Helper();
                 }
             }
@@ -61,13 +65,15 @@ namespace collnotes
         {
             var result = await CheckExternalFilePermissions();
 
-            if (!result) {
+            if (!result)
+            {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Storage permission required for data export!");
             }
 
             try
             {
-                if (selectedProject == null) {
+                if (selectedProject == null)
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("Select a Project first");
                     return;
                 }
@@ -78,12 +84,14 @@ namespace collnotes
                 // get Sites for each Trip
                 Dictionary<string, List<Site>> sitesForTrips = new Dictionary<string, List<Site>>();
 
-                foreach (Trip trip in selectedProjectTrips) {
+                foreach (Trip trip in selectedProjectTrips)
+                {
                     List<Site> sites = DataFunctions.GetSites(trip.TripName);
                     sitesForTrips.Add(trip.TripName, sites);
                 }
 
-                if (sitesForTrips.Count == 0) {
+                if (sitesForTrips.Count == 0)
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("No trips.");
                     return;
                 }
@@ -91,14 +99,17 @@ namespace collnotes
                 // get Specimen for each Site
                 Dictionary<string, List<Specimen>> specimenForSites = new Dictionary<string, List<Specimen>>();
 
-                foreach (var trip in sitesForTrips) { // trip, list<site>
-                    foreach (var site in trip.Value) { // go through list<site>
+                foreach (var trip in sitesForTrips)
+                { // trip, list<site>
+                    foreach (var site in trip.Value)
+                    { // go through list<site>
                         List<Specimen> specimenList = DataFunctions.GetSpecimen(site.SiteName);
                         specimenForSites.Add(site.SiteName, specimenList);
                     }
                 }
 
-                if (specimenForSites.Count == 0) {
+                if (specimenForSites.Count == 0)
+                {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert("No sites.");
                     return;
                 }
@@ -106,7 +117,8 @@ namespace collnotes
                 // csv content string to write to file
                 string csvContent = "";
 
-                switch (AppVariables.DataExportFormat) {
+                switch (AppVariables.DataExportFormat)
+                {
                     case "Darwin Core":
                         csvContent = CSVExport.CreateCSVForExport(selectedProject, CSVExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
                         break;
@@ -137,20 +149,27 @@ namespace collnotes
         public async Task<bool> CheckExternalFilePermissions()
         {
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-            if (status != PermissionStatus.Granted) {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage)) {
+            if (status != PermissionStatus.Granted)
+            {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
+                {
                     return false;
                 }
 
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
                 //Best practice to always check that the key exists
                 if (results.ContainsKey(Permission.Storage))
+                {
                     status = results[Permission.Storage];
+                }
             }
 
-            if (status == PermissionStatus.Granted) {
+            if (status == PermissionStatus.Granted)
+            {
                 return true;
-            } else if (status != PermissionStatus.Unknown) {
+            }
+            else if (status != PermissionStatus.Unknown)
+            {
                 return false;
             }
 
