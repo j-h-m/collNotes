@@ -44,5 +44,11 @@
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleVersion</key>
 	<string>0.1.4</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Need location for geolocator plugin.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Need location for geolocator plugin.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need location for geolocator plugin.</string>
 </dict>
 </plist>
