@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
+using Xamarin.Forms;
 
 namespace collnotes.Droid
 {

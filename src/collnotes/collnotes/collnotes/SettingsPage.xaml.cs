@@ -49,6 +49,9 @@ namespace collnotes
             AppVarsFile.WriteAppVars();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved settings");
+
+            // automatically go back to main page after save
+            Navigation.PopAsync();
         }
     }
 }

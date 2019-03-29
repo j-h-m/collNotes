@@ -44,6 +44,10 @@
                         BorderRadius="25"
                         Text="Save Trip"
                         Clicked="btnSaveTrip_Clicked" />
+                    <Button x:Name="btnBack"
+                        BorderRadius="25"
+                        Text="Back"
+                        Clicked="btnBack_Clicked" />                       
                 </StackLayout>
             </StackLayout>
         </ScrollView>

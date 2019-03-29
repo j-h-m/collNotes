@@ -83,7 +83,11 @@
                     <Button Text="Save Specimen"
                         BorderRadius="25"
                         x:Name="btnSaveSpecimen"
-                        Clicked="btnSaveSpecimen_Clicked"/>     
+                        Clicked="btnSaveSpecimen_Clicked"/>
+                    <Button x:Name="btnBack"
+                        BorderRadius="25"
+                        Text="Back"
+                        Clicked="btnBack_Clicked" />                    
                 </StackLayout>
             </StackLayout>
             </ScrollView>

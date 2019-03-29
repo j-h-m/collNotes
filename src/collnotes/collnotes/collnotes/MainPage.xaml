@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:collnotes"
+    xmlns:control="clr-namespace:collnotes.Custom"
     x:Class="collnotes.MainPage"
     Title="collnotes"
     BackgroundColor="Teal">
@@ -15,7 +16,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnCreateProject"
+        <control:CustomButton x:Name="btnCreateProject"
                 Text="Create Project"
                 FontSize="Large"
                 HorizontalOptions="Fill"
@@ -27,7 +28,7 @@
                 TextColor="White"
                 BorderWidth="10"
                 BorderRadius="25" />
-        <Button x:Name="btnCollect"
+        <control:CustomButton x:Name="btnCollect"
                 Text="Plant Collect"
                 FontSize="Large"
                 HorizontalOptions="Fill"
@@ -39,7 +40,7 @@
                 TextColor="White"
                 BorderWidth="10"
                 BorderRadius="25" />
-        <Button x:Name="btnExportProject"
+        <control:CustomButton x:Name="btnExportProject"
                 Text="Export Project"
                 FontSize="Large"
                 HorizontalOptions="Fill"
@@ -51,7 +52,7 @@
                 TextColor="White"
                 BorderWidth="10"
                 BorderRadius="25" />
-        <Button x:Name="btnSettings"
+        <control:CustomButton x:Name="btnSettings"
                 Text="Settings"
                 FontSize="Large"
                 HorizontalOptions="Fill"

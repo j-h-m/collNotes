@@ -10,6 +10,8 @@ using System.Diagnostics;
 using collnotes.Data;
 using collnotes.Interfaces;
 
+using Xamarin.Essentials;
+
 namespace collnotes
 {
     public partial class ExportProject : ContentPage
@@ -137,11 +139,42 @@ namespace collnotes
 
                 File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
 
-                CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export"); // working on Android, not showing all sharing options on iOS... https://github.com/nielscup/ShareFile
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    await SendEmail("Project Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
+                }
+                else
+                {
+                    CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export");
+                }
             }
             catch (Exception ex)
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Export failed.");
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task SendEmail(string subject, string body, List<string> recipients, string filepath)
+        {
+            try
+            {
+                ExperimentalFeatures.Enable("EmailAttachments_Experimental"); // required to allow attachment in email
+                List<EmailAttachment> emailAttachments = new List<EmailAttachment>();
+                EmailAttachment attachment = new EmailAttachment(filepath);
+                emailAttachments.Add(attachment);
+
+                var message = new EmailMessage
+                {
+                    Subject = subject,
+                    Body = body,
+                    To = recipients,
+                    Attachments = emailAttachments
+                };
+                await Email.ComposeAsync(message);
+            }
+            catch (Exception ex)
+            {
                 Debug.WriteLine(ex.Message);
             }
         }

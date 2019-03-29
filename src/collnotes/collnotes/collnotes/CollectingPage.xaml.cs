@@ -113,7 +113,7 @@ namespace collnotes
                         TripName = "Trip-" + DateTime.Now.ToString("MM-dd-yyyy"),
                         CollectionDate = DateTime.Now
                     };
-                    if (!DataFunctions.CheckExists(trip))
+                    if (!DataFunctions.CheckExists(new Trip(), "Trip-" + DateTime.Now.ToString("MM-dd-yyyy")))
                     {
                         DataFunctions.InsertObject(trip);
                     }
@@ -124,13 +124,15 @@ namespace collnotes
                         SiteName = "Site-" + DateTime.Now.ToString("MM-dd-yyyy"),
                         TripName = trip.TripName
                     };
-                    Plugin.Geolocator.Abstractions.Position position = await CurrentGPS.CurrentLocation();
-                    if (!(position is null))
+                    if (!DataFunctions.CheckExists(site, site.SiteName))
                     {
-                        site.GPSCoordinates = position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
-                    }
-                    if (!DataFunctions.CheckExists(site))
+                        Plugin.Geolocator.Abstractions.Position position = await CurrentGPS.CurrentLocation();
+                        if (!(position is null))
+                        {
+                            site.GPSCoordinates = position.Latitude.ToString() + "," + position.Longitude.ToString() + "," + position.Accuracy.ToString() + "," + position.Altitude.ToString();
+                        }
                         DataFunctions.InsertObject(site);
+                    }
                     // add this specimen to the specimen database
                     // message user that specimen was added
                     Specimen specimen = new Specimen
@@ -145,6 +147,9 @@ namespace collnotes
                     AppVariables.CollectionCount += 1;
 
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(action + " saved!");
+
+                    // anytime we add a specimen we need to write back the CollectionCount
+                    AppVarsFile.WriteAppVars();
                 }
                 else
                 {

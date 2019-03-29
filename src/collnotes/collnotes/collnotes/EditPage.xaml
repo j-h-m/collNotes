@@ -2,7 +2,8 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:EditPage"
+    xmlns:local="clr-namespace:collnotes"
+    xmlns:control="clr-namespace:collnotes.Custom"
     x:Class="collnotes.EditPage"
     Title="Edit Project Data" 
     BackgroundColor="Teal">
@@ -15,8 +16,8 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnEditProject"
-                Text="Edit This Project"
+        <control:CustomButton x:Name="btnEditProject"
+                Text="Edit Current Project"
                 FontSize="Large"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
@@ -27,7 +28,7 @@
                 TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
-        <Button x:Name="btnEditTrip"
+        <control:CustomButton x:Name="btnEditTrip"
                 Text="Edit Trip"
                 FontSize="Large"
                 HorizontalOptions="Fill"
@@ -39,7 +40,7 @@
                 TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
-        <Button x:Name="btnEditSite"
+        <control:CustomButton x:Name="btnEditSite"
                 Text="Edit Site"
                 FontSize="Large"
                 HorizontalOptions="Fill"
@@ -51,7 +52,7 @@
                 TextColor="White"
                 BorderRadius="25"
                 BorderWidth="10"/>
-        <Button x:Name="btnEditSpecimen"
+        <control:CustomButton x:Name="btnEditSpecimen"
                 Text="Edit Specimen"
                 FontSize="Large"
                 HorizontalOptions="Fill"

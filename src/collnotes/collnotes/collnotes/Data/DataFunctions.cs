@@ -6,7 +6,7 @@ namespace collnotes.Data
 {
     public static class DataFunctions
     {
-        public static bool CheckExists(object obj)
+        public static bool CheckExists(object obj, string name)
         {
             bool exists = false;
 
@@ -14,63 +14,46 @@ namespace collnotes.Data
             {
                 Project objProject = (Project)obj;
 
-                List<Project> existingProjects = DatabaseFile.GetConnection().Query<Project>("select * from Project");
+                List<Project> queryResult = DatabaseFile.GetConnection().Query<Project>("select * from Project where ProjectName = '" + name + "'");
 
-                foreach (Project p in existingProjects)
+                if (queryResult.Count > 0)
                 {
-                    if (p.ProjectName.Equals(objProject.ProjectName))
-                    {
-                        exists = true;
-                        break;
-                    }
+                    exists = true;
                 }
             }
             else if (obj.GetType() == typeof(Trip))
             {
                 Trip objTrip = (Trip)obj;
 
-                List<Trip> existingTrips = DatabaseFile.GetConnection().Query<Trip>("select * from Trip");
+                List<Trip> queryResult = DatabaseFile.GetConnection().Query<Trip>("select * from Trip where TripName = '" + name + "'");
 
-                foreach (Trip p in existingTrips)
+                if (queryResult.Count > 0)
                 {
-                    if (p.TripName.Equals(objTrip.TripName))
-                    {
-                        exists = true;
-                        break;
-                    }
+                    exists = true;
                 }
             }
             else if (obj.GetType() == typeof(Site))
             {
                 Site objSite = (Site)obj;
 
-                List<Site> existingSites = DatabaseFile.GetConnection().Query<Site>("select * from Site");
+                List<Site> queryResult = DatabaseFile.GetConnection().Query<Site>("select * from Site where SiteName = '" + name + "'");
 
-                foreach (Site p in existingSites)
+                if (queryResult.Count > 0)
                 {
-                    if (p.SiteName.Equals(objSite.SiteName))
-                    {
-                        exists = true;
-                        break;
-                    }
+                    exists = true;
                 }
             }
             else if (obj.GetType() == typeof(Specimen))
             {
                 Specimen objSpecimen = (Specimen)obj;
 
-                List<Specimen> existingSpecimens = DatabaseFile.GetConnection().Query<Specimen>("select * from Specimen");
+                List<Specimen> queryResult = DatabaseFile.GetConnection().Query<Specimen>("select * from Specimen where SpecimenName = '" + name + "'");
 
-                foreach (Specimen p in existingSpecimens)
+                if (queryResult.Count > 0)
                 {
-                    if (p.SpecimenName.Equals(objSpecimen.SpecimenName))
-                    {
-                        exists = true;
-                        break;
-                    }
+                    exists = true;
                 }
             }
-
             return exists;
         }
 

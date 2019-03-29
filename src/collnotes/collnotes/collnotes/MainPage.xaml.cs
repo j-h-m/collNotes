@@ -70,7 +70,7 @@ namespace collnotes
                     {
                         if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"))))
                         { // add today project to database if it is selected
-                            if (!DataFunctions.CheckExists(p))
+                            if (!DataFunctions.CheckExists(p, p.ProjectName))
                             {
                                 int autoKeyResult = DataFunctions.InsertObject(p);
                                 await Navigation.PushAsync(new CollectingPage(p));

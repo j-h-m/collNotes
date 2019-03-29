@@ -43,7 +43,11 @@
                     <Button x:Name="btnSaveProject"
                         BorderRadius="25"
                         Text="Save Project"
-                        Clicked="btnSaveProject_Clicked" />                
+                        Clicked="btnSaveProject_Clicked" />
+                    <Button x:Name="btnBack"
+                        BorderRadius="25"
+                        Text="Back"
+                        Clicked="btnBack_Clicked" />                    
                 </StackLayout>            
             </StackLayout>
         </ScrollView>

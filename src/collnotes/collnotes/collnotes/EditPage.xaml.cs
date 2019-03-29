@@ -33,21 +33,28 @@ namespace collnotes
             {
                 List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
 
-                string[] trips = new string[tripList.Count];
-                for (int i = 0; i < trips.Length; i++)
+                if (tripList.Count > 0)
                 {
-                    trips[i] = tripList[i].TripName;
-                }
-
-                var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);
-
-                foreach (Trip t in tripList)
-                {
-                    if (t.TripName == action)
+                    string[] trips = new string[tripList.Count];
+                    for (int i = 0; i < trips.Length; i++)
                     {
-                        await Navigation.PushAsync(new TripPage(t));
-                        break;
+                        trips[i] = tripList[i].TripName;
                     }
+
+                    var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);
+
+                    foreach (Trip t in tripList)
+                    {
+                        if (t.TripName == action)
+                        {
+                            await Navigation.PushAsync(new TripPage(t));
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No Trips recorded for current Project");
                 }
             }
             catch (Exception ex)
@@ -70,21 +77,28 @@ namespace collnotes
                     siteList.AddRange(DataFunctions.GetSites(trip.TripName));
                 }
 
-                string[] sites = new string[siteList.Count];
-                for (int i = 0; i < sites.Length; i++)
+                if (siteList.Count > 0)
                 {
-                    sites[i] = siteList[i].SiteName;
-                }
-
-                var action = await DisplayActionSheet("Choose a Site", "Cancel", null, sites);
-
-                foreach (Site s in siteList)
-                {
-                    if (s.SiteName == action)
+                    string[] sites = new string[siteList.Count];
+                    for (int i = 0; i < sites.Length; i++)
                     {
-                        await Navigation.PushAsync(new SitePage(s));
-                        break;
+                        sites[i] = siteList[i].SiteName;
                     }
+
+                    var action = await DisplayActionSheet("Choose a Site", "Cancel", null, sites);
+
+                    foreach (Site s in siteList)
+                    {
+                        if (s.SiteName == action)
+                        {
+                            await Navigation.PushAsync(new SitePage(s));
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No Sites recorded for current Project");
                 }
             }
             catch (Exception ex)
@@ -114,21 +128,28 @@ namespace collnotes
                     specimenList.AddRange(DataFunctions.GetSpecimen(site.SiteName));
                 }
 
-                string[] specimens = new string[specimenList.Count];
-                for (int i = 0; i < specimens.Length; i++)
+                if (specimenList.Count > 0)
                 {
-                    specimens[i] = specimenList[i].SpecimenName;
-                }
-
-                var action = await DisplayActionSheet("Choose a Specimen", "Cancel", null, specimens);
-
-                foreach (Specimen s in specimenList)
-                {
-                    if (s.SpecimenName.Equals(action))
+                    string[] specimens = new string[specimenList.Count];
+                    for (int i = 0; i < specimens.Length; i++)
                     {
-                        await Navigation.PushAsync(new SpecimenPage(s));
-                        break;
+                        specimens[i] = specimenList[i].SpecimenName;
                     }
+
+                    var action = await DisplayActionSheet("Choose a Specimen", "Cancel", null, specimens);
+
+                    foreach (Specimen s in specimenList)
+                    {
+                        if (s.SpecimenName.Equals(action))
+                        {
+                            await Navigation.PushAsync(new SpecimenPage(s));
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No Specimen recorded for current Project");
                 }
             }
             catch (Exception ex)

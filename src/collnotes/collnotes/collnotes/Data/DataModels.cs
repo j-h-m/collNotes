@@ -5,7 +5,7 @@ namespace collnotes.Data
 {
     /*
      * There is a table/class for each data abstraction
-     * Each child-data type has a column that will allow data between tables to be connected
+     * Each child-data type has a column that will allow data between tables to be connected  
      */
 
     // Project (1) -> Trip (n)
