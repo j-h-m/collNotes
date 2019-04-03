@@ -4,29 +4,50 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using collnotes.Data;
 using collnotes.Interfaces;
+using System.Linq;
 
 namespace collnotes
 {
+    /// <summary>
+    /// Edit page.
+    /// </summary>
     public partial class EditPage : ContentPage
     {
         private Project project;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.EditPage"/> class.
+        /// </summary>
         public EditPage()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.EditPage"/> class.
+        /// </summary>
+        /// <param name="project">Project.</param>
         public EditPage(Project project)
         {
             this.project = project;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Buttons the edit project clicked.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnEditProject_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProjectPage(project));
         }
 
+        /// <summary>
+        /// Buttons the edit trip clicked.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnEditTrip_Clicked(object sender, EventArgs e)
         {
             try
@@ -35,22 +56,21 @@ namespace collnotes
 
                 if (tripList.Count > 0)
                 {
-                    string[] trips = new string[tripList.Count];
-                    for (int i = 0; i < trips.Length; i++)
-                    {
-                        trips[i] = tripList[i].TripName;
-                    }
+                    string[] trips = (from el in tripList
+                                     select el.TripName).ToArray();
 
                     var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);
 
-                    foreach (Trip t in tripList)
+                    if (action.Equals("Cancel"))
                     {
-                        if (t.TripName == action)
-                        {
-                            await Navigation.PushAsync(new TripPage(t));
-                            break;
-                        }
+                        return;
                     }
+
+                    var tripChosen = (from el in tripList
+                                      where el.TripName == action
+                                      select el).First();
+
+                    await Navigation.PushAsync(new TripPage(tripChosen));
                 }
                 else
                 {
@@ -64,37 +84,34 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// Buttons the edit site clicked.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnEditSite_Clicked(object sender, EventArgs e)
         {
             try
             {
-                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
-
-                List<Site> siteList = new List<Site>();
-
-                foreach (Trip trip in tripList)
-                {
-                    siteList.AddRange(DataFunctions.GetSites(trip.TripName));
-                }
+                List<Site> siteList = DataFunctions.GetSitesByProjectName(project.ProjectName);
 
                 if (siteList.Count > 0)
                 {
-                    string[] sites = new string[siteList.Count];
-                    for (int i = 0; i < sites.Length; i++)
-                    {
-                        sites[i] = siteList[i].SiteName;
-                    }
+                    string[] sites = (from el in siteList
+                    select el.SiteName).ToArray();
 
                     var action = await DisplayActionSheet("Choose a Site", "Cancel", null, sites);
 
-                    foreach (Site s in siteList)
+                    if (action.Equals("Cancel"))
                     {
-                        if (s.SiteName == action)
-                        {
-                            await Navigation.PushAsync(new SitePage(s));
-                            break;
-                        }
+                        return;
                     }
+
+                    var siteChosen = (from el in siteList
+                                      where el.SiteName == action
+                                      select el).First();
+
+                    await Navigation.PushAsync(new SitePage(siteChosen));
                 }
                 else
                 {
@@ -108,44 +125,34 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// Buttons the edit specimen clicked.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnEditSpecimen_Clicked(object sender, EventArgs e)
         {
             try
             {
-                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
-
-                List<Site> siteList = new List<Site>();
-
-                foreach (Trip trip in tripList)
-                {
-                    siteList.AddRange(DataFunctions.GetSites(trip.TripName));
-                }
-
-                List<Specimen> specimenList = new List<Specimen>();
-
-                foreach (Site site in siteList)
-                {
-                    specimenList.AddRange(DataFunctions.GetSpecimen(site.SiteName));
-                }
+                List<Specimen> specimenList = DataFunctions.GetSpecimenByProjectName(project.ProjectName);
 
                 if (specimenList.Count > 0)
                 {
-                    string[] specimens = new string[specimenList.Count];
-                    for (int i = 0; i < specimens.Length; i++)
-                    {
-                        specimens[i] = specimenList[i].SpecimenName;
-                    }
+                    string[] specimens = (from el in specimenList
+                                          select el.SpecimenName).ToArray();
 
                     var action = await DisplayActionSheet("Choose a Specimen", "Cancel", null, specimens);
 
-                    foreach (Specimen s in specimenList)
+                    if (action.Equals("Cancel"))
                     {
-                        if (s.SpecimenName.Equals(action))
-                        {
-                            await Navigation.PushAsync(new SpecimenPage(s));
-                            break;
-                        }
+                        return;
                     }
+
+                    var specimenChosen = (from el in specimenList
+                                          where el.SpecimenName == action
+                                          select el).First();
+
+                    await Navigation.PushAsync(new SpecimenPage(specimenChosen));
                 }
                 else
                 {

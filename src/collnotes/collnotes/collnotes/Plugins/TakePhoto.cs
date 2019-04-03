@@ -10,8 +10,17 @@ using Plugin.Permissions.Abstractions;
 
 namespace collnotes.Plugins
 {
+    /// <summary>
+    /// Take a photo.
+    /// </summary>
     public static class TakePhoto
     {
+        /// <summary>
+        /// Calls the camera using the Plugin.Media.
+        /// May require the Users permission: Camera, Location, Storage, and Photos (on iOS).
+        /// </summary>
+        /// <returns>The camera.</returns>
+        /// <param name="fileName">File name.</param>
         public async static Task<Plugin.Media.Abstractions.MediaFile> CallCamera(string fileName)
         {
             var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);

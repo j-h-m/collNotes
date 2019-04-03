@@ -9,43 +9,49 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using collnotes.Data;
 using collnotes.Interfaces;
+using System.Linq;
 
 using Xamarin.Essentials;
 
+// This one needs some LINQ...
+
 namespace collnotes
 {
+    /// <summary>
+    /// Export project.
+    /// </summary>
     public partial class ExportProject : ContentPage
     {
         private Project selectedProject;
         private List<Project> projectList;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.ExportProject"/> class.
+        /// </summary>
         public ExportProject()
         {
             InitializeComponent();
+
             projectList = DataFunctions.GetProjects();
 
-            List<string> projectNameList = new List<string>();
+            List<string> projectNames = (from el in projectList
+                                            select el.ProjectName).ToList();
 
-            foreach (Project p in projectList)
-            {
-                projectNameList.Add(p.ProjectName);
-            }
-
-            pickerExportProject.ItemsSource = projectNameList;
+            pickerExportProject.ItemsSource = projectNames;
         }
 
+        /// <summary>
+        /// Pickers the export project selected index changed.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void pickerExportProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                foreach (Project p in projectList)
-                {
-                    if (p.ProjectName.Equals(pickerExportProject.SelectedItem.ToString()))
-                    {
-                        selectedProject = p;
-                        break;
-                    }
-                }
+                selectedProject = (from el in projectList
+                                   where el.ProjectName == pickerExportProject.SelectedItem.ToString()
+                                   select el).First();                                  
 
                 if (!(selectedProject is null))
                 {
@@ -58,11 +64,20 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// Buttons the export project csv clicked.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnExportProjectCSV_Clicked(object sender, EventArgs e)
         {
             await CSVExport_Helper();
         }
 
+        /// <summary>
+        /// CSV the export helper.
+        /// </summary>
+        /// <returns>The xport helper.</returns>
         private async Task CSVExport_Helper()
         {
             var result = await CheckExternalFilePermissions();
@@ -74,12 +89,6 @@ namespace collnotes
 
             try
             {
-                if (selectedProject == null)
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Select a Project first");
-                    return;
-                }
-
                 // get Trips for selected Project
                 List<Trip> selectedProjectTrips = DataFunctions.GetTrips(selectedProject.ProjectName);
 
@@ -155,6 +164,16 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// Uses email to allow the User to export their data.
+        /// Automatically adds the file as an attachment.
+        /// Only used on iOS.
+        /// </summary>
+        /// <returns>The email.</returns>
+        /// <param name="subject">Subject.</param>
+        /// <param name="body">Body.</param>
+        /// <param name="recipients">Recipients.</param>
+        /// <param name="filepath">Filepath.</param>
         public async Task SendEmail(string subject, string body, List<string> recipients, string filepath)
         {
             try
@@ -179,6 +198,10 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// Checks the external file permissions.
+        /// </summary>
+        /// <returns>The external file permissions.</returns>
         public async Task<bool> CheckExternalFilePermissions()
         {
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);

@@ -5,8 +5,14 @@ using collnotes.Data;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace collnotes
 {
+    /// <summary>
+    /// App.
+    /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.App"/> class.
+        /// </summary>
         public App()
         {
             InitializeComponent();
@@ -15,6 +21,9 @@ namespace collnotes
             MainPage = new NavigationPage(new MainPage());
         }
 
+        /// <summary>
+        /// Ons the start.
+        /// </summary>
         protected override void OnStart()
         {
             // Handle when your app starts
@@ -33,12 +42,18 @@ namespace collnotes
             DatabaseFile.GetConnection().CreateTable<Specimen>();
         }
 
+        /// <summary>
+        /// Ons the sleep.
+        /// </summary>
         protected override void OnSleep()
         {
             // Handle when your app sleeps
             AppVarsFile.WriteAppVars();
         }
 
+        /// <summary>
+        /// Ons the resume.
+        /// </summary>
         protected override void OnResume()
         {
             // Handle when your app resumes

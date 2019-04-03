@@ -3,6 +3,9 @@ using Xamarin.Forms;
 
 namespace collnotes.Custom
 {
+    /// <summary>
+    /// Custom picker to allow Placeholdercolor to be modified.
+    /// </summary>
     public class CustomPicker : Picker
     {
         public static readonly BindableProperty TextSizeProperty =

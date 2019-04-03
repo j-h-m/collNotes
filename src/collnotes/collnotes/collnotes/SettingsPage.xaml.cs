@@ -5,8 +5,14 @@ using collnotes.Interfaces;
 
 namespace collnotes
 {
+    /// <summary>
+    /// Settings page.
+    /// </summary>
     public partial class SettingsPage : ContentPage
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.SettingsPage"/> class.
+        /// </summary>
         public SettingsPage()
         {
             InitializeComponent();
@@ -16,8 +22,18 @@ namespace collnotes
             pickerExportFormat.SelectedItem = (AppVariables.DataExportFormat is null) ? "" : AppVariables.DataExportFormat;
         }
 
+        /// <summary>
+        /// Pickers the export format selected index change.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         void pickerExportFormat_SelectedIndexChange(object sender, EventArgs e) { }
 
+        /// <summary>
+        /// Buttons the save settings clicked.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         void btnSaveSettings_Clicked(object sender, EventArgs e)
         {
             if (!entryStartingRecordNumber.Text.Equals(""))
@@ -51,7 +67,7 @@ namespace collnotes
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved settings");
 
             // automatically go back to main page after save
-            Navigation.PopAsync();
+            Navigation.RemovePage(this);
         }
     }
 }

@@ -4,16 +4,26 @@ using SQLite;
 
 namespace collnotes.Data
 {
+    /// <summary>
+    /// Database file.
+    /// </summary>
     public static class DatabaseFile
     {
         private static SQLiteConnection sqliteConnection = null;
 
+        /// <summary>
+        /// Sets the connection to the SQLite DB file.
+        /// </summary>
         private static void SetConnection()
         {
             string filePath = CreateDBFilePath();
             sqliteConnection = new SQLiteConnection(filePath);
         }
 
+        /// <summary>
+        /// Gets the connection to the SQLite DB file.
+        /// </summary>
+        /// <returns>The connection.</returns>
         public static SQLiteConnection GetConnection()
         {
             if (sqliteConnection != null)

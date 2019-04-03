@@ -6,30 +6,61 @@ using Xamarin.Forms;
 using collnotes.Data;
 using collnotes.Interfaces;
 
+/*
+ * This is collNotes. A replacement, or supplement, field notebook for plant collectors.
+ * The most important entity is the User, the second most important is the programmer.
+ * As such, it is intented to make navigation throughout as easy and intuitive as possible for the user.
+ * Also, in cases where I could have saved a line or two of code with some special formatting, I have opted
+ *   to keep the longer format. This is for readability in the future and to hopefully make this code as 
+ *   easy as possible for new programmers to read and understand.
+ * 
+ * Things to understand before moving further: Xamarin Forms Content Pages, Navigation Stack, ORM, LINQ, and Xamarin Plugins aka 'Xamarin Essentials'
+ */
+
 namespace collnotes
 {
+    /// <summary>
+    /// Main page.
+    /// </summary>
     public partial class MainPage : ContentPage
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.MainPage"/> class.
+        /// Empty constructor, is only used by the Device Preview feature of Visual Studio.
+        /// </summary>
         public MainPage()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// NewProject Click event.
+        /// Navigates the User to the ProjectPage.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void NewProject_OnClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProjectPage());
         }
 
+        /// <summary>
+        /// Collect Click event.
+        /// Asks for input before navigating to Collect Page.
+        /// User must choose a Project to Collect under.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void Collect_OnClick(object sender, EventArgs e)
         {
             try
             {
                 List<Project> projectList = DataFunctions.GetProjects();
 
-                string[] projects = new string[projectList.Count + 1];
-                for (int i = 0; i < projects.Length - 1; i++)
+                if (projectList.Count < 1)
                 {
-                    projects[i] = projectList[i].ProjectName;
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Can't start collecting until you've created a project!");
+                    return;
                 }
 
                 // default 'today' project
@@ -40,55 +71,22 @@ namespace collnotes
                     CreatedDate = DateTime.Now
                 };
 
-                bool dayPExists = false;
-
-                foreach (var p in projectList)
-                {
-                    if (p.ProjectName.Equals(todayProject.ProjectName))
-                    {
-                        dayPExists = true;
-                        break;
-                    }
-                }
-
-                if (!dayPExists)
+                if (!DataFunctions.CheckExists(todayProject, todayProject.ProjectName))
                 {
                     projectList.Add(todayProject);
-                    projects[projects.Length - 1] = string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"));
+                    int autoKeyResult = DataFunctions.InsertObject(todayProject);
                 }
-                else
-                {
-                    projects = (from p in projectList
-                                select p.ProjectName).ToArray();
-                }
+
+                string[] projects = (from p in projectList
+                            select p.ProjectName).ToArray();
 
                 var action = await DisplayActionSheet("Choose a project", "Cancel", null, projects);
 
-                foreach (Project p in projectList)
-                {
-                    if (p.ProjectName.Equals(action))
-                    {
-                        if (action.Equals(string.Format("Project-{0}", DateTime.Now.ToString("MM-dd-yyyy"))))
-                        { // add today project to database if it is selected
-                            if (!DataFunctions.CheckExists(p, p.ProjectName))
-                            {
-                                int autoKeyResult = DataFunctions.InsertObject(p);
-                                await Navigation.PushAsync(new CollectingPage(p));
-                                break;
-                            }
-                            else
-                            {
-                                await Navigation.PushAsync(new CollectingPage(p));
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            await Navigation.PushAsync(new CollectingPage(p));
-                            break;
-                        }
-                    }
-                }
+                var projectChosen = (from el in projectList
+                                    where el.ProjectName == action
+                                    select el).First();
+
+                await Navigation.PushAsync(new CollectingPage(projectChosen));
             }
             catch (Exception ex)
             {
@@ -97,6 +95,13 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// ExportProject Click event.
+        /// Asks the User to select a Project.
+        /// Takes User to the ExportProject Page.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void ExportProject_OnClick(object sender, EventArgs e)
         {
             try
@@ -119,6 +124,12 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// Settings Click event.
+        /// Takes the User to the SettingsPage.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void Settings_OnClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SettingsPage());

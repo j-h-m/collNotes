@@ -6,17 +6,29 @@ using collnotes.Data;
 using collnotes.Interfaces;
 using collnotes.Plugins;
 
+using System.Linq;
+
 namespace collnotes
 {
+    /// <summary>
+    /// Collecting page.
+    /// </summary>
     public partial class CollectingPage : ContentPage
     {
         private Project project;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.CollectingPage"/> class.
+        /// </summary>
         public CollectingPage()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:collnotes.CollectingPage"/> class.
+        /// </summary>
+        /// <param name="project">Project.</param>
         public CollectingPage(Project project)
         {
             this.project = project;
@@ -24,11 +36,24 @@ namespace collnotes
             InitializeComponent();
         }
 
+        /// <summary>
+        /// btnAddTrip Click event.
+        /// Takes the User to the TripPage.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnAddTrip_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TripPage(project));
         }
 
+        /// <summary>
+        /// btnAddSite Click event.
+        /// Asks the User to choose a Trip to collect under.
+        /// Takes the User to the SitePage.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnAddSite_Clicked(object sender, EventArgs e)
         {
             try
@@ -41,24 +66,24 @@ namespace collnotes
                     return;
                 }
 
-                string[] trips = new string[tripList.Count];
-                for (int i = 0; i < trips.Length; i++)
-                {
-                    trips[i] = tripList[i].TripName;
-                }
+                var trips = (from el in tripList
+                           select el.TripName).ToArray();
 
                 var action = await DisplayActionSheet("Choose a Trip", "Cancel", null, trips);
 
                 Debug.WriteLine("Trip chosen: " + action);
 
-                foreach (Trip t in tripList)
+                // handle "Cancel" selected
+                if (action.Equals("Cancel"))
                 {
-                    if (t.TripName == action)
-                    {
-                        await Navigation.PushAsync(new SitePage(t));
-                        break;
-                    }
+                    return;
                 }
+
+                Trip tripChosen = (from el in tripList
+                                 where el.TripName == action
+                                 select el).First();
+
+                await Navigation.PushAsync(new SitePage(tripChosen));
             }
             catch (Exception ex)
             {
@@ -68,33 +93,27 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// btnAddSpecimen Click event.
+        /// Prompts the User with a Site to collect under.
+        /// If the User selects a Site, they are taken to the SpecimenPage.
+        /// If the User selects the default new Specimen, it is created and the User stays on the CollectingPage.
+        /// If the User selects cancel, nothing happens, and the User stays on the CollectingPage.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnAddSpecimen_Clicked(object sender, EventArgs e)
         {
             try
             {
                 // get all sites for current Project
-                List<Trip> tripList = DataFunctions.GetTrips(project.ProjectName);
+                List<Site> siteList = DataFunctions.GetSitesByProjectName(project.ProjectName);
 
-                List<Site> allSites = new List<Site>();
+                var siteNames = (from el in siteList
+                                 select el.SiteName).ToList();
+                siteNames.Add("Specimen-" + (AppVariables.CollectionCount + 1).ToString());
 
-                foreach (Trip trip in tripList)
-                {
-                    List<Site> tripSiteList = DataFunctions.GetSites(trip.TripName);
-                    foreach (Site site in tripSiteList)
-                    {
-                        allSites.Add(site);
-                    }
-                }
-
-                string[] sites = new string[allSites.Count + 1];
-                for (int i = 0; i < sites.Length - 1; i++)
-                {
-                    sites[i] = allSites[i].SiteName;
-                }
-
-                sites[allSites.Count] = "Specimen-" + (AppVariables.CollectionCount + 1).ToString();
-
-                var action = await DisplayActionSheet("Choose a Site, or add default Specimen", "Cancel", null, sites);
+                var action = await DisplayActionSheet("Choose a Site, or add default Specimen", "Cancel", null, siteNames.ToArray());
 
                 Debug.WriteLine("Action chosen: " + action);
 
@@ -164,6 +183,12 @@ namespace collnotes
             }
         }
 
+        /// <summary>
+        /// EditPage Click event.
+        /// Takes the User to the EditPage with the current selected Project to edit.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         public async void btnEditPage_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new EditPage(project));

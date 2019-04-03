@@ -3,6 +3,9 @@ using System.IO;
 
 namespace collnotes.Data
 {
+    /// <summary>
+    /// App variables.
+    /// </summary>
     public static class AppVariables
     {
         public static int CollectionCount { get; set; }
@@ -11,10 +14,16 @@ namespace collnotes.Data
         public static string LastProject { get; set; }
     }
 
+    /// <summary>
+    /// App variables file.
+    /// </summary>
     public static class AppVarsFile
     {
         static readonly string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "appvars.txt");
 
+        /// <summary>
+        /// Writes the app variables.
+        /// </summary>
         public static void WriteAppVars()
         {
             string vars = "";
@@ -43,6 +52,10 @@ namespace collnotes.Data
             }
         }
 
+        /// <summary>
+        /// Reads the app variables.
+        /// </summary>
+        /// <returns><c>true</c>, if app variables was  read, <c>false</c> otherwise.</returns>
         public static bool ReadAppVars()
         {
             if (!File.Exists(filePath))

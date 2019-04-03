@@ -3,13 +3,28 @@ using System.Collections.Generic;
 
 namespace collnotes.Data
 {
+    /// <summary>
+    /// CSV Export.
+    /// </summary>
     public class CSVExport
     {
+        /// <summary>
+        /// Data export type.
+        /// </summary>
         public enum DataExportType
         {
             DarwinCore
         }
 
+        /// <summary>
+        /// Creates the CSV for export.
+        /// </summary>
+        /// <returns>The CSV for export.</returns>
+        /// <param name="selectedProject">Selected project.</param>
+        /// <param name="det">Det.</param>
+        /// <param name="selectedProjectTrips">Selected project trips.</param>
+        /// <param name="specimenForSites">Specimen for sites.</param>
+        /// <param name="sitesForTrips">Sites for trips.</param>
         public static string CreateCSVForExport(Project selectedProject, DataExportType det, List<Trip> selectedProjectTrips, Dictionary<string, List<Specimen>> specimenForSites, Dictionary<string, List<Site>> sitesForTrips)
         {
             // create CSV with site # - specimen # for each specimen record
@@ -28,6 +43,14 @@ namespace collnotes.Data
             return csvContent;
         }
 
+        /// <summary>
+        /// Gens the darwin core.
+        /// </summary>
+        /// <returns>The darwin core.</returns>
+        /// <param name="selectedProject">Selected project.</param>
+        /// <param name="selectedProjectTrips">Selected project trips.</param>
+        /// <param name="specimenForSites">Specimen for sites.</param>
+        /// <param name="sitesForTrips">Sites for trips.</param>
         private static string GenDarwinCore(Project selectedProject, List<Trip> selectedProjectTrips, Dictionary<string, List<Specimen>> specimenForSites, Dictionary<string, List<Site>> sitesForTrips)
         {
             string csvContent = "";
@@ -101,11 +124,11 @@ namespace collnotes.Data
                         substrate = "";
                         establishmentMeans = "";
                         genericColumn1 = "";
-                        string[] gpsSplit = refSite.GPSCoordinates.Split(',');
+                        string[] gpsSplit = refSite.GPSCoordinates?.Split(',');
                         latitude = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[0] : "";
                         longitude = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[1] : "";
                         coordinateUncertaintyMeters = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[2] : "";
-                        minimumElevationMeters = (!refSite.GPSCoordinates.Equals("")) ? minimumElevationMeters = gpsSplit[3] : "";
+                        minimumElevationMeters = (!refSite.GPSCoordinates.Equals("")) ? gpsSplit[3] : "";
                     }
                     else
                     {
@@ -119,11 +142,11 @@ namespace collnotes.Data
                         substrate = spec.Substrate;
                         establishmentMeans = (spec.Cultivated) ? "cultivated" : "";
                         genericColumn1 = spec.FieldIdentification;
-                        string[] gpsSplit = refSite.GPSCoordinates.Split(',');
+                        string[] gpsSplit = refSite.GPSCoordinates?.Split(',');
                         latitude = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[0] : "";
                         longitude = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[1] : "";
                         coordinateUncertaintyMeters = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[2] : "";
-                        minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? minimumElevationMeters = gpsSplit[3] : "";
+                        minimumElevationMeters = (!spec.GPSCoordinates.Equals("")) ? gpsSplit[3] : "";
                     }
 
                     csvContent += "\"" + recordNumber + "\",\"" +                                       // record number

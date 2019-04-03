@@ -5,7 +5,7 @@
     xmlns:local="clr-namespace:collnotes"
     xmlns:control="clr-namespace:collnotes.Custom"
     x:Class="collnotes.MainPage"
-    Title="collnotes"
+    Title="Main Menu"
     BackgroundColor="Teal">
     <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
         <Grid.RowDefinitions>

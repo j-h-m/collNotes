@@ -165,14 +165,16 @@ namespace collnotes
 
             specimen.SiteName = site.SiteName;
 
-            if (DataFunctions.CheckExists(specimen, site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString()))
-            {
-                Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
-            }
-            else
-            {
-                Title = site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString();
-            }
+            Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+
+            //if (DataFunctions.CheckExists(specimen, site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString()))
+            //{
+            //    Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
+            //}
+            //else
+            //{
+            //    Title = site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString();
+            //}
         }
 
         /// <summary>

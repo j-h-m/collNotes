@@ -12,8 +12,16 @@ using System.Diagnostics;
 
 namespace collnotes.Plugins
 {
+    /// <summary>
+    /// Get current gps.
+    /// </summary>
     public static class CurrentGPS
     {
+        /// <summary>
+        /// Gets the Users current location using the Plugin.Geolocator.
+        /// May require the User to give permission to Location.
+        /// </summary>
+        /// <returns>The location.</returns>
         public async static System.Threading.Tasks.Task<Position> CurrentLocation()
         {
             Position position = null;
