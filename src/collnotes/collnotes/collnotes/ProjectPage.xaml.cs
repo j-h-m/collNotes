@@ -47,6 +47,7 @@ namespace collnotes
             dpCreatedDate.Date = project.CreatedDate;
             entryProjectName.IsEnabled = false;
             btnNewProject.IsEnabled = false;
+            btnNewProject.IsVisible = false;
 
             userIsEditing = true;
             editWasSaved = false;

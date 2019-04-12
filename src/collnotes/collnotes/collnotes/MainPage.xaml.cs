@@ -57,12 +57,6 @@ namespace collnotes
             {
                 List<Project> projectList = DataFunctions.GetProjects();
 
-                if (projectList.Count < 1)
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("Can't start collecting until you've created a project!");
-                    return;
-                }
-
                 // default 'today' project
                 Project todayProject = new Project
                 {
@@ -81,6 +75,11 @@ namespace collnotes
                             select p.ProjectName).ToArray();
 
                 var action = await DisplayActionSheet("Choose a project", "Cancel", null, projects);
+
+                if (action.Equals("Cancel"))
+                {
+                    return;
+                }
 
                 var projectChosen = (from el in projectList
                                     where el.ProjectName == action

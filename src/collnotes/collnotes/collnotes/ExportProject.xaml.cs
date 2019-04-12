@@ -103,7 +103,7 @@ namespace collnotes
 
                 if (sitesForTrips.Count == 0)
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No trips.");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You must collect specimen to export data!");
                     return;
                 }
 
@@ -121,7 +121,7 @@ namespace collnotes
 
                 if (specimenForSites.Count == 0)
                 {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("No sites.");
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You must collect specimen to export data!");
                     return;
                 }
 

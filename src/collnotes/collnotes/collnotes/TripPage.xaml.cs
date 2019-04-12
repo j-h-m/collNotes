@@ -57,7 +57,7 @@ namespace collnotes
             entryAdditionalCollectors.Text = trip.AdditionalCollectors;
             dpCollectionDate.Date = trip.CollectionDate;
             entryTripName.IsEnabled = false;
-            btnNewTrip.IsEnabled = false;
+            btnNewTrip.IsVisible = false;
 
             userIsEditing = true;
             editWasSaved = false;

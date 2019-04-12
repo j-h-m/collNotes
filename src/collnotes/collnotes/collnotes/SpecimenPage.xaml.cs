@@ -65,7 +65,7 @@ namespace collnotes
             pickerLifeStage.SelectedItem = specimen.LifeStage;
             switchCultivated.IsToggled = specimen.Cultivated;
             entryIndivCount.Text = specimen.IndividualCount;
-            btnNewSpecimen.IsEnabled = false;
+            btnNewSpecimen.IsVisible = false;
 
             btnBack.IsVisible = userIsEditing;
         }

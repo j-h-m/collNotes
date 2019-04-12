@@ -56,7 +56,7 @@ namespace collnotes
 
             entrySiteName.Text = site.SiteName;
             entrySiteName.IsEnabled = false;
-            btnNewSite.IsEnabled = false;
+            btnNewSite.IsVisible = false;
             entryLocality.Text = site.Locality;
             entryHabitat.Text = site.Habitat;
             entryAssocTaxa.Text = site.AssociatedTaxa;

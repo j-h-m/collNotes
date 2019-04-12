@@ -34,23 +34,20 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        void btnSaveSettings_Clicked(object sender, EventArgs e)
+        async void btnSaveSettings_Clicked(object sender, EventArgs e)
         {
             if (!entryStartingRecordNumber.Text.Equals(""))
             {
                 int currentSpecimenCount = DataFunctions.GetSpecimenCount();
-                if (currentSpecimenCount > 0)
+                int userEntered = int.Parse(entryStartingRecordNumber.Text);
+                if (userEntered < currentSpecimenCount) // the user should not be able to set the collection count to a value lower than the current total
                 {
-                    int userEntered = int.Parse(entryStartingRecordNumber.Text);
-                    if (userEntered < currentSpecimenCount) // the user should not be able to set the collection count to a value lower than the current total
-                    {
-                        DependencyService.Get<ICrossPlatformToast>().ShortAlert("You cannot set the Specimen Count lower than the current total.");
-                        return;
-                    }
-                    else
-                    {
-                        AppVariables.CollectionCount = userEntered;
-                    }
+                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You cannot set the Specimen Count lower than the current total.");
+                    return;
+                }
+                else
+                {
+                    AppVariables.CollectionCount = userEntered;
                 }
             }
             if (!entryCollectorName.Text.Equals(""))
@@ -65,9 +62,6 @@ namespace collnotes
             AppVarsFile.WriteAppVars();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved settings");
-
-            // automatically go back to main page after save
-            Navigation.RemovePage(this);
         }
     }
 }
