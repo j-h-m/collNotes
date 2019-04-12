@@ -1,5 +1,4 @@
-# collNotes - ![Build status](https://ci.appveyor.com/api/projects/status/gyx4070e1qxhd1lm?svg=true)
-
+![Build status](https://ci.appveyor.com/api/projects/status/gyx4070e1qxhd1lm?svg=true)
 
 <h1 align=center>
 <img src="data/assets/logo-collnotes//horizontal.png" width=40%>
