@@ -1,7 +1,7 @@
-## Welcome to PD Project Xamarin
+## collNotes: Xamarin Forms (Android & iOS) app for field biologists
 
-This project's brother lives [here](https://github.com/j-h-m/Plant-Digitization-Project).
+collNotes is an Android and iOS App, using Xamarin technology. Replaces, or supplements, a field biologist's traditional journal.
 
-My accomplice is this excellent [guy](https://github.com/CapPow) who saw the need for the project.
+Send any questions or suggestions to plantdigitizationprojectutc@gmail.com
 
-We are in the pre-release phase.
+collNotes sister app [collBook](https://github.com/CapPow/collBook).
