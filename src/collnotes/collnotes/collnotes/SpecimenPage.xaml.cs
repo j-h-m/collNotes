@@ -59,7 +59,6 @@ namespace collnotes
 
             Title = site.RecordNo + "-" + specimen.SpecimenNumber;
             entryFieldID.Text = specimen.FieldIdentification;
-            entryFieldID.IsEnabled = false;
             entryOccurrenceNotes.Text = specimen.OccurrenceNotes;
             entrySubstrate.Text = specimen.Substrate;
             pickerLifeStage.SelectedItem = specimen.LifeStage;
@@ -128,6 +127,7 @@ namespace collnotes
                 if (updateResult == 1)
                 {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(specimen.SpecimenName + " save succeeded.");
+                    editWasSaved = true;
                     return;
                 }
                 else
@@ -166,15 +166,6 @@ namespace collnotes
             specimen.SiteName = site.SiteName;
 
             Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
-
-            //if (DataFunctions.CheckExists(specimen, site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString()))
-            //{
-            //    Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
-            //}
-            //else
-            //{
-            //    Title = site.RecordNo.ToString() + "-" + AppVariables.CollectionCount.ToString();
-            //}
         }
 
         /// <summary>
@@ -191,7 +182,19 @@ namespace collnotes
                 return;
             }
 
-            bool response = await DisplayAlert("Are you sure?", "Are you sure you don't want to save your changes?", "Yes", "No");
+            if (entryFieldID.Text.Equals(specimen.FieldIdentification) &&
+                entrySubstrate.Text.Equals(specimen.Substrate) &&
+                entryIndivCount.Text.Equals(specimen.IndividualCount) &&
+                entryOccurrenceNotes.Text.Equals(specimen.OccurrenceNotes) &&
+                switchCultivated.IsToggled.Equals(specimen.Cultivated) &&
+                entryIndivCount.Text.Equals(specimen.IndividualCount) &&
+                pickerLifeStage.SelectedItem.Equals(specimen.LifeStage))
+            {
+                Navigation.RemovePage(this);
+                return;
+            }
+
+            bool response = await DisplayAlert("Confirm", "Discard changes?", "Yes", "No");
             if (response)
                 Navigation.RemovePage(this);
         }
@@ -209,7 +212,7 @@ namespace collnotes
             specimen.IndividualCount = entryIndivCount.Text is null ? "" : entryIndivCount.Text;
             specimen.Cultivated = switchCultivated.IsToggled;
 
-            AppVariables.CollectionCount = AppVariables.CollectionCount > 0 ? AppVariables.CollectionCount + 1 : 1;
+            AppVariables.CollectionCount += 1;
 
             specimen.SpecimenNumber = AppVariables.CollectionCount;
 
@@ -224,6 +227,8 @@ namespace collnotes
 
             // anytime we add a specimen we need to write back the CollectionCount
             AppVarsFile.WriteAppVars();
+
+            Title = site.RecordNo.ToString() + "-" + (AppVariables.CollectionCount + 1).ToString();
 
             return true;
         }

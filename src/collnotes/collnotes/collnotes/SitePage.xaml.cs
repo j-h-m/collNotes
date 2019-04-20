@@ -62,6 +62,8 @@ namespace collnotes
             entryAssocTaxa.Text = site.AssociatedTaxa;
             entryLocationNotes.Text = site.LocationNotes;
 
+            siteGPS = site.GPSCoordinates;
+
             userIsEditing = true;
             editWasSaved = false;
 
@@ -147,6 +149,7 @@ namespace collnotes
                 if (updateResult == 1)
                 {
                     DependencyService.Get<ICrossPlatformToast>().ShortAlert(site.SiteName + " update succeeded.");
+                    editWasSaved = true;
                     return;
                 }
                 else
@@ -249,7 +252,17 @@ namespace collnotes
                 return;
             }
 
-            bool response = await DisplayAlert("Are you sure?", "Are you sure you don't want to save your changes?", "Yes", "No");
+            if (entryHabitat.Text.Equals(site.Habitat) &&
+                entryLocality.Text.Equals(site.Locality) &&
+                entryAssocTaxa.Text.Equals(site.AssociatedTaxa) &&
+                entryLocationNotes.Text.Equals(site.LocationNotes) &&
+                site.GPSCoordinates.Equals(siteGPS))
+            {
+                Navigation.RemovePage(this);
+                return;
+            }
+
+            bool response = await DisplayAlert("Confirm", "Discard changes?", "Yes", "No");
             if (response)
                 Navigation.RemovePage(this);
         }

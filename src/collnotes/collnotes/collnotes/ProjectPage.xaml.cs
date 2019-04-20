@@ -141,7 +141,14 @@ namespace collnotes
                 return;
             }
 
-            bool response = await DisplayAlert("Are you sure?", "Are you sure you don't want to save your changes?", "Yes", "No");
+            if (entryPrimaryCollectorProject.Text.Equals(project.PrimaryCollector) && 
+                dpCreatedDate.Date.ToShortDateString().Equals(project.CreatedDate.ToShortDateString()))
+            {
+                Navigation.RemovePage(this);
+                return;
+            }
+
+            bool response = await DisplayAlert("Confirm", "Discard changes?", "Yes", "No");
             if (response)
                 Navigation.RemovePage(this);
         }

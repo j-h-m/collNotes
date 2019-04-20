@@ -101,7 +101,6 @@ namespace collnotes
             {
                 trip.AdditionalCollectors = (entryAdditionalCollectors.Text is null) ? "" : entryAdditionalCollectors.Text;
                 trip.CollectionDate = dateChanged ? dpCollectionDate.Date : trip.CollectionDate;
-
                 int updateResult = DatabaseFile.GetConnection().Update(trip, typeof(Trip));
                 if (updateResult == 1)
                 {
@@ -155,7 +154,14 @@ namespace collnotes
                 return;
             }
 
-            bool response = await DisplayAlert("Are you sure?", "Are you sure you don't want to save your changes?", "Yes", "No");
+            if (entryAdditionalCollectors.Text.Equals(trip.AdditionalCollectors) &&
+                dpCollectionDate.Date.ToShortDateString().Equals(trip.CollectionDate.ToShortDateString()))
+            {
+                Navigation.RemovePage(this);
+                return;
+            }
+
+            bool response = await DisplayAlert("Confirm", "Discard changes?", "Yes", "No");
             if (response)
                 Navigation.RemovePage(this);
         }
