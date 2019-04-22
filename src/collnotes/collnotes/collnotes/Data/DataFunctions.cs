@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 
 namespace collnotes.Data
 {
@@ -199,7 +198,7 @@ namespace collnotes.Data
         /// This reflects the number of specimen in the Specimen table, does not take into account collection count.
         /// </summary>
         /// <returns>The specimen count.</returns>
-        public static int GetSpecimenCount()
+        public static int GetAllSpecimenCount()
         {
             int count = 0;
             try
@@ -212,6 +211,17 @@ namespace collnotes.Data
                 count = 0;
             }
             return count;
+        }
+
+        /// <summary>
+        /// Gets a Project by name.
+        /// </summary>
+        /// <returns>The Project by name.</returns>
+        /// <param name="name">Name.</param>
+        public static Project GetProjectByName(string name)
+        {
+            List<Project> results = DatabaseFile.GetConnection().Query<Project>("select * from Project where ProjectName = '" + name + "'");
+            return results.Count > 0 ? results[0] : null;
         }
 
         /// <summary>

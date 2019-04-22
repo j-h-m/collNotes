@@ -32,7 +32,7 @@ namespace collnotes
 
             if (!result)
             {
-                AppVariables.CollectionCount = DataFunctions.GetSpecimenCount();
+                AppVariables.CollectionCount = DataFunctions.GetAllSpecimenCount();
             }
 
             // create tables for ORM, if not already created

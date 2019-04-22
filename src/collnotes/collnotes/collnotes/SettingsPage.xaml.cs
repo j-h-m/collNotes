@@ -34,11 +34,11 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        async void btnSaveSettings_Clicked(object sender, EventArgs e)
+        void btnSaveSettings_Clicked(object sender, EventArgs e)
         {
             if (!entryStartingRecordNumber.Text.Equals(""))
             {
-                int currentSpecimenCount = DataFunctions.GetSpecimenCount();
+                int currentSpecimenCount = DataFunctions.GetAllSpecimenCount();
                 int userEntered = int.Parse(entryStartingRecordNumber.Text);
                 if (userEntered < currentSpecimenCount) // the user should not be able to set the collection count to a value lower than the current total
                 {

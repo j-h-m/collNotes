@@ -1,19 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using Plugin.ShareFile;
-using Xamarin.Forms;
+﻿using collnotes.Data;
+using collnotes.Data.ExportFormat;
+using collnotes.Interfaces;
+using CsvHelper;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using System.Threading.Tasks;
+using Plugin.ShareFile;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using collnotes.Data;
-using collnotes.Interfaces;
+using System.IO;
 using System.Linq;
-
+using System.Threading.Tasks;
 using Xamarin.Essentials;
-
-// This one needs some LINQ...
+using Xamarin.Forms;
 
 namespace collnotes
 {
@@ -22,8 +21,8 @@ namespace collnotes
     /// </summary>
     public partial class ExportProject : ContentPage
     {
-        private Project selectedProject;
         private List<Project> projectList;
+        private Project selectedProject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:collnotes.ExportProject"/> class.
@@ -55,7 +54,7 @@ namespace collnotes
 
                 if (!(selectedProject is null))
                 {
-                    await CSVExport_Helper();
+                    await ExportData();
                 }
             }
             catch (Exception ex)
@@ -71,96 +70,61 @@ namespace collnotes
         /// <param name="e">E.</param>
         public async void btnExportProjectCSV_Clicked(object sender, EventArgs e)
         {
-            await CSVExport_Helper();
+            await ExportData();
         }
 
-        /// <summary>
-        /// CSV the export helper.
-        /// </summary>
-        /// <returns>The xport helper.</returns>
-        private async Task CSVExport_Helper()
+        public async Task ExportData()
         {
             var result = await CheckExternalFilePermissions();
-
             if (!result)
             {
                 DependencyService.Get<ICrossPlatformToast>().ShortAlert("Storage permission required for data export!");
             }
+            string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
+            // save to local app data
+            // to share in email must use temporary file, can't use internal storage
+            string fileName = selectedProject.ProjectName.Trim() + ".csv";
+            string localFileLocation = Path.Combine(filePath, fileName);
 
-            try
+            var sites = (from s in DataFunctions.GetSitesByProjectName(selectedProject.ProjectName)
+                         select s).ToList();
+
+            using (var writer = new StreamWriter(localFileLocation))
+            using (var csv = new CsvWriter(writer))
             {
-                // get Trips for selected Project
-                List<Trip> selectedProjectTrips = DataFunctions.GetTrips(selectedProject.ProjectName);
-
-                // get Sites for each Trip
-                Dictionary<string, List<Site>> sitesForTrips = new Dictionary<string, List<Site>>();
-
-                foreach (Trip trip in selectedProjectTrips)
+                if (AppVariables.DataExportFormat.Equals(ExportTypes.DarwinCore)) // Darwin Core format
                 {
-                    List<Site> sites = DataFunctions.GetSites(trip.TripName);
-                    sitesForTrips.Add(trip.TripName, sites);
-                }
+                    csv.WriteHeader<DwCMap>();
+                    csv.NextRecord(); // next meme
+                                      // write Site
+                    foreach (var si in sites)
+                    {
+                        DwCMap convSite = new DwCMap(si);
+                        csv.WriteRecord<DwCMap>(convSite);
+                        csv.NextRecord(); // next meme
 
-                if (sitesForTrips.Count == 0)
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You must collect specimen to export data!");
-                    return;
-                }
-
-                // get Specimen for each Site
-                Dictionary<string, List<Specimen>> specimenForSites = new Dictionary<string, List<Specimen>>();
-
-                foreach (var trip in sitesForTrips)
-                { // trip, list<site>
-                    foreach (var site in trip.Value)
-                    { // go through list<site>
-                        List<Specimen> specimenList = DataFunctions.GetSpecimen(site.SiteName);
-                        specimenForSites.Add(site.SiteName, specimenList);
+                        // write Specimen
+                        foreach (var sp in DataFunctions.GetSpecimen(si.SiteName))
+                        {
+                            DwCMap convSpec = new DwCMap(sp);
+                            csv.WriteRecord<DwCMap>(convSpec);
+                            csv.NextRecord(); // next meme
+                        }
                     }
-                }
-
-                if (specimenForSites.Count == 0)
-                {
-                    DependencyService.Get<ICrossPlatformToast>().ShortAlert("You must collect specimen to export data!");
-                    return;
-                }
-
-                // csv content string to write to file
-                string csvContent = "";
-
-                switch (AppVariables.DataExportFormat)
-                {
-                    case "Darwin Core":
-                        csvContent = CSVExport.CreateCSVForExport(selectedProject, CSVExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
-                        break;
-                    default:
-                        csvContent = CSVExport.CreateCSVForExport(selectedProject, CSVExport.DataExportType.DarwinCore, selectedProjectTrips, specimenForSites, sitesForTrips);
-                        break;
-                }
-
-                string filePath = DependencyService.Get<ICrossPlatform_GetShareFolder>().GetShareFolder();
-
-                // save to local app data
-                // to share in email must use temporary file, can't use internal storage
-                string fileName = selectedProject.ProjectName.Trim() + ".csv";
-
-                string localFileLocation = Path.Combine(filePath, fileName);
-
-                File.WriteAllText(localFileLocation, csvContent, System.Text.Encoding.UTF8); // create csvfile with utf8 encoding, in permanent local storage
-
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    await SendEmail("Project Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
                 }
                 else
                 {
-                    CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export");
+                    return;
                 }
             }
-            catch (Exception ex)
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Export failed.");
-                Debug.WriteLine(ex.Message);
+                await SendEmail("Project Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
+            }
+            else
+            {
+                CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export");
             }
         }
 
