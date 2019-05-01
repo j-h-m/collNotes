@@ -37,8 +37,7 @@
                         </Entry.TextColor>
                     </Entry>
                     <Label Text="Life Stage" />
-                    <control:CustomPicker x:Name="pickerLifeStage"
-                          FontSize="28"      
+                    <control:CustomPicker x:Name="pickerLifeStage"   
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             Title="Select A Life Stage" 

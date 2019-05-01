@@ -13,14 +13,13 @@
             <StackLayout Orientation="Vertical">
                 <Label Text="Choose a Project:" />
                 <control:CustomPicker
-                    FontSize="28"
                     x:Name="pickerExportProject"
                     Title="Select Project" 
                     SelectedIndexChanged="pickerExportProject_SelectedIndexChanged">
                     <control:CustomPicker.TextColor>
                         <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                     </control:CustomPicker.TextColor>
-                    </control:CustomPicker>
+                </control:CustomPicker>
                 <Button x:Name="btnExportProjectCSV"
                         Text="Export Project Data"
                         BorderRadius="25"

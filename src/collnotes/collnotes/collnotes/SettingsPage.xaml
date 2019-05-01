@@ -22,7 +22,6 @@
                     </Entry>
                     <Label Text="Format:" />
                     <control:CustomPicker
-                        FontSize="28"
                         x:Name="pickerExportFormat"
                         Title="Select Data Format"
                         SelectedIndex = "0"

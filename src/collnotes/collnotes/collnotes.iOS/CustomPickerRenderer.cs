@@ -20,33 +20,10 @@ namespace collnotes
                 // get Bindable properties
                 UIColor placeholderColor = GetUIColor(customPicker.PlaceholderColor);
                 UIColor textColor = GetUIColor(customPicker.TextColor.ToString());
-                float textSize = (float)customPicker.TextSize;
-
 
                 // create font decsriptor
                 var label = new UILabel();
                 var fontDescriptor = label.Font.FontDescriptor;
-
-                // adjusting font size
-                var newDescriptor = fontDescriptor.CreateWithAttributes(new UIFontAttributes()
-                {
-                    Size = textSize
-                });
-                UIFont font = UIFont.FromDescriptor(newDescriptor, 0);
-
-
-                // set attributes
-                //var placeholderAttributes = new NSAttributedString(customPicker.Title, new UIStringAttributes()
-                //{ ForegroundColor = placeholderColor, Font = font });
-
-                //Control.AttributedPlaceholder = placeholderAttributes;
-
-
-                //var textAttributes = new NSAttributedString(customPicker.Title, new UIStringAttributes()
-                //{ ForegroundColor = textColor, Font = font });
-
-                //Control.AttributedText = textAttributes;
-
             }
         }
 

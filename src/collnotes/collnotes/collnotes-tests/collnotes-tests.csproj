@@ -8,6 +8,7 @@
     <RootNamespace>collnotestests</RootNamespace>
     <AssemblyName>collnotes-tests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

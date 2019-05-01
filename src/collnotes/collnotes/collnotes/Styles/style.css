@@ -17,6 +17,10 @@ entry {
     font-size: 18;
 }
 
+customPicker {
+    font-size: 18;
+}
+
 label {
     color: white;
     align-content: center;

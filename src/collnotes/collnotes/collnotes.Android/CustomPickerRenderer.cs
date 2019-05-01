@@ -19,7 +19,6 @@ namespace collnotes
             if (e.NewElement != null)
             {
                 var customPicker = e.NewElement as CustomPicker;
-                Control.TextSize *= (customPicker.TextSize * 0.01f);
                 Control.SetHintTextColor(Android.Graphics.Color.ParseColor(customPicker.PlaceholderColor));
             }
         }

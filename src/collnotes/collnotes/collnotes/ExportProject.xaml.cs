@@ -120,7 +120,7 @@ namespace collnotes
 
             if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                await SendEmail("Project Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
+                await SendEmail(selectedProject.ProjectName + " Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
             }
             else
             {
