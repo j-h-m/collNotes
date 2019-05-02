@@ -12,7 +12,7 @@ namespace collnotes
     public partial class TripPage : ContentPage
     {
         // hold object instance(s) for current Page
-        private Project project;
+        private readonly Project project;
         private Trip trip;
 
         // flags used to control what happens in some events
@@ -83,7 +83,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void dpCollectionDate_DateSelected(object sender, EventArgs e)
+        public void CollectionDate_DateSelected(object sender, EventArgs e)
         {
             trip.CollectionDate = dpCollectionDate.Date;
             dateChanged = true;
@@ -95,7 +95,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnSaveTrip_Clicked(object sender, EventArgs e)
+        public async void SaveTrip_Clicked(object sender, EventArgs e)
         {
             if (userIsEditing)
             {
@@ -128,7 +128,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void btnNewTrip_Clicked(object sender, EventArgs e)
+        public void NewTrip_Clicked(object sender, EventArgs e)
         {
             trip = new Trip();
 
@@ -146,7 +146,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private async void btnBack_Clicked(object sender, EventArgs e)
+        private async void Back_Clicked(object sender, EventArgs e)
         {
             if (editWasSaved)
             {

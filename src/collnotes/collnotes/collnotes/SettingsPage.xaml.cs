@@ -27,14 +27,14 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        void pickerExportFormat_SelectedIndexChange(object sender, EventArgs e) { }
+        void ExportFormat_SelectedIndexChange(object sender, EventArgs e) { }
 
         /// <summary>
         /// Buttons the save settings clicked.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        void btnSaveSettings_Clicked(object sender, EventArgs e)
+        void SaveSettings_Clicked(object sender, EventArgs e)
         {
             if (!entryStartingRecordNumber.Text.Equals(""))
             {

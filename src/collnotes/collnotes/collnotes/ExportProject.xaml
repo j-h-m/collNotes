@@ -4,26 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:collnotes.Custom"
     x:Class="collnotes.ExportProject"
-    Title="Export Project">
-    <ContentPage.Resources>
-        <StyleSheet Source="Styles/style.css"/>
-    </ContentPage.Resources>
+    Title="Export Project"
+    Style="{StaticResource AltCPStyle}">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical">
-                <Label Text="Choose a Project:" />
+                <Label Text="Choose a Project:"
+                       Style="{StaticResource LBLStyle}"/>
                 <control:CustomPicker
                     x:Name="pickerExportProject"
+                    Style="{StaticResource PickerStyle}"
                     Title="Select Project" 
-                    SelectedIndexChanged="pickerExportProject_SelectedIndexChanged">
-                    <control:CustomPicker.TextColor>
-                        <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                    </control:CustomPicker.TextColor>
-                </control:CustomPicker>
-                <Button x:Name="btnExportProjectCSV"
+                    SelectedIndexChanged="ExportProject_SelectedIndexChanged"/>
+                <Button x:Name="ExportProjectCSV"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Export Project Data"
-                        BorderRadius="25"
-                        Clicked="btnExportProjectCSV_Clicked"/>
+                        Clicked="ExportProjectCSV_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

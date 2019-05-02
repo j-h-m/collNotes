@@ -74,7 +74,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private void dpCreatedDate_DateSelected(object sender, DateChangedEventArgs e)
+        private void CreatedDate_DateSelected(object sender, DateChangedEventArgs e)
         {
             project.CreatedDate = dpCreatedDate.Date;
             dateChanged = true;
@@ -86,7 +86,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private async void btnSaveProject_Clicked(object sender, EventArgs e)
+        private async void SaveProject_Clicked(object sender, EventArgs e)
         {
             if (userIsEditing)
             {
@@ -120,7 +120,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private void btnNewProject_Clicked(object sender, EventArgs e)
+        private void NewProject_Clicked(object sender, EventArgs e)
         {
             project = new Project();
             LoadDefaults();
@@ -133,7 +133,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private async void btnBack_Clicked(object sender, EventArgs e)
+        private async void Back_Clicked(object sender, EventArgs e)
         {
             if (editWasSaved)
             {

@@ -38,7 +38,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnEditProject_Clicked(object sender, EventArgs e)
+        public async void EditProject_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProjectPage(project));
         }
@@ -48,7 +48,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnEditTrip_Clicked(object sender, EventArgs e)
+        public async void EditTrip_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnEditSite_Clicked(object sender, EventArgs e)
+        public async void EditSite_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnEditSpecimen_Clicked(object sender, EventArgs e)
+        public async void EditSpecimen_Clicked(object sender, EventArgs e)
         {
             try
             {

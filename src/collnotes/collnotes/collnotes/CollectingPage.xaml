@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:local="clr-namespace:collnotes"
+    xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="collnotes.CollectingPage"
     xmlns:control="clr-namespace:collnotes.Custom"
     Title="Collecting Menu"
-    BackgroundColor="Teal">
-    <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
+    Style="{StaticResource MainCPStyle}">
+    <Grid Style="{StaticResource CPGridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -17,52 +16,32 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <control:CustomButton x:Name="btnAddTrip"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Add Trip"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnAddTrip_Clicked"
+                Clicked="AddTrip_Clicked"
                 Grid.Row="0"
                 Grid.Column="0"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                BorderWidth="10"
-                BorderRadius="25"/>
+                BackgroundColor="DodgerBlue"/>
         <control:CustomButton x:Name="btnAddSite"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Add Site"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnAddSite_Clicked"
+                Clicked="AddSite_Clicked"
                 Grid.Row="0"
                 Grid.Column="1"
-                BackgroundColor="Orange"
-                TextColor="White"
-                BorderWidth="10"
-                BorderRadius="25"/>
+                BackgroundColor="Orange"/>
         <control:CustomButton x:Name="btnAddSpecimen"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Add Specimen"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnAddSpecimen_Clicked"
+                Clicked="AddSpecimen_Clicked"
                 Grid.Row="1"
                 Grid.Column="0"
-                BackgroundColor="ForestGreen"
-                TextColor="White"
-                BorderWidth="10"
-                BorderRadius="25"/>
+                BackgroundColor="ForestGreen"/>
         <control:CustomButton x:Name="btnEditPage"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Edit Project Data"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnEditPage_Clicked"
+                Clicked="EditPage_Clicked"
                 Grid.Row="1"
                 Grid.Column="1"
-                BackgroundColor="IndianRed"
-                TextColor="White"
-                BorderWidth="10"
-                BorderRadius="25" /> 
+                BackgroundColor="IndianRed"/> 
     </Grid>
 </ContentPage>

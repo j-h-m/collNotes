@@ -4,15 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:collnotes.Custom"
     x:Class="collnotes.SettingsPage"
-    Title="Settings">
-    <ContentPage.Resources>
-        <StyleSheet Source="Styles/style.css"/>
-    </ContentPage.Resources>
+    Title="Settings"
+    Style="{StaticResource AltCPStyle}">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Default Primary Collector:"/>
+                    <Label Text="Default Primary Collector:"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="John Doe"
                            Keyboard="Text"
                            x:Name="entryCollectorName">
@@ -20,22 +19,22 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Format:" />
+                    <Label Text="Format:"
+                           Style="{StaticResource LBLStyle}"/>
                     <control:CustomPicker
                         x:Name="pickerExportFormat"
+                        Style="{StaticResource PickerStyle}"
                         Title="Select Data Format"
                         SelectedIndex = "0"
-                        SelectedIndexChanged="pickerExportFormat_SelectedIndexChange">
-                        <control:CustomPicker.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </control:CustomPicker.TextColor>
+                        SelectedIndexChanged="ExportFormat_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Darwin Core</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
                     </control:CustomPicker>
-                    <Label Text="Starting Field Number:" />
+                    <Label Text="Starting Field Number:" 
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="1000000"
                            Keyboard="Numeric"
                            x:Name="entryStartingRecordNumber">
@@ -44,9 +43,9 @@
                         </Entry.TextColor>
                     </Entry>
                     <Button Text="Save Settings"
-                            BorderRadius="25"
+                            Style="{StaticResource EBTNStyle}"
                             x:Name="btnSaveSettings"
-                            Clicked="btnSaveSettings_Clicked" />
+                            Clicked="SaveSettings_Clicked" />
                 </StackLayout>
             </StackLayout>
         </ScrollView>

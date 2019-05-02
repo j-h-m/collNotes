@@ -3,15 +3,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="collnotes.SitePage"
-    Title="Site">
-    <ContentPage.Resources>
-        <StyleSheet Source="Styles/style.css"/>
-    </ContentPage.Resources>
+    Title="Site"
+    Style="{StaticResource AltCPStyle}">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Site Name:" />
+                    <Label Text="Site Name:"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry x:Name="entrySiteName"
                            Keyboard="Text"
                            Placeholder="Site name">
@@ -19,7 +18,8 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Locality" />
+                    <Label Text="Locality"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="10km from trail head..."
                            Keyboard="Text"
                            x:Name="entryLocality" >
@@ -27,7 +27,8 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Habitat" />
+                    <Label Text="Habitat"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="Pine Forest"
                            Keyboard="Text"
                            x:Name="entryHabitat">
@@ -35,7 +36,8 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Associated Taxa" />
+                    <Label Text="Associated Taxa"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="Site wide 'field calls'"
                            Keyboard="Text"
                            x:Name="entryAssocTaxa">
@@ -43,7 +45,8 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Location Notes" />
+                    <Label Text="Location Notes" 
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="Popular campground"
                            Keyboard="Text"
                            x:Name="entryLocationNotes">
@@ -52,28 +55,29 @@
                         </Entry.TextColor>
                     </Entry>
                     <Label x:Name="lblStatusMessage" 
+                           Style="{StaticResource LBLStyle}"
                            Text="Remember to get Location!"
                            TextColor="Red"/>
                     <Button Text="Set GPS"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         x:Name="btnSetSiteGPS"
-                        Clicked="btnSetSiteGPS_Clicked"/>
+                        Clicked="SetSiteGPS_Clicked"/>
                     <Button x:Name="btnSitePhoto"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Take Photo"
-                        Clicked="btnSitePhoto_Clicked"/>
+                        Clicked="SitePhoto_Clicked"/>
                     <Button x:Name="btnNewSite"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="New Site" 
-                        Clicked="btnNewSite_Clicked"/>
+                        Clicked="NewSite_Clicked"/>
                     <Button x:Name="btnSaveSite"
                         Text="Save Site"
-                        BorderRadius="25"
-                        Clicked="btnSaveSite_Clicked"/>
+                        Style="{StaticResource EBTNStyle}"
+                        Clicked="SaveSite_Clicked"/>
                     <Button x:Name="btnBack"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Back"
-                        Clicked="btnBack_Clicked" />                    
+                        Clicked="Back_Clicked" />                    
                 </StackLayout>
             </StackLayout>
         </ScrollView>

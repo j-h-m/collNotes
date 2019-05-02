@@ -22,9 +22,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Remove="Styles\PDStyle.css" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="MainPage.cs" />
   </ItemGroup>
   <ItemGroup>

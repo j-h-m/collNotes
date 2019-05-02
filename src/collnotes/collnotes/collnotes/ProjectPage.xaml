@@ -3,15 +3,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="collnotes.ProjectPage"
-    Title="Project">
-    <ContentPage.Resources>
-        <StyleSheet Source="Styles/style.css"/>
-    </ContentPage.Resources>
+    Title="Project"
+    Style="{StaticResource AltCPStyle}">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Project Name:" />
+                    <Label Text="Project Name:"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry x:Name="entryProjectName"
                        Keyboard="Text"
                        Placeholder="Flora of Mars">
@@ -19,7 +18,8 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Primary Collector:" />
+                    <Label Text="Primary Collector:"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry x:Name="entryPrimaryCollectorProject"
                        Keyboard="Text"
                        Placeholder="John Doe">
@@ -27,27 +27,27 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
-                    <Label Text="Created Date:" />
+                    <Label Text="Created Date:" 
+                           Style="{StaticResource LBLStyle}"/>
                     <DatePicker x:Name="dpCreatedDate"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"
-                       DateSelected="dpCreatedDate_DateSelected">
+                                Style="{StaticResource DPStyle}"
+                                DateSelected="CreatedDate_DateSelected">
                         <DatePicker.TextColor>
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </DatePicker.TextColor>
                     </DatePicker>
                     <Button x:Name="btnNewProject"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="New Project"
-                        Clicked="btnNewProject_Clicked" />
+                        Clicked="NewProject_Clicked" />
                     <Button x:Name="btnSaveProject"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Save Project"
-                        Clicked="btnSaveProject_Clicked" />
+                        Clicked="SaveProject_Clicked" />
                     <Button x:Name="btnBack"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Back"
-                        Clicked="btnBack_Clicked" />                    
+                        Clicked="Back_Clicked" />                    
                 </StackLayout>            
             </StackLayout>
         </ScrollView>

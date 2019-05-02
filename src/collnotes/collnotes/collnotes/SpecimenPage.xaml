@@ -4,47 +4,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:collnotes.Custom" 
     x:Class="collnotes.SpecimenPage"
-    Title="Specimen">
-    <ContentPage.Resources>
-        <StyleSheet Source="Styles/style.css"/>
-    </ContentPage.Resources>
+    Title="Specimen"
+    Style="{StaticResource AltCPStyle}">
     <ContentPage.Content>
         <ScrollView>
           <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Field ID" />
+                    <Label Text="Field ID" 
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="Binomial or Common"
                            Keyboard="Text"
-                       x:Name="entryFieldID">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
-                    <Label Text="Occurrence Notes" />
+                           Style="{StaticResource EntryStyle}"
+                           x:Name="entryFieldID"/>
+                    <Label Text="Occurrence Notes"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="Tallest in the stand"
                            Keyboard="Text"
-                       x:Name="entryOccurrenceNotes">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
-                    <Label Text="Substrate" />
+                           Style="{StaticResource EntryStyle}"
+                           x:Name="entryOccurrenceNotes"/>
+                    <Label Text="Substrate"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="mycorrhizal with Ent."
                            Keyboard="Text"
-                       x:Name="entrySubstrate">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
-                    <Label Text="Life Stage" />
-                    <control:CustomPicker x:Name="pickerLifeStage"   
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
+                           Style="{StaticResource EntryStyle}"
+                           x:Name="entrySubstrate"/>
+                    <Label Text="Life Stage"
+                           Style="{StaticResource LBLStyle}"/>
+                    <control:CustomPicker x:Name="pickerLifeStage"
+                            Style="{StaticResource PickerStyle}"
                             Title="Select A Life Stage" 
-                            SelectedIndexChanged="pickerLifeStage_SelectedIndexChange">
-                        <control:CustomPicker.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </control:CustomPicker.TextColor>
+                            SelectedIndexChanged="LifeStage_SelectedIndexChange">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Vegetative</x:String>
@@ -56,37 +45,36 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </control:CustomPicker>
-                    <Label Text="Cultivated" />
+                    <Label Text="Cultivated"
+                           Style="{StaticResource LBLStyle}"/>
                     <Switch x:Name="switchCultivated"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Start"
-                        Toggled="switchCultivated_Toggled"/>
-                    <Label Text="Indiv. Count ≥" />
+                        Style="{StaticResource SwitchStyle}"
+                        Toggled="Cultivated_Toggled"/>
+                    <Label Text="Indiv. Count ≥"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry Placeholder="Est. qty. ≥"
                            Keyboard="Numeric"
-                       x:Name="entryIndivCount">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
+                           Style="{StaticResource EntryStyle}"
+                           x:Name="entryIndivCount"/>
                     <Label x:Name="lblStatusMessage"
+                           Style="{StaticResource LBLStyle}"
                            IsVisible="false" />
                     <Button Text="Take Photo"
-                        BorderRadius="25"
-                        x:Name="btnSetSpecimenPhoto"
-                        Clicked="btnSetSpecimenPhoto_Clicked"/>
+                        Style="{StaticResource EBTNStyle}"
+                        x:Name="btnSpecimenPhoto"
+                        Clicked="SpecimenPhoto_Clicked"/>
                     <Button Text="New Specimen"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         x:Name="btnNewSpecimen"
-                        Clicked="btnNewSpecimen_Clicked"/>
+                        Clicked="NewSpecimen_Clicked"/>
                     <Button Text="Save Specimen"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         x:Name="btnSaveSpecimen"
-                        Clicked="btnSaveSpecimen_Clicked"/>
+                        Clicked="SaveSpecimen_Clicked"/>
                     <Button x:Name="btnBack"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Back"
-                        Clicked="btnBack_Clicked" />                    
+                        Clicked="Back_Clicked" />                    
                 </StackLayout>
             </StackLayout>
             </ScrollView>

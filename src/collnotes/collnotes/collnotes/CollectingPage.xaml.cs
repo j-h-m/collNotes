@@ -37,24 +37,24 @@ namespace collnotes
         }
 
         /// <summary>
-        /// btnAddTrip Click event.
+        /// AddTrip Click event.
         /// Takes the User to the TripPage.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnAddTrip_Clicked(object sender, EventArgs e)
+        public async void AddTrip_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TripPage(project));
         }
 
         /// <summary>
-        /// btnAddSite Click event.
+        /// AddSite Click event.
         /// Asks the User to choose a Trip to collect under.
         /// Takes the User to the SitePage.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnAddSite_Clicked(object sender, EventArgs e)
+        public async void AddSite_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace collnotes
         }
 
         /// <summary>
-        /// btnAddSpecimen Click event.
+        /// AddSpecimen Click event.
         /// Prompts the User with a Site to collect under.
         /// If the User selects a Site, they are taken to the SpecimenPage.
         /// If the User selects the default new Specimen, it is created and the User stays on the CollectingPage.
@@ -102,7 +102,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnAddSpecimen_Clicked(object sender, EventArgs e)
+        public async void AddSpecimen_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnEditPage_Clicked(object sender, EventArgs e)
+        public async void EditPage_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new EditPage(project));
         }

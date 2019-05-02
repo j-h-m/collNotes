@@ -2,12 +2,11 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:collnotes"
     xmlns:control="clr-namespace:collnotes.Custom"
     x:Class="collnotes.EditPage"
     Title="Edit Project Data" 
-    BackgroundColor="Teal">
-    <Grid RowSpacing="20" ColumnSpacing="20" Padding="20">
+    Style="{StaticResource MainCPStyle}">
+    <Grid Style="{StaticResource CPGridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -17,52 +16,32 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <control:CustomButton x:Name="btnEditProject"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Edit Current Project"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnEditProject_Clicked"
+                Clicked="EditProject_Clicked"
                 Grid.Row="0"
                 Grid.Column="0"
-                BackgroundColor="IndianRed"
-                TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BackgroundColor="IndianRed"/>
         <control:CustomButton x:Name="btnEditTrip"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Edit Trip"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnEditTrip_Clicked"
+                Clicked="EditTrip_Clicked"
                 Grid.Row="0"
                 Grid.Column="1"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BackgroundColor="DodgerBlue"/>
         <control:CustomButton x:Name="btnEditSite"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Edit Site"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnEditSite_Clicked"
+                Clicked="EditSite_Clicked"
                 Grid.Row="1"
                 Grid.Column="0"
-                BackgroundColor="Orange"
-                TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10"/>
+                BackgroundColor="Orange"/>
         <control:CustomButton x:Name="btnEditSpecimen"
+                Style="{StaticResource CPBTNStyle}"
                 Text="Edit Specimen"
-                FontSize="Large"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Clicked="btnEditSpecimen_Clicked"
+                Clicked="EditSpecimen_Clicked"
                 Grid.Row="1"
                 Grid.Column="1"
-                BackgroundColor="ForestGreen"
-                TextColor="White"
-                BorderRadius="25"
-                BorderWidth="10" /> 
+                BackgroundColor="ForestGreen" /> 
     </Grid>
 </ContentPage>

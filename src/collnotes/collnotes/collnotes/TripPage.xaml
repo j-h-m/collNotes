@@ -3,51 +3,41 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="collnotes.TripPage"
-    Title="Trip">
-    <ContentPage.Resources>
-        <StyleSheet Source="Styles/style.css"/>
-    </ContentPage.Resources>
+    Title="Trip"
+    Style="{StaticResource AltCPStyle}">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Trip Name:" />
+                    <Label Text="Trip Name:"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry x:Name="entryTripName"
+                           Style="{StaticResource EntryStyle}"
                            Keyboard="Text"
-                           Placeholder="Trip name">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
-                    <Label Text="Additional Collectors:" />
+                           Placeholder="Trip name"/>
+                    <Label Text="Additional Collectors:"
+                           Style="{StaticResource LBLStyle}"/>
                     <Entry x:Name="entryAdditionalCollectors"
+                           Style="{StaticResource EntryStyle}"
                            Keyboard="Text"
-                           Placeholder="First Last, ... ">
-                        <Entry.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </Entry.TextColor>
-                    </Entry>
-                    <Label Text="Collection Date:" />
+                           Placeholder="First Last, ... "/>
+                    <Label Text="Collection Date:"
+                           Style="{StaticResource LBLStyle}"/>
                     <DatePicker x:Name="dpCollectionDate"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        DateSelected="dpCollectionDate_DateSelected">
-                        <DatePicker.TextColor>
-                            <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                        </DatePicker.TextColor>
-                    </DatePicker>
+                        Style="{StaticResource DPStyle}"
+                        DateSelected="CollectionDate_DateSelected"/>
                     <Button x:Name="btnNewTrip"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="New Trip"
-                        Clicked="btnNewTrip_Clicked" />
+                        Clicked="NewTrip_Clicked" />
                     <Button x:Name="btnSaveTrip"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Save Trip"
-                        Clicked="btnSaveTrip_Clicked" />
+                        Clicked="SaveTrip_Clicked" />
                     <Button x:Name="btnBack"
-                        BorderRadius="25"
+                        Style="{StaticResource EBTNStyle}"
                         Text="Back"
-                        Clicked="btnBack_Clicked" />                       
+                        Clicked="Back_Clicked" />                       
                 </StackLayout>
             </StackLayout>
         </ScrollView>

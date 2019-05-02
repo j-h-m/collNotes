@@ -75,7 +75,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void pickerLifeStage_SelectedIndexChange(object sender, EventArgs e)
+        public void LifeStage_SelectedIndexChange(object sender, EventArgs e)
         {
             if (pickerLifeStage.SelectedItem == null)
             {
@@ -90,18 +90,18 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void switchCultivated_Toggled(object sender, EventArgs e)
+        public void Cultivated_Toggled(object sender, EventArgs e)
         {
             specimen.Cultivated = switchCultivated.IsToggled;
         }
 
         /// <summary>
-        /// btnSetSpecimenPhoto Click event.
+        /// SpecimenPhoto Click event.
         /// Allows the User to take a photo that is saved with the filename site#-specimen#.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnSetSpecimenPhoto_Clicked(object sender, EventArgs e)
+        public async void SpecimenPhoto_Clicked(object sender, EventArgs e)
         {
             await TakePhoto.CallCamera(site.RecordNo.ToString() + "-" + specimen.SpecimenNumber.ToString());
         }
@@ -112,7 +112,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void btnSaveSpecimen_Clicked(object sender, EventArgs e)
+        public void SaveSpecimen_Clicked(object sender, EventArgs e)
         {
             if (userIsEditing)
             {
@@ -140,7 +140,7 @@ namespace collnotes
             SaveCurrentSpecimen();
 
             DependencyService.Get<ICrossPlatformToast>().ShortAlert("Saved " + specimen.SpecimenName);
-            btnNewSpecimen_Clicked(this, e); // we could continue here or force the user to go back to the CollectingPage, need more user input...
+            NewSpecimen_Clicked(this, e); // we could continue here or force the user to go back to the CollectingPage, need more user input...
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void btnNewSpecimen_Clicked(object sender, EventArgs e)
+        public void NewSpecimen_Clicked(object sender, EventArgs e)
         {
             specimen = new Specimen();
 
@@ -174,7 +174,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private async void btnBack_Clicked(object sender, EventArgs e)
+        private async void Back_Clicked(object sender, EventArgs e)
         {
             if (editWasSaved)
             {

@@ -117,7 +117,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnSitePhoto_Clicked(object sender, EventArgs e)
+        public async void SitePhoto_Clicked(object sender, EventArgs e)
         {
             // get site name
             if (entrySiteName.Text is null || entrySiteName.Text.Equals(""))
@@ -135,7 +135,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnSaveSite_Clicked(object sender, EventArgs e)
+        public async void SaveSite_Clicked(object sender, EventArgs e)
         {
             if (userIsEditing)
             {
@@ -175,7 +175,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public async void btnSetSiteGPS_Clicked(object sender, EventArgs e)
+        public async void SetSiteGPS_Clicked(object sender, EventArgs e)
         {
             lblStatusMessage.IsVisible = true;
             lblStatusMessage.TextColor = Color.Orange;
@@ -220,7 +220,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void btnNewSite_Clicked(object sender, EventArgs e)
+        public void NewSite_Clicked(object sender, EventArgs e)
         {
             site = new Site();
 
@@ -244,7 +244,7 @@ namespace collnotes
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        private async void btnBack_Clicked(object sender, EventArgs e)
+        private async void Back_Clicked(object sender, EventArgs e)
         {
             if (editWasSaved)
             {
