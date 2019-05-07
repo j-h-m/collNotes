@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using collnotes.Data;
 using collnotes.Interfaces;
+using Xamarin.Essentials;
 
 namespace collnotes
 {
@@ -20,6 +21,18 @@ namespace collnotes
             entryCollectorName.Text = (AppVariables.CollectorName is null) ? "" : AppVariables.CollectorName;
             entryStartingRecordNumber.Text = (AppVariables.CollectionCount == 0) ? "" : AppVariables.CollectionCount.ToString();
             pickerExportFormat.SelectedItem = (AppVariables.DataExportFormat is null) ? "" : AppVariables.DataExportFormat;
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                LblExportType.IsVisible = true;
+                ExportTypeIOS.IsVisible = true;
+                ExportTypeIOS.SelectedItem = (AppVariables.ExportTypeIOS is null) ? "" : AppVariables.ExportTypeIOS;
+            }
+            else // Android
+            {
+                LblExportType.IsVisible = false;
+                ExportTypeIOS.IsVisible = false;
+            }
         }
 
         /// <summary>
@@ -28,6 +41,13 @@ namespace collnotes
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
         void ExportFormat_SelectedIndexChange(object sender, EventArgs e) { }
+
+        /// <summary>
+        /// Exports the type ios selected index change.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
+        void ExportTypeIOS_SelectedIndexChange(object sender, EventArgs e) { }
 
         /// <summary>
         /// Buttons the save settings clicked.
@@ -57,6 +77,10 @@ namespace collnotes
             if (pickerExportFormat.SelectedIndex != -1)
             {
                 AppVariables.DataExportFormat = pickerExportFormat.SelectedItem.ToString();
+            }
+            if (ExportTypeIOS.SelectedIndex != -1)
+            {
+                AppVariables.ExportTypeIOS = ExportTypeIOS.SelectedItem.ToString();
             }
 
             AppVarsFile.WriteAppVars();

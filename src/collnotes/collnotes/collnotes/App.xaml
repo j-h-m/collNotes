@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="collnotes.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -25,7 +25,9 @@
             <Style x:Key="DPStyle" TargetType="DatePicker">
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="Start"/>
-                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BackgroundColor">
+                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="White"/>
+                </Setter>
                 <Setter Property="TextColor">
                     <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                 </Setter>
@@ -33,13 +35,17 @@
             <Style x:Key="PickerStyle" TargetType="Picker">
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
-                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BackgroundColor">
+                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="White"/>
+                </Setter>
                 <Setter Property="TextColor">
                     <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                 </Setter>
             </Style>
             <Style x:Key="EntryStyle" TargetType="Entry">
-                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BackgroundColor">
+                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="White"/>
+                </Setter>
                 <Setter Property="TextColor">
                     <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                 </Setter>

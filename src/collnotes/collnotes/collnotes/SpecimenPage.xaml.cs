@@ -116,12 +116,12 @@ namespace collnotes
         {
             if (userIsEditing)
             {
-                specimen.Substrate = entrySubstrate.Text;
-                specimen.IndividualCount = entryIndivCount.Text;
+                specimen.Substrate = (entrySubstrate.Text is null) ? specimen.Substrate : entrySubstrate.Text;
+                specimen.IndividualCount = (entryIndivCount.Text is null) ? specimen.IndividualCount : entryIndivCount.Text;
                 specimen.Cultivated = switchCultivated.IsToggled;
-                specimen.OccurrenceNotes = entryOccurrenceNotes.Text;
-                specimen.LifeStage = pickerLifeStage.SelectedItem.ToString();
-                specimen.GPSCoordinates = site.GPSCoordinates;
+                specimen.OccurrenceNotes = (entryOccurrenceNotes.Text is null) ? specimen.OccurrenceNotes : entryOccurrenceNotes.Text;
+                specimen.LifeStage = (pickerLifeStage.SelectedItem is null) ? specimen.LifeStage : pickerLifeStage.SelectedItem.ToString();
+                specimen.GPSCoordinates = (specimen.GPSCoordinates is null) ? site.GPSCoordinates: specimen.GPSCoordinates;
 
                 int updateResult = DatabaseFile.GetConnection().Update(specimen, typeof(Specimen));
                 if (updateResult == 1)

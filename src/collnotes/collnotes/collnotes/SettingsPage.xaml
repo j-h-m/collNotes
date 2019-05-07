@@ -42,6 +42,22 @@
                             <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
                         </Entry.TextColor>
                     </Entry>
+                    <Label Text="iOS Export Type"
+                           Style="{StaticResource LBLStyle}"
+                           x:Name="LblExportType"/>
+                    <control:CustomPicker
+                        x:Name="ExportTypeIOS"
+                        Style="{StaticResource PickerStyle}"
+                        Title="iOS Export Type"
+                        SelectedIndex="0"
+                        SelectedIndexChanged="ExportTypeIOS_SelectedIndexChange">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Multi-Option Share</x:String>
+                                <x:String>Email</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </control:CustomPicker>
                     <Button Text="Save Settings"
                             Style="{StaticResource EBTNStyle}"
                             x:Name="btnSaveSettings"

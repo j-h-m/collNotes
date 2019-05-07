@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Xamarin.Essentials;
 
 namespace collnotes.Data
 {
@@ -12,6 +13,7 @@ namespace collnotes.Data
         public static string DataExportFormat { get; set; }
         public static string CollectorName { get; set; }
         public static string LastProject { get; set; }
+        public static string ExportTypeIOS { get; set; }
     }
 
     /// <summary>
@@ -42,6 +44,10 @@ namespace collnotes.Data
             if (AppVariables.LastProject != null)
             {
                 vars += "LP-" + AppVariables.LastProject + "|";
+            }
+            if (AppVariables.ExportTypeIOS != null && DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                vars += "ET-" + AppVariables.ExportTypeIOS + "|";
             }
 
             string[] varSplit = vars.Split('|');
@@ -74,7 +80,7 @@ namespace collnotes.Data
                         {
                             break;
                         }
-                        switch (item.Substring(0,2))
+                        switch (item.Substring(0, 2))
                         {
                             case "CN":
                                 AppVariables.CollectorName = item.Substring(3);
@@ -87,6 +93,12 @@ namespace collnotes.Data
                                 break;
                             case "LP":
                                 AppVariables.LastProject = item.Substring(3);
+                                break;
+                            case "ET":
+                                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                                {
+                                    AppVariables.ExportTypeIOS = item.Substring(3);
+                                }
                                 break;
                             default:
                                 break;

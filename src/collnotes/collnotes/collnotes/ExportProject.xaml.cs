@@ -117,9 +117,22 @@ namespace collnotes
                 }
             }
 
+            // run data export function based on the selected type on iOS
+            // Android uses the share function
             if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                await SendEmail.CreateAndSend(selectedProject.ProjectName + " Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
+                if (AppVariables.ExportTypeIOS.Equals("Multi-Option Share"))
+                {
+                    CrossShareFile.Current.ShareLocalFile(localFileLocation, "Share Specimen Export");
+                }
+                else if (AppVariables.ExportTypeIOS.Equals("Email"))
+                {
+                    await SendEmail.CreateAndSend(selectedProject.ProjectName + " Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
+                }
+                else
+                {
+                    await SendEmail.CreateAndSend(selectedProject.ProjectName + " Export", "Set your recipients and send the export data...", new List<string>(), localFileLocation);
+                }
             }
             else
             {
