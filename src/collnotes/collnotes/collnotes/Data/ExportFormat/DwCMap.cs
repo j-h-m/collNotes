@@ -73,7 +73,7 @@
             eventDate = DataFunctions.GetTripByName(
                             DataFunctions.GetSiteByName(site.SiteName).TripName).
                                 CollectionDate.ToString("yyyy-MM-dd");
-            establishmentMeans = "";
+            establishmentMeans = Plugins.DeviceInfoCP.GetDeviceInfo();
             genericcolumn1 = "";
             decimalLatitude = site.GPSCoordinates?.Split(',')[0];
             decimalLongitude = site.GPSCoordinates?.Split(',')[1];
@@ -120,7 +120,7 @@
             eventDate = DataFunctions.GetTripByName(
                             DataFunctions.GetSiteByName(DataFunctions.GetSiteByName(specimen.SiteName).SiteName).TripName).
                                 CollectionDate.ToString("yyyy-MM-dd");
-            establishmentMeans = "";
+            establishmentMeans = Plugins.DeviceInfoCP.GetDeviceInfo();
             genericcolumn1 = "";
             decimalLatitude = DataFunctions.GetSiteByName(specimen.SiteName).GPSCoordinates?.Split(',')[0];
             decimalLongitude = DataFunctions.GetSiteByName(specimen.SiteName).GPSCoordinates?.Split(',')[1];
