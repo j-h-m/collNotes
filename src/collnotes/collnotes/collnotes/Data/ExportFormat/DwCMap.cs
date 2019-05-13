@@ -1,9 +1,11 @@
-﻿namespace collnotes.Data.ExportFormat
+﻿using CsvHelper.Configuration;
+
+namespace collnotes.Data.ExportFormat
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DwCMap
+    public class DwC
     {
         public string recordNumber{ get; set; }
         public string siteNumber{ get; set; }
@@ -34,16 +36,17 @@
         public string stateProvince{ get; set; }
         public string county{ get; set; }
         public string path{ get; set; }
+        // public string georeferenceProtocol { get; set; } // added and holds device info
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="site"></param>
-        public DwCMap(Site site)
+        public DwC(Site site)
         {
             recordNumber = site.RecordNo.ToString() + "-#";
             siteNumber = site.RecordNo.ToString();
-            specimenNumber = "";
+            specimenNumber = "#";
             genericcolumn2 = "";
             associatedCollectors = DataFunctions.GetTripByName(DataFunctions.GetSiteByName(site.SiteName).TripName).AdditionalCollectors;
             habitat = site.Habitat;
@@ -73,32 +76,33 @@
             eventDate = DataFunctions.GetTripByName(
                             DataFunctions.GetSiteByName(site.SiteName).TripName).
                                 CollectionDate.ToString("yyyy-MM-dd");
-            establishmentMeans = Plugins.DeviceInfoCP.GetDeviceInfo();
+            establishmentMeans = "";
             genericcolumn1 = "";
             decimalLatitude = site.GPSCoordinates?.Split(',')[0];
             decimalLongitude = site.GPSCoordinates?.Split(',')[1];
             coordinateUncertaintyInMeters = site.GPSCoordinates?.Split(',')[2];
             minimumElevationInMeters = site.GPSCoordinates?.Split(',')[3];
+            // georeferenceProtocol = AppVariables.DeviceInfo;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="specimen"></param>
-        public DwCMap(Specimen specimen)
+        public DwC(Specimen specimen)
         {
             recordNumber = DataFunctions.GetSiteByName(specimen.SiteName).RecordNo.ToString() + "-" +
                             specimen.RecordNo.ToString();
             siteNumber = DataFunctions.GetSiteByName(specimen.SiteName).RecordNo.ToString();
-            specimenNumber = "";
-            genericcolumn2 = "";
+            specimenNumber = specimen.SpecimenNumber.ToString();
+            genericcolumn2 = specimen.AdditionalInfo;
             associatedCollectors = DataFunctions.GetTripByName(DataFunctions.GetSiteByName(specimen.SiteName).TripName).AdditionalCollectors;
             habitat = DataFunctions.GetSiteByName(specimen.SiteName).Habitat;
-            individualCount = "";
-            reproductiveCondition = "";
+            individualCount = specimen.IndividualCount;
+            reproductiveCondition = specimen.LifeStage;
             locality = DataFunctions.GetSiteByName(specimen.SiteName).Locality;
             locationRemarks = DataFunctions.GetSiteByName(specimen.SiteName).LocationNotes;
-            occurrenceRemarks = "";
+            occurrenceRemarks = specimen.OccurrenceNotes;
             recordedBy = DataFunctions.GetProjectByName(
                             DataFunctions.GetTripByName(
                                 DataFunctions.GetSiteByName(DataFunctions.GetSiteByName(specimen.SiteName).SiteName).
@@ -115,17 +119,27 @@
                                     DataFunctions.GetSiteByName(DataFunctions.GetSiteByName(specimen.SiteName).SiteName).
                                 TripName).
                              ProjectName).CreatedDate.ToString("yyyy-MM-dd");
-            substrate = "";
+            substrate = specimen.Substrate;
             associatedTaxa = DataFunctions.GetSiteByName(specimen.SiteName).AssociatedTaxa;
             eventDate = DataFunctions.GetTripByName(
                             DataFunctions.GetSiteByName(DataFunctions.GetSiteByName(specimen.SiteName).SiteName).TripName).
                                 CollectionDate.ToString("yyyy-MM-dd");
-            establishmentMeans = Plugins.DeviceInfoCP.GetDeviceInfo();
-            genericcolumn1 = "";
+            establishmentMeans = (specimen.Cultivated) ? "cultivated" : "";
+            genericcolumn1 = specimen.FieldIdentification;
             decimalLatitude = DataFunctions.GetSiteByName(specimen.SiteName).GPSCoordinates?.Split(',')[0];
             decimalLongitude = DataFunctions.GetSiteByName(specimen.SiteName).GPSCoordinates?.Split(',')[1];
             coordinateUncertaintyInMeters = DataFunctions.GetSiteByName(specimen.SiteName).GPSCoordinates?.Split(',')[2];
             minimumElevationInMeters = DataFunctions.GetSiteByName(specimen.SiteName).GPSCoordinates?.Split(',')[3];
+            // georeferenceProtocol = AppVariables.DeviceInfo;
+        }
+    }
+
+    public sealed class DwCMap : ClassMap<DwC>
+    {
+        public DwCMap()
+        {
+            AutoMap();
+            Map(m => m.labelProject).Name("Label Project");
         }
     }
 }

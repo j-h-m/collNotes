@@ -68,9 +68,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Jacob Motley (JF9G37C8SY)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Jacob Motley (JNZ6U3KFGX)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>com.pdsolution.collnotes AppStore</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -205,6 +205,10 @@
       <Project>{C53F248E-2D46-410E-A3AB-6CBED58688A6}</Project>
       <Name>collnotes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

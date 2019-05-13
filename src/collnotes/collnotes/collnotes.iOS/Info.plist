@@ -43,7 +43,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleVersion</key>
-	<string>0.1.4</string>
+	<string>0.1.6</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Need location for geolocator plugin.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

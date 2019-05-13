@@ -33,7 +33,7 @@ namespace collnotes
             projectList = DataFunctions.GetProjects();
 
             List<string> projectNames = (from el in projectList
-                                            select el.ProjectName).ToList();
+                                         select el.ProjectName).ToList();
 
             pickerExportProject.ItemsSource = projectNames;
         }
@@ -59,6 +59,7 @@ namespace collnotes
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("No specimen available!");
             }
         }
 
@@ -69,7 +70,15 @@ namespace collnotes
         /// <param name="e">E.</param>
         public async void ExportProjectCSV_Clicked(object sender, EventArgs e)
         {
-            await ExportData();
+            try
+            {
+                await ExportData();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("No specimen available!");
+            }
         }
 
         public async Task ExportData()
@@ -93,20 +102,21 @@ namespace collnotes
             {
                 if (AppVariables.DataExportFormat.Equals(ExportTypes.DarwinCore)) // Darwin Core format
                 {
-                    csv.WriteHeader<DwCMap>();
+                    csv.Configuration.RegisterClassMap<DwCMap>();
+                    csv.WriteHeader<DwC>();
                     csv.NextRecord(); // next meme
                                       // write Site
                     foreach (var si in sites)
                     {
-                        DwCMap convSite = new DwCMap(si);
-                        csv.WriteRecord<DwCMap>(convSite);
+                        DwC convSite = new DwC(si);
+                        csv.WriteRecord<DwC>(convSite);
                         csv.NextRecord(); // next meme
 
                         // write Specimen
                         foreach (var sp in DataFunctions.GetSpecimen(si.SiteName))
                         {
-                            DwCMap convSpec = new DwCMap(sp);
-                            csv.WriteRecord<DwCMap>(convSpec);
+                            DwC convSpec = new DwC(sp);
+                            csv.WriteRecord<DwC>(convSpec);
                             csv.NextRecord(); // next meme
                         }
                     }

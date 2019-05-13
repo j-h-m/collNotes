@@ -80,7 +80,7 @@ namespace collnotes
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Are there any Trips for this Project?");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("No Trips recorded for current Project");
             }
         }
 
@@ -121,7 +121,7 @@ namespace collnotes
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Are there any Sites for this Project?");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("No Sites recorded for current Project");
             }
         }
 
@@ -162,7 +162,7 @@ namespace collnotes
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                DependencyService.Get<ICrossPlatformToast>().ShortAlert("Are there any Specimen for this Project?");
+                DependencyService.Get<ICrossPlatformToast>().ShortAlert("No Specimen recorded for current Project");
             }
         }
     }

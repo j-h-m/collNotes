@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using SQLite;
+using Xamarin.Essentials;
 
 namespace collnotes.Data
 {
@@ -43,15 +44,20 @@ namespace collnotes.Data
         private static string CreateDBFilePath()
         {
             var sqliteFilename = "collNotes_database.db3";
-#if __IOS__
-            // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
-            // (they don't want non-user-generated data in Documents)
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
-            string folderPath = Path.Combine(documentsPath, "..", "Library"); // Library folder instead
-#else
-            // Just use whatever directory SpecialFolder.Personal returns
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-#endif
+            string folderPath = "";
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
+                // (they don't want non-user-generated data in Documents)
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
+                // folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "..", "Library"); // Library folder instead
+            }
+            else
+            {
+                // Just use whatever directory SpecialFolder.Personal returns
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            }
+
             var path = Path.Combine(folderPath, sqliteFilename);
             return path;
         }

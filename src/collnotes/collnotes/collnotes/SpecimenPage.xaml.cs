@@ -116,6 +116,7 @@ namespace collnotes
         {
             if (userIsEditing)
             {
+                specimen.FieldIdentification = (entryFieldID is null) ? specimen.FieldIdentification : entryFieldID.Text;
                 specimen.Substrate = (entrySubstrate.Text is null) ? specimen.Substrate : entrySubstrate.Text;
                 specimen.IndividualCount = (entryIndivCount.Text is null) ? specimen.IndividualCount : entryIndivCount.Text;
                 specimen.Cultivated = switchCultivated.IsToggled;

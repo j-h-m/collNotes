@@ -14,6 +14,7 @@ namespace collnotes.Data
         public static string CollectorName { get; set; }
         public static string LastProject { get; set; }
         public static string ExportTypeIOS { get; set; }
+        public static string DeviceInfo { get; set; }
     }
 
     /// <summary>
@@ -48,6 +49,10 @@ namespace collnotes.Data
             if (AppVariables.ExportTypeIOS != null && DeviceInfo.Platform == DevicePlatform.iOS)
             {
                 vars += "ET-" + AppVariables.ExportTypeIOS + "|";
+            }
+            if (AppVariables.DeviceInfo != null)
+            {
+                vars += "DI-" + AppVariables.DeviceInfo;
             }
 
             string[] varSplit = vars.Split('|');
@@ -99,6 +104,9 @@ namespace collnotes.Data
                                 {
                                     AppVariables.ExportTypeIOS = item.Substring(3);
                                 }
+                                break;
+                            case "DI":
+                                AppVariables.DeviceInfo = item.Substring(3);
                                 break;
                             default:
                                 break;
