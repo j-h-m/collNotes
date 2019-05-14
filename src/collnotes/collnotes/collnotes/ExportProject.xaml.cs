@@ -100,7 +100,9 @@ namespace collnotes
             using (var writer = new StreamWriter(localFileLocation))
             using (var csv = new CsvWriter(writer))
             {
-                if (AppVariables.DataExportFormat.Equals(ExportTypes.DarwinCore)) // Darwin Core format
+                if (AppVariables.DataExportFormat is null || // default is darwin core
+                    AppVariables.DataExportFormat.Equals("") || // default is darwin core, should be null if not picked, but let's be safe
+                    AppVariables.DataExportFormat.Equals(ExportTypes.DarwinCore)) // Darwin Core format
                 {
                     csv.Configuration.RegisterClassMap<DwCMap>();
                     csv.WriteHeader<DwC>();
