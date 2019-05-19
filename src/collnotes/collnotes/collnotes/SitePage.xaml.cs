@@ -311,5 +311,27 @@ namespace collnotes
 
             return true;
         }
+
+        /// <summary>
+        /// override the OnBackButtonPressed event in Xamarin Forms.
+        /// this event fires when the user clicks the hardware back button on Android phones.
+        /// we just disable the back button behavior when the user is editing
+        /// </summary>
+        /// <returns>bool</returns>
+        protected override bool OnBackButtonPressed()
+        {
+            // return value:
+            // false - do back button behavior
+            // true  - don't
+            if (userIsEditing)
+            {
+                // disable back button on android if user is editing
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
