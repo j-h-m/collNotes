@@ -1,4 +1,4 @@
-![Build status](https://ci.appveyor.com/api/projects/status/gyx4070e1qxhd1lm?svg=true)
+[![Build status](https://ci.appveyor.com/api/projects/status/gyx4070e1qxhd1lm?svg=true)](https://ci.appveyor.com/project/j-h-m/pd-project-xamarin)
 
 <h1 align=center>
 <img src="data/assets/logo-collnotes//horizontal.png" width=40%>
