@@ -10,6 +10,8 @@ namespace collnotestests
         [Test()]
         public void TestCase()
         {
+            bool result = false;
+            Assert.IsTrue(result, "this test will fail");
         }
     }
 }
