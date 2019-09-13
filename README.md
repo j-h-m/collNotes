@@ -9,9 +9,7 @@ collNotes is an Android and iOS App, using Xamarin technology. Replaces, or supp
 
 collNotes sister app [collBook](https://github.com/CapPow/collBook).
 
-The main purpose of collNotes is to export data in a format digestible by [collBook](https://github.com/CapPow/collBook). The default export data format is Darwin Core, so it should work with many other platforms as well. 
-
-If you have a vested interest in a certain format, please let me know! I have tried to model the data in such a way that adding new export types is quick and easy to develop and test. I would like to test this! :)
+The main purpose of collNotes is to export data in a format digestible by [collBook](https://github.com/CapPow/collBook). The default export data format is Darwin Core, and the export file type is CSV. If you have a request for another format or file type, I would be happy to add either! Feel free to make requests or suggestions in [Issues](https://github.com/j-h-m/collNotes/issues) or [Email](mailto:programmingisfunjacmot@gmail.com) me directly.
 
 ## [Citing collNotes & collBook](#Citation)
 
