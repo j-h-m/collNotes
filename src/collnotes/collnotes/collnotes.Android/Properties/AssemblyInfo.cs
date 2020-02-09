@@ -1,16 +1,15 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using Android.App;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using Android.App;
 
-// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("collnotes.Android")]
+[assembly: AssemblyTitle("collNotes.Android")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("collnotes.Android")]
+[assembly: AssemblyProduct("collNotes.Android")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,11 +18,11 @@ using Android.App;
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
-//      Minor Version 
+//      Minor Version
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
@@ -32,3 +31,10 @@ using Android.App;
 // Add some common permissions, these can be removed if not needed
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
+
+// Added permissions for Geolocation from Xamarin.Essentials
+[assembly: UsesPermission(Android.Manifest.Permission.AccessCoarseLocation)]
+[assembly: UsesPermission(Android.Manifest.Permission.AccessFineLocation)]
+[assembly: UsesFeature("android.hardware.location", Required = false)]
+[assembly: UsesFeature("android.hardware.location.gps", Required = false)]
+[assembly: UsesFeature("android.hardware.location.network", Required = false)]

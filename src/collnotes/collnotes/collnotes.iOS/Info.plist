@@ -23,17 +23,19 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>collnotes</string>
+	<string>collNotes</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.pdsolution.collnotes</string>
+	<string>com.companyname.collNotes</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>collnotes</string>
+	<string>collNotes</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>collnotes needs Calendar Permission</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>collNotes uses location to get GPS location information for your recorded Sites.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -42,13 +44,5 @@
 	<string>This app needs access to microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
-	<key>CFBundleVersion</key>
-	<string>0.1.6</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Need location for geolocator plugin.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Need location for geolocator plugin.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need location for geolocator plugin.</string>
 </dict>
 </plist>

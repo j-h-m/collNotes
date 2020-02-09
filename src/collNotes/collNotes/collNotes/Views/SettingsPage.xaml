@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="collNotes.Views.SettingsPage"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <material:MaterialLabel Text="{Binding LastSavedDateTimeString, StringFormat='Settings Last Saved: {0}'}" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <material:MaterialLabel Text="Default Primary Collector:" />
+                        <material:MaterialTextField Text="{Binding CurrentCollectorName}" Placeholder="Gregor Mendel" InputType="Text" />
+                        <material:MaterialLabel Text="Starting Field Number:" />
+                        <material:MaterialTextField x:Name="CollectionCountTextField" Text="{Binding CurrentCollectionCount}" Placeholder="100" InputType="Numeric" TextChanged="CollectionCountTextField_TextChanged"/>
+                        <material:MaterialLabel Text="Export Format:" BackgroundColor="Transparent" />
+                        <material:MaterialTextField Text="{Binding SelectedExportFormat}" Placeholder="Select Export Format"
+                                                    InputType="Choice" Choices="{Binding ExportFormats}" />
+                        <material:MaterialLabel Text="Export Method:" BackgroundColor="Transparent" />
+                        <material:MaterialTextField Text="{Binding SelectedExportMethod}" Placeholder="Select Export Method"
+                                                    InputType="Choice" Choices="{Binding ExportMethods}" />
+                        <material:MaterialLabel Text="Autocomplete Type:" />
+                        <material:MaterialTextField Text="{Binding SelectedAutoCompleteType}" Placeholder="Select Autocomplete Type"
+                                                    InputType="Choice" Choices="{Binding AutoCompleteOptions}" />
+                        <material:MaterialLabel Text="Color Theme:" BackgroundColor="Transparent" />
+                        <material:MaterialTextField Text="{Binding SelectedColorTheme}" Placeholder="Select Theme"
+                                                    InputType="Choice" Choices="{Binding ColorThemes}" />
+                        <material:MaterialButton Text="Grant Permissions" Clicked="RequestPermissions_Clicked" />
+                        <material:MaterialButton Text="Reset Data and Settings" Clicked="Reset_Clicked" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</ContentPage>

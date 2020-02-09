@@ -1,72 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="collnotes.App">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="collNotes.App">
+
     <Application.Resources>
         <ResourceDictionary>
-            <Style x:Key="MainCPStyle" TargetType="ContentPage">
-                <Setter Property="BackgroundColor" Value="Teal"/>
-                <Setter Property="Padding" Value="10"/>
-            </Style>
-            <Style x:Key="AltCPStyle" TargetType="ContentPage">
-                <Setter Property="BackgroundColor" Value="#19435f"/>
-                <Setter Property="Padding" Value="20"/>
-            </Style>
-            <Style x:Key="SwitchStyle" TargetType="Switch">
-                <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="OnColor" Value="LimeGreen"/>
-                <Setter Property="HorizontalOptions" Value="Start"/>
-            </Style>
-            <Style x:Key="LBLStyle" TargetType="Label">
-                <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="TextColor" Value="White"/>
-                <Setter Property="HorizontalTextAlignment" Value="Start"/>
-                <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="Large"/>
-            </Style>
-            <Style x:Key="DPStyle" TargetType="DatePicker">
-                <Setter Property="VerticalOptions" Value="Center"/>
-                <Setter Property="HorizontalOptions" Value="Start"/>
-                <Setter Property="BackgroundColor">
-                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="White"/>
-                </Setter>
-                <Setter Property="TextColor">
-                    <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                </Setter>
-            </Style>
-            <Style x:Key="PickerStyle" TargetType="Picker">
-                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
-                <Setter Property="BackgroundColor">
-                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="White"/>
-                </Setter>
-                <Setter Property="TextColor">
-                    <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                </Setter>
-            </Style>
-            <Style x:Key="EntryStyle" TargetType="Entry">
-                <Setter Property="BackgroundColor">
-                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="White"/>
-                </Setter>
-                <Setter Property="TextColor">
-                    <OnPlatform x:TypeArguments="Color" Android="White" iOS="Black"/>
-                </Setter>
-            </Style>
-            <Style x:Key="CPGridStyle" TargetType="Grid">
-                <Setter Property="ColumnSpacing" Value="20"/>
-                <Setter Property="RowSpacing" Value="20"/>
-                <Setter Property="Padding" Value="20"/>
-            </Style>
-            <Style x:Key="CPBTNStyle" TargetType="Button">
-                <Setter Property="TextColor" Value="White"/>
-                <Setter Property="HorizontalOptions" Value="Fill"/>
-                <Setter Property="VerticalOptions" Value="Fill"/>
-                <Setter Property="BorderRadius" Value="25"/>
-                <Setter Property="FontSize" Value="Large"/>
-            </Style>
-            <Style x:Key="EBTNStyle" TargetType="Button">
-                <Setter Property="BorderRadius" Value="25"/>
-                <Setter Property="BackgroundColor" Value="#3098a3"/>
-                <Setter Property="TextColor" Value="White"/>
-                <Setter Property="Margin" Value="5"/>
+            <!--Color Theme Styles-->
+            <Color x:Key="BackgroundColor">#e0e0e0</Color>
+            <Color x:Key="BackgroundLight">#ffffff</Color>
+            <Color x:Key="BackgroundDark">#aeaeae</Color>
+            <Color x:Key="PrimaryColor">#004d40</Color>
+            <Color x:Key="PrimaryLight">#39796b</Color>
+            <Color x:Key="PrimaryDark">#00251a</Color>
+            <Color x:Key="TextColor">#212121</Color>
+            <Color x:Key="TextLight">#484848</Color>
+            <Color x:Key="TextDark">#000000</Color>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

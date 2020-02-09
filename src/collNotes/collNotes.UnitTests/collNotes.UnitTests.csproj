@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <LangVersion>latestMajor</LangVersion>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="CsvHelper" Version="15.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Context_InMemory\" />
+        <Folder Include="ServiceTests\" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\collNotes.Data\collNotes.Data.csproj" />
+        <ProjectReference Include="..\collNotes\collNotes\collNotes.csproj" />
+    </ItemGroup>
+</Project>

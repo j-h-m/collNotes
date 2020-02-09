@@ -1,0 +1,61 @@
+trigger:
+- master
+variables:
+  buildConfiguration: 'Release'
+  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  createAppPackage: true
+  collNotesRepoName: 'j-h-m/collNotes-mvvm'
+  preRelease: true
+
+stages:
+- stage: Build
+  jobs:
+  - job: Android_App
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - task: NuGetToolInstaller@1
+        inputs:
+          versionSpec: '5.x'
+          checkLatest: true
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: '**/*.sln'
+      - task: XamarinAndroid@1
+        inputs:
+          clean: true
+          projectFile: '**/*droid*.csproj'
+          outputDirectory: '$(outputDirectory)'
+          configuration: '$(buildConfiguration)'
+          createAppPackage: '$(createAppPackage)'
+  #### some issue with .net standard 2.1
+  # - job: iOS_App
+  #   pool:
+  #     vmImage: 'macOS-10.14'
+  #   steps:
+  #     - task: UseDotNet@2
+  #       inputs:
+  #         version: '3.0.x'
+  #     - task: XamariniOS@2
+  #       inputs:
+  #         clean: true
+  #         solutionFile: '**/*.sln'
+  #         configuration: '$(buildConfiguration)'
+  #         runNugetRestore: true
+  #         packageApp: false
+  #         buildForSimulator: true
+
+- stage: Github_Release
+  jobs:
+  - job: Android_APK
+    steps:
+      - task: GitHubRelease@1
+        inputs:
+          gitHubConnection: 'j-h-m'
+          repositoryName: '$(collNotesRepoName)'
+          action: 'create'
+          tag: 'v0.1'
+          tagSource: 'gitTag'
+          title: 'test apk release'
+          isPreRelease: '$(preRelease)'
+          assets: '$(Build.ArtifactStagingDirectory)/*.apk'
