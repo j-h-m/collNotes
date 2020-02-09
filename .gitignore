@@ -52,6 +52,7 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+**/Properties/launchSettings.json
 
 # StyleCop
 StyleCopReport.xml
@@ -328,5 +329,7 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-# ignore dsstore files from OSX
-*.DS_Store
+# osx .DS_Store files
+.DS_Store
+.vscode/launch.json
+.vscode/tasks.json
