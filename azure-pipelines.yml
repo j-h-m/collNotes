@@ -1,5 +1,6 @@
 trigger:
 - master
+- topic-collNotes-v2
 variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
