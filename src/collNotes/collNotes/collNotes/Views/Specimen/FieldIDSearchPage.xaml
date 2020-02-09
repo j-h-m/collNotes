@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="collNotes.Views.FieldIDSearchPage"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+            <StackLayout Orientation="Vertical">
+                <material:MaterialLabel Text="{Binding SearchBarLabel}" FontSize="Title" />
+                <material:MaterialTextField x:Name="Search_TextField"
+                    Placeholder="sci names..."
+                           HorizontalOptions="Fill"
+                           VerticalOptions="CenterAndExpand"
+                           TextChanged="Search_TextChanged" />
+                <ListView x:Name="SearchResult_ListView" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"
+                          ItemSelected="SearchResult_ItemSelected" />
+            </StackLayout>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</ContentPage>

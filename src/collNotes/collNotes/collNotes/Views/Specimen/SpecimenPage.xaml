@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="collNotes.Views.SpecimenPage"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             Title="Specimen">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New" Clicked="NewSpecimen_Clicked" />
+        <ToolbarItem x:Name="CloneButton" Text="Clone" Clicked="CloneSpecimen_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <ListView x:Name="SpecimenListView" ItemsSource="{Binding SpecimenCollection}"
+                          BackgroundColor="LightGray"
+                            VerticalOptions="FillAndExpand"
+                            HasUnevenRows="True"
+                            RefreshCommand="{Binding LoadSpecimenCommand}"
+                            IsPullToRefreshEnabled="False"
+                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                            CachingStrategy="RecycleElement"
+                            ItemSelected="OnSpecimenSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="5,5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="CenterAndExpand">
+                                    <material:MaterialCard CornerRadius="2" Elevation="4"
+                                                       HeightRequest="50" HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="FillAndExpand">
+                                        <StackLayout VerticalOptions="Center">
+                                            <material:MaterialLabel Text="{Binding LabelString}"
+                                                        LineBreakMode="NoWrap"
+                                                        VerticalOptions="Center"
+                                                        FontSize="18" />
+                                            <material:MaterialLabel Text="{Binding SpecimenName, StringFormat='Site-Specimen: {0}'}"
+                                                        LineBreakMode="NoWrap"
+                                                        VerticalOptions="Center"
+                                                        FontSize="14" />
+                                        </StackLayout>
+                                    </material:MaterialCard>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

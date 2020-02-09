@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="collNotes.Views.TripDetailPage"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Update" Clicked="Update_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <material:MaterialCard CornerRadius="2" Elevation="1"
+                                   HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+            <ScrollView>
+                <StackLayout Style="{DynamicResource StackLayoutStyle}">
+                    <material:MaterialLabel Text="Trip Name" />
+                    <material:MaterialTextField Text="{Binding Trip.TripName}" IsEnabled="False" Placeholder="Trip 1" InputType="Text" />
+                    <material:MaterialLabel Text="Primary Collector" />
+                    <material:MaterialTextField Text="{Binding Trip.PrimaryCollector}" Placeholder="Carl Linnaeus" InputType="Text" />
+                    <material:MaterialLabel Text="Additional Collectors" />
+                    <material:MaterialTextField Text="{Binding Trip.AdditionalCollectors}" Placeholder="James Edward Smith, Beatrix Potter" InputType="Text" />
+                    <material:MaterialLabel Text="Collection Date:" />
+                    <DatePicker Date="{Binding Trip.CollectionDate}" />
+                    <material:MaterialButton Text="Delete" Clicked="Delete_Clicked" />
+                </StackLayout>
+            </ScrollView>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</ContentPage>

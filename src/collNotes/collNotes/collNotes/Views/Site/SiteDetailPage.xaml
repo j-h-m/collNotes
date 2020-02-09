@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="collNotes.Views.SiteDetailPage"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+            <ScrollView>
+                <StackLayout>
+                    <material:MaterialLabel Text="Site Name" FontSize="Medium" />
+                    <material:MaterialTextField Text="{Binding Site.SiteName}" IsEnabled="False" Placeholder="Site 1" />
+                    <material:MaterialLabel Text="Locality" FontSize="Medium" />
+                    <material:MaterialTextField Text="{Binding Site.Locality}" Placeholder="1km from trail head.." />
+                    <material:MaterialLabel Text="Habitat:" FontSize="Medium" />
+                    <material:MaterialTextField Text="{Binding Site.Habitat}" Placeholder="Pine forest.." />
+                    <material:MaterialLabel Text="Associated Taxa" FontSize="Medium" />
+                    <material:MaterialTextField Text="{Binding Site.AssociatedTaxa}" Placeholder="Site Wide 'field calls'" />
+                    <material:MaterialLabel Text="Location Notes" FontSize="Medium" />
+                    <material:MaterialTextField Text="{Binding Site.LocationNotes}" Placeholder="Popular campground.." />
+                    <material:MaterialLabel Text="Associated Trip" FontSize="Medium" />
+                    <material:MaterialTextField Text="{Binding Site.AssociatedTripName}" IsEnabled="False" Placeholder="Assoc. Trip Name" />
+                    <material:MaterialButton Text="Delete" Clicked="Delete_Clicked" />
+                </StackLayout>
+            </ScrollView>
+        </material:MaterialCard>
+    </ContentPage.Content>
+</ContentPage>
