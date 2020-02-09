@@ -39,6 +39,7 @@ namespace collNotes.Data.Models
             get { return _LabelString; }
             set
             {
+                _LabelString = value;
                 OnPropertyChanged(nameof(LabelString));
             }
         }
