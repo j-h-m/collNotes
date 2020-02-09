@@ -5,7 +5,7 @@ variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
   createAppPackage: true
-  collNotesRepoName: 'j-h-m/collNotes-mvvm'
+  collNotesRepoName: 'j-h-m/collNotes'
   preRelease: true
 
 stages:
