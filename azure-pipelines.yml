@@ -55,7 +55,7 @@ stages:
           gitHubConnection: 'j-h-m'
           repositoryName: '$(collNotesRepoName)'
           action: 'create'
-          tag: 'v0.1'
+          tag: 'v2.x'
           tagSource: 'gitTag'
           title: 'test apk release'
           isPreRelease: '$(preRelease)'
