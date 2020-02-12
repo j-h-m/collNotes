@@ -18,10 +18,6 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Context_InMemory\" />
-        <Folder Include="ServiceTests\" />
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\collNotes.Data\collNotes.Data.csproj" />
         <ProjectReference Include="..\collNotes\collNotes\collNotes.csproj" />
     </ItemGroup>

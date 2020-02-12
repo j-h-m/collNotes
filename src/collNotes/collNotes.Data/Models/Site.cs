@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
@@ -9,7 +8,6 @@ namespace collNotes.Data.Models
     {
         [Key]
         public int SiteID { get; set; }
-
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string CoordinateUncertaintyInMeters { get; set; }

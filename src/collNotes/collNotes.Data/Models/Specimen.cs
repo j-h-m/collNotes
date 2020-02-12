@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
@@ -10,7 +9,6 @@ namespace collNotes.Data.Models
     {
         [Key]
         public int SpecimenID { get; set; }
-
         public string FieldIdentification { get; set; }
         public string OccurrenceNotes { get; set; }
         public string Substrate { get; set; }

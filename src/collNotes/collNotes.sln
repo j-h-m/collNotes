@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "collNotes", "collNotes\coll
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "collNotes.UnitTests", "collNotes.UnitTests\collNotes.UnitTests.csproj", "{1E74F0E9-2C93-47BF-AD59-C371DE2F4291}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "collNotes.Data", "collNotes.Data\collNotes.Data.csproj", "{0C99E9C6-049D-46B3-A8DF-581D28819511}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "collNotes.Data", "collNotes.Data\collNotes.Data.csproj", "{0C99E9C6-049D-46B3-A8DF-581D28819511}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-pipelines", "azure-pipelines", "{CECCDFCA-F05C-405D-9CB8-6D200D00EBD4}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\azure-pipelines.yml = ..\..\azure-pipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
