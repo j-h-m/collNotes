@@ -34,10 +34,10 @@ namespace collNotes.Views
         private void ExportImportPage_CurrentPageChanged(object sender, System.EventArgs e)
         {
             var tabbedPage = (TabbedPage)sender;
-            if (tabbedPage.CurrentPage == TripContentPage)
-                Title = GetTitle("Trip");
-            if (tabbedPage.CurrentPage == BackupContentPage)
-                Title = GetTitle("Backup");
+            if (tabbedPage.CurrentPage == ImportContentPage)
+                Title = GetTitle("Import");
+            if (tabbedPage.CurrentPage == ExportContentPage)
+                Title = GetTitle("Export");
         }
 
         private async void ImportTrip_Clicked(object sender, System.EventArgs e)
@@ -152,10 +152,7 @@ namespace collNotes.Views
 
         private string GetTitle(string currentPageName)
         {
-            if (string.IsNullOrEmpty(currentPageName))
-                return "Import & Export Data";
-            else
-                return $"Import & Export {currentPageName}";
+            return $"{currentPageName} Collection Data";
         }
 
         private string GetFilePath(string fileName)

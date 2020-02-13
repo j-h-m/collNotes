@@ -25,7 +25,7 @@
                     <material:MaterialLabel Text="Associated Trip:" />
                     <material:MaterialTextField x:Name="AssociatedTripSelector" Text="{Binding AssociatedTripName}" Placeholder="Select Associated Trip"
                                                 InputType="Choice" Choices="{Binding AssociableTrips}" ChoicesBindingName="TripName" />
-                    <material:MaterialChip x:Name="LocationStatusChip" BackgroundColor="#F2F2F2" TextColor="#DE000000" IsVisible="False" ActionImage="gps_icon.png" ActionImageTapped="LocationStatusChip_ActionImageTapped" />
+                    <material:MaterialChip x:Name="LocationStatusChip" BackgroundColor="#F2F2F2" TextColor="#DE000000" IsVisible="False" ActionImage="map_icon.png" ActionImageTapped="LocationStatusChip_ActionImageTapped" />
                     <material:MaterialCard x:Name="gpsInfoCard" CornerRadius="2" Elevation="5" HorizontalOptions="FillAndExpand" BackgroundColor="White" IsVisible="False">
                         <StackLayout Orientation="Vertical">
                             <material:MaterialLabel Text="Location Info" FontSize="Title" FontAttributes="Bold" />

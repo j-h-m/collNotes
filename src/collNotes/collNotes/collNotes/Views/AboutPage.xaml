@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
             <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <Image Source="botany_notebook.jpg" Aspect="AspectFill" HeightRequest="250" />
+                <Image Source="botany_notebook.png" Aspect="AspectFill" HeightRequest="250" />
             </ContentView>
         </StackLayout>
         <ScrollView Grid.Row="1">

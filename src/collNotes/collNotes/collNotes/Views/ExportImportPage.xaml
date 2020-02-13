@@ -6,23 +6,25 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
             Title="{Binding Title}">
-    <ContentPage x:Name="TripContentPage" Title="Trip" IconImageSource="trip_icon.png">
+    <ContentPage x:Name="ImportContentPage" Title="Import Data" IconImageSource="import_icon.png">
         <ContentPage.Content>
             <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
                 <StackLayout>
                     <material:MaterialLabel Text="Trip" FontSize="Title" />
                     <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked" />
-                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked" />
+                    <material:MaterialLabel Text="Backup" FontSize="Title" />
+                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked" />
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>
     </ContentPage>
-    <ContentPage x:Name="BackupContentPage" Title="Backup" IconImageSource="backup_icon.png">
+    <ContentPage x:Name="ExportContentPage" Title="Export Data" IconImageSource="export_icon.png">
         <ContentPage.Content>
             <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
                 <StackLayout>
+                    <material:MaterialLabel Text="Trip" FontSize="Title" />
+                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked" />
                     <material:MaterialLabel Text="Backup" FontSize="Title" />
-                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked" />
                     <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked" />
                 </StackLayout>
             </material:MaterialCard>
