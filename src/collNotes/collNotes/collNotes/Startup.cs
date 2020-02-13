@@ -2,6 +2,7 @@
 using collNotes.Settings;
 using collNotes.Settings.AutoComplete;
 using collNotes.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace collNotes
@@ -19,12 +20,6 @@ namespace collNotes
             // settings view model, registered to use as a Singleton
             // for changes to reflect on settings view, need to use one instance
             DependencyService.Register<SettingsViewModel>();
-
-            SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
-            string autoCompleteType = 
-                settingsViewModel.SelectedAutoCompleteType = settingsViewModel.SelectedAutoCompleteType ?? CollNotesSettings.AutoCompleteDefault;
-
-            CollNotesSettings.AutoCompleteSource = AutoCompleteSettings.GetAutoCompleteData(autoCompleteType);
         }
     }
 }

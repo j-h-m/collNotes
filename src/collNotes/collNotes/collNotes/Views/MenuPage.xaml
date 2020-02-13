@@ -4,7 +4,12 @@
              x:Class="collNotes.Views.MenuPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              Title="Menu">
-    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="LightGray">
+    <StackLayout VerticalOptions="FillAndExpand">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+            <ContentView Padding="0,20,0,20" VerticalOptions="FillAndExpand">
+                <Image Source="collnotes_logo.png" VerticalOptions="Center" HeightRequest="80" />
+            </ContentView>
+        </StackLayout>
         <ListView x:Name="ListViewMenu"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>

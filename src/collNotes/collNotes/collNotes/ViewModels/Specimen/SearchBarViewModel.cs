@@ -1,4 +1,5 @@
 ﻿using collNotes.Settings;
+using collNotes.Settings.AutoComplete;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -14,6 +15,8 @@ namespace collNotes.ViewModels
 
         public SearchBarViewModel()
         {
+            CollNotesSettings.AutoCompleteSource = AutoCompleteSettings.GetAutoCompleteData(settingsViewModel.SelectedAutoCompleteType ?? CollNotesSettings.AutoCompleteDefault);
+
             AutoCompleteDict = CollNotesSettings.AutoCompleteSource;
             AutoCompleteSource = new List<string>();
             SearchBarLabel = $"Search {settingsViewModel.SelectedAutoCompleteType} Sci. Names";

@@ -12,7 +12,6 @@ namespace collNotes.ViewModels
         public CollNotesContext Context = DependencyService.Get<CollNotesContext>();
 
         private bool isBusy = false;
-
         public bool IsBusy
         {
             get { return isBusy; }
@@ -20,7 +19,6 @@ namespace collNotes.ViewModels
         }
 
         private string title = string.Empty;
-
         public string Title
         {
             get { return title; }

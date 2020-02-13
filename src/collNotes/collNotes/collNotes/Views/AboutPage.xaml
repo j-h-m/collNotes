@@ -10,11 +10,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" BackgroundColor="{DynamicResource BackgroundLight}">
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="collnotes_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
+                <Image Source="botany_notebook.jpg" HorizontalOptions="Center" VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>
         <ScrollView Grid.Row="1">

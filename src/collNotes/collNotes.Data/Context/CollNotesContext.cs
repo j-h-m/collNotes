@@ -1,6 +1,7 @@
 ﻿using collNotes.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics;
 using System.IO;
 using Xamarin.Essentials;
 
@@ -13,12 +14,17 @@ namespace collNotes.Data.Context
         public CollNotesContext()
         {
             this.SqliteFilePath = GetFilePathForDevice();
-            this.Database.EnsureCreated();
+            try
+            {
+                this.Database.EnsureCreated();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
-        public CollNotesContext(DbContextOptions<CollNotesContext> options) : base(options)
-        {
-        }
+        public CollNotesContext(DbContextOptions<CollNotesContext> options) : base(options) { }
 
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Site> Sites { get; set; }
@@ -28,8 +34,7 @@ namespace collNotes.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlite($"Filename={SqliteFilePath}");
+            optionsBuilder.UseSqlite($"Filename={SqliteFilePath}");
         }
 
         /// <summary>

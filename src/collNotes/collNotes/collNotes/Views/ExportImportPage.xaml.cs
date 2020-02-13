@@ -7,6 +7,7 @@ using collNotes.ShareFolderInterface;
 using collNotes.ViewModels;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XF.Material.Forms.UI.Dialogs;
@@ -17,6 +18,8 @@ namespace collNotes.Views
     public partial class ExportImportPage : TabbedPage
     {
         private readonly ExportImportViewModel viewModel;
+        private readonly bool IsDeviceIosSimulator = DeviceInfo.Platform == DevicePlatform.iOS &&
+                DeviceInfo.DeviceType == DeviceType.Virtual;
 
         public ExportImportPage()
         {
@@ -39,84 +42,112 @@ namespace collNotes.Views
 
         private async void ImportTrip_Clicked(object sender, System.EventArgs e)
         {
-            var stream = await OpenFileDialog();
-            string message = string.Empty;
-
-            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip"))
+            if (IsDeviceIosSimulator)
             {
-                if (await viewModel.ImportTrip(stream))
-                {
-                    message = "Trip imported successfully.";
-                }
-                else
-                {
-                    message = "Trip import failed.";
-                }
+                await MaterialDialog.Instance.AlertAsync("Import Trip not supported on iOS Simulator");
             }
-            await MaterialDialog.Instance.SnackbarAsync(message: message,
-                                        actionButtonText: "Ok",
-                                        msDuration: MaterialSnackbar.DurationIndefinite);
+            else
+            {
+                var stream = await OpenFileDialog();
+                string message = string.Empty;
+
+                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip"))
+                {
+                    if (await viewModel.ImportTrip(stream))
+                    {
+                        message = "Trip imported successfully.";
+                    }
+                    else
+                    {
+                        message = "Trip import failed.";
+                    }
+                }
+                await MaterialDialog.Instance.SnackbarAsync(message: message,
+                                            actionButtonText: "Ok",
+                                            msDuration: MaterialSnackbar.DurationIndefinite);
+            }
         }
 
         private async void ExportTrip_Clicked(object sender, System.EventArgs e)
         {
-            var trips = await viewModel.tripService.GetAllAsync();
-            var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip",
-                                                             trips.Select(t => t.TripName).ToList());
-            string message = string.Empty;
-
-            if (result != -1)
+            if (IsDeviceIosSimulator)
             {
-                var selectedTrip = trips.ToArray()[result];
-                if (await viewModel.ExportTrip(selectedTrip, GetFilePath(selectedTrip.TripName + ".csv")))
+                await MaterialDialog.Instance.AlertAsync("Export Trip not supported on iOS Simulator");
+            }
+            else
+            {
+                var trips = await viewModel.tripService.GetAllAsync();
+                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip",
+                                                                 trips.Select(t => t.TripName).ToList());
+                string message = string.Empty;
+
+                if (result != -1)
                 {
-                    message = "Trip exported successfully";
+                    var selectedTrip = trips.ToArray()[result];
+                    if (await viewModel.ExportTrip(selectedTrip, GetFilePath(selectedTrip.TripName + ".csv")))
+                    {
+                        message = "Trip exported successfully";
+                    }
+                    else
+                    {
+                        message = "Trip export failed";
+                    }
+                    await MaterialDialog.Instance.SnackbarAsync(message: message,
+                                            actionButtonText: "Ok",
+                                            msDuration: MaterialSnackbar.DurationIndefinite);
                 }
-                else
-                {
-                    message = "Trip export failed";
-                }
-                await MaterialDialog.Instance.SnackbarAsync(message: message,
-                                        actionButtonText: "Ok",
-                                        msDuration: MaterialSnackbar.DurationIndefinite);
             }
         }
 
         private async void ImportBackup_Clicked(object sender, System.EventArgs e)
         {
-            var stream = await OpenFileDialog();
-            string message = string.Empty;
-
-            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup"))
+            if (IsDeviceIosSimulator)
             {
-                if (await viewModel.ImportBackup(stream))
-                {
-                    message = "Backup imported successfully.";
-                }
-                else
-                {
-                    message = "Backup import failed.";
-                }
+                await MaterialDialog.Instance.AlertAsync("Import Backup not supported on iOS Simulator");
             }
-            await MaterialDialog.Instance.SnackbarAsync(message: message,
-                                        actionButtonText: "Ok",
-                                        msDuration: MaterialSnackbar.DurationIndefinite);
+            else
+            {
+                var stream = await OpenFileDialog();
+                string message = string.Empty;
+
+                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup"))
+                {
+                    if (await viewModel.ImportBackup(stream))
+                    {
+                        message = "Backup imported successfully.";
+                    }
+                    else
+                    {
+                        message = "Backup import failed.";
+                    }
+                }
+                await MaterialDialog.Instance.SnackbarAsync(message: message,
+                                            actionButtonText: "Ok",
+                                            msDuration: MaterialSnackbar.DurationIndefinite);
+            }
         }
 
         private async void ExportBackup_Clicked(object sender, System.EventArgs e)
         {
-            string message = string.Empty;
-            if (await viewModel.ExportBackup(GetFilePath("collNotes_Backup.xml")))
+            if (IsDeviceIosSimulator)
             {
-                message = "Backup exported successfully.";
+                await MaterialDialog.Instance.AlertAsync("Export Backup not supported on iOS Simulator");
             }
             else
             {
-                message = "Backup export failed.";
+                string message = string.Empty;
+                if (await viewModel.ExportBackup(GetFilePath("collNotes_Backup.xml")))
+                {
+                    message = "Backup exported successfully.";
+                }
+                else
+                {
+                    message = "Backup export failed.";
+                }
+                await MaterialDialog.Instance.SnackbarAsync(message: message,
+                                            actionButtonText: "Ok",
+                                            msDuration: MaterialSnackbar.DurationIndefinite);
             }
-            await MaterialDialog.Instance.SnackbarAsync(message: message,
-                                        actionButtonText: "Ok",
-                                        msDuration: MaterialSnackbar.DurationIndefinite);
         }
 
         private string GetTitle(string currentPageName)
