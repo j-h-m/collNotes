@@ -10,10 +10,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <Image Source="botany_notebook.jpg" HorizontalOptions="Center" VerticalOptions="Center" />
-            </StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+            <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Image Source="botany_notebook.jpg" Aspect="AspectFill" HeightRequest="250" />
+            </ContentView>
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">

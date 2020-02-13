@@ -6,7 +6,7 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
             Title="{Binding Title}">
-    <ContentPage x:Name="TripContentPage" Title="Trip" IconImageSource="">
+    <ContentPage x:Name="TripContentPage" Title="Trip" IconImageSource="trip_icon.png">
         <ContentPage.Content>
             <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
                 <StackLayout>
@@ -17,7 +17,7 @@
             </material:MaterialCard>
         </ContentPage.Content>
     </ContentPage>
-    <ContentPage x:Name="BackupContentPage" Title="Backup" IconImageSource="">
+    <ContentPage x:Name="BackupContentPage" Title="Backup" IconImageSource="backup_icon.png">
         <ContentPage.Content>
             <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
                 <StackLayout>
