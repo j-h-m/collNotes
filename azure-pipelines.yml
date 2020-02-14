@@ -3,7 +3,6 @@ trigger:
 - topic-collNotes-v2
 variables:
   buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)'
   collNotesRepoName: 'j-h-m/collNotes'
 
 stages:
@@ -29,7 +28,7 @@ stages:
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
-          outputDirectory: '$(outputDirectory)'
+          outputDirectory: '$(Build.ArtifactStagingDirectory)'
           configuration: '$(buildConfiguration)'
           createAppPackage: true
       - task: AndroidSigning@3
