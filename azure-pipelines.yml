@@ -3,10 +3,8 @@ trigger:
 - topic-collNotes-v2
 variables:
   buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-  createAppPackage: true
+  outputDirectory: '$(build.binariesDirectory)'
   collNotesRepoName: 'j-h-m/collNotes'
-  preRelease: true
 
 stages:
 - stage: Build
@@ -53,5 +51,5 @@ stages:
           tag: 'v2.x'
           tagSource: 'gitTag'
           title: 'test apk release'
-          isPreRelease: '$(preRelease)'
+          isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.apk'
