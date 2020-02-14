@@ -6,7 +6,7 @@
              Title="Menu">
     <StackLayout VerticalOptions="FillAndExpand">
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-            <ContentView Padding="0,20,0,20" VerticalOptions="FillAndExpand">
+            <ContentView x:Name="LogoContentView" VerticalOptions="FillAndExpand">
                 <Image Source="collnotes_logo.png" VerticalOptions="Center" HeightRequest="80" />
             </ContentView>
         </StackLayout>

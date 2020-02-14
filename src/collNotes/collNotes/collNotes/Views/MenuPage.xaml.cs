@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using collNotes.Data.Models;
 using collNotes.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace collNotes.Views
@@ -26,6 +27,10 @@ namespace collNotes.Views
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
                 await RootPage.NavigateFromMenu(id);
             };
+
+            LogoContentView.Padding = (DeviceInfo.Platform == DevicePlatform.iOS) ?
+                new Thickness(0, 75, 0, 0) :
+                new Thickness(0, 20, 0, 20);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using collNotes.ViewModels;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using collNotes.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace collNotes.Views
@@ -14,6 +14,10 @@ namespace collNotes.Views
         {
             InitializeComponent();
             BindingContext = this.viewModel = new AboutViewModel();
+
+            BotanyNotebookImage.Aspect = (DeviceInfo.Platform == DevicePlatform.iOS) ?
+                Aspect.AspectFit :
+                Aspect.AspectFill;
         }
     }
 }
