@@ -33,7 +33,7 @@ stages:
           projectFile: '**/*droid*.csproj'
           outputDirectory: '$(outputDirectory)'
           configuration: '$(buildConfiguration)'
-          createAppPackage: '$(createAppPackage)'
+          createAppPackage: true
       - task: AndroidSigning@3
         inputs:
           apkFiles: '**/*.apk'
