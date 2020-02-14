@@ -37,7 +37,7 @@ stages:
       - task: AndroidSigning@3
         inputs:
           apkFiles: '**/*.apk'
-          apksignerKeystoreFile: '$(keyStoreFile)'
+          apksignerKeystoreFile: 'ad-hoc jacob.keystore'
           apksignerKeystorePassword: '$(apkSignerKeystorePassword)'
           apksignerKeystoreAlias: '$(keyStoreAlias)'
           apksignerKeyPassword: '$(keyPassword)'
