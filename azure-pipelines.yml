@@ -34,6 +34,13 @@ stages:
           outputDirectory: '$(outputDirectory)'
           configuration: '$(buildConfiguration)'
           createAppPackage: '$(createAppPackage)'
+      - task: AndroidSigning@3
+        inputs:
+          apkFiles: '**/*.apk'
+          apksignerKeystoreFile: 'ad-hoc jacob.keystore'
+          apksignerKeystorePassword: '$(apkSignerKeystorePassword)'
+          apksignerKeystoreAlias: '$(keyStoreAlias)'
+          apksignerKeyPassword: '$(keyPassword)'
 - stage: Github_Release
   jobs:
   - job: Android_APK
