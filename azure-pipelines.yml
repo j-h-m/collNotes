@@ -38,10 +38,6 @@ stages:
           apksignerKeystorePassword: '$(apkSignerKeystorePassword)'
           apksignerKeystoreAlias: '$(keyStoreAlias)'
           apksignerKeyPassword: '$(keyPassword)'
-- stage: Github_Release
-  jobs:
-  - job: Android_APK
-    steps:
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'j-h-m'
