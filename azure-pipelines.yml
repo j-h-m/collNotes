@@ -4,7 +4,8 @@ trigger:
 variables:
   buildConfiguration: 'Release'
   collNotesRepoName: 'j-h-m/collNotes'
-  MonoVersion: '6_4_0'
+  MonoVersion: '5_4_1'
+  xcodeRoot: '/Applications/Xcode_10.1.app'
 
 stages:
 - stage: Build
@@ -72,7 +73,7 @@ stages:
         displayName: 'Install mono'
         inputs:
           targetType: 'inline'
-          script: 'boots https://download.mono-project.com/archive/6.4.0/macos-10-universal/MonoFramework-MDK-6.4.0.198.macos10.xamarin.universal.pkg'
+          script: 'boots https://download.mono-project.com/archive/5.4.1/macos-10-universal/MonoFramework-MDK-5.4.1.macos10.xamarin.universal.pkg'
       - task: Bash@3
         displayName: 'set mono version for build'
         inputs:
@@ -82,7 +83,7 @@ stages:
         displayName: 'set xcode for non-default mono version'
         inputs:
           targetType: 'inline'
-          script: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_11.3.app;sudo xcode-select --switch /Applications/Xcode_11.3.app/Contents/Developer
+          script: "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'$(xcodeRoot);sudo xcode-select --switch $(xcodeRoot)/Contents/Developer"
       - task: XamariniOS@2
         displayName: 'Build iOS App'
         inputs:
