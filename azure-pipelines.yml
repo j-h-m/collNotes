@@ -79,11 +79,8 @@ stages:
         inputs:
           targetType: 'inline'
           script: 'sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MonoVersion)'
-      - task: Bash@3
-        displayName: 'set xcode for non-default mono version'
-        inputs:
-          targetType: 'inline'
-          script: "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'$(xcodeRoot);sudo xcode-select --switch $(xcodeRoot)/Contents/Developer"
+      - script: |
+          /bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'$(xcodeRoot);sudo xcode-select --switch $(xcodeRoot)/Contents/Developer"
       - task: XamariniOS@2
         displayName: 'Build iOS App'
         inputs:
