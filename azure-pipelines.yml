@@ -13,18 +13,22 @@ stages:
       vmImage: 'windows-latest'
     steps:
       - task: NuGetToolInstaller@1
+        displayName: 'Install NuGet 5.x'
         inputs:
           versionSpec: '5.x'
           checkLatest: true
       - task: NuGetCommand@2
+        displayName: 'NuGet restore'
         inputs:
           restoreSolution: '**/*.sln'
       - task: DotNetCoreCLI@2
+        displayName: 'dotnet test on test project'
         inputs:
           command: test
           projects: '**/*Tests/*.csproj'
           arguments: '--configuration $(buildConfiguration)'
       - task: XamarinAndroid@1
+        displayName: 'Build Android App'
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
@@ -52,14 +56,21 @@ stages:
     pool: 
       vmImage: 'macOS-10.14'
     steps:
+      - task: UseDotNet@2
+        displayName: 'Use .NET Core 3.x'
+        inputs:
+          packageType: sdk
+          version: 3.x
+          installationPath: $(Agent.ToolsDirectory)/dotnet
       - task: XamariniOS@2
+        displayName: 'Build iOS App'
         inputs:
           clean: true
           solutionFile: '**/*.sln'
           configuration: '$(buildConfiguration)'
           packageApp: false
           buildForSimulator: true
-          runNugetRestore: false
+          runNugetRestore: true
          #args: # Optional
          #workingDirectory: # Optional
          #mdtoolFile: # Optional
