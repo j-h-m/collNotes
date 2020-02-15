@@ -75,7 +75,8 @@ stages:
           targetType: 'inline'
           script: 'boots https://download.mono-project.com/archive/5.16.0/macos-10-universal/MonoFramework-MDK-5.16.0.macos10.xamarin.universal.pkg'
       - script: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_16_0"
-      - script: /bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_10.1.app;sudo xcode-select --switch /Applications/Xcode_10.1.app/Contents/Developer"
+      - script: /bin/bash -c "/bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_10.1.app"
+      - script: /bin/bash -c "sudo xcode-select --switch /Applications/Xcode_10.1.app/Contents/Developer"
       - task: XamariniOS@2
         displayName: 'Build iOS App'
         inputs:
