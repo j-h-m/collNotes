@@ -32,12 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AndroidLinkMode>None</AndroidLinkMode>
     <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -45,7 +42,13 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>/Users/borg/Library/Developer/Xamarin/Keystore/ad-hoc collNotes/ad-hoc collNotes.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>m@cissh!t</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>ad-hoc collNotes</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>m@cissh!t</AndroidSigningKeyPass>
+    <AndroidLinkTool>proguard</AndroidLinkTool>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
