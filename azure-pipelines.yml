@@ -48,3 +48,19 @@ stages:
           title: 'test apk release'
           isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.apk'
+  - job: iOS_App
+    pool: 'macOS-10.14'
+    steps:
+      - task: XamariniOS@2
+        inputs:
+          clean: true
+          solutionFile: '**/*.sln'
+          configuration: '$(buildConfiguration)'
+          packageApp: false
+          buildForSimulator: true
+          runNugetRestore: true
+         #args: # Optional
+         #workingDirectory: # Optional
+         #mdtoolFile: # Optional
+         #signingIdentity: # Optional
+         #signingProvisioningProfileID: # Optional
