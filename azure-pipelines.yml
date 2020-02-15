@@ -3,10 +3,7 @@ trigger:
 - topic-collNotes-v2
 variables:
   buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-  createAppPackage: true
   collNotesRepoName: 'j-h-m/collNotes'
-  preRelease: true
 
 stages:
 - stage: Build
@@ -31,9 +28,9 @@ stages:
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
-          outputDirectory: '$(outputDirectory)'
+          outputDirectory: '$(Build.ArtifactStagingDirectory)'
           configuration: '$(buildConfiguration)'
-          createAppPackage: '$(createAppPackage)'
+          createAppPackage: true
       - task: AndroidSigning@3
         inputs:
           apkFiles: '**/*.apk'
@@ -41,10 +38,6 @@ stages:
           apksignerKeystorePassword: '$(apkSignerKeystorePassword)'
           apksignerKeystoreAlias: '$(keyStoreAlias)'
           apksignerKeyPassword: '$(keyPassword)'
-- stage: Github_Release
-  jobs:
-  - job: Android_APK
-    steps:
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'j-h-m'
@@ -53,5 +46,21 @@ stages:
           tag: 'v2.x'
           tagSource: 'gitTag'
           title: 'test apk release'
-          isPreRelease: '$(preRelease)'
+          isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.apk'
+  - job: iOS_App
+    pool: 'macOS-latest'
+    steps:
+      - task: XamariniOS@2
+        inputs:
+          clean: true
+          solutionFile: '**/*.sln'
+          configuration: '$(buildConfiguration)'
+          packageApp: false
+          buildForSimulator: true
+          runNugetRestore: true
+         #args: # Optional
+         #workingDirectory: # Optional
+         #mdtoolFile: # Optional
+         #signingIdentity: # Optional
+         #signingProvisioningProfileID: # Optional
