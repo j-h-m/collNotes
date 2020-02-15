@@ -49,7 +49,7 @@ stages:
           isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.apk'
   - job: iOS_App
-    pool: 'macOS-latest'
+    pool: 'macOS-10.14'
     steps:
       - task: XamariniOS@2
         inputs:
