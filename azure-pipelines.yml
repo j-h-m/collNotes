@@ -59,7 +59,7 @@ stages:
           configuration: '$(buildConfiguration)'
           packageApp: false
           buildForSimulator: true
-          runNugetRestore: true
+          runNugetRestore: false
          #args: # Optional
          #workingDirectory: # Optional
          #mdtoolFile: # Optional
