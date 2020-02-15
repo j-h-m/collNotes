@@ -4,6 +4,7 @@ trigger:
 variables:
   buildConfiguration: 'Release'
   collNotesRepoName: 'j-h-m/collNotes'
+  MonoVersion: '6_4_0'
 
 stages:
 - stage: Build
@@ -62,12 +63,26 @@ stages:
           packageType: sdk
           version: 3.x
           installationPath: $(Agent.ToolsDirectory)/dotnet
-      - script: |
-          dotnet tool install --global boots
-      - script: |
-          boots https://bosstoragemirror.blob.core.windows.net/wrench/jenkins/xcode10.3/72cb587a39c12dfaa20cd5a0b1eb60a908ff88a6/1/package/xamarin.ios-12.14.0.113.pkg
-      - script: |
-          boots https://download.mono-project.com/archive/6.0.0/macos-10-universal/MonoFramework-MDK-6.0.0.313.macos10.xamarin.universal.pkg
+      - task: Bash@3
+        displayName: 'Install boots'
+        inputs:
+          targetType: 'inline'
+          script: 'dotnet tool install --global boots'
+      - task: Bash@3
+        displayName: 'install xamarin ios'
+        inputs:
+          targetType: 'inline'
+          script: 'boots https://bosstoragemirror.blob.core.windows.net/wrench/jenkins/xcode10.3/72cb587a39c12dfaa20cd5a0b1eb60a908ff88a6/1/package/xamarin.ios-12.14.0.113.pkg'
+      - task: Bash@3
+        displayName: 'Install mono'
+        inputs:
+          targetType: 'inline'
+          script: 'boots https://download.mono-project.com/archive/6.4.0/macos-10-universal/MonoFramework-MDK-6.4.0.198.macos10.xamarin.universal.pkg'
+      - task: Bash@3
+        displayName: 'set mono version for build'
+        inputs:
+          targetType: 'inline'
+          script: 'sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MonoVersion)'
       - task: XamariniOS@2
         displayName: 'Build iOS App'
         inputs:
