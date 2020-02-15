@@ -69,11 +69,6 @@ stages:
           targetType: 'inline'
           script: 'dotnet tool install --global boots'
       - task: Bash@3
-        displayName: 'install xamarin ios'
-        inputs:
-          targetType: 'inline'
-          script: 'boots https://bosstoragemirror.blob.core.windows.net/wrench/jenkins/xcode10.3/72cb587a39c12dfaa20cd5a0b1eb60a908ff88a6/1/package/xamarin.ios-12.14.0.113.pkg'
-      - task: Bash@3
         displayName: 'Install mono'
         inputs:
           targetType: 'inline'
@@ -92,8 +87,3 @@ stages:
           packageApp: false
           buildForSimulator: true
           runNugetRestore: true
-         #args: # Optional
-         #workingDirectory: # Optional
-         #mdtoolFile: # Optional
-         #signingIdentity: # Optional
-         #signingProvisioningProfileID: # Optional
