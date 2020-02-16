@@ -4,6 +4,8 @@ trigger:
 variables:
   buildConfiguration: 'Release'
   collNotesRepoName: 'j-h-m/collNotes'
+  MonoVersion: '5_16_0'
+  xcodeRoot: '/Applications/Xcode_10.1.app'
 
 stages:
 - stage: Build
@@ -13,18 +15,22 @@ stages:
       vmImage: 'windows-latest'
     steps:
       - task: NuGetToolInstaller@1
+        displayName: 'Install NuGet 5.x'
         inputs:
           versionSpec: '5.x'
           checkLatest: true
       - task: NuGetCommand@2
+        displayName: 'NuGet restore'
         inputs:
           restoreSolution: '**/*.sln'
       - task: DotNetCoreCLI@2
+        displayName: 'dotnet test on test project'
         inputs:
           command: test
           projects: '**/*Tests/*.csproj'
           arguments: '--configuration $(buildConfiguration)'
       - task: XamarinAndroid@1
+        displayName: 'Build Android App'
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
@@ -49,18 +55,30 @@ stages:
           isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.apk'
   - job: iOS_App
-    pool: 'macOS-latest'
+    pool: 
+      vmImage: 'macOS-10.14'
     steps:
+      - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_4_0
+        displayName: 'Select Xamarin SDK version 6.4.0'
+        enabled: true
+      - task: UseDotNet@2
+        displayName: 'Use .NET Core 3.x'
+        inputs:
+          packageType: sdk
+          version: 3.x
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+      - task: NuGetToolInstaller@1
+        displayName: 'Install NuGet tool'
+      - task: NuGetCommand@2
+        displayName: 'nuget restore on solution'
+        inputs:
+          restoreSolution: '**/*.sln'
       - task: XamariniOS@2
+        displayName: 'Build iOS App'
         inputs:
           clean: true
           solutionFile: '**/*.sln'
           configuration: '$(buildConfiguration)'
           packageApp: false
           buildForSimulator: true
-          runNugetRestore: true
-         #args: # Optional
-         #workingDirectory: # Optional
-         #mdtoolFile: # Optional
-         #signingIdentity: # Optional
-         #signingProvisioningProfileID: # Optional
+          runNugetRestore: false
