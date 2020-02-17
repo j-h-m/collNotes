@@ -40,10 +40,10 @@ stages:
       - task: AndroidSigning@3
         inputs:
           apkFiles: '**/*.apk'
-          apksignerKeystoreFile: 'ad-hoc jacob.keystore'
-          apksignerKeystorePassword: '$(apkSignerKeystorePassword)'
-          apksignerKeystoreAlias: '$(keyStoreAlias)'
-          apksignerKeyPassword: '$(keyPassword)'
+          apksignerKeystoreFile: '$(apksignerKeystoreFile)'
+          apksignerKeystorePassword: '$(apksignerKeystorePassword)'
+          apksignerKeystoreAlias: '$(apksignerKeystoreAlias)'
+          apksignerKeyPassword: '$(apksignerKeyPassword)'
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'j-h-m'
