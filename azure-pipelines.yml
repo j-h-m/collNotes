@@ -97,13 +97,14 @@ stages:
         inputs:
           sourceFolder: $(system.DefaultWorkingDirectory)
           contents: '**/*.ipa' 
-          targetFolder: (Build.ArtifactStagingDirectory)
+          targetFolder: $(Build.ArtifactStagingDirectory)
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'j-h-m'
           repositoryName: '$(collNotesRepoName)'
-          action: 'edit'
+          action: 'create'
           tag: 'v2.x'
           tagSource: 'gitTag'
+          title: 'collNotes alpha release'
           isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.ipa'
