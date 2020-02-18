@@ -51,7 +51,7 @@ stages:
           action: 'create'
           tag: 'v2.x'
           tagSource: 'gitTag'
-          title: 'test apk release'
+          title: 'collNotes alpha release'
           isPreRelease: true
           assets: '$(Build.ArtifactStagingDirectory)/*.apk'
   - job: iOS_App
@@ -92,3 +92,18 @@ stages:
           packageApp: true
           buildForSimulator: false
           runNugetRestore: false
+      - task: CopyFiles@2
+        displayName: 'copy ipa to Build.ArtifactStagingDirectory for release'
+        inputs:
+          sourceFolder: $(system.DefaultWorkingDirectory)
+          contents: '**/*.ipa' 
+          targetFolder: (Build.ArtifactStagingDirectory)
+      - task: GitHubRelease@1
+        inputs:
+          gitHubConnection: 'j-h-m'
+          repositoryName: '$(collNotesRepoName)'
+          action: 'edit'
+          tag: 'v2.x'
+          tagSource: 'gitTag'
+          isPreRelease: true
+          assets: '$(Build.ArtifactStagingDirectory)/*.ipa'
