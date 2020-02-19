@@ -40,7 +40,7 @@ stages:
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
-          outputDirectory: '$(Build.ArtifactStagingDirectory)/android/'
+          outputDirectory: '$(Build.ArtifactStagingDirectory)'
           configuration: '$(buildConfiguration)'
           createAppPackage: true
       - task: AndroidSigning@3
@@ -73,9 +73,9 @@ stages:
       - task: CopyFiles@2
         displayName: 'copy ipa to Build.ArtifactStagingDirectory for release'
         inputs:
-          sourceFolder: $(system.DefaultWorkingDirectory)
+          sourceFolder: $(System.DefaultWorkingDirectory)
           contents: '**/*.ipa' 
-          targetFolder: $(Build.ArtifactStagingDirectory)/ios/
+          targetFolder: $(Build.ArtifactStagingDirectory)
       - task: GitHubRelease@1
         displayName: 'Github release ipa and apk'
         inputs:
@@ -86,5 +86,4 @@ stages:
           tagSource: 'gitTag'
           title: 'collNotes alpha release'
           isPreRelease: true
-          assets: '$(Build.ArtifactStagingDirectory)/ios/*.ipa
-                   $(Build.ArtifactStagingDirectory)/android/*.apk'
+          assets: '$(Build.ArtifactStagingDirectory)/*'
