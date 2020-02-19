@@ -10,51 +10,7 @@ variables:
 stages:
 - stage: Build
   jobs:
-  - job: Android_App
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-      - task: NuGetToolInstaller@1
-        displayName: 'Install NuGet 5.x'
-        inputs:
-          versionSpec: '5.x'
-          checkLatest: true
-      - task: NuGetCommand@2
-        displayName: 'NuGet restore'
-        inputs:
-          restoreSolution: '**/*.sln'
-      - task: DotNetCoreCLI@2
-        displayName: 'dotnet test on test project'
-        inputs:
-          command: test
-          projects: '**/*Tests/*.csproj'
-          arguments: '--configuration $(buildConfiguration)'
-      - task: XamarinAndroid@1
-        displayName: 'Build Android App'
-        inputs:
-          clean: true
-          projectFile: '**/*droid*.csproj'
-          outputDirectory: '$(Build.ArtifactStagingDirectory)'
-          configuration: '$(buildConfiguration)'
-          createAppPackage: true
-      - task: AndroidSigning@3
-        inputs:
-          apkFiles: '**/*.apk'
-          apksignerKeystoreFile: '$(apksignerKeystoreFile)'
-          apksignerKeystorePassword: '$(apksignerKeystorePassword)'
-          apksignerKeystoreAlias: '$(apksignerKeystoreAlias)'
-          apksignerKeyPassword: '$(apksignerKeyPassword)'
-      - task: GitHubRelease@1
-        inputs:
-          gitHubConnection: 'j-h-m'
-          repositoryName: '$(collNotesRepoName)'
-          action: 'create'
-          tag: 'v2.x'
-          tagSource: 'gitTag'
-          title: 'collNotes alpha release'
-          isPreRelease: true
-          assets: '$(Build.ArtifactStagingDirectory)/*.apk'
-  - job: iOS_App
+  - job: 'Build_Test_and_Github_Release'
     pool: 
       vmImage: 'macOS-10.14'
     steps:
@@ -73,6 +29,28 @@ stages:
         displayName: 'nuget restore on solution'
         inputs:
           restoreSolution: '**/*.sln'
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet test on test project'
+        inputs:
+          command: test
+          projects: '**/*Tests/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
+      - task: XamarinAndroid@1
+        displayName: 'Build Android App'
+        inputs:
+          clean: true
+          projectFile: '**/*droid*.csproj'
+          outputDirectory: '$(Build.ArtifactStagingDirectory)/android/'
+          configuration: '$(buildConfiguration)'
+          createAppPackage: true
+      - task: AndroidSigning@3
+        displayName: 'sign Android build'
+        inputs:
+          apkFiles: '**/*.apk'
+          apksignerKeystoreFile: '$(apksignerKeystoreFile)'
+          apksignerKeystorePassword: '$(apksignerKeystorePassword)'
+          apksignerKeystoreAlias: '$(apksignerKeystoreAlias)'
+          apksignerKeyPassword: '$(apksignerKeyPassword)'
       - task: InstallAppleProvisioningProfile@1
         displayName: 'install apple provisioning profile'
         inputs:
@@ -97,8 +75,9 @@ stages:
         inputs:
           sourceFolder: $(system.DefaultWorkingDirectory)
           contents: '**/*.ipa' 
-          targetFolder: $(Build.ArtifactStagingDirectory)
+          targetFolder: $(Build.ArtifactStagingDirectory)/ios/
       - task: GitHubRelease@1
+        displayName: 'Github release ipa and apk'
         inputs:
           gitHubConnection: 'j-h-m'
           repositoryName: '$(collNotesRepoName)'
@@ -107,4 +86,5 @@ stages:
           tagSource: 'gitTag'
           title: 'collNotes alpha release'
           isPreRelease: true
-          assets: '$(Build.ArtifactStagingDirectory)/*.ipa'
+          assets: '$(Build.ArtifactStagingDirectory)/ios/*.ipa
+                   $(Build.ArtifactStagingDirectory)/android/*.apk'
