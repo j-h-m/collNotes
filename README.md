@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/gyx4070e1qxhd1lm?svg=true)](https://ci.appveyor.com/project/j-h-m/pd-project-xamarin)
+[![Build Status](https://dev.azure.com/FooBarLLC/collNotes/_apis/build/status/j-h-m.collNotes?branchName=topic-collNotes-v2)](https://dev.azure.com/FooBarLLC/collNotes/_build/latest?definitionId=3&branchName=topic-collNotes-v2)
 
 <h1 align=center>
 <img src="data/assets/logo-collnotes//horizontal.png" width=40%>

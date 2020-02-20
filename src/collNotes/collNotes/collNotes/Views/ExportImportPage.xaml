@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+            x:Class="collNotes.Views.ExportImportPage"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            Title="{Binding Title}">
+    <ContentPage x:Name="ImportContentPage" Title="Import Data" IconImageSource="import_icon.png">
+        <ContentPage.Content>
+            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
+                <StackLayout>
+                    <material:MaterialLabel Text="Trip" FontSize="Title" />
+                    <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked" />
+                    <material:MaterialLabel Text="Backup" FontSize="Title" />
+                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked" />
+                </StackLayout>
+            </material:MaterialCard>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage x:Name="ExportContentPage" Title="Export Data" IconImageSource="export_icon.png">
+        <ContentPage.Content>
+            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
+                <StackLayout>
+                    <material:MaterialLabel Text="Trip" FontSize="Title" />
+                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked" />
+                    <material:MaterialLabel Text="Backup" FontSize="Title" />
+                    <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked" />
+                </StackLayout>
+            </material:MaterialCard>
+        </ContentPage.Content>
+    </ContentPage>
+</TabbedPage>
