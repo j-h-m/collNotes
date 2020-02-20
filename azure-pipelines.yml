@@ -1,6 +1,6 @@
 trigger:
 - master
-- topic-collNotes-v2
+- develop
 variables:
   buildConfiguration: 'Release'
   collNotesRepoName: 'j-h-m/collNotes'
