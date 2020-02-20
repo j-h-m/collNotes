@@ -86,5 +86,6 @@ stages:
           tagSource: 'gitTag'
           title: 'collNotes alpha release'
           isPreRelease: true
-          assets: $(Build.ArtifactStagingDirectory)/*.apk |
-                  $(Build.ArtifactStagingDirectory)/*.ipa
+          assets: |
+              $(Build.ArtifactStagingDirectory)/*.apk
+              $(Build.ArtifactStagingDirectory)/*.ipa
