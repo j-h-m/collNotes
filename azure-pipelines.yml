@@ -73,9 +73,9 @@ stages:
       - task: CopyFiles@2
         displayName: 'copy ipa to Build.ArtifactStagingDirectory for release'
         inputs:
-          sourceFolder: $(System.DefaultWorkingDirectory)
+          sourceFolder: '$(System.DefaultWorkingDirectory)'
           contents: '**/*.ipa' 
-          targetFolder: $(Build.ArtifactStagingDirectory)
+          targetFolder: '$(Build.ArtifactStagingDirectory)/ios_app/'
       - task: GitHubRelease@1
         displayName: 'Github release ipa and apk'
         inputs:
@@ -88,4 +88,4 @@ stages:
           isPreRelease: true
           assets: |
               $(Build.ArtifactStagingDirectory)/*.apk
-              $(Build.ArtifactStagingDirectory)/*.ipa
+              $(Build.ArtifactStagingDirectory)/ios_app/*.ipa
