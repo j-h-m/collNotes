@@ -82,4 +82,4 @@ stages:
           isPreRelease: true
           assets: |
               $(Build.ArtifactStagingDirectory)/*.apk
-              $(System.DefaultWorkingDirectory)/*.ipa
+              $(Build.SourcesDirectory)/**/*.ipa
