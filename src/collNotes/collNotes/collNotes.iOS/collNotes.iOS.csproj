@@ -154,50 +154,132 @@
     <ImageAsset Include="Assets.xcassets\export_icon.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-76x76%401x.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-76x76%402x.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-76x76%401x.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-76x76%402x.png" />
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-76x76%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-76x76%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-76x76%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-76x76%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\map_icon.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-40x40%401x.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-40x40%402x.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-40x40%403x.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-76x76%401x.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-76x76%402x.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-1.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-2.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-3.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-4.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-5.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-6.png" />
-    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-7.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%401x.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%402x.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%403x.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%401x.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%402x.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%403x.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%401x-1.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%403x-1.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%401x-1.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%402x-2.png" />
-    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%403x-2.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-29x29%401x.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-29x29%402x.png" />
-    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-29x29%403x.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-1.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-2.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-3.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-4.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-5.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-6.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-7.png" />
-    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-40x40%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-40x40%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-40x40%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-76x76%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-76x76%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-4.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-5.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-6.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\collnotes_logo.imageset\horizontal-7.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%401x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\export_icon.imageset\Icon-App-29x29%403x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%401x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%402x-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\import_icon.imageset\Icon-App-29x29%403x-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-29x29%401x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-29x29%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\map_icon.imageset\Icon-App-29x29%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-4.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-5.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-6.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\botany_notebook-7.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\botany_notebook.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

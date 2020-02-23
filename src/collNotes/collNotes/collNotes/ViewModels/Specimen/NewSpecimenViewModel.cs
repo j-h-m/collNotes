@@ -14,7 +14,6 @@ namespace collNotes.ViewModels
         public string AssociatedSiteName { get; set; }
         public IEnumerable<string> LifeStages { get => CollNotesSettings.LifeStages; }
         public string SelectedLifeStage { get; set; }
-        public bool IsCultivated { get; set; }
         public bool IsClone { get; set; }
 
         private SiteService SiteService { get; set; }

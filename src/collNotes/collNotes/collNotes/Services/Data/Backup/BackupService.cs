@@ -79,27 +79,73 @@ namespace collNotes.Services.Data
                 // write all objects to database
                 backup.Trips.ForEach(async t =>
                 {
-                    await tripService.CreateAsync(t);
+                    await tripService.CreateAsync(new Trip()
+                    {
+                        AdditionalCollectors = t.AdditionalCollectors,
+                        CollectionDate = t.CollectionDate,
+                        PrimaryCollector = t.PrimaryCollector,
+                        TripName = t.TripName,
+                        TripNumber = t.TripNumber
+                    });
                 });
 
                 backup.Sites.ForEach(async s =>
                 {
-                    await siteService.CreateAsync(s);
+                    await siteService.CreateAsync(new Site()
+                    {
+                        AssociatedTaxa = s.AssociatedTaxa,
+                        AssociatedTripName = s.AssociatedTripName,
+                        CoordinateUncertaintyInMeters = s.CoordinateUncertaintyInMeters,
+                        Habitat = s.Habitat,
+                        Latitude = s.Latitude,
+                        Locality = s.Locality,
+                        LocationNotes = s.LocationNotes,
+                        Longitude = s.Longitude,
+                        MinimumElevationInMeters = s.MinimumElevationInMeters,
+                        PhotoAsBase64 = s.PhotoAsBase64,
+                        SiteName = s.SiteName,
+                        SiteNumber = s.SiteNumber
+                    });
                 });
 
                 backup.Specimen.ForEach(async s =>
                 {
-                    await specimenService.CreateAsync(s);
+                    await specimenService.CreateAsync(new Specimen() 
+                    { 
+                        AdditionalInfo = s.AdditionalInfo,
+                        AssociatedSiteName = s.AssociatedSiteName,
+                        AssociatedSiteNumber = s.AssociatedSiteNumber,
+                        Cultivated = s.Cultivated,
+                        FieldIdentification = s.FieldIdentification,
+                        IndividualCount = s.IndividualCount,
+                        LabelString = s.LabelString,
+                        LifeStage = s.LifeStage,
+                        OccurrenceNotes = s.OccurrenceNotes,
+                        PhotoAsBase64 = s.PhotoAsBase64,
+                        SpecimenName = s.SpecimenName,
+                        SpecimenNumber = s.SpecimenNumber,
+                        Substrate = s.Substrate
+                    });
                 });
 
                 backup.Settings.ForEach(async s =>
                 {
-                    await settingService.CreateAsync(s);
+                    await settingService.CreateAsync(new Setting() 
+                    { 
+                        LastSaved = s.LastSaved,
+                        SettingName = s.SettingName,
+                        SettingValue = s.SettingValue
+                    });
                 });
 
                 backup.ExceptionRecords.ForEach(async er =>
                 {
-                    await exceptionRecordService.AddAsync(er);
+                    await exceptionRecordService.AddAsync(new ExceptionRecord() 
+                    { 
+                        Created = er.Created,
+                        DeviceInfo = er.DeviceInfo, 
+                        ExceptionInfo = er.ExceptionInfo
+                    });
                 });
 
                 result = true;
