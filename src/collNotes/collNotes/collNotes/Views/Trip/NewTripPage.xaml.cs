@@ -38,7 +38,8 @@ namespace collNotes.Views
                 {
                     if (!string.IsNullOrEmpty(viewModel.Trip.PrimaryCollector))
                     {
-                        var result = await MaterialDialog.Instance.ConfirmAsync($"Primary Collector has not been recorded yet, would you like to set {viewModel.Trip.PrimaryCollector} as the primary collector?", "Confirm", "Yes", "No");
+                        var result = await MaterialDialog.Instance.ConfirmAsync(GetPrimaryCollectorPrompt(viewModel.Trip.PrimaryCollector), 
+                            "Confirm", "Yes", "No");
                         if (!(result is null || result == false))
                         {
                             settingsViewModel.CurrentCollectorName = viewModel.Trip.PrimaryCollector;
@@ -58,6 +59,11 @@ namespace collNotes.Views
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
+        }
+
+        private string GetPrimaryCollectorPrompt(string primaryCollector)
+        {
+            return $"Primary Collector has not been recorded yet, would you like to set [{primaryCollector}] as the primary collector?";
         }
     }
 }
