@@ -22,7 +22,7 @@ namespace collNotes.Views
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            await viewModel.SpecimenService.UpdateAsync(viewModel.Specimen);
+            await viewModel.specimenService.UpdateAsync(viewModel.Specimen);
             await Navigation.PopAsync();
         }
 
@@ -34,7 +34,7 @@ namespace collNotes.Views
                                     dismissiveText: "No"));
             if (result)
             {
-                await viewModel.SpecimenService.DeleteAsync(viewModel.Specimen);
+                await viewModel.specimenService.DeleteAsync(viewModel.Specimen);
                 await Navigation.PopAsync();
             }
         }

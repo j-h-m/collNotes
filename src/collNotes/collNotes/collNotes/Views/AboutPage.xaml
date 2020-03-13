@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.AboutPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             Title="{Binding Title}"
-             BackgroundColor="{DynamicResource BackgroundColor}">
+             Title="{Binding Title}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,7 +16,7 @@
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
-                <material:MaterialLabel TextColor="{DynamicResource TextColor}">
+                <material:MaterialLabel>
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
@@ -28,7 +27,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </material:MaterialLabel>
-                <material:MaterialLabel TextColor="{DynamicResource TextColor}">
+                <material:MaterialLabel>
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>

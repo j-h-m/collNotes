@@ -1,4 +1,6 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Services;
+using collNotes.Services.AppTheme;
 using collNotes.Services.Permissions;
 using collNotes.Services.Settings;
 using collNotes.Settings;
@@ -12,8 +14,10 @@ namespace collNotes.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private SettingService SettingService { get; set; }
-        public readonly PermissionsService permissionsService;
+        private ISettingService settingService;
+        public readonly IPermissionsService permissionsService;
+        private IExceptionRecordService exceptionRecordService;
+        private IAppThemeService appThemeService;
 
         #region Binding Properties
 
@@ -137,8 +141,10 @@ namespace collNotes.ViewModels
 
         public SettingsViewModel()
         {
-            SettingService = new SettingService(Context);
+            settingService = new SettingService(Context);
             permissionsService = new PermissionsService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
 
             Title = "Settings";
 
@@ -147,15 +153,15 @@ namespace collNotes.ViewModels
 
         public async Task CreateOrUpdateSetting(string settingKey, string settingValue)
         {
-            var setting = await SettingService.GetByNameAsync(settingKey);
+            var setting = await settingService.GetByNameAsync(settingKey);
             if (setting is Setting)
             {
                 setting.SettingValue = settingValue;
-                await SettingService.UpdateAsync(setting);
+                await settingService.UpdateAsync(setting);
             }
             else
             {
-                await SettingService.CreateAsync(new Setting()
+                await settingService.CreateAsync(new Setting()
                 {
                     SettingName = settingKey,
                     SettingValue = settingValue,
@@ -194,6 +200,11 @@ namespace collNotes.ViewModels
             SelectedExportFormat = CollNotesSettings.ExportFormatDefault;
             SelectedExportMethod = CollNotesSettings.ExportMethodDefault;
             LastSavedDateTimeString = GetLastSavedDateTimeString(null);
+        }
+
+        public async Task<bool> SetTheme(CollNotesSettings.ColorTheme colorTheme)
+        {
+            return await appThemeService.SetAppTheme(colorTheme);
         }
     }
 }

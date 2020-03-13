@@ -30,7 +30,7 @@ namespace collNotes.Views
 
         private async void NewSpecimen_Clicked(object sender, EventArgs e)
         {
-            var sites = await viewModel.SiteService.GetAllAsync();
+            var sites = await viewModel.siteService.GetAllAsync();
             if (sites.Any())
                 await Navigation.PushAsync(new NewSpecimenPage(new NewSpecimenViewModel()));
             else

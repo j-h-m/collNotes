@@ -31,7 +31,7 @@ namespace collNotes.Views
             }
             else
             {
-                await viewModel.TripService.CreateAsync(viewModel.Trip);
+                await viewModel.tripService.CreateAsync(viewModel.Trip);
 
                 // if no primary collector name has been set offer to set it to the current one
                 if (string.IsNullOrEmpty(settingsViewModel.CurrentCollectorName))

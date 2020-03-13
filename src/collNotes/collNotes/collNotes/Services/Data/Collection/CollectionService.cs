@@ -16,7 +16,7 @@ namespace collNotes.Services.Data
         private readonly TripService tripService;
         private readonly SiteService siteService;
         private readonly SpecimenService specimenService;
-        private readonly ExceptionRecordService exceptionRecordService;
+        private readonly IExceptionRecordService exceptionRecordService;
 
         public CollectionService(CollNotesContext collNotesContext)
         {

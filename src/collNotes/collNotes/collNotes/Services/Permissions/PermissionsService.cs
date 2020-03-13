@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace collNotes.Services.Permissions
 {
-    public class PermissionsService
+    public class PermissionsService : IPermissionsService
     {
-        private ExceptionRecordService exceptionRecordService;
+        private IExceptionRecordService exceptionRecordService;
 
         public PermissionsService(CollNotesContext collNotesContext)
         {

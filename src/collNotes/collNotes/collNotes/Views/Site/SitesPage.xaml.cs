@@ -29,7 +29,7 @@ namespace collNotes.Views
 
         private async void NewSite_Clicked(object sender, EventArgs e)
         {
-            var trips = await viewModel.TripService.GetAllAsync();
+            var trips = await viewModel.tripService.GetAllAsync();
             if (trips.Any())
                 await Navigation.PushAsync(new NewSitePage(new NewSiteViewModel()));
             else

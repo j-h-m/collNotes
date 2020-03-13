@@ -23,13 +23,13 @@ namespace collNotes.Views
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            await viewModel.SiteService.UpdateAsync(viewModel.Site);
+            await viewModel.siteService.UpdateAsync(viewModel.Site);
             await Navigation.PopAsync();
         }
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
-            var childItems = await viewModel.SiteService.GetChildrenAsync(viewModel.Site);
+            var childItems = await viewModel.siteService.GetChildrenAsync(viewModel.Site);
             string specimenNames = string.Join(", ", childItems.Select(s => s.SpecimenName).ToArray());
 
             string message = "Are you sure you want to delete this Site? This will delete all associated Specimen.";
@@ -45,7 +45,7 @@ namespace collNotes.Views
                                     dismissiveText: "No"));
             if (result)
             {
-                await viewModel.SiteService.DeleteAsync(viewModel.Site);
+                await viewModel.siteService.DeleteAsync(viewModel.Site);
                 await Navigation.PopAsync();
             }
         }

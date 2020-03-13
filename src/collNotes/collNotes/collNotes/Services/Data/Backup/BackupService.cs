@@ -14,8 +14,8 @@ namespace collNotes.Services.Data
         private readonly TripService tripService;
         private readonly SiteService siteService;
         private readonly SpecimenService specimenService;
-        private readonly SettingService settingService;
-        private readonly ExceptionRecordService exceptionRecordService;
+        private readonly ISettingService settingService;
+        private readonly IExceptionRecordService exceptionRecordService;
 
         public BackupService(CollNotesContext collNotesContext)
         {

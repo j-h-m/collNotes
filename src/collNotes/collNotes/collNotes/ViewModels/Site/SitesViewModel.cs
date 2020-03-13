@@ -1,6 +1,5 @@
 ﻿using collNotes.Data.Models;
 using collNotes.Services;
-using collNotes.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -12,15 +11,15 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Site> Sites { get; set; }
         public Command LoadSitesCommand { get; set; }
-        public SiteService SiteService { get; set; }
-        public TripService TripService { get; set; }
-        private ExceptionRecordService ExceptionRecordService { get; set; }
+        public SiteService siteService;
+        public TripService tripService;
+        private IExceptionRecordService exceptionRecordService;
 
         public SitesViewModel()
         {
-            SiteService = new SiteService(Context);
-            TripService = new TripService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
+            siteService = new SiteService(Context);
+            tripService = new TripService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
 
             Title = "Sites";
             Sites = new ObservableCollection<Site>();
@@ -38,7 +37,7 @@ namespace collNotes.ViewModels
             try
             {
                 Sites.Clear();
-                var sites = await SiteService.GetAllAsync(true);
+                var sites = await siteService.GetAllAsync(true);
                 foreach (var site in sites)
                 {
                     Sites.Add(site);
@@ -46,7 +45,7 @@ namespace collNotes.ViewModels
             }
             catch (Exception ex)
             {
-                await ExceptionRecordService.CreateExceptionRecord(ex);
+                await exceptionRecordService.CreateExceptionRecord(ex);
             }
             finally
             {

@@ -6,11 +6,11 @@ namespace collNotes.ViewModels
     public class SpecimenDetailViewModel : BaseViewModel
     {
         public Specimen Specimen { get; set; }
-        public SpecimenService SpecimenService { get; set; }
+        public SpecimenService specimenService;
 
         public SpecimenDetailViewModel(Specimen specimen = null)
         {
-            SpecimenService = new SpecimenService(Context);
+            specimenService = new SpecimenService(Context);
 
             Title = specimen?.SpecimenName;
             Specimen = specimen;

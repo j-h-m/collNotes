@@ -64,5 +64,44 @@ namespace collNotes.Settings
         };
 
         public static Dictionary<string, List<string>> AutoCompleteSource { get; set; }
+
+        public enum ColorTheme
+        {
+            Light_Default,
+            Dark,
+            ContrastLight,
+            ContrastDark
+        }
+
+        public static ColorTheme GetByThemeName(string themeName)
+        {
+            if (ColorThemes.Contains(themeName))
+            {
+                ColorTheme colorTheme;
+                switch (ColorThemes.IndexOf(themeName))
+                {
+                    case (int)ColorTheme.Light_Default:
+                        colorTheme = ColorTheme.Light_Default;
+                        break;
+                    case (int)ColorTheme.Dark:
+                        colorTheme = ColorTheme.Dark;
+                        break;
+                    case (int)ColorTheme.ContrastLight:
+                        colorTheme = ColorTheme.ContrastLight;
+                        break;
+                    case (int)ColorTheme.ContrastDark:
+                        colorTheme = ColorTheme.ContrastDark;
+                        break;
+                    default:
+                        colorTheme = ColorTheme.Light_Default;
+                        break;
+                }
+                return colorTheme;
+            }
+            else
+            {
+                return ColorTheme.Light_Default;
+            }
+        }
     }
 }

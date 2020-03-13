@@ -8,12 +8,10 @@ namespace collNotes.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly CollNotesContext context;
-        private readonly ExceptionRecordService exceptionRecordService;
+        private readonly IExceptionRecordService exceptionRecordService;
 
         public EmailService(CollNotesContext context)
         {
-            this.context = context;
             this.exceptionRecordService = new ExceptionRecordService(context);
         }
 

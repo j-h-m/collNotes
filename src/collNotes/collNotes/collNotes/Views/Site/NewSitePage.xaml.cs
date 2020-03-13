@@ -25,12 +25,12 @@ namespace collNotes.Views
 
         private async void Location_Clicked(object sender, EventArgs e)
         {
-            if (!await viewModel.PermissionsService.CheckLocationPermission())
-                await viewModel.PermissionsService.RequestLocationPermission();
+            if (!await viewModel.permissionsService.CheckLocationPermission())
+                await viewModel.permissionsService.RequestLocationPermission();
 
             using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location."))
             {
-                CurrentLocation = await viewModel.GeoLocationService.GetCurrentLocation(viewModel.ExceptionRecordService);
+                CurrentLocation = await viewModel.geoLocationService.GetCurrentLocation(viewModel.exceptionRecordService);
             }
 
 #if DEBUG
@@ -76,10 +76,10 @@ namespace collNotes.Views
             }
             else
             {
-                if (!await viewModel.PermissionsService.CheckCameraPermission())
-                    await viewModel.PermissionsService.RequestCameraPermission();
+                if (!await viewModel.permissionsService.CheckCameraPermission())
+                    await viewModel.permissionsService.RequestCameraPermission();
 
-                var photoAsBase64 = await viewModel.CameraService.TakePicture(viewModel.ExceptionRecordService, viewModel.Site.SiteName);
+                var photoAsBase64 = await viewModel.cameraService.TakePicture(viewModel.exceptionRecordService, viewModel.Site.SiteName);
                 if (!string.IsNullOrEmpty(photoAsBase64))
                 {
                     viewModel.Site.PhotoAsBase64 = photoAsBase64;
@@ -107,7 +107,7 @@ namespace collNotes.Views
             }
 
             viewModel.Site.AssociatedTripName = viewModel.AssociatedTripName;
-            await viewModel.SiteService.CreateAsync(viewModel.Site);
+            await viewModel.siteService.CreateAsync(viewModel.Site);
             await Navigation.PopAsync();
         }
 

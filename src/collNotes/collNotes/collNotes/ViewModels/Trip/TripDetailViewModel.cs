@@ -7,13 +7,13 @@ namespace collNotes.ViewModels
     public class TripDetailViewModel : BaseViewModel
     {
         public Trip Trip { get; set; }
-        public TripService TripService { get; set; }
+        public TripService tripService;
 
         public TripDetailViewModel(Trip trip)
         {
             if (trip is Trip)
             {
-                TripService = new TripService(Context);
+                tripService = new TripService(Context);
 
                 Trip = trip;
                 Title = Trip?.TripName;

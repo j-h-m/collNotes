@@ -8,7 +8,7 @@ namespace collNotes.Services
 {
     public class CameraService : ICameraService
     {
-        public async Task<string> TakePicture(ExceptionRecordService exceptionRecordService, string photoName)
+        public async Task<string> TakePicture(IExceptionRecordService exceptionRecordService, string photoName)
         {
             string photoAsBase64 = string.Empty;
             try

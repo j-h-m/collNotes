@@ -8,7 +8,7 @@
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <ScrollView>
                 <StackLayout>
                     <StackLayout Orientation="Vertical">
@@ -19,18 +19,18 @@
                         <material:MaterialTextField Text="{Binding CurrentCollectorName}" Placeholder="Gregor Mendel" InputType="Text" />
                         <material:MaterialLabel Text="Starting Field Number:" />
                         <material:MaterialTextField x:Name="CollectionCountTextField" Text="{Binding CurrentCollectionCount}" Placeholder="100" InputType="Numeric" TextChanged="CollectionCountTextField_TextChanged"/>
-                        <material:MaterialLabel Text="Export Format:" BackgroundColor="Transparent" />
+                        <material:MaterialLabel Text="Export Format:" />
                         <material:MaterialTextField Text="{Binding SelectedExportFormat}" Placeholder="Select Export Format"
                                                     InputType="Choice" Choices="{Binding ExportFormats}" />
-                        <material:MaterialLabel Text="Export Method:" BackgroundColor="Transparent" />
+                        <material:MaterialLabel Text="Export Method:" />
                         <material:MaterialTextField Text="{Binding SelectedExportMethod}" Placeholder="Select Export Method"
                                                     InputType="Choice" Choices="{Binding ExportMethods}" />
                         <material:MaterialLabel Text="Autocomplete Type:" />
                         <material:MaterialTextField Text="{Binding SelectedAutoCompleteType}" Placeholder="Select Autocomplete Type"
                                                     InputType="Choice" Choices="{Binding AutoCompleteOptions}" />
-                        <material:MaterialLabel Text="Color Theme:" BackgroundColor="Transparent" />
+                        <material:MaterialLabel Text="Color Theme:" />
                         <material:MaterialTextField Text="{Binding SelectedColorTheme}" Placeholder="Select Theme"
-                                                    InputType="Choice" Choices="{Binding ColorThemes}" />
+                                                    InputType="Choice" Choices="{Binding ColorThemes}" ChoiceSelected="ColorTheme_ChoiceSelected" />
                         <material:MaterialButton Text="Grant Permissions" Clicked="RequestPermissions_Clicked" />
                         <material:MaterialButton Text="Reset Data and Settings" Clicked="Reset_Clicked" />
                     </StackLayout>

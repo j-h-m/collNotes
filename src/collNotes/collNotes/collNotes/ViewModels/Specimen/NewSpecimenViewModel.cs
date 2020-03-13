@@ -16,10 +16,10 @@ namespace collNotes.ViewModels
         public string SelectedLifeStage { get; set; }
         public bool IsClone { get; set; }
 
-        private SiteService SiteService { get; set; }
-        public SpecimenService SpecimenService { get; set; }
-        public ExceptionRecordService ExceptionRecordService { get; set; }
-        public CameraService CameraService { get; set; }
+        private SiteService siteService;
+        public SpecimenService specimenService;
+        public IExceptionRecordService exceptionRecordService;
+        public ICameraService cameraService;
 
         public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } = (text, values) =>
             values.Where(x =>
@@ -29,13 +29,13 @@ namespace collNotes.ViewModels
 
         public NewSpecimenViewModel()
         {
-            SiteService = new SiteService(Context);
-            SpecimenService = new SpecimenService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
-            CameraService = new CameraService();
+            siteService = new SiteService(Context);
+            specimenService = new SpecimenService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            cameraService = new CameraService();
 
-            int nextSpecimenNumber = SpecimenService.GetNextCollectionNumber().Result;
-            AssociableSites = SiteService.GetAllAsync().Result;
+            int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
+            AssociableSites = siteService.GetAllAsync().Result;
 
             Specimen = new Specimen()
             {
@@ -49,11 +49,11 @@ namespace collNotes.ViewModels
 
         public NewSpecimenViewModel(Specimen specimenToClone)
         {
-            SiteService = new SiteService(Context);
-            SpecimenService = new SpecimenService(Context);
+            siteService = new SiteService(Context);
+            specimenService = new SpecimenService(Context);
 
-            int nextSpecimenNumber = SpecimenService.GetNextCollectionNumber().Result;
-            AssociableSites = SiteService.GetAllAsync().Result;
+            int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
+            AssociableSites = siteService.GetAllAsync().Result;
 
             Specimen = new Specimen()
             {

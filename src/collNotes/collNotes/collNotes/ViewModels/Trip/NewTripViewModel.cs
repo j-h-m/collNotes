@@ -8,18 +8,18 @@ namespace collNotes.ViewModels
     public class NewTripViewModel : BaseViewModel
     {
         public Trip Trip { get; set; }
-        public TripService TripService { get; set; }
         public bool IsClone { get; set; }
         private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        public TripService tripService;
 
         /// <summary>
         /// Constructor for a new Trip.
         /// </summary>
         public NewTripViewModel()
         {
-            TripService = new TripService(Context);
+            tripService = new TripService(Context);
 
-            int nextTripNumber = TripService.GetNextCollectionNumber().Result;
+            int nextTripNumber = tripService.GetNextCollectionNumber().Result;
 
             Trip = new Trip()
             {
@@ -39,9 +39,9 @@ namespace collNotes.ViewModels
         /// <param name="tripToClone">The trip to clone.</param>
         public NewTripViewModel(Trip tripToClone)
         {
-            TripService = new TripService(Context);
+            tripService = new TripService(Context);
 
-            int nextTripNumber = TripService.GetNextCollectionNumber().Result;
+            int nextTripNumber = tripService.GetNextCollectionNumber().Result;
 
             Trip = new Trip()
             {

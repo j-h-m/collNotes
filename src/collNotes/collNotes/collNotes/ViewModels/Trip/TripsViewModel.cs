@@ -12,13 +12,13 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Trip> Trips { get; set; }
         public Command LoadTripsCommand { get; set; }
-        public TripService TripService { get; set; }
-        private ExceptionRecordService ExceptionRecordService { get; set; }
+        public TripService tripService;
+        private IExceptionRecordService exceptionRecordService;
 
         public TripsViewModel()
         {
-            TripService = new TripService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
+            tripService = new TripService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
 
             Title = "Trips";
             Trips = new ObservableCollection<Trip>();
@@ -27,7 +27,7 @@ namespace collNotes.ViewModels
 
             MessagingCenter.Subscribe<SettingsPage>(this, "DeleteTrips", async (sender) =>
             {
-                await TripService.DeleteAllAsync();
+                await tripService.DeleteAllAsync();
             });
         }
 
@@ -41,7 +41,7 @@ namespace collNotes.ViewModels
             try
             {
                 Trips.Clear();
-                var trips = await TripService.GetAllAsync(true);
+                var trips = await tripService.GetAllAsync(true);
                 foreach (var trip in trips)
                 {
                     Trips.Add(trip);
@@ -49,7 +49,7 @@ namespace collNotes.ViewModels
             }
             catch (Exception ex)
             {
-                await ExceptionRecordService.CreateExceptionRecord(ex);
+                await exceptionRecordService.CreateExceptionRecord(ex);
             }
             finally
             {

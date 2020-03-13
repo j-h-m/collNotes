@@ -12,15 +12,15 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Specimen> SpecimenCollection { get; set; }
         public Command LoadSpecimenCommand { get; set; }
-        public SiteService SiteService { get; set; }
-        public SpecimenService SpecimenService { get; set; }
-        private ExceptionRecordService ExceptionRecordService { get; set; }
+        public SiteService siteService;
+        public SpecimenService specimenService;
+        private IExceptionRecordService exceptionRecordService;
 
         public SpecimenViewModel()
         {
-            SpecimenService = new SpecimenService(Context);
-            SiteService = new SiteService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
+            specimenService = new SpecimenService(Context);
+            siteService = new SiteService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
 
             Title = "Specimen";
             SpecimenCollection = new ObservableCollection<Specimen>();
@@ -38,7 +38,7 @@ namespace collNotes.ViewModels
             try
             {
                 SpecimenCollection.Clear();
-                var specimenCollection = await SpecimenService.GetAllAsync(true);
+                var specimenCollection = await specimenService.GetAllAsync(true);
                 foreach (var specimen in specimenCollection)
                 {
                     specimen.LabelString = string.IsNullOrEmpty(specimen.FieldIdentification) ?
@@ -48,7 +48,7 @@ namespace collNotes.ViewModels
             }
             catch (Exception ex)
             {
-                await ExceptionRecordService.CreateExceptionRecord(ex);
+                await exceptionRecordService.CreateExceptionRecord(ex);
             }
             finally
             {

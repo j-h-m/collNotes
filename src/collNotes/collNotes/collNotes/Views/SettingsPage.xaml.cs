@@ -1,4 +1,5 @@
-﻿using collNotes.ViewModels;
+﻿using collNotes.Settings;
+using collNotes.ViewModels;
 using System;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
@@ -63,6 +64,15 @@ namespace collNotes.Views
             {
                 CollectionCountTextField.HasError = true;
                 CollectionCountTextField.ErrorText = "Input should be numeric";
+            }
+        }
+
+        private async void ColorTheme_ChoiceSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                CollNotesSettings.ColorTheme selectedTheme = CollNotesSettings.GetByThemeName(e.SelectedItem.ToString());
+                await viewModel.SetTheme(selectedTheme);
             }
         }
     }

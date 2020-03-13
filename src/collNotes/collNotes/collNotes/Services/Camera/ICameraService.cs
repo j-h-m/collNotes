@@ -4,6 +4,6 @@ namespace collNotes.Services
 {
     public interface ICameraService
     {
-        Task<string> TakePicture(ExceptionRecordService exceptionRecordService, string photoName);
+        Task<string> TakePicture(IExceptionRecordService exceptionRecordService, string photoName);
     }
 }

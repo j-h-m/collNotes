@@ -34,7 +34,7 @@ namespace collNotes.Views
             }
             else
             {
-                string photoAsBase64 = await viewModel.CameraService.TakePicture(viewModel.ExceptionRecordService, viewModel.Specimen.SpecimenName);
+                string photoAsBase64 = await viewModel.cameraService.TakePicture(viewModel.exceptionRecordService, viewModel.Specimen.SpecimenName);
 
                 viewModel.Specimen.PhotoAsBase64 = !string.IsNullOrEmpty(photoAsBase64) ?
                     photoAsBase64 :
@@ -75,7 +75,7 @@ namespace collNotes.Views
                 viewModel.Specimen.FieldIdentification :
                 viewModel.Specimen.SpecimenName;
 
-            await viewModel.SpecimenService.CreateAsync(viewModel.Specimen);
+            await viewModel.specimenService.CreateAsync(viewModel.Specimen);
             await Navigation.PopAsync();
         }
 

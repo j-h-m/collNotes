@@ -12,27 +12,27 @@ namespace collNotes.ViewModels
         public string AssociatedTripName { get; set; }
         public bool IsClone { get; set; }
 
-        private TripService TripService { get; set; }
-        public SiteService SiteService { get; set; }
-        public ExceptionRecordService ExceptionRecordService { get; set; }
-        public GeoLocationService GeoLocationService { get; set; }
-        public CameraService CameraService { get; set; }
-        public PermissionsService PermissionsService { get; set; }
+        private TripService tripService;
+        public SiteService siteService;
+        public IExceptionRecordService exceptionRecordService;
+        public IGeoLocationService geoLocationService;
+        public ICameraService cameraService;
+        public IPermissionsService permissionsService;
 
         /// <summary>
         /// Constructor for a brand new Site.
         /// </summary>
         public NewSiteViewModel()
         {
-            TripService = new TripService(Context);
-            SiteService = new SiteService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
-            GeoLocationService = new GeoLocationService();
-            CameraService = new CameraService();
-            PermissionsService = new PermissionsService(Context);
+            tripService = new TripService(Context);
+            siteService = new SiteService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            geoLocationService = new GeoLocationService();
+            cameraService = new CameraService();
+            permissionsService = new PermissionsService(Context);
 
-            int nextSiteNumber = SiteService.GetNextCollectionNumber().Result;
-            AssociableTrips = TripService.GetAllAsync().Result;
+            int nextSiteNumber = siteService.GetNextCollectionNumber().Result;
+            AssociableTrips = tripService.GetAllAsync().Result;
 
             Site = new Site()
             {
@@ -50,11 +50,11 @@ namespace collNotes.ViewModels
         /// <param name="siteToClone">The site to clone.</param>
         public NewSiteViewModel(Site siteToClone)
         {
-            TripService = new TripService(Context);
-            SiteService = new SiteService(Context);
+            tripService = new TripService(Context);
+            siteService = new SiteService(Context);
 
-            int nextSiteNumber = SiteService.GetNextCollectionNumber().Result;
-            AssociableTrips = TripService.GetAllAsync().Result;
+            int nextSiteNumber = siteService.GetNextCollectionNumber().Result;
+            AssociableTrips = tripService.GetAllAsync().Result;
 
             Site = new Site()
             {

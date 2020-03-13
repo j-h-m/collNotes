@@ -11,13 +11,13 @@ namespace collNotes.ViewModels
 {
     public class ExportImportViewModel : BaseViewModel
     {
-        private readonly BackupService backupService;
-        private readonly CollectionService collectionService;
-        private readonly EmailService emailService;
-        private readonly ShareFileService shareFileService;
-        private readonly PermissionsService permissionsService;
+        private readonly IBackupService backupService;
+        private readonly ICollectionService collectionService;
+        private readonly IEmailService emailService;
+        private readonly IShareFileService shareFileService;
+        private readonly IPermissionsService permissionsService;
         public readonly TripService tripService;
-        public readonly ExceptionRecordService exceptionRecordService;
+        public readonly IExceptionRecordService exceptionRecordService;
         private readonly string exportMethod;
         private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 

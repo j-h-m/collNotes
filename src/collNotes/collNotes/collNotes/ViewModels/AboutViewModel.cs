@@ -8,7 +8,7 @@ namespace collNotes.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        public readonly PermissionsService permissionsService;
+        public readonly IPermissionsService permissionsService;
         public ICommand OpenWebCommand { get; }
         public ICommand RequestPermissionsCommand { get; }
 
