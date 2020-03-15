@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.MenuPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="Menu">
     <StackLayout VerticalOptions="FillAndExpand">
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
@@ -16,7 +17,9 @@
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="10">
-                            <material:MaterialLabel Text="{Binding Title}" FontSize="20" />
+                            <material:MaterialLabel Text="{Binding Title}"
+                                                    FontSize="20"
+                                                    TextColor="{DynamicResource PrimaryTextColor}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

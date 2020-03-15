@@ -8,12 +8,6 @@ namespace collNotes.ColorThemes
         public Light_Default()
         {
             InitializeComponent();
-
-            MaterialConfiguration materialConfiguration = new MaterialConfiguration();
-            materialConfiguration.ColorConfiguration = new MaterialColorConfiguration()
-            {
-
-            };
         }
     }
 }

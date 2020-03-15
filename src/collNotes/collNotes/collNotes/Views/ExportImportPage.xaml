@@ -5,27 +5,37 @@
             x:Class="collNotes.Views.ExportImportPage"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
+            BackgroundColor="{DynamicResource PageBackgroundColor}"
             Title="{Binding Title}">
-    <ContentPage x:Name="ImportContentPage" Title="Import Data" IconImageSource="import_icon.png">
+    <ContentPage x:Name="ImportContentPage" Title="Import Data" IconImageSource="import_icon.png" BackgroundColor="Transparent">
         <ContentPage.Content>
             <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
                 <StackLayout>
-                    <material:MaterialLabel Text="Trip" FontSize="Title" />
-                    <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked" />
-                    <material:MaterialLabel Text="Backup" FontSize="Title" />
-                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked" />
+                    <material:MaterialLabel Text="Trip" FontSize="Title"
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+                    <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>
     </ContentPage>
-    <ContentPage x:Name="ExportContentPage" Title="Export Data" IconImageSource="export_icon.png">
+    <ContentPage x:Name="ExportContentPage" Title="Export Data" IconImageSource="export_icon.png" BackgroundColor="Transparent">
         <ContentPage.Content>
             <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
                 <StackLayout>
-                    <material:MaterialLabel Text="Trip" FontSize="Title" />
-                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked" />
-                    <material:MaterialLabel Text="Backup" FontSize="Title" />
-                    <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked" />
+                    <material:MaterialLabel Text="Trip" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+                    <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>
