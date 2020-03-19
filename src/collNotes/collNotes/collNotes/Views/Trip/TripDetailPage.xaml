@@ -3,25 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.TripDetailPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Update" Clicked="Update_Clicked" />
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <material:MaterialCard CornerRadius="2" Elevation="1"
-                                   HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+                               HorizontalOptions="FillAndExpand" 
+                               BackgroundColor="Transparent">
             <ScrollView>
-                <StackLayout Style="{DynamicResource StackLayoutStyle}">
-                    <material:MaterialLabel Text="Trip Name" />
-                    <material:MaterialTextField Text="{Binding Trip.TripName}" IsEnabled="False" Placeholder="Trip 1" InputType="Text" />
-                    <material:MaterialLabel Text="Primary Collector" />
-                    <material:MaterialTextField Text="{Binding Trip.PrimaryCollector}" Placeholder="Carl Linnaeus" InputType="Text" />
-                    <material:MaterialLabel Text="Additional Collectors" />
-                    <material:MaterialTextField Text="{Binding Trip.AdditionalCollectors}" Placeholder="James Edward Smith, Beatrix Potter" InputType="Text" />
-                    <material:MaterialLabel Text="Collection Date:" />
-                    <DatePicker Date="{Binding Trip.CollectionDate}" />
-                    <material:MaterialButton Text="Delete" Clicked="Delete_Clicked" />
+                <StackLayout>
+                    <material:MaterialLabel Text="Trip Name" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Trip.TripName}" 
+                                                IsEnabled="False" Placeholder="Trip 1" 
+                                                InputType="Text" 
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialLabel Text="Primary Collector" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Trip.PrimaryCollector}" 
+                                                Placeholder="Carl Linnaeus" 
+                                                InputType="Text" 
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    <material:MaterialLabel Text="Additional Collectors" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    
+                    <material:MaterialTextField Text="{Binding Trip.AdditionalCollectors}" 
+                                                Placeholder="James Edward Smith, Beatrix Potter" 
+                                                InputType="Text" 
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialLabel Text="Collection Date:" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <DatePicker Date="{Binding Trip.CollectionDate}" 
+                                TextColor="{DynamicResource PrimaryTextColor}"
+                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialButton Text="Delete"
+                                             Clicked="Delete_Clicked" 
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                 </StackLayout>
             </ScrollView>
         </material:MaterialCard>

@@ -7,7 +7,7 @@
     <Color x:Key="SecondaryBackgroundColor">#373737</Color>
     <Color x:Key="NavigationBarColor">#6002EE</Color>
     <Color x:Key="PrimaryColor">#6002EE</Color>
-    <Color x:Key="SecondaryColor">White</Color>
+    <Color x:Key="SecondaryColor">#d602ee</Color>
     <Color x:Key="PrimaryTextColor">White</Color>
     <Color x:Key="SecondaryTextColor">White</Color>
     <Color x:Key="TertiaryTextColor">WhiteSmoke</Color>

@@ -6,6 +6,13 @@
              mc:Ignorable="d"
              x:Class="collNotes.App">
     <Application.Resources>
-        <ResourceDictionary Source="ColorThemes/Light_Default.xaml" />
+        <ResourceDictionary Source="ColorThemes/Dark.xaml" />
+
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor"
+                    Value="{DynamicResource NavigationBarColor}" />
+            <Setter Property="BarTextColor"
+                    Value="{DynamicResource SecondaryTextColor}" />
+        </Style>
     </Application.Resources>
 </Application>

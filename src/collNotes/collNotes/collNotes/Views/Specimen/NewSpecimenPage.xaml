@@ -3,35 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.NewSpecimenPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
-        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <ScrollView>
                 <StackLayout>
-                    <material:MaterialLabel Text="Field Identification" />
-                    <material:MaterialTextField x:Name="FieldID_TextField" Placeholder="Field ID" Text="{Binding FieldIDSearchPage.SelectedFieldID}" />
-                    <material:MaterialButton x:Name="SearchFieldIDButton" Text="Search" Clicked="SearchFieldIDButton_Clicked" />
-                    <material:MaterialLabel Text="Occurrence Notes" />
+                    <material:MaterialLabel Text="Field Identification" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField x:Name="FieldID_TextField" Placeholder="Field ID" 
+                                                Text="{Binding FieldIDSearchPage.SelectedFieldID}" 
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    <material:MaterialButton x:Name="SearchFieldIDButton" Text="Search" Clicked="SearchFieldIDButton_Clicked"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+                    
+                    <material:MaterialLabel Text="Occurrence Notes"
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.OccurrenceNotes}"
-                                                Placeholder="Tallest in the stand" InputType="Text" />
-                    <material:MaterialLabel Text="Substrate" />
+                                                Placeholder="Tallest in the stand" InputType="Text"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialLabel Text="Substrate" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.Substrate}"
-                                                Placeholder="mycorrhizal with Ent." InputType="Text" />
-                    <material:MaterialLabel Text="Life Stage" />
+                                                Placeholder="mycorrhizal with Ent." InputType="Text"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialLabel Text="Life Stage" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding SelectedLifeStage}" Placeholder="Select Life Stage"
-                                                InputType="Choice" Choices="{Binding LifeStages}" />
-                    <material:MaterialLabel Text="Cultivated" />
+                                                InputType="Choice" Choices="{Binding LifeStages}"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialLabel Text="Cultivated" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialSwitch IsActivated="{Binding Specimen.Cultivated}" HorizontalOptions="Start" />
-                    <material:MaterialLabel Text="Indiv. Count ≥" />
-                    <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric" />
-                    <material:MaterialLabel Text="Associated Site" />
+                    
+                    <material:MaterialLabel Text="Indiv. Count ≥" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialLabel Text="Associated Site" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding AssociatedSiteName}" Placeholder="Select Associated Site"
-                                                InputType="Choice" Choices="{Binding AssociableSites}" ChoicesBindingName="SiteName" ChoiceSelected="AssociatedSiteName_ChoiceSelected" />
-                    <material:MaterialButton Text="Take Picture" Clicked="TakePicture_Clicked" />
+                                                InputType="Choice" Choices="{Binding AssociableSites}" 
+                                                ChoicesBindingName="SiteName" ChoiceSelected="AssociatedSiteName_ChoiceSelected"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    
+                    <material:MaterialButton Text="Take Picture" Clicked="TakePicture_Clicked"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                 </StackLayout>
             </ScrollView>
         </material:MaterialCard>

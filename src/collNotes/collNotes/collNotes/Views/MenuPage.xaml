@@ -3,15 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.MenuPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="Menu">
-    <StackLayout VerticalOptions="FillAndExpand">
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+    
+    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" 
+                     VerticalOptions="Center">
             <ContentView x:Name="LogoContentView" VerticalOptions="FillAndExpand">
                 <Image Source="collnotes_logo.png" VerticalOptions="Center" HeightRequest="80" />
             </ContentView>
         </StackLayout>
         <ListView x:Name="ListViewMenu"
+                  BackgroundColor="{DynamicResource PageBackgroundColor}"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
