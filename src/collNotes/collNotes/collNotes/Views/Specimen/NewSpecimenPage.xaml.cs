@@ -75,7 +75,10 @@ namespace collNotes.Views
                 viewModel.Specimen.FieldIdentification :
                 viewModel.Specimen.SpecimenName;
 
-            await viewModel.specimenService.CreateAsync(viewModel.Specimen);
+            if (await viewModel.specimenService.CreateAsync(viewModel.Specimen))
+            {
+                await viewModel.specimenService.UpdateCollectionNumber(viewModel.Specimen.SpecimenNumber);
+            }
             await Navigation.PopAsync();
         }
 

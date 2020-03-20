@@ -67,23 +67,26 @@ namespace collNotes.Services
                 await Context.Specimen.CountAsync() :
                 settingsViewModel.CurrentCollectionCount;
 
+            return specimenCount + 1;
+        }
+
+        public async Task<bool> UpdateCollectionNumber(int specimenCount)
+        {
             var collectionCountSetting = await SettingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
             if (collectionCountSetting is Setting)
             {
                 collectionCountSetting.SettingValue = (specimenCount + 1).ToString();
-                await SettingService.UpdateAsync(collectionCountSetting);
+                return await SettingService.UpdateAsync(collectionCountSetting);
             }
             else
             {
-                await SettingService.CreateAsync(new Setting()
+                return await SettingService.CreateAsync(new Setting()
                 {
                     SettingName = CollNotesSettings.CollectionCountKey,
                     SettingValue = (specimenCount + 1).ToString(),
                     LastSaved = DateTime.Now
                 });
             }
-
-            return settingsViewModel.CurrentCollectionCount = specimenCount + 1;
         }
 
         public async Task<Specimen> GetByNameAsync(string name)
