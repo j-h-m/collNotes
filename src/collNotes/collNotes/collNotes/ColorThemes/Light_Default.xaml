@@ -2,20 +2,20 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="collNotes.ColorThemes.Light_Default">
-
     <Color x:Key="PageBackgroundColor">White</Color>
     <Color x:Key="SecondaryBackgroundColor">WhiteSmoke</Color>
-    <Color x:Key="NavigationBarColor">#6002EE</Color>
-    <Color x:Key="PrimaryColor">#6002EE</Color>
-    <Color x:Key="SecondaryColor">#d602ee</Color>
+    <Color x:Key="NavigationBarColor">#388e3c</Color>
+
+    <Color x:Key="PrimaryColor">#388e3c</Color>
+    <Color x:Key="SecondaryColor">#388a8e</Color>
+    
     <Color x:Key="PrimaryTextColor">Black</Color>
     <Color x:Key="SecondaryTextColor">White</Color>
     <Color x:Key="TertiaryTextColor">Gray</Color>
-    <Color x:Key="TransparentColor">Transparent</Color>
 
-    <Color x:Key="PrimaryColorLight">#9c47ff</Color>
-    <Color x:Key="PrimaryColorDark">#0000ba</Color>
+    <Color x:Key="PrimaryColorLight">#6abf69</Color>
+    <Color x:Key="PrimaryColorDark">#00600f</Color>
 
-    <Color x:Key="SecondaryColorLight">#ff5bff</Color>
-    <Color x:Key="SecondaryColorDark">#a000bb</Color>
+    <Color x:Key="SecondaryColorLight">#6bbabe</Color>
+    <Color x:Key="SecondaryColorDark">#005c61</Color>
 </ResourceDictionary>

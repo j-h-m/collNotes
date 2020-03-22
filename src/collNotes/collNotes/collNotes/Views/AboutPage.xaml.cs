@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using collNotes.Settings;
 using collNotes.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -19,7 +20,11 @@ namespace collNotes.Views
                 Aspect.AspectFit :
                 Aspect.AspectFill;
 
-            this.viewModel.SetAppThemeToSaved().ConfigureAwait(false);
+            if (CollNotesSettings.IsAppStartingUp)
+            {
+                this.viewModel.SetAppThemeToSaved().ConfigureAwait(false);
+                CollNotesSettings.IsAppStartingUp = false;
+            }
         }
     }
 }

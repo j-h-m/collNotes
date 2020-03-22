@@ -78,6 +78,10 @@ namespace collNotes.Services.AppTheme
                     var dictsToKeep = mergedDictionaries.Where(dict => SubstringExistsInStringList(dict.Keys, "Material")).ToList();
 
                     mergedDictionaries.Clear();
+                    dictsToKeep.ForEach(keep =>
+                    {
+                        mergedDictionaries.Add(keep);
+                    });
 
                     switch (colorTheme)
                     {
@@ -96,10 +100,6 @@ namespace collNotes.Services.AppTheme
                             break;
                     }
 
-                    dictsToKeep.ForEach(keep =>
-                    {
-                        mergedDictionaries.Add(keep);
-                    });
                     result = true;
                 }
             }

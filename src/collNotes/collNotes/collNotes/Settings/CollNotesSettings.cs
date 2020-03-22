@@ -28,6 +28,8 @@ namespace collNotes.Settings
                     $"Platform: {Xamarin.Essentials.DeviceInfo.Platform}; " +
                     $"Version: {Xamarin.Essentials.DeviceInfo.VersionString}";
 
+        public static bool IsAppStartingUp { get; set; }
+
         public static List<string> LifeStages = new List<string>()
         {
             "Vegetative",
