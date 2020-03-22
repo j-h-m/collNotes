@@ -20,7 +20,7 @@ namespace collNotes.Views
             await Navigation.PopAsync();
         }
 
-        private async void Save_Clicked(object sender, EventArgs e)
+        private async void Update_Clicked(object sender, EventArgs e)
         {
             await viewModel.specimenService.UpdateAsync(viewModel.Specimen);
             await Navigation.PopAsync();

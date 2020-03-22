@@ -48,7 +48,9 @@
                     
                     <material:MaterialLabel Text="Cultivated" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
-                    <material:MaterialSwitch IsActivated="{Binding Specimen.Cultivated}" HorizontalOptions="Start" />
+                    <material:MaterialSwitch IsActivated="{Binding Specimen.Cultivated}" HorizontalOptions="Start"
+                                             ActiveThumbColor="{DynamicResource SecondaryColorLight}" 
+                                             ActiveTrackColor="{DynamicResource PrimaryColorLight}"/>
                     
                     <material:MaterialLabel Text="Indiv. Count ≥" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>

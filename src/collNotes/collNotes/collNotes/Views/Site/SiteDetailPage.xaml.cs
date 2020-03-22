@@ -21,7 +21,7 @@ namespace collNotes.Views
             await Navigation.PopAsync();
         }
 
-        private async void Save_Clicked(object sender, EventArgs e)
+        private async void Update_Clicked(object sender, EventArgs e)
         {
             await viewModel.siteService.UpdateAsync(viewModel.Site);
             await Navigation.PopAsync();

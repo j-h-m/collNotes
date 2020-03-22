@@ -51,8 +51,8 @@ namespace collNotes.Views
             if (result)
             {
                 var deleteResult = await viewModel.tripService.DeleteAsync(viewModel.Trip);
+                await Navigation.PopAsync();
             }
-            await Navigation.PopAsync();
         }
     }
 }

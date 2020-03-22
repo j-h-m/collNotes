@@ -46,10 +46,11 @@
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
                     
-                    <material:MaterialChip x:Name="LocationStatusChip" IsVisible="False" 
+                    <material:MaterialChip x:Name="LocationStatusChip" IsVisible="False"
+                                           Text="Touch icon to open"
                                            ActionImage="map_icon.png" ActionImageTapped="LocationStatusChip_ActionImageTapped"
-                                           BackgroundColor="{DynamicResource SecondaryBackgroundColor}" 
-                                           TextColor="{DynamicResource PrimaryTextColor}"/>
+                                           TextColor="{DynamicResource PrimaryTextColor}"
+                                           BackgroundColor="{DynamicResource SecondaryBackgroundColor}" />
                     <material:MaterialCard x:Name="gpsInfoCard" CornerRadius="2" Elevation="5" HorizontalOptions="FillAndExpand" 
                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}" IsVisible="False">
                         <StackLayout Orientation="Vertical">

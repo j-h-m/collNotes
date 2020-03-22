@@ -73,6 +73,31 @@ namespace collNotes.Settings
             ContrastDark
         }
 
+        public static string GetByEnum(ColorTheme colorTheme)
+        {
+            string themeName = string.Empty;
+
+            switch (colorTheme)
+            {
+                case ColorTheme.Light_Default:
+                    themeName = ColorThemes[(int)ColorTheme.Light_Default];
+                    break;
+                case ColorTheme.Dark:
+                    themeName = ColorThemes[(int)ColorTheme.Dark];
+                    break;
+                case ColorTheme.ContrastLight:
+                    themeName = ColorThemes[(int)ColorTheme.ContrastLight];
+                    break;
+                case ColorTheme.ContrastDark:
+                    themeName = ColorThemes[(int)ColorTheme.ContrastDark];
+                    break;
+                default:
+                    break;
+            }
+
+            return themeName;
+        }
+
         public static ColorTheme GetByThemeName(string themeName)
         {
             if (ColorThemes.Contains(themeName))

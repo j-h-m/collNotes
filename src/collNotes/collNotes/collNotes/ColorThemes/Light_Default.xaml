@@ -13,4 +13,9 @@
     <Color x:Key="TertiaryTextColor">Gray</Color>
     <Color x:Key="TransparentColor">Transparent</Color>
 
+    <Color x:Key="PrimaryColorLight">#9c47ff</Color>
+    <Color x:Key="PrimaryColorDark">#0000ba</Color>
+
+    <Color x:Key="SecondaryColorLight">#ff5bff</Color>
+    <Color x:Key="SecondaryColorDark">#a000bb</Color>
 </ResourceDictionary>

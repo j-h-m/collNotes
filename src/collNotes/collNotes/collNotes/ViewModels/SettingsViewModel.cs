@@ -28,7 +28,6 @@ namespace collNotes.ViewModels
             set
             {
                 _CurrentCollectorName = value;
-                CreateOrUpdateSetting(CollNotesSettings.PrimaryCollectorKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(CurrentCollectorName));
             }
         }
@@ -41,7 +40,6 @@ namespace collNotes.ViewModels
                 if (value > 0)
                 {
                     _CurrentCollectionCount = value;
-                    CreateOrUpdateSetting(CollNotesSettings.CollectionCountKey, value.ToString()).ConfigureAwait(false);
                     OnPropertyChanged(nameof(CurrentCollectionCount));
                 }
             }
@@ -53,7 +51,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedExportFormat = value;
-                CreateOrUpdateSetting(CollNotesSettings.ExportFormatKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedExportFormat));
             }
         }
@@ -64,7 +61,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedExportMethod = value;
-                CreateOrUpdateSetting(CollNotesSettings.ExportMethodKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedExportMethod));
             }
         }
@@ -75,7 +71,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedAutoCompleteType = value;
-                CreateOrUpdateSetting(CollNotesSettings.AutoCompleteTypeKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedAutoCompleteType));
             }
         }
@@ -86,7 +81,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedColorTheme = value;
-                CreateOrUpdateSetting(CollNotesSettings.ColorThemeKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedColorTheme));
             }
         }
@@ -148,6 +142,7 @@ namespace collNotes.ViewModels
 
             Title = "Settings";
 
+            SetSettingsToSavedValues().ConfigureAwait(false);
             LastSavedDateTimeString = GetLastSavedDateTimeString(GetLastSavedSettingDateTime());
         }
 
@@ -205,6 +200,66 @@ namespace collNotes.ViewModels
         public async Task<bool> SetTheme(CollNotesSettings.ColorTheme colorTheme)
         {
             return await appThemeService.SetAppTheme(colorTheme);
+        }
+
+        public async Task<bool> SetSettingsToSavedValues()
+        {
+            bool result = false;
+
+            try
+            {
+                var autoCompleteTypeSetting = await settingService.GetByNameAsync(CollNotesSettings.AutoCompleteTypeKey);
+                var collectionCountSetting = await settingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
+                var colorThemeSetting = await settingService.GetByNameAsync(CollNotesSettings.ColorThemeKey);
+                var exportFormatSetting = await settingService.GetByNameAsync(CollNotesSettings.ExportFormatKey);
+                var exportMethodSetting = await settingService.GetByNameAsync(CollNotesSettings.ExportMethodKey);
+                var primaryCollectorSetting = await settingService.GetByNameAsync(CollNotesSettings.PrimaryCollectorKey);
+
+                SelectedAutoCompleteType = (autoCompleteTypeSetting is null) ?
+                    CollNotesSettings.AutoCompleteDefault : autoCompleteTypeSetting.SettingValue;
+                CurrentCollectionCount = (collectionCountSetting is null) ?
+                    CollNotesSettings.CollectionCountDefault : Convert.ToInt32(collectionCountSetting.SettingValue);
+                SelectedColorTheme = (colorThemeSetting is null) ?
+                    CollNotesSettings.ColorThemeDefault : colorThemeSetting.SettingValue;
+                SelectedExportFormat = (exportFormatSetting is null) ?
+                    CollNotesSettings.ExportFormatDefault : exportFormatSetting.SettingValue;
+                SelectedExportMethod = (exportMethodSetting is null) ?
+                    CollNotesSettings.ExportMethodDefault : exportMethodSetting.SettingValue;
+                CurrentCollectorName = (primaryCollectorSetting is null) ?
+                    string.Empty : primaryCollectorSetting.SettingValue;
+
+                result = true;
+            }
+            catch(Exception ex)
+            {
+                await exceptionRecordService.CreateExceptionRecord(ex);
+            }
+
+            return result;
+        }
+
+        public async Task<bool> UpdateSettings()
+        {
+            bool result = false;
+
+            try
+            {
+                await CreateOrUpdateSetting(CollNotesSettings.AutoCompleteTypeKey, SelectedAutoCompleteType);
+                await CreateOrUpdateSetting(CollNotesSettings.CollectionCountKey, CurrentCollectionCount.ToString());
+                await CreateOrUpdateSetting(CollNotesSettings.ColorThemeKey, SelectedColorTheme);
+                await CreateOrUpdateSetting(CollNotesSettings.ExportFormatKey, SelectedExportFormat);
+                await CreateOrUpdateSetting(CollNotesSettings.ExportMethodKey, SelectedExportMethod);
+                await CreateOrUpdateSetting(CollNotesSettings.PrimaryCollectorKey, CurrentCollectorName);
+
+                result = true;
+            }
+            catch(Exception ex)
+            {
+                await exceptionRecordService.CreateExceptionRecord(ex);
+                result = false;
+            }
+
+            return result;
         }
     }
 }

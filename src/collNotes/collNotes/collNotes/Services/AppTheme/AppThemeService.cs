@@ -1,4 +1,5 @@
 ﻿using collNotes.ColorThemes;
+using collNotes.Data.Models;
 using collNotes.Services.Settings;
 using collNotes.Settings;
 using System;
@@ -22,7 +23,7 @@ namespace collNotes.Services.AppTheme
             this.exceptionRecordService = exceptionRecordService;
         }
 
-        public async Task<ColorTheme> GetCurrentTheme()
+        public async Task<ColorTheme> GetSavedTheme()
         {
             var themeSetting = await settingService.GetByNameAsync(CollNotesSettings.ColorThemeKey);
 
@@ -34,6 +35,35 @@ namespace collNotes.Services.AppTheme
             {
                 return GetByThemeName(themeSetting.SettingValue);
             }
+        }
+
+        public async Task<bool> SaveAppTheme(ColorTheme colorTheme)
+        {
+            bool result = false;
+            try
+            {
+                var themeSetting = await settingService.GetByNameAsync(CollNotesSettings.ColorThemeKey);
+
+                if (themeSetting is null)
+                {
+                    result = await settingService.CreateAsync(new Setting()
+                    {
+                        SettingName = CollNotesSettings.ColorThemeKey,
+                        SettingValue = GetByEnum(colorTheme)
+                    });
+                }
+                else
+                {
+                    themeSetting.SettingValue = GetByEnum(colorTheme);
+                    result = await settingService.UpdateAsync(themeSetting);
+                }
+            }
+            catch (Exception ex)
+            {
+                await exceptionRecordService.CreateExceptionRecord(ex);
+                result = false;
+            }
+            return result;
         }
 
         public async Task<bool> SetAppTheme(ColorTheme colorTheme)

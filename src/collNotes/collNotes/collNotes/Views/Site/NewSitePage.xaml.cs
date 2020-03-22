@@ -37,7 +37,8 @@ namespace collNotes.Views
             if (DeviceInfo.DeviceType == DeviceType.Virtual &&
                 DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                // mock with home location
+                // mock with home location on iOS emulator
+                // iOS emulator does not support GPS emulation
                 CurrentLocation = new Location()
                 {
                     Latitude = 34.72247,
@@ -60,11 +61,9 @@ namespace collNotes.Views
                 await MaterialDialog.Instance.SnackbarAsync(message: "Touch icon to view and refine location information.",
                                             actionButtonText: "OK",
                                             msDuration: MaterialSnackbar.DurationLong);
-            }
 
-            LocationStatusChip.Text = (CurrentLocation is null) ? "Location error!" : "Location success (touch)!";
-            LocationStatusChip.TextColor = (CurrentLocation is null) ? Color.Red : Color.FromHex("#DE000000");
-            LocationStatusChip.IsVisible = true;
+                LocationStatusChip.IsVisible = true;
+            }
         }
 
         private async void TakePicture_Clicked(object sender, EventArgs e)
@@ -170,6 +169,7 @@ namespace collNotes.Views
         {
             gpsInfoCard.IsVisible = !gpsInfoCard.IsVisible;
             GetLocation_Button.IsEnabled = !GetLocation_Button.IsEnabled;
+            LocationStatusChip.Text = gpsInfoCard.IsVisible ? "Touch icon to close" : "Touch icon to open";
         }
 
         private void UpdateCurrentLocation()

@@ -18,8 +18,15 @@ namespace collNotes.Views
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTimeString(viewModel.GetLastSavedSettingDateTime());
-            await MaterialDialog.Instance.AlertAsync("Settings saved");
+            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Saving settings..."))
+            {
+                viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTimeString(viewModel.GetLastSavedSettingDateTime());
+                await viewModel.UpdateSettings();
+            }
+
+            await MaterialDialog.Instance.SnackbarAsync(message: "Settings updated.",
+                                            actionButtonText: "Ok",
+                                            msDuration: MaterialSnackbar.DurationLong);
         }
 
         private async void RequestPermissions_Clicked(object sender, EventArgs e)

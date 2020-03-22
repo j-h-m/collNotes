@@ -9,7 +9,7 @@ namespace collNotes.Services.AppTheme
 {
     public interface IAppThemeService
     {
-        Task<ColorTheme> GetCurrentTheme();
+        Task<ColorTheme> GetSavedTheme();
         Task<bool> SetAppTheme(ColorTheme colorTheme);
     }
 }

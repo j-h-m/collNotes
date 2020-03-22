@@ -18,6 +18,8 @@ namespace collNotes.Views
             BotanyNotebookImage.Aspect = (DeviceInfo.Platform == DevicePlatform.iOS) ?
                 Aspect.AspectFit :
                 Aspect.AspectFill;
+
+            this.viewModel.SetAppThemeToSaved().ConfigureAwait(false);
         }
     }
 }

@@ -8,7 +8,7 @@
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+        <ToolbarItem Text="Update" Clicked="Update_Clicked" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
