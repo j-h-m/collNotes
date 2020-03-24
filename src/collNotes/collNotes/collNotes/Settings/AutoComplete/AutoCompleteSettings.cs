@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +18,9 @@ namespace collNotes.Settings.AutoComplete
 
         public static Dictionary<string, List<string>> GetAutoCompleteData(string autoCompleteOption)
         {
+            if (autoCompleteOption is null)
+                throw new ArgumentNullException(nameof(autoCompleteOption));
+
             if (autoCompleteOption.Equals("Plantae"))
                 return GetPlantaeData();
 

@@ -40,7 +40,7 @@ namespace collNotes.Services.Settings
 
         public async Task<bool> DeleteAllAsync()
         {
-            if (Context.Settings.Count() > 0)
+            if (Context.Settings.Any())
             {
                 Context.Settings.RemoveRange(Context.Settings);
                 return await Context.SaveChangesAsync() > 0;

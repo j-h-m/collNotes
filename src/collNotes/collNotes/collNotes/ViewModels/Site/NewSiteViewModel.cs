@@ -1,6 +1,7 @@
 ﻿using collNotes.Data.Models;
 using collNotes.Services;
 using collNotes.Services.Permissions;
+using System;
 using System.Collections.Generic;
 
 namespace collNotes.ViewModels
@@ -50,6 +51,9 @@ namespace collNotes.ViewModels
         /// <param name="siteToClone">The site to clone.</param>
         public NewSiteViewModel(Site siteToClone)
         {
+            if (siteToClone is null)
+                throw new ArgumentNullException(nameof(siteToClone));
+
             tripService = new TripService(Context);
             siteService = new SiteService(Context);
 

@@ -165,7 +165,7 @@ namespace collNotes.ViewModels
             }
 
             // if creating or updating auto complete type we also want to update the source
-            if (setting is Setting && setting.SettingName.Equals(CollNotesSettings.AutoCompleteTypeKey))
+            if (setting is Setting && setting.SettingName.Equals(CollNotesSettings.AutoCompleteTypeKey, StringComparison.CurrentCulture))
             {
                 CollNotesSettings.AutoCompleteSource = AutoCompleteSettings.GetAutoCompleteData(setting.SettingValue);
             }
@@ -230,7 +230,7 @@ namespace collNotes.ViewModels
 
                 result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await exceptionRecordService.CreateExceptionRecord(ex);
             }
@@ -253,7 +253,7 @@ namespace collNotes.ViewModels
 
                 result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await exceptionRecordService.CreateExceptionRecord(ex);
                 result = false;
