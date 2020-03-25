@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using collNotes.Data.Models;
 using collNotes.Services;
+using collNotes.Services.Connectivity;
 using collNotes.Services.Data;
 using collNotes.Services.Permissions;
 using Xamarin.Forms;
@@ -16,10 +17,32 @@ namespace collNotes.ViewModels
         private readonly IEmailService emailService;
         private readonly IShareFileService shareFileService;
         private readonly IPermissionsService permissionsService;
-        public readonly TripService tripService;
-        public readonly IExceptionRecordService exceptionRecordService;
         private readonly string exportMethod;
         private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+
+        public readonly TripService tripService;
+        public readonly IExceptionRecordService exceptionRecordService;
+        public readonly IConnectivityService connectivityService;
+        private bool _IsConnectionAvailable;
+        public bool IsConnectionAvailable
+        { 
+            get { return _IsConnectionAvailable; }
+            set 
+            {
+                _IsConnectionAvailable = value;
+                OnPropertyChanged(nameof(IsConnectionAvailable));
+            }
+        }
+        private bool _ShowConnectionErrorMsg;
+        public bool ShowConnectionErrorMsg
+        {
+            get { return _ShowConnectionErrorMsg; }
+            set
+            {
+                _ShowConnectionErrorMsg = value;
+                OnPropertyChanged(nameof(ShowConnectionErrorMsg));
+            }
+        }
 
         public ExportImportViewModel()
         {
@@ -30,6 +53,7 @@ namespace collNotes.ViewModels
             shareFileService = new ShareFileService();
             permissionsService = new PermissionsService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
+            connectivityService = new ConnectivityService();
 
             exportMethod = settingsViewModel.SelectedExportMethod;
         }

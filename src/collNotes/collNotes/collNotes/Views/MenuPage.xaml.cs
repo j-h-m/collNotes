@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using collNotes.Data.Models;
 using collNotes.Services;
+using collNotes.Services.Connectivity;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -11,11 +13,13 @@ namespace collNotes.Views
         private MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         private List<HomeMenuItem> MenuItems;
         private MenuPageService menuPageService;
+        private IConnectivityService connectivityService;
 
         public MenuPage()
         {
             InitializeComponent();
             menuPageService = new MenuPageService();
+            connectivityService = new ConnectivityService();
             MenuItems = menuPageService.GetMenuPagesAsync().Result;
             ListViewMenu.ItemsSource = MenuItems;
             ListViewMenu.SelectedItem = MenuItems[0];

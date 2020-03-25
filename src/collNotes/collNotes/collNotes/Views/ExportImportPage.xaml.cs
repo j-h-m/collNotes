@@ -183,5 +183,14 @@ namespace collNotes.Views
             }
             return stream;
         }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var netStatus = await viewModel.connectivityService.GetNetworkStatus();
+            viewModel.IsConnectionAvailable = netStatus == Services.Connectivity.ConnectivityService.ActualConnectivity.Connected;
+            viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
+        }
     }
 }

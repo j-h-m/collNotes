@@ -19,31 +19,36 @@
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.SpecimenName}" IsEnabled="False" Placeholder="Name"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
 
                     <material:MaterialLabel Text="Field Identification" FontSize="Medium" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.FieldIdentification}" Placeholder="Field ID"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
 
                     <material:MaterialLabel Text="Occurrence Notes:" FontSize="Medium" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.OccurrenceNotes}" Placeholder="Tallest in the stand"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Substrate" FontSize="Medium" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.Substrate}" Placeholder="mycorrhizal with Ent."
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Life Stage" FontSize="Medium" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.LifeStage}" Placeholder="Select Life Stage"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Cultivated" FontSize="Medium" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -53,13 +58,15 @@
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Associated Site" FontSize="Medium" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.AssociatedSiteName}" IsEnabled="False"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialButton Text="Delete" Clicked="Delete_Clicked"
                                              BackgroundColor="{DynamicResource SecondaryColor}"

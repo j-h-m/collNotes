@@ -17,13 +17,16 @@
                     <material:MaterialLabel Text="Trip" FontSize="Title"
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
                                              BackgroundColor="{DynamicResource PrimaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
                     
                     <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
                                              BackgroundColor="{DynamicResource PrimaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
+                    <material:MaterialLabel Text="No internet connection available, import is disabled." IsVisible="{Binding ShowConnectionErrorMsg}" />
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>
@@ -36,13 +39,16 @@
                 <StackLayout>
                     <material:MaterialLabel Text="Trip" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
                                              BackgroundColor="{DynamicResource PrimaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
                     
                     <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
                                              BackgroundColor="{DynamicResource PrimaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
+                    <material:MaterialLabel Text="No internet connection available, export is disabled." IsVisible="{Binding ShowConnectionErrorMsg}" />
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>

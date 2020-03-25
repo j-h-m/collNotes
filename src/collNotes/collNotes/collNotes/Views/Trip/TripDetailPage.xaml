@@ -22,21 +22,24 @@
                                                 IsEnabled="False" Placeholder="Trip 1" 
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Primary Collector" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Trip.PrimaryCollector}" 
                                                 Placeholder="Carl Linnaeus" 
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
+
                     <material:MaterialLabel Text="Additional Collectors" TextColor="{DynamicResource PrimaryTextColor}"/>
-                    
                     <material:MaterialTextField Text="{Binding Trip.AdditionalCollectors}" 
                                                 Placeholder="James Edward Smith, Beatrix Potter" 
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Collection Date:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <DatePicker Date="{Binding Trip.CollectionDate}" 

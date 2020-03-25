@@ -20,7 +20,8 @@
                     <material:MaterialTextField x:Name="FieldID_TextField" Placeholder="Field ID" 
                                                 Text="{Binding FieldIDSearchPage.SelectedFieldID}" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     <material:MaterialButton x:Name="SearchFieldIDButton" Text="Search" Clicked="SearchFieldIDButton_Clicked"
                                              BackgroundColor="{DynamicResource SecondaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
@@ -30,21 +31,24 @@
                     <material:MaterialTextField Text="{Binding Specimen.OccurrenceNotes}"
                                                 Placeholder="Tallest in the stand" InputType="Text"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Substrate" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.Substrate}"
                                                 Placeholder="mycorrhizal with Ent." InputType="Text"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Life Stage" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding SelectedLifeStage}" Placeholder="Select Life Stage"
                                                 InputType="Choice" Choices="{Binding LifeStages}"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Cultivated" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -56,7 +60,8 @@
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Associated Site" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -64,7 +69,8 @@
                                                 InputType="Choice" Choices="{Binding AssociableSites}" 
                                                 ChoicesBindingName="SiteName" ChoiceSelected="AssociatedSiteName_ChoiceSelected"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
-                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialButton Text="Take Picture" Clicked="TakePicture_Clicked"
                                              BackgroundColor="{DynamicResource SecondaryColor}"
