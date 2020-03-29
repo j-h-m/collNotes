@@ -34,9 +34,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <MandroidI18n />
     <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

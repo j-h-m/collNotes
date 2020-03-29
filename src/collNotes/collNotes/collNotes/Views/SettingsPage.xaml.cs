@@ -80,6 +80,7 @@ namespace collNotes.Views
             {
                 CollNotesSettings.ColorTheme selectedTheme = CollNotesSettings.GetByThemeName(e.SelectedItem.ToString());
                 await viewModel.SetTheme(selectedTheme);
+                ForceLayout();
             }
         }
     }

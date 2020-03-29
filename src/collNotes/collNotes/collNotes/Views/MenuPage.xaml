@@ -4,7 +4,7 @@
              x:Class="collNotes.Views.MenuPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              Title="Menu">
-    
+
     <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" 
                      VerticalOptions="Center">
@@ -18,7 +18,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10">
+                        <Grid Padding="10" BackgroundColor="{DynamicResource PageBackgroundColor}">
                             <material:MaterialLabel Text="{Binding Title}"
                                                     FontSize="20"
                                                     TextColor="{DynamicResource PrimaryTextColor}"/>

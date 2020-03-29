@@ -19,10 +19,15 @@ namespace collNotes.Views
             BotanyNotebookImage.Aspect = (DeviceInfo.Platform == DevicePlatform.iOS) ?
                 Aspect.AspectFit :
                 Aspect.AspectFill;
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
 
             if (CollNotesSettings.IsAppStartingUp)
             {
-                this.viewModel.SetAppThemeToSaved().ConfigureAwait(false);
+                await this.viewModel.SetAppThemeToSaved();
                 CollNotesSettings.IsAppStartingUp = false;
             }
         }

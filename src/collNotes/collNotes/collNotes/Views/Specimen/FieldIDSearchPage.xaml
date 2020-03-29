@@ -8,7 +8,7 @@
     <ContentPage.Content>
         <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <StackLayout Orientation="Vertical">
-                
+
                 <material:MaterialLabel Text="{Binding SearchBarLabel}" FontSize="Title" 
                                         TextColor="{DynamicResource PrimaryTextColor}"/>
                 <material:MaterialTextField x:Name="Search_TextField"
@@ -19,10 +19,22 @@
                                             TextColor="{DynamicResource PrimaryTextColor}"
                                             BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                             TintColor="{DynamicResource SecondaryColor}"/>
-                
+
                 <ListView x:Name="SearchResult_ListView" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"
-                          ItemSelected="SearchResult_ItemSelected" 
-                          BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                          ItemSelected="SearchResult_ItemSelected"
+                          BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding}"
+                                       BackgroundColor="Transparent"
+                                       TextColor="{DynamicResource PrimaryTextColor}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </material:MaterialCard>
     </ContentPage.Content>
