@@ -1,4 +1,8 @@
-﻿using collNotes.Views;
+﻿using collNotes.Data.Context;
+using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
+using collNotes.Views;
 using Xamarin.Forms;
 
 namespace collNotes

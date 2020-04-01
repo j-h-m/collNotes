@@ -197,9 +197,9 @@ namespace collNotes.ViewModels
             LastSavedDateTimeString = GetLastSavedDateTimeString(null);
         }
 
-        public async Task<bool> SetTheme(CollNotesSettings.ColorTheme colorTheme)
+        public async Task<bool> SaveTheme(CollNotesSettings.ColorTheme colorTheme)
         {
-            return await appThemeService.SetAppTheme(colorTheme);
+            return await appThemeService.SaveAppTheme(colorTheme);
         }
 
         public async Task<bool> SetSettingsToSavedValues()

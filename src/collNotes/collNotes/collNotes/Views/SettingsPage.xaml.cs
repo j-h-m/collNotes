@@ -79,8 +79,11 @@ namespace collNotes.Views
             if (e.SelectedItem != null)
             {
                 CollNotesSettings.ColorTheme selectedTheme = CollNotesSettings.GetByThemeName(e.SelectedItem.ToString());
-                await viewModel.SetTheme(selectedTheme);
-                ForceLayout();
+                await viewModel.SaveTheme(selectedTheme);
+
+                await MaterialDialog.Instance.SnackbarAsync(message: $"Set theme to {e.SelectedItem}. Restart app to load theme.",
+                                            actionButtonText: "Ok",
+                                            msDuration: MaterialSnackbar.DurationIndefinite);
             }
         }
     }

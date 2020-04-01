@@ -1,5 +1,6 @@
 ﻿using collNotes.Data.Models;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace collNotes.Services
@@ -16,10 +17,10 @@ namespace collNotes.Services
                 MenuItems = new List<HomeMenuItem>
                 {
                     new HomeMenuItem {Id = MenuItemType.About, Title="About" },
-                    new HomeMenuItem {Id = MenuItemType.Trips, Title="Trips"},
-                    new HomeMenuItem {Id = MenuItemType.Sites, Title="Sites"},
-                    new HomeMenuItem {Id = MenuItemType.Specimen, Title="Specimen"},
-                    new HomeMenuItem {Id = MenuItemType.Settings, Title="Settings"},
+                    new HomeMenuItem {Id = MenuItemType.Trips, Title="Trips" },
+                    new HomeMenuItem {Id = MenuItemType.Sites, Title="Sites" },
+                    new HomeMenuItem {Id = MenuItemType.Specimen, Title="Specimen" },
+                    new HomeMenuItem {Id = MenuItemType.Settings, Title="Settings" },
                     new HomeMenuItem {Id = MenuItemType.ExportImport, Title="Export/Import Data" }
                 };
             }

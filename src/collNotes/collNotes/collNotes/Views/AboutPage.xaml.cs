@@ -20,16 +20,5 @@ namespace collNotes.Views
                 Aspect.AspectFit :
                 Aspect.AspectFill;
         }
-
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if (CollNotesSettings.IsAppStartingUp)
-            {
-                await this.viewModel.SetAppThemeToSaved();
-                CollNotesSettings.IsAppStartingUp = false;
-            }
-        }
     }
 }

@@ -14,11 +14,13 @@
         </StackLayout>
         <ListView x:Name="ListViewMenu"
                   BackgroundColor="{DynamicResource PageBackgroundColor}"
-                  HasUnevenRows="True">
+                  SeparatorColor="{DynamicResource PrimaryColor}"
+                  HasUnevenRows="True"
+                  ItemSelected="ListViewMenu_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10" BackgroundColor="{DynamicResource PageBackgroundColor}">
+                        <Grid Padding="10" BackgroundColor="{Binding BackgroundColor}">
                             <material:MaterialLabel Text="{Binding Title}"
                                                     FontSize="20"
                                                     TextColor="{DynamicResource PrimaryTextColor}"/>

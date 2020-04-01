@@ -23,8 +23,6 @@ namespace collNotes
             // settings view model, registered to use as a Singleton
             // for changes to reflect on settings view, need to use one instance
             DependencyService.Register<SettingsViewModel>();
-
-            CollNotesSettings.IsAppStartingUp = true;
         }
     }
 }

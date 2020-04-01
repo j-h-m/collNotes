@@ -11,5 +11,6 @@ namespace collNotes.Services.AppTheme
     {
         Task<ColorTheme> GetSavedTheme();
         Task<bool> SetAppTheme(ColorTheme colorTheme);
+        Task<bool> SaveAppTheme(ColorTheme colorTheme);
     }
 }
