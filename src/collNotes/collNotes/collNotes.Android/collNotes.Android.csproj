@@ -45,13 +45,16 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AndroidKeyStore>True</AndroidKeyStore>
-    <AndroidSigningKeyStore>/Users/borg/Library/Developer/Xamarin/Keystore/ad-hoc collNotes/ad-hoc collNotes.keystore</AndroidSigningKeyStore>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>D:\collNotes signing Backup\play store\ad-hoc jacob\ad-hoc jacob.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>m@cissh!t</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>ad-hoc collNotes</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>m@cissh!t</AndroidSigningKeyPass>
     <AndroidLinkTool>proguard</AndroidLinkTool>
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

@@ -66,16 +66,29 @@ namespace collNotes.Services
             int specimenCount = settingsViewModel.CurrentCollectionCount == 0 ?
                 await Context.Specimen.CountAsync() :
                 settingsViewModel.CurrentCollectionCount;
+            
+            if (Context.Specimen.Any())
+            {
+                int lastSpecimenNumber = await Context.Specimen.MaxAsync(s => s.SpecimenNumber);
+
+                specimenCount = lastSpecimenNumber > specimenCount ?
+                    lastSpecimenNumber :
+                    specimenCount;
+            }
 
             return specimenCount + 1;
         }
 
-        public async Task<bool> UpdateCollectionNumber(int specimenCount)
+        public async Task<bool> UpdateCollectionNumber()
         {
             var collectionCountSetting = await SettingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
+            int specimenCount = (settingsViewModel.CurrentCollectionCount == 0 && Context.Specimen.Any()) ?
+                await Context.Specimen.CountAsync() :
+                settingsViewModel.CurrentCollectionCount;
+
             if (collectionCountSetting is Setting)
             {
-                collectionCountSetting.SettingValue = (specimenCount + 1).ToString();
+                collectionCountSetting.SettingValue = specimenCount.ToString();
                 return await SettingService.UpdateAsync(collectionCountSetting);
             }
             else
@@ -83,7 +96,7 @@ namespace collNotes.Services
                 return await SettingService.CreateAsync(new Setting()
                 {
                     SettingName = CollNotesSettings.CollectionCountKey,
-                    SettingValue = (specimenCount + 1).ToString(),
+                    SettingValue = specimenCount.ToString(),
                     LastSaved = DateTime.Now
                 });
             }

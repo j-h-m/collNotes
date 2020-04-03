@@ -77,7 +77,7 @@ namespace collNotes.Views
 
             if (await viewModel.specimenService.CreateAsync(viewModel.Specimen))
             {
-                await viewModel.specimenService.UpdateCollectionNumber(viewModel.Specimen.SpecimenNumber);
+                await viewModel.specimenService.UpdateCollectionNumber();
             }
             await Navigation.PopAsync();
         }
