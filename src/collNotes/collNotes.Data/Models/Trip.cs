@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace collNotes.Data.Models
@@ -35,9 +36,10 @@ namespace collNotes.Data.Models
             }
         }
         private string _PrimaryCollectorLabel;
+        [NotMapped]
         public string PrimaryCollectorLabel
         {
-            get { return _PrimaryCollectorLabel ?? "N/A"; }
+            get { return _PrimaryCollectorLabel ?? "Primary Collector: N/A"; }
             set
             {
                 _PrimaryCollectorLabel = value;
