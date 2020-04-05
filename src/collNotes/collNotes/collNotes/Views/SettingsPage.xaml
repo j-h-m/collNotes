@@ -5,11 +5,11 @@
              x:Class="collNotes.Views.SettingsPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <ScrollView>
@@ -17,7 +17,7 @@
                     <StackLayout Orientation="Vertical">
                         <material:MaterialLabel Text="{Binding LastSavedDateTimeString, StringFormat='Settings Last Saved: {0}'}" />
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Vertical">
                         <material:MaterialLabel Text="Default Primary Collector:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -25,15 +25,15 @@
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"/>
-                        
+
                         <material:MaterialLabel Text="Starting Field Number:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
-                        <material:MaterialTextField x:Name="CollectionCountTextField" Text="{Binding CurrentCollectionCount}" 
+                        <material:MaterialTextField x:Name="CollectionCountTextField" Text="{Binding CurrentCollectionCountString}"
                                                     Placeholder="100" InputType="Numeric" TextChanged="CollectionCountTextField_TextChanged"
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"/>
-                        
+
                         <material:MaterialLabel Text="Export Format:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
                         <material:MaterialTextField Text="{Binding SelectedExportFormat}" Placeholder="Select Export Format"
@@ -41,7 +41,7 @@
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"/>
-                        
+
                         <material:MaterialLabel Text="Export Method:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
                         <material:MaterialTextField Text="{Binding SelectedExportMethod}" Placeholder="Select Export Method"
@@ -49,7 +49,7 @@
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"/>
-                        
+
                         <material:MaterialLabel Text="Autocomplete Type:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
                         <material:MaterialTextField Text="{Binding SelectedAutoCompleteType}" Placeholder="Select Autocomplete Type"
@@ -57,7 +57,7 @@
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"/>
-                        
+
                         <material:MaterialLabel Text="Color Theme:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
                         <material:MaterialTextField Text="{Binding SelectedColorTheme}" Placeholder="Select Theme"
@@ -66,7 +66,7 @@
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"/>
-                        
+
                         <material:MaterialButton Text="Grant Permissions" Clicked="RequestPermissions_Clicked"
                                                  BackgroundColor="{DynamicResource SecondaryColor}"
                                                  TextColor="{DynamicResource SecondaryTextColor}"/>

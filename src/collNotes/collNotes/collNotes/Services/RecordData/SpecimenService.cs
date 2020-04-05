@@ -66,7 +66,7 @@ namespace collNotes.Services
             int specimenCount = settingsViewModel.CurrentCollectionCount == 0 ?
                 await Context.Specimen.CountAsync() :
                 settingsViewModel.CurrentCollectionCount;
-            
+
             if (Context.Specimen.Any())
             {
                 int lastSpecimenNumber = await Context.Specimen.MaxAsync(s => s.SpecimenNumber);
@@ -82,9 +82,12 @@ namespace collNotes.Services
         public async Task<bool> UpdateCollectionNumber()
         {
             var collectionCountSetting = await SettingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
-            int specimenCount = (settingsViewModel.CurrentCollectionCount == 0 && Context.Specimen.Any()) ?
-                await Context.Specimen.CountAsync() :
+            int specimenRecordCount = await Context.Specimen.CountAsync();
+            int specimenCount = (settingsViewModel.CurrentCollectionCount == 0 && Context.Specimen.Any() && specimenRecordCount < settingsViewModel.CurrentCollectionCount) ?
+                specimenRecordCount :
                 settingsViewModel.CurrentCollectionCount;
+
+            settingsViewModel.CurrentCollectionCount = specimenCount + 1;
 
             if (collectionCountSetting is Setting)
             {

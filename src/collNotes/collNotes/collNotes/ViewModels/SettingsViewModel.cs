@@ -37,11 +37,19 @@ namespace collNotes.ViewModels
             get { return _CurrentCollectionCount; }
             set
             {
-                if (value > 0)
-                {
-                    _CurrentCollectionCount = value;
-                    OnPropertyChanged(nameof(CurrentCollectionCount));
-                }
+                _CurrentCollectionCount = value;
+                OnPropertyChanged(nameof(CurrentCollectionCount));
+            }
+        }
+        private string _CurrentCollectionCountString;
+        public string CurrentCollectionCountString
+        {
+            get { return _CurrentCollectionCountString ?? CollNotesSettings.CollectionCountStringDefault; }
+            set
+            {
+                _CurrentCollectionCountString = value;
+                OnPropertyChanged(nameof(CurrentCollectionCountString));
+                CurrentCollectionCount = int.Parse(value);
             }
         }
         private string _SelectedExportFormat;
@@ -186,15 +194,17 @@ namespace collNotes.ViewModels
                 $"{Convert.ToDateTime(lastSavedDateTime).ToShortDateString()} {Convert.ToDateTime(lastSavedDateTime).ToShortTimeString()}";
         }
 
-        public void ResetSettings()
+        public async Task ResetSettings()
         {
-            CurrentCollectionCount = 0;
+            CurrentCollectionCountString = CollNotesSettings.CollectionCountStringDefault;
             CurrentCollectorName = string.Empty;
             SelectedAutoCompleteType = CollNotesSettings.AutoCompleteDefault;
-            SelectedColorTheme = CollNotesSettings.ColorThemeDefault;
             SelectedExportFormat = CollNotesSettings.ExportFormatDefault;
             SelectedExportMethod = CollNotesSettings.ExportMethodDefault;
+            SelectedColorTheme = CollNotesSettings.ColorThemeDefault;
             LastSavedDateTimeString = GetLastSavedDateTimeString(null);
+
+            await UpdateSettings();
         }
 
         public async Task<bool> SaveTheme(CollNotesSettings.ColorTheme colorTheme)

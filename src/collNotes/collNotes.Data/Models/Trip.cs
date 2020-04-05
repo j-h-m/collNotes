@@ -18,6 +18,7 @@ namespace collNotes.Data.Models
             {
                 _PrimaryCollector = value;
                 OnPropertyChanged(nameof(PrimaryCollector));
+                PrimaryCollectorLabel = $"Primary Collector: {value}";
             }
         }
         public string AdditionalCollectors { get; set; }
@@ -31,6 +32,16 @@ namespace collNotes.Data.Models
             {
                 _TripName = value;
                 OnPropertyChanged(nameof(TripName));
+            }
+        }
+        private string _PrimaryCollectorLabel;
+        public string PrimaryCollectorLabel
+        {
+            get { return _PrimaryCollectorLabel ?? "N/A"; }
+            set
+            {
+                _PrimaryCollectorLabel = value;
+                OnPropertyChanged(nameof(PrimaryCollectorLabel));
             }
         }
 

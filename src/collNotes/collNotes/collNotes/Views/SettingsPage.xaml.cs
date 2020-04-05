@@ -42,8 +42,8 @@ namespace collNotes.Views
             {
                 using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Resetting all data and settings"))
                 {
-                    viewModel.ResetSettings();
-                    MessagingCenter.Send<SettingsPage>(this, "DeleteTrips");
+                    await viewModel.ResetSettings();
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteTrips"); // deleted parent causes related children to be deleted
                 }
 
                 await MaterialDialog.Instance.SnackbarAsync(message: "Data reset complete.",

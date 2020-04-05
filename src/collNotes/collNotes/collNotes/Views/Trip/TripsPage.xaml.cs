@@ -39,7 +39,7 @@ namespace collNotes.Views
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a trip to clone..",
                                                                 choices: choices);
 
-            if (result >= 0)
+            if (result != -1)
             {
                 Trip tripToClone = viewModel.Trips.Where(t =>
                     t.TripName == choices[result]).

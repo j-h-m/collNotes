@@ -6,6 +6,7 @@ namespace collNotes.Settings
     {
         public const string CollectionCountKey = "collection_count";
         public const int CollectionCountDefault = 0;
+        public const string CollectionCountStringDefault = "0";
         public const string PrimaryCollectorKey = "primary_collector";
 
         public const string ExportFormatKey = "export_format";
@@ -18,7 +19,7 @@ namespace collNotes.Settings
         public const string AutoCompleteDefault = "Plantae";
 
         public const string ColorThemeKey = "color_theme";
-        public const string ColorThemeDefault = "Default";
+        public const string ColorThemeDefault = "Light [Default]";
 
         public const string DeviceInfoKey = "device_info";
 
