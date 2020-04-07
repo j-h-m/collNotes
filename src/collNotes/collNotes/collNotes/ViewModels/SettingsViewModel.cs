@@ -229,6 +229,7 @@ namespace collNotes.ViewModels
                     CollNotesSettings.AutoCompleteDefault : autoCompleteTypeSetting.SettingValue;
                 CurrentCollectionCount = (collectionCountSetting is null) ?
                     CollNotesSettings.CollectionCountDefault : Convert.ToInt32(collectionCountSetting.SettingValue);
+                CurrentCollectionCountString = CurrentCollectionCount.ToString();
                 SelectedColorTheme = (colorThemeSetting is null) ?
                     CollNotesSettings.ColorThemeDefault : colorThemeSetting.SettingValue;
                 SelectedExportFormat = (exportFormatSetting is null) ?

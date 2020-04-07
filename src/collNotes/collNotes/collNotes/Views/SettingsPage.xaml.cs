@@ -14,6 +14,7 @@ namespace collNotes.Views
         {
             InitializeComponent();
             BindingContext = viewModel;
+            viewModel.SetSettingsToSavedValues().Wait();
         }
 
         private async void Save_Clicked(object sender, EventArgs e)

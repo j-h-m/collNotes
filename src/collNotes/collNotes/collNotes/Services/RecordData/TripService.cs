@@ -109,6 +109,12 @@ namespace collNotes.Services
         public async Task<int> GetNextCollectionNumber()
         {
             int tripCount = await Context.Trips.CountAsync();
+            if (Context.Trips.Any())
+            {
+                int lastTripNumber = await Context.Trips.MaxAsync(t => t.TripNumber);
+                if (tripCount < lastTripNumber)
+                    return lastTripNumber + 1;
+            }
             return tripCount + 1;
         }
 

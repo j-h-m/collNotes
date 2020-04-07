@@ -83,11 +83,12 @@ namespace collNotes.Services
         {
             var collectionCountSetting = await SettingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
             int specimenRecordCount = await Context.Specimen.CountAsync();
-            int specimenCount = (settingsViewModel.CurrentCollectionCount == 0 && Context.Specimen.Any() && specimenRecordCount < settingsViewModel.CurrentCollectionCount) ?
-                specimenRecordCount :
-                settingsViewModel.CurrentCollectionCount;
+            int currentCollectionCount = settingsViewModel.CurrentCollectionCount;
 
-            settingsViewModel.CurrentCollectionCount = specimenCount + 1;
+            int specimenCount = specimenRecordCount > currentCollectionCount ?
+                specimenRecordCount : currentCollectionCount;
+
+            settingsViewModel.CurrentCollectionCountString = specimenCount.ToString();
 
             if (collectionCountSetting is Setting)
             {

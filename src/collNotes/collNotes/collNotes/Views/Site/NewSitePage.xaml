@@ -5,12 +5,12 @@
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <ScrollView>
@@ -20,38 +20,38 @@
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Locality:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Site.Locality}" Placeholder="1km from trail head.."
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Habitat:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Site.Habitat}" Placeholder="Pine forest.."
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Associated Taxa:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Site.AssociatedTaxa}" Placeholder="Site Wide 'field calls'"
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Location Notes:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Site.LocationNotes}" Placeholder="Popular campground.."
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Associated Trip:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField x:Name="AssociatedTripSelector" Text="{Binding AssociatedTripName}" Placeholder="Select Associated Trip"
                                                 InputType="Choice" Choices="{Binding AssociableTrips}" ChoicesBindingName="TripName"
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialChip x:Name="LocationStatusChip" IsVisible="False"
                                            Text="Touch icon to open"
                                            ActionImage="map_icon.png" ActionImageTapped="LocationStatusChip_ActionImageTapped"
@@ -66,10 +66,12 @@
                             <material:MaterialLabel x:Name="latLbl" FontSize="Body" TextColor="{DynamicResource PrimaryTextColor}"/>
                             <material:MaterialLabel x:Name="altLbl" FontSize="Body" TextColor="{DynamicResource PrimaryTextColor}"/>
                             <material:MaterialLabel x:Name="accLbl" FontSize="Body" TextColor="{DynamicResource PrimaryTextColor}"/>
-                            <material:MaterialButton Text="Check and Refine Location" Clicked="CheckLocation_Clicked" />
+                            <material:MaterialButton Text="Check and Refine Location" Clicked="CheckLocation_Clicked"
+                                                     BackgroundColor="{DynamicResource SecondaryColor}"
+                                                     TextColor="{DynamicResource SecondaryTextColor}" />
                         </StackLayout>
                     </material:MaterialCard>
-                    
+
                     <material:MaterialButton x:Name="GetLocation_Button" Text="Get Location" 
                                              FontSize="Medium" Clicked="Location_Clicked"
                                              BackgroundColor="{DynamicResource SecondaryColor}"
