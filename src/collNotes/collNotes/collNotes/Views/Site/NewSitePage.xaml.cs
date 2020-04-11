@@ -1,5 +1,7 @@
 ﻿using collNotes.ViewModels;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
+using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -106,6 +108,10 @@ namespace collNotes.Views
             }
 
             viewModel.Site.AssociatedTripName = viewModel.AssociatedTripName;
+            
+            var associatedTrip = viewModel.AssociableTrips.First(t => t.TripName == viewModel.AssociatedTripName);
+            viewModel.Site.AssociatedTripNumber = associatedTrip.TripNumber;
+
             await viewModel.siteService.CreateAsync(viewModel.Site);
             await Navigation.PopAsync();
         }

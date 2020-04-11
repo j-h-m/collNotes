@@ -63,6 +63,9 @@ namespace collNotes.Views
 
             viewModel.Specimen.AssociatedSiteName = viewModel.AssociatedSiteName;
 
+            var associatedSite = viewModel.AssociableSites.First(s => s.SiteName == viewModel.AssociatedSiteName);
+            viewModel.Specimen.AssociatedSiteNumber = associatedSite.SiteNumber;
+
             viewModel.Specimen.LifeStage = !string.IsNullOrEmpty(viewModel.SelectedLifeStage) ?
                 viewModel.SelectedLifeStage :
                 string.Empty;

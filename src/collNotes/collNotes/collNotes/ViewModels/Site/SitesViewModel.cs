@@ -2,8 +2,10 @@
 using collNotes.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.ViewModels
 {
@@ -37,11 +39,10 @@ namespace collNotes.ViewModels
             try
             {
                 Sites.Clear();
-                var sites = await siteService.GetAllAsync(true);
-                foreach (var site in sites)
-                {
-                    Sites.Add(site);
-                }
+                var sites = await siteService.GetAllAsync();
+                sites = sites.OrderBy(site => site.AssociatedTripNumber);
+
+                sites.ForEach(site => Sites.Add(site));
             }
             catch (Exception ex)
             {

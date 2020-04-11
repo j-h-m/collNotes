@@ -2,9 +2,13 @@
 using collNotes.Services;
 using collNotes.Views;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.ViewModels
 {
@@ -41,11 +45,10 @@ namespace collNotes.ViewModels
             try
             {
                 Trips.Clear();
-                var trips = await tripService.GetAllAsync(true);
-                foreach (var trip in trips)
-                {
-                    Trips.Add(trip);
-                }
+                var trips = await tripService.GetAllAsync();
+                trips = trips.OrderBy(trip => trip.TripNumber);
+
+                trips.ForEach(trip => Trips.Add(trip));
             }
             catch (Exception ex)
             {

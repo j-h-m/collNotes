@@ -47,7 +47,7 @@ namespace collNotes.Services
             return false;
         }
 
-        public async Task<IEnumerable<Site>> GetAllAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Site>> GetAllAsync()
         {
             return await Context.Sites.ToListAsync();
         }

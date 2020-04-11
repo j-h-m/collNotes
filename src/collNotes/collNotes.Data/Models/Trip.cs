@@ -19,7 +19,6 @@ namespace collNotes.Data.Models
             {
                 _PrimaryCollector = value;
                 OnPropertyChanged(nameof(PrimaryCollector));
-                PrimaryCollectorLabel = $"Primary Collector: {value}";
             }
         }
         public string AdditionalCollectors { get; set; }
@@ -35,15 +34,12 @@ namespace collNotes.Data.Models
                 OnPropertyChanged(nameof(TripName));
             }
         }
-        private string _PrimaryCollectorLabel;
         [NotMapped]
         public string PrimaryCollectorLabel
         {
-            get { return _PrimaryCollectorLabel ?? "Primary Collector: N/A"; }
-            set
-            {
-                _PrimaryCollectorLabel = value;
-                OnPropertyChanged(nameof(PrimaryCollectorLabel));
+            get 
+            { 
+                return !string.IsNullOrEmpty(PrimaryCollector) ? $"Primary Collector: {PrimaryCollector}" : "Primary Collector: N/A"; 
             }
         }
 

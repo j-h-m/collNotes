@@ -3,8 +3,10 @@ using collNotes.Services;
 using collNotes.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.ViewModels
 {
@@ -38,13 +40,15 @@ namespace collNotes.ViewModels
             try
             {
                 SpecimenCollection.Clear();
-                var specimenCollection = await specimenService.GetAllAsync(true);
-                foreach (var specimen in specimenCollection)
+                var specimenCollection = await specimenService.GetAllAsync();
+                specimenCollection = specimenCollection.OrderBy(specimen => specimen.AssociatedSiteNumber);
+
+                specimenCollection.ForEach(specimen =>
                 {
                     specimen.LabelString = string.IsNullOrEmpty(specimen.FieldIdentification) ?
                         specimen.SpecimenName : specimen.FieldIdentification;
                     SpecimenCollection.Add(specimen);
-                }
+                });
             }
             catch (Exception ex)
             {

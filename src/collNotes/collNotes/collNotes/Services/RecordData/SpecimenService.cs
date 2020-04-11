@@ -45,7 +45,7 @@ namespace collNotes.Services
             return false;
         }
 
-        public async Task<IEnumerable<Specimen>> GetAllAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Specimen>> GetAllAsync()
         {
             return await Context.Specimen.ToListAsync();
         }

@@ -82,7 +82,7 @@ namespace collNotes.Services
             });
         }
 
-        public async Task<IEnumerable<Trip>> GetAllAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Trip>> GetAllAsync()
         {
             return await Context.Trips.ToListAsync();
         }
