@@ -1,5 +1,8 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using collNotes.Settings;
 using System;
 using System.Collections.Generic;
@@ -17,10 +20,14 @@ namespace collNotes.ViewModels
         public string SelectedLifeStage { get; set; }
         public bool IsClone { get; set; }
 
-        private SiteService siteService;
-        public SpecimenService specimenService;
-        public IExceptionRecordService exceptionRecordService;
-        public ICameraService cameraService;
+        private readonly SiteService siteService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+
+        public readonly SpecimenService specimenService;
+        public readonly IExceptionRecordService exceptionRecordService;
+        public readonly ICameraService cameraService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } = (text, values) =>
             values.Where(x =>
@@ -34,6 +41,9 @@ namespace collNotes.ViewModels
             specimenService = new SpecimenService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
             cameraService = new CameraService();
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
             AssociableSites = siteService.GetAllAsync().Result;
@@ -52,6 +62,11 @@ namespace collNotes.ViewModels
         {
             siteService = new SiteService(Context);
             specimenService = new SpecimenService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            cameraService = new CameraService();
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
             AssociableSites = siteService.GetAllAsync().Result;

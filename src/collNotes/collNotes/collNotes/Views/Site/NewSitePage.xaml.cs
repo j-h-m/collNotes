@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -30,7 +31,9 @@ namespace collNotes.Views
             if (!await viewModel.permissionsService.CheckLocationPermission())
                 await viewModel.permissionsService.RequestLocationPermission();
 
-            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location."))
+            var dialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location.",
+                configuration: dialogConfig))
             {
                 CurrentLocation = await viewModel.geoLocationService.GetCurrentLocation(viewModel.exceptionRecordService);
             }
@@ -60,9 +63,11 @@ namespace collNotes.Views
             {
                 UpdateCurrentLocation();
 
+                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: "Touch icon to view and refine location information.",
                                             actionButtonText: "OK",
-                                            msDuration: MaterialSnackbar.DurationLong);
+                                            msDuration: MaterialSnackbar.DurationLong,
+                                            configuration: snackbarConfig);
 
                 LocationStatusChip.IsVisible = true;
             }
@@ -72,7 +77,9 @@ namespace collNotes.Views
         {
             if (string.IsNullOrEmpty(viewModel.Site.SiteName))
             {
-                await MaterialDialog.Instance.AlertAsync("A photo requires a Site Name");
+                var alertConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync(message: "A photo requires a Site Name",
+                    configuration: alertConfig);
                 return;
             }
             else
@@ -90,20 +97,25 @@ namespace collNotes.Views
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            var alertConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Site.SiteName))
             {
-                await MaterialDialog.Instance.AlertAsync("Site must have a name!");
+                await MaterialDialog.Instance.AlertAsync(message: "Site must have a name!",
+                    configuration: alertConfig);
                 return;
             }
             else if (string.IsNullOrEmpty(viewModel.AssociatedTripName))
             {
-                await MaterialDialog.Instance.AlertAsync("A Site must be associated with a Trip!");
+                await MaterialDialog.Instance.AlertAsync(message: "A Site must be associated with a Trip!",
+                    configuration: alertConfig);
                 return;
             }
             else if (string.IsNullOrEmpty(viewModel.Site.Longitude) || string.IsNullOrEmpty(viewModel.Site.Latitude))
             {
-                await MaterialDialog.Instance.AlertAsync("Please set GPS location for site before saving!");
+                await MaterialDialog.Instance.AlertAsync(message: "Please set GPS location for site before saving!",
+                    configuration: alertConfig);
                 return;
             }
 
@@ -145,7 +157,9 @@ namespace collNotes.Views
             Map.Pins.Add(pin);
             Map.MapClicked += View_MapClicked;
 
-            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, "Update", "Cancel");
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, "Update", "Cancel",
+                configuration: alertDialogConfig);
             if (result == true && Map.Pins.Count == 1)
             {
                 CurrentLocation = new Location()
@@ -189,6 +203,21 @@ namespace collNotes.Views
             altLbl.Text = $"Altitude: {CurrentLocation.Altitude.ToString()}";
             viewModel.Site.CoordinateUncertaintyInMeters = CurrentLocation.Accuracy.ToString();
             accLbl.Text = $"Accuracy: {CurrentLocation.Accuracy.ToString()}";
+        }
+
+        private async void AssociatedTripSelector_Focused(object sender, FocusEventArgs e)
+        {
+            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+            var tripNameList = viewModel.AssociableTrips.Select(t => t.TripName).ToList();
+
+            var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select Associated Trip",
+                choices: tripNameList,
+                configuration: confirmationDialogConfig);
+
+            if (result != -1)
+            {
+                viewModel.AssociatedTripName = tripNameList[result];
+            }
         }
     }
 }

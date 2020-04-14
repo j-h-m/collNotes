@@ -1,5 +1,8 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using collNotes.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -14,15 +17,23 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Specimen> SpecimenCollection { get; set; }
         public Command LoadSpecimenCommand { get; set; }
-        public SiteService siteService;
-        public SpecimenService specimenService;
-        private IExceptionRecordService exceptionRecordService;
+        
+        public readonly SiteService siteService;
+        public readonly SpecimenService specimenService;
+
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         public SpecimenViewModel()
         {
             specimenService = new SpecimenService(Context);
             siteService = new SiteService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             Title = "Specimen";
             SpecimenCollection = new ObservableCollection<Specimen>();

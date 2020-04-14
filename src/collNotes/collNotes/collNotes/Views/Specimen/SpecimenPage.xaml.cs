@@ -32,16 +32,25 @@ namespace collNotes.Views
         {
             var sites = await viewModel.siteService.GetAllAsync();
             if (sites.Any())
+            {
                 await Navigation.PushAsync(new NewSpecimenPage(new NewSpecimenViewModel()));
+            }
             else
-                await MaterialDialog.Instance.AlertAsync("Need Sites to associate with a new Specimen!");
+            {
+                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("Need Sites to associate with a new Specimen!",
+                    configuration: alertDialogConfig);
+            }
         }
 
         private async void CloneSpecimen_Clicked(object sender, EventArgs e)
         {
             var choices = viewModel.SpecimenCollection.Select(s => s.SpecimenName).ToList();
+
+            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a specimen to clone..",
-                                                             choices: choices);
+                                                             choices: choices,
+                                                             configuration: confirmationDialogConfig);
 
             if (result != -1)
             {

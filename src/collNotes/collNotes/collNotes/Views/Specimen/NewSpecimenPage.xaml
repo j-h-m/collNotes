@@ -21,7 +21,8 @@
                                                 Text="{Binding FieldIDSearchPage.SelectedFieldID}" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     <material:MaterialButton x:Name="SearchFieldIDButton" Text="Search" Clicked="SearchFieldIDButton_Clicked"
                                              BackgroundColor="{DynamicResource SecondaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
@@ -32,7 +33,8 @@
                                                 Placeholder="Tallest in the stand" InputType="Text"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Substrate" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -40,7 +42,8 @@
                                                 Placeholder="mycorrhizal with Ent." InputType="Text"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Life Stage" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -48,7 +51,8 @@
                                                 InputType="Choice" Choices="{Binding LifeStages}"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Cultivated" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -61,7 +65,8 @@
                     <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Associated Site" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>

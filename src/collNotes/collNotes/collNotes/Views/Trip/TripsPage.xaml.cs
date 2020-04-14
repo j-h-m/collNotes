@@ -36,8 +36,10 @@ namespace collNotes.Views
         private async void CloneTrip_Clicked(object sender, EventArgs e)
         {
             var choices = viewModel.Trips.Select(t => t.TripName).ToList();
+
+            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a trip to clone..",
-                                                                choices: choices);
+                                                                choices: choices, configuration: confirmationDialogConfig);
 
             if (result != -1)
             {

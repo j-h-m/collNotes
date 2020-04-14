@@ -28,10 +28,12 @@ namespace collNotes.Views
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message: "Are you sure you want to delete this Specimen?",
                                     title: "Confirmation",
                                     confirmingText: "Yes",
-                                    dismissiveText: "No"));
+                                    dismissiveText: "No",
+                                    configuration: alertDialogConfig));
             if (result)
             {
                 await viewModel.specimenService.DeleteAsync(viewModel.Specimen);

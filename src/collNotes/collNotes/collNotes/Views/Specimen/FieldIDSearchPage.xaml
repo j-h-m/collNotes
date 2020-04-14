@@ -18,7 +18,8 @@
                                             TextChanged="Search_TextChanged" 
                                             TextColor="{DynamicResource PrimaryTextColor}"
                                             BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                            TintColor="{DynamicResource SecondaryColor}"/>
+                                            TintColor="{DynamicResource SecondaryColor}"
+                                            UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                 <ListView x:Name="SearchResult_ListView" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"
                           ItemSelected="SearchResult_ItemSelected"

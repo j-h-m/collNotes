@@ -23,11 +23,16 @@ namespace collNotes.Views
 
             CurrentLocation = new Location()
             {
-                Longitude = double.Parse(viewModel.Site.Longitude),
-                Latitude = double.Parse(viewModel.Site.Latitude),
-                Accuracy = double.Parse(viewModel.Site.CoordinateUncertaintyInMeters),
-                Altitude = double.Parse(viewModel.Site.MinimumElevationInMeters)
+                Longitude = string.IsNullOrEmpty(viewModel.Site.Longitude) ? 
+                    0 : double.Parse(viewModel.Site.Longitude),
+                Latitude = string.IsNullOrEmpty(viewModel.Site.Latitude) ? 
+                    0 : double.Parse(viewModel.Site.Latitude),
+                Accuracy = string.IsNullOrEmpty(viewModel.Site.CoordinateUncertaintyInMeters) ?
+                    0 : double.Parse(viewModel.Site.CoordinateUncertaintyInMeters),
+                Altitude = string.IsNullOrEmpty(viewModel.Site.MinimumElevationInMeters) ? 
+                    0 : double.Parse(viewModel.Site.MinimumElevationInMeters)
             };
+
             UpdateCurrentLocation();
         }
 
@@ -54,10 +59,12 @@ namespace collNotes.Views
                     Environment.NewLine +
                     $"Specimen: {specimenNames}.";
 
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message,
                                     title: "Confirm",
                                     confirmingText: "Yes",
-                                    dismissiveText: "No"));
+                                    dismissiveText: "No",
+                                    configuration: alertDialogConfig));
             if (result)
             {
                 await viewModel.siteService.DeleteAsync(viewModel.Site);
@@ -89,7 +96,11 @@ namespace collNotes.Views
             Map.Pins.Add(pin);
             Map.MapClicked += View_MapClicked;
 
-            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, "Update", "Cancel");
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, 
+                "Update", "Cancel",
+                configuration: alertDialogConfig);
+
             if (result == true && Map.Pins.Count == 1)
             {
                 CurrentLocation = new Location()

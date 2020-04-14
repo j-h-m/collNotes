@@ -1,5 +1,8 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,15 +16,23 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Site> Sites { get; set; }
         public Command LoadSitesCommand { get; set; }
-        public SiteService siteService;
-        public TripService tripService;
-        private IExceptionRecordService exceptionRecordService;
+
+        public readonly SiteService siteService;
+        public readonly TripService tripService;
+
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         public SitesViewModel()
         {
             siteService = new SiteService(Context);
             tripService = new TripService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             Title = "Sites";
             Sites = new ObservableCollection<Site>();

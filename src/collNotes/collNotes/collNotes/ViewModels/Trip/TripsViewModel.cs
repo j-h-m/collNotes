@@ -1,5 +1,8 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using collNotes.Views;
 using System;
 using System.Collections.Generic;
@@ -16,13 +19,21 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Trip> Trips { get; set; }
         public Command LoadTripsCommand { get; set; }
-        public TripService tripService;
-        private IExceptionRecordService exceptionRecordService;
+
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+
+        public readonly TripService tripService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         public TripsViewModel()
         {
             tripService = new TripService(Context);
+            settingService = new SettingService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             Title = "Trips";
             Trips = new ObservableCollection<Trip>();

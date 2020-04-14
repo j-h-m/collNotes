@@ -1,6 +1,9 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
 using collNotes.Services.Permissions;
+using collNotes.Services.Settings;
 using System;
 using System.Collections.Generic;
 
@@ -13,24 +16,33 @@ namespace collNotes.ViewModels
         public string AssociatedTripName { get; set; }
         public bool IsClone { get; set; }
 
-        private TripService tripService;
-        public SiteService siteService;
-        public IExceptionRecordService exceptionRecordService;
-        public IGeoLocationService geoLocationService;
-        public ICameraService cameraService;
-        public IPermissionsService permissionsService;
+        private readonly TripService tripService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+
+        public readonly SiteService siteService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        public readonly IExceptionRecordService exceptionRecordService;
+        public readonly IGeoLocationService geoLocationService;
+        public readonly ICameraService cameraService;
+        public readonly IPermissionsService permissionsService;
 
         /// <summary>
-        /// Constructor for a brand new Site.
+        /// Constructor for a new Site.
         /// </summary>
         public NewSiteViewModel()
         {
             tripService = new TripService(Context);
             siteService = new SiteService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
+            permissionsService = new PermissionsService(Context);
+            settingService = new SettingService(Context);
+
             geoLocationService = new GeoLocationService();
             cameraService = new CameraService();
-            permissionsService = new PermissionsService(Context);
+
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             int nextSiteNumber = siteService.GetNextCollectionNumber().Result;
             AssociableTrips = tripService.GetAllAsync().Result;
@@ -56,6 +68,15 @@ namespace collNotes.ViewModels
 
             tripService = new TripService(Context);
             siteService = new SiteService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            permissionsService = new PermissionsService(Context);
+            settingService = new SettingService(Context);
+
+            geoLocationService = new GeoLocationService();
+            cameraService = new CameraService();
+
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             int nextSiteNumber = siteService.GetNextCollectionNumber().Result;
             AssociableTrips = tripService.GetAllAsync().Result;

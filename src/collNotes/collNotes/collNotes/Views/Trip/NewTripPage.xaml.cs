@@ -23,10 +23,13 @@ namespace collNotes.Views
         /// <param name="e"></param>
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Trip.TripName))
             {
-                await MaterialDialog.Instance.AlertAsync("Trip must have a name!");
+                await MaterialDialog.Instance.AlertAsync("Trip must have a name!",
+                    configuration: alertDialogConfig);
                 return;
             }
             else
@@ -39,7 +42,8 @@ namespace collNotes.Views
                     if (!string.IsNullOrEmpty(viewModel.Trip.PrimaryCollector))
                     {
                         var result = await MaterialDialog.Instance.ConfirmAsync(GetPrimaryCollectorPrompt(viewModel.Trip.PrimaryCollector), 
-                            "Confirm", "Yes", "No");
+                            "Confirm", "Yes", "No",
+                            configuration: alertDialogConfig);
                         if (!(result is null || result == false))
                         {
                             settingsViewModel.CurrentCollectorName = viewModel.Trip.PrimaryCollector;
@@ -63,7 +67,7 @@ namespace collNotes.Views
 
         private string GetPrimaryCollectorPrompt(string primaryCollector)
         {
-            return $"Primary Collector has not been recorded yet, would you like to set [{primaryCollector}] as the primary collector?";
+            return $"Primary Collector has not been set yet, would you like to set [{primaryCollector}] as the primary collector?";
         }
     }
 }

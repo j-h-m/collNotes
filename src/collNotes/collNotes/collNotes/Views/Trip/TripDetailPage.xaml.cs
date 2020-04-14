@@ -44,10 +44,12 @@ namespace collNotes.Views
                     Environment.NewLine +
                     "Are you sure you wish to delete this data?";
 
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message,
                                     title: "Confirmation",
                                     confirmingText: "Yes",
-                                    dismissiveText: "No"));
+                                    dismissiveText: "No",
+                                    configuration: alertDialogConfig));
             if (result)
             {
                 var deleteResult = await viewModel.tripService.DeleteAsync(viewModel.Trip);

@@ -29,7 +29,9 @@ namespace collNotes.Views
         {
             if (string.IsNullOrEmpty(viewModel.Specimen.SpecimenName))
             {
-                await MaterialDialog.Instance.AlertAsync("A photo requires a Specimen Name");
+                var alertDialogconfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("A photo requires a Specimen Name",
+                    configuration: alertDialogconfig);
                 return;
             }
             else
@@ -49,15 +51,19 @@ namespace collNotes.Views
         /// <param name="e"></param>
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Specimen.SpecimenName))
             {
-                await MaterialDialog.Instance.AlertAsync("Error saving specimen");
+                await MaterialDialog.Instance.AlertAsync("Error saving specimen",
+                    configuration: alertDialogConfig);
                 return;
             }
             if (string.IsNullOrEmpty(viewModel.AssociatedSiteName))
             {
-                await MaterialDialog.Instance.AlertAsync("A Specimen must be associated with a Site!");
+                await MaterialDialog.Instance.AlertAsync("A Specimen must be associated with a Site!",
+                    configuration: alertDialogConfig);
                 return;
             }
 

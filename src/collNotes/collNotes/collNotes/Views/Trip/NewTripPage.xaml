@@ -21,7 +21,8 @@
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Primary Collector" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Trip.PrimaryCollector}" 
@@ -29,7 +30,8 @@
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Additional Collectors" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Trip.AdditionalCollectors}" 
@@ -37,7 +39,8 @@
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                TintColor="{DynamicResource SecondaryColor}"/>
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
                     
                     <material:MaterialLabel Text="Collection Date:" 
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
