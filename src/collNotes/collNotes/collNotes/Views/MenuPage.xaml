@@ -15,7 +15,7 @@
         <ListView x:Name="ListViewMenu"
                   BackgroundColor="{DynamicResource PageBackgroundColor}"
                   SeparatorColor="{DynamicResource PrimaryColor}"
-                  HasUnevenRows="False"
+                  HasUnevenRows="True"
                   ItemSelected="ListViewMenu_ItemSelected">
             <ListView.Header>
                 <BoxView Color="{DynamicResource PrimaryColor}"

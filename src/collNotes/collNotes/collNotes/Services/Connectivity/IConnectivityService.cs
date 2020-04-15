@@ -8,6 +8,6 @@ namespace collNotes.Services.Connectivity
 {
     public interface IConnectivityService
     {
-        Task<ActualConnectivity> GetNetworkStatus();
+        ActualConnectivity GetNetworkStatus();
     }
 }

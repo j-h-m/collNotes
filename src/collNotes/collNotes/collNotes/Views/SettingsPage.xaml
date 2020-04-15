@@ -24,7 +24,8 @@
                         <material:MaterialTextField Text="{Binding CurrentCollectorName}" Placeholder="Gregor Mendel" InputType="Text" 
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                    TintColor="{DynamicResource SecondaryColor}"/>
+                                                    TintColor="{DynamicResource SecondaryColor}"
+                                                    UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                         <material:MaterialLabel Text="Starting Field Number:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -32,7 +33,8 @@
                                                     Placeholder="100" InputType="Numeric" TextChanged="CollectionCountTextField_TextChanged"
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                    TintColor="{DynamicResource SecondaryColor}"/>
+                                                    TintColor="{DynamicResource SecondaryColor}"
+                                                    UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                         <material:MaterialLabel Text="Export Format:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -40,7 +42,8 @@
                                                     InputType="Choice" Choices="{Binding ExportFormats}" 
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                    TintColor="{DynamicResource SecondaryColor}"/>
+                                                    TintColor="{DynamicResource SecondaryColor}"
+                                                    UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                         <material:MaterialLabel Text="Export Method:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -48,7 +51,8 @@
                                                     InputType="Choice" Choices="{Binding ExportMethods}" 
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                    TintColor="{DynamicResource SecondaryColor}"/>
+                                                    TintColor="{DynamicResource SecondaryColor}"
+                                                    UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                         <material:MaterialLabel Text="Autocomplete Type:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -56,7 +60,8 @@
                                                     InputType="Choice" Choices="{Binding AutoCompleteOptions}" 
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                    TintColor="{DynamicResource SecondaryColor}"/>
+                                                    TintColor="{DynamicResource SecondaryColor}"
+                                                    UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                         <material:MaterialLabel Text="Color Theme:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
@@ -65,7 +70,8 @@
                                                     ChoiceSelected="ColorTheme_ChoiceSelected" 
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
-                                                    TintColor="{DynamicResource SecondaryColor}"/>
+                                                    TintColor="{DynamicResource SecondaryColor}"
+                                                    UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                         <material:MaterialButton Text="Grant Permissions" Clicked="RequestPermissions_Clicked"
                                                  BackgroundColor="{DynamicResource SecondaryColor}"

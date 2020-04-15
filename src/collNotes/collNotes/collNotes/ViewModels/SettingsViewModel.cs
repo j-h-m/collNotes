@@ -1,4 +1,5 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
 using collNotes.Services.AppTheme;
 using collNotes.Services.Permissions;
@@ -14,10 +15,12 @@ namespace collNotes.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private ISettingService settingService;
+        private readonly ISettingService settingService;
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+
         public readonly IPermissionsService permissionsService;
-        private IExceptionRecordService exceptionRecordService;
-        private IAppThemeService appThemeService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         #region Binding Properties
 
@@ -147,6 +150,7 @@ namespace collNotes.ViewModels
             permissionsService = new PermissionsService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
             appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             Title = "Settings";
 

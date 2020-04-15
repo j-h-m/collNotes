@@ -51,9 +51,10 @@
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                     <material:MaterialLabel Text="Associated Trip:" TextColor="{DynamicResource PrimaryTextColor}"/>
-                    <material:MaterialTextField x:Name="AssociatedTripSelector" Text="{Binding AssociatedTripName}"
-                                                Placeholder="Select Associated Trip" Focused="AssociatedTripSelector_Focused"
-                                                FloatingPlaceholderEnabled="False"
+                    <material:MaterialTextField x:Name="AssociatedTripSelector" Text="{Binding AssociatedTripName}" 
+                                                Placeholder="Select Associated Trip"
+                                                InputType="Choice" Choices="{Binding AssociableTrips}" 
+                                                ChoicesBindingName="TripName"
                                                 TextColor="{DynamicResource PrimaryTextColor}" 
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"
@@ -61,9 +62,10 @@
 
                     <material:MaterialChip x:Name="LocationStatusChip" IsVisible="False"
                                            Text="Touch icon to open"
+                                           Padding="10"
                                            ActionImage="map_icon.png" ActionImageTapped="LocationStatusChip_ActionImageTapped"
                                            TextColor="{DynamicResource PrimaryTextColor}"
-                                           BackgroundColor="{DynamicResource SecondaryBackgroundColor}" />
+                                           BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
                     <material:MaterialCard x:Name="gpsInfoCard" CornerRadius="2" Elevation="5" HorizontalOptions="FillAndExpand" 
                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}" IsVisible="False">
                         <StackLayout Orientation="Vertical">

@@ -1,10 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
 using collNotes.Services.Connectivity;
 using collNotes.Services.Data;
 using collNotes.Services.Permissions;
+using collNotes.Services.Settings;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -17,12 +20,17 @@ namespace collNotes.ViewModels
         private readonly IEmailService emailService;
         private readonly IShareFileService shareFileService;
         private readonly IPermissionsService permissionsService;
-        private readonly string exportMethod;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
         private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         public readonly TripService tripService;
         public readonly IExceptionRecordService exceptionRecordService;
         public readonly IConnectivityService connectivityService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+
+        private readonly string exportMethod;
+
         private bool _IsConnectionAvailable;
         public bool IsConnectionAvailable
         { 
@@ -54,6 +62,9 @@ namespace collNotes.ViewModels
             permissionsService = new PermissionsService(Context);
             exceptionRecordService = new ExceptionRecordService(Context);
             connectivityService = new ConnectivityService();
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             exportMethod = settingsViewModel.SelectedExportMethod;
         }
@@ -118,7 +129,9 @@ namespace collNotes.ViewModels
             {
                 if (!(result = await this.permissionsService.RequestStoragePermission()))
                 {
-                    await MaterialDialog.Instance.AlertAsync("Storage permission is required for data export");
+                    var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                    await MaterialDialog.Instance.AlertAsync("Storage permission is required for data export",
+                        configuration: alertDialogConfig);
                 }
             }
             return result;

@@ -18,7 +18,7 @@ namespace collNotes.Views
     public partial class ExportImportPage : TabbedPage
     {
         private readonly ExportImportViewModel viewModel;
-        private readonly bool IsDeviceIosSimulator = DeviceInfo.Platform == DevicePlatform.iOS &&
+        private bool IsDeviceIosSimulator = DeviceInfo.Platform == DevicePlatform.iOS &&
                 DeviceInfo.DeviceType == DeviceType.Virtual;
 
         public ExportImportPage()
@@ -34,8 +34,10 @@ namespace collNotes.Views
         private void ExportImportPage_CurrentPageChanged(object sender, System.EventArgs e)
         {
             var tabbedPage = (TabbedPage)sender;
+
             if (tabbedPage.CurrentPage == ImportContentPage)
                 Title = GetTitle("Import");
+
             if (tabbedPage.CurrentPage == ExportContentPage)
                 Title = GetTitle("Export");
         }
@@ -44,14 +46,18 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                await MaterialDialog.Instance.AlertAsync("Import Trip not supported on iOS Simulator");
+                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("Import Trip not supported on iOS Simulator",
+                    configuration: alertDialogConfig);
             }
             else
             {
                 var stream = await OpenFileDialog();
                 string message = string.Empty;
 
-                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip"))
+                var loadingDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip",
+                    configuration: loadingDialogConfig))
                 {
                     if (await viewModel.ImportTrip(stream))
                     {
@@ -62,9 +68,12 @@ namespace collNotes.Views
                         message = "Trip import failed.";
                     }
                 }
+
+                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
-                                            msDuration: MaterialSnackbar.DurationIndefinite);
+                                            msDuration: MaterialSnackbar.DurationIndefinite,
+                                            configuration: snackbarConfig);
             }
         }
 
@@ -72,13 +81,19 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                await MaterialDialog.Instance.AlertAsync("Export Trip not supported on iOS Simulator");
+                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("Export Trip not supported on iOS Simulator",
+                    configuration: alertDialogConfig);
             }
             else
             {
                 var trips = await viewModel.tripService.GetAllAsync();
-                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip",
-                                                                 trips.Select(t => t.TripName).ToList());
+
+                var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+                var choices = trips.Select(t => t.TripName).ToList();
+                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip", choices,
+                    configuration: confirmationDialogConfig);
+                
                 string message = string.Empty;
 
                 if (result != -1)
@@ -92,9 +107,12 @@ namespace collNotes.Views
                     {
                         message = "Trip export failed";
                     }
+
+                    var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                     await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
-                                            msDuration: MaterialSnackbar.DurationIndefinite);
+                                            msDuration: MaterialSnackbar.DurationIndefinite,
+                                            configuration: snackbarConfig);
                 }
             }
         }
@@ -103,14 +121,18 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                await MaterialDialog.Instance.AlertAsync("Import Backup not supported on iOS Simulator");
+                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("Import Backup not supported on iOS Simulator",
+                    configuration: alertDialogConfig);
             }
             else
             {
                 var stream = await OpenFileDialog();
                 string message = string.Empty;
 
-                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup"))
+                var loadingDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup",
+                    configuration: loadingDialogConfig))
                 {
                     if (await viewModel.ImportBackup(stream))
                     {
@@ -121,9 +143,12 @@ namespace collNotes.Views
                         message = "Backup import failed.";
                     }
                 }
+
+                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
-                                            msDuration: MaterialSnackbar.DurationIndefinite);
+                                            msDuration: MaterialSnackbar.DurationIndefinite,
+                                            configuration: snackbarConfig);
             }
         }
 
@@ -131,7 +156,9 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                await MaterialDialog.Instance.AlertAsync("Export Backup not supported on iOS Simulator");
+                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("Export Backup not supported on iOS Simulator",
+                    configuration: alertDialogConfig);
             }
             else
             {
@@ -144,9 +171,12 @@ namespace collNotes.Views
                 {
                     message = "Backup export failed.";
                 }
+
+                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
-                                            msDuration: MaterialSnackbar.DurationIndefinite);
+                                            msDuration: MaterialSnackbar.DurationIndefinite,
+                                            configuration: snackbarConfig);
             }
         }
 
@@ -184,11 +214,11 @@ namespace collNotes.Views
             return stream;
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            var netStatus = await viewModel.connectivityService.GetNetworkStatus();
+            var netStatus = viewModel.connectivityService.GetNetworkStatus();
             viewModel.IsConnectionAvailable = netStatus == Services.Connectivity.ConnectivityService.ActualConnectivity.Connected;
             viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
         }

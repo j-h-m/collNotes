@@ -204,20 +204,5 @@ namespace collNotes.Views
             viewModel.Site.CoordinateUncertaintyInMeters = CurrentLocation.Accuracy.ToString();
             accLbl.Text = $"Accuracy: {CurrentLocation.Accuracy.ToString()}";
         }
-
-        private async void AssociatedTripSelector_Focused(object sender, FocusEventArgs e)
-        {
-            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
-            var tripNameList = viewModel.AssociableTrips.Select(t => t.TripName).ToList();
-
-            var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select Associated Trip",
-                choices: tripNameList,
-                configuration: confirmationDialogConfig);
-
-            if (result != -1)
-            {
-                viewModel.AssociatedTripName = tripNameList[result];
-            }
-        }
     }
 }
