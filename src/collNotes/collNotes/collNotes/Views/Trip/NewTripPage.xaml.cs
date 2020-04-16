@@ -1,4 +1,5 @@
-﻿using collNotes.ViewModels;
+﻿using collNotes.Settings;
+using collNotes.ViewModels;
 using System;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
@@ -41,12 +42,13 @@ namespace collNotes.Views
                 {
                     if (!string.IsNullOrEmpty(viewModel.Trip.PrimaryCollector))
                     {
-                        var result = await MaterialDialog.Instance.ConfirmAsync(GetPrimaryCollectorPrompt(viewModel.Trip.PrimaryCollector), 
+                        var result = await MaterialDialog.Instance.ConfirmAsync(GetPrimaryCollectorPrompt(viewModel.Trip.PrimaryCollector),
                             "Confirm", "Yes", "No",
                             configuration: alertDialogConfig);
                         if (!(result is null || result == false))
                         {
                             settingsViewModel.CurrentCollectorName = viewModel.Trip.PrimaryCollector;
+                            await settingsViewModel.CreateOrUpdateSetting(CollNotesSettings.PrimaryCollectorKey, viewModel.Trip.PrimaryCollector);
                         }
                     }
                 }

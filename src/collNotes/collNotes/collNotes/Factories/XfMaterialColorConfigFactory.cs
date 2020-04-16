@@ -1,13 +1,6 @@
 ﻿using collNotes.ColorThemes;
-using collNotes.Data.Context;
-using collNotes.Services;
 using collNotes.Services.AppTheme;
-using collNotes.Services.Settings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 using static collNotes.Settings.CollNotesSettings;
 
@@ -34,7 +27,7 @@ namespace collNotes.Factories
                     BackgroundColor = ContrastDark.PageBackgroundColor,
                     MessageTextColor = ContrastDark.PrimaryTextColor,
                     TitleTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.PrimaryColor
+                    TintColor = ContrastDark.SecondaryColor
                 };
             }
             else if (currentTheme == ColorTheme.ContrastLight)
@@ -44,7 +37,7 @@ namespace collNotes.Factories
                     BackgroundColor = ContrastLight.PageBackgroundColor,
                     MessageTextColor = ContrastLight.PrimaryTextColor,
                     TitleTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.PrimaryColor
+                    TintColor = ContrastLight.SecondaryColor
                 };
             }
             else if (currentTheme == ColorTheme.Dark)
@@ -54,7 +47,7 @@ namespace collNotes.Factories
                     BackgroundColor = Dark.PageBackgroundColor,
                     MessageTextColor = Dark.PrimaryTextColor,
                     TitleTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.PrimaryColor
+                    TintColor = Dark.SecondaryColor
                 };
             }
             else // use default
@@ -64,7 +57,7 @@ namespace collNotes.Factories
                     BackgroundColor = Light_Default.PageBackgroundColor,
                     MessageTextColor = Light_Default.PrimaryTextColor,
                     TitleTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.PrimaryColor
+                    TintColor = Light_Default.SecondaryColor
                 };
             }
 
@@ -82,7 +75,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = ContrastDark.PageBackgroundColor,
                     MessageTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.PrimaryColor
+                    TintColor = ContrastDark.SecondaryColor
                 };
             }
             else if (currentTheme == ColorTheme.ContrastLight)
@@ -91,7 +84,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = ContrastLight.PageBackgroundColor,
                     MessageTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.PrimaryColor
+                    TintColor = ContrastLight.SecondaryColor
                 };
             }
             else if (currentTheme == ColorTheme.Dark)
@@ -100,7 +93,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = Dark.PageBackgroundColor,
                     MessageTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.PrimaryColor
+                    TintColor = Dark.SecondaryColor
                 };
             }
             else // use default
@@ -109,7 +102,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = Light_Default.PageBackgroundColor,
                     MessageTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.PrimaryColor
+                    TintColor = Light_Default.SecondaryColor
                 };
             }
 
@@ -127,7 +120,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = ContrastDark.PageBackgroundColor,
                     MessageTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.PrimaryColor
+                    TintColor = ContrastDark.SecondaryColor
                 };
             }
             else if (currentTheme == ColorTheme.ContrastLight)
@@ -136,7 +129,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = ContrastLight.PageBackgroundColor,
                     MessageTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.PrimaryColor
+                    TintColor = ContrastLight.SecondaryColor
                 };
             }
             else if (currentTheme == ColorTheme.Dark)
@@ -145,7 +138,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = Dark.PageBackgroundColor,
                     MessageTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.PrimaryColor
+                    TintColor = Dark.SecondaryColor
                 };
             }
             else // use default
@@ -154,7 +147,7 @@ namespace collNotes.Factories
                 {
                     BackgroundColor = Light_Default.PageBackgroundColor,
                     MessageTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.PrimaryColor
+                    TintColor = Light_Default.SecondaryColor
                 };
             }
 
@@ -173,9 +166,9 @@ namespace collNotes.Factories
                     BackgroundColor = ContrastDark.PageBackgroundColor,
                     TextColor = ContrastDark.PrimaryTextColor,
                     TitleTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.PrimaryColor,
-                    ControlSelectedColor = ContrastDark.PrimaryColor,
-                    ControlUnselectedColor = ContrastDark.PrimaryColorDark
+                    TintColor = ContrastDark.SecondaryColor,
+                    ControlSelectedColor = ContrastDark.SecondaryColor,
+                    ControlUnselectedColor = ContrastDark.SecondaryColorDark
                 };
             }
             else if (currentTheme == ColorTheme.ContrastLight)
@@ -185,9 +178,9 @@ namespace collNotes.Factories
                     BackgroundColor = ContrastLight.PageBackgroundColor,
                     TextColor = ContrastLight.PrimaryTextColor,
                     TitleTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.PrimaryColor,
-                    ControlSelectedColor = ContrastLight.PrimaryColor,
-                    ControlUnselectedColor = ContrastLight.PrimaryColorDark
+                    TintColor = ContrastLight.SecondaryColor,
+                    ControlSelectedColor = ContrastLight.SecondaryColor,
+                    ControlUnselectedColor = ContrastLight.SecondaryColorDark
                 };
             }
             else if (currentTheme == ColorTheme.Dark)
@@ -197,9 +190,9 @@ namespace collNotes.Factories
                     BackgroundColor = Dark.PageBackgroundColor,
                     TextColor = Dark.PrimaryTextColor,
                     TitleTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.PrimaryColor,
-                    ControlSelectedColor = Dark.PrimaryColor,
-                    ControlUnselectedColor = Dark.PrimaryColorDark
+                    TintColor = Dark.SecondaryColor,
+                    ControlSelectedColor = Dark.SecondaryColor,
+                    ControlUnselectedColor = Dark.SecondaryColorDark
                 };
             }
             else // use default
@@ -209,9 +202,9 @@ namespace collNotes.Factories
                     BackgroundColor = Light_Default.PageBackgroundColor,
                     TextColor = Light_Default.PrimaryTextColor,
                     TitleTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.PrimaryColor,
-                    ControlSelectedColor = Light_Default.PrimaryColor,
-                    ControlUnselectedColor = Light_Default.PrimaryColorDark
+                    TintColor = Light_Default.SecondaryColor,
+                    ControlSelectedColor = Light_Default.SecondaryColor,
+                    ControlUnselectedColor = Light_Default.SecondaryColorDark
                 };
             }
 

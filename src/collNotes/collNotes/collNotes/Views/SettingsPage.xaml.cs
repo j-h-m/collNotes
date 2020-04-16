@@ -14,7 +14,6 @@ namespace collNotes.Views
         {
             InitializeComponent();
             BindingContext = viewModel;
-            viewModel.SetSettingsToSavedValues().Wait();
         }
 
         private async void Save_Clicked(object sender, EventArgs e)
@@ -44,7 +43,7 @@ namespace collNotes.Views
             var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
 
             // prompt user
-            var result = await MaterialDialog.Instance.ConfirmAsync("Are you sure you want to reset all of the data and settings? Note: this is an unrecoverable reset so you should consider creating a backup first!", 
+            var result = await MaterialDialog.Instance.ConfirmAsync("Are you sure you want to reset all of the data and settings? Note: this is an unrecoverable reset so you should consider creating a backup first!",
                 "Confirm", "Yes", "No",
                 configuration: alertDialogConfig);
             if (!(result is null || result == false))

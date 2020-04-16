@@ -34,8 +34,6 @@
     <MandroidI18n />
     <AotAssemblies>false</AotAssemblies>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>
