@@ -48,7 +48,7 @@ stages:
         inputs:
           apkFiles: '**/*.apk'
           apksignerKeystoreFile: '$(apksignerKeystoreFile)'
-          apksignerKeystorePassword: '$(apksignerKeystorePassword)'
+          apksignerKeyPassword: '$(apksignerKeystorePassword)'
           apksignerKeystoreAlias: '$(apksignerKeystoreAlias)'
       - task: InstallAppleProvisioningProfile@1
         displayName: 'install apple provisioning profile'
