@@ -70,6 +70,8 @@ stages:
           packageApp: true
           buildForSimulator: false
           runNugetRestore: false
+      - script: mv $(Build.ArtifactStagingDirectory)/*.apk $(Build.ArtifactStagingDirectory)/collnotes.apk
+        displayName: 'rename Android apk'
       - task: GitHubRelease@1
         displayName: 'Github release ipa and apk'
         inputs:
