@@ -13,8 +13,11 @@ namespace collNotes.Views
         private readonly SiteDetailViewModel viewModel;
         private Location CurrentLocation { get; set; }
         private Xamarin.Forms.Maps.Map Map { get; set; }
-        private const double DEGREES = 0.01;
         private bool LocationChanged = false;
+
+        private const double PopupMapHeight = 300.0;
+        private const double PopupMapWidth = 300.0;
+        private const double DEGREES = 0.01;
 
         public SiteDetailPage(SiteDetailViewModel viewModel)
         {
@@ -23,13 +26,13 @@ namespace collNotes.Views
 
             CurrentLocation = new Location()
             {
-                Longitude = string.IsNullOrEmpty(viewModel.Site.Longitude) ? 
+                Longitude = string.IsNullOrEmpty(viewModel.Site.Longitude) ?
                     0 : double.Parse(viewModel.Site.Longitude),
-                Latitude = string.IsNullOrEmpty(viewModel.Site.Latitude) ? 
+                Latitude = string.IsNullOrEmpty(viewModel.Site.Latitude) ?
                     0 : double.Parse(viewModel.Site.Latitude),
                 Accuracy = string.IsNullOrEmpty(viewModel.Site.CoordinateUncertaintyInMeters) ?
                     0 : double.Parse(viewModel.Site.CoordinateUncertaintyInMeters),
-                Altitude = string.IsNullOrEmpty(viewModel.Site.MinimumElevationInMeters) ? 
+                Altitude = string.IsNullOrEmpty(viewModel.Site.MinimumElevationInMeters) ?
                     0 : double.Parse(viewModel.Site.MinimumElevationInMeters)
             };
 
@@ -90,14 +93,14 @@ namespace collNotes.Views
             {
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
-                HeightRequest = 300.0,
-                WidthRequest = 300.0
+                HeightRequest = PopupMapHeight,
+                WidthRequest = PopupMapWidth
             };
             Map.Pins.Add(pin);
             Map.MapClicked += View_MapClicked;
 
             var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
-            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, 
+            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null,
                 "Update", "Cancel",
                 configuration: alertDialogConfig);
 

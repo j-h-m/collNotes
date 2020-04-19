@@ -30,7 +30,7 @@
                         <material:MaterialLabel Text="Starting Field Number:" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"/>
                         <material:MaterialTextField x:Name="CollectionCountTextField" Text="{Binding CurrentCollectionCountString}"
-                                                    Placeholder="100" InputType="Numeric" TextChanged="CollectionCountTextField_TextChanged"
+                                                    Placeholder="100" InputType="Numeric"
                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                     BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                     TintColor="{DynamicResource SecondaryColor}"

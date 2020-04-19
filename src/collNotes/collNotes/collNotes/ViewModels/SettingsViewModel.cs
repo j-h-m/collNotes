@@ -52,7 +52,10 @@ namespace collNotes.ViewModels
             {
                 _CurrentCollectionCountString = value;
                 OnPropertyChanged(nameof(CurrentCollectionCountString));
-                CurrentCollectionCount = int.Parse(value);
+
+                int parseResult = 0;
+                CurrentCollectionCount = int.TryParse(value, out parseResult) ?
+                    parseResult : 1;
             }
         }
         private string _SelectedExportFormat;
@@ -158,17 +161,18 @@ namespace collNotes.ViewModels
             LastSavedDateTimeString = GetLastSavedDateTimeString(GetLastSavedSettingDateTime());
         }
 
-        public async Task CreateOrUpdateSetting(string settingKey, string settingValue)
+        public async Task<bool> CreateOrUpdateSetting(string settingKey, string settingValue)
         {
             var setting = await settingService.GetByNameAsync(settingKey);
+            bool result = false;
             if (setting is Setting)
             {
                 setting.SettingValue = settingValue;
-                await settingService.UpdateAsync(setting);
+                result = await settingService.UpdateAsync(setting);
             }
             else
             {
-                await settingService.CreateAsync(new Setting()
+                result = await settingService.CreateAsync(new Setting()
                 {
                     SettingName = settingKey,
                     SettingValue = settingValue,
@@ -181,6 +185,8 @@ namespace collNotes.ViewModels
             {
                 CollNotesSettings.AutoCompleteSource = AutoCompleteSettings.GetAutoCompleteData(setting.SettingValue);
             }
+
+            return result;
         }
 
         public DateTime? GetLastSavedSettingDateTime()

@@ -64,28 +64,6 @@ namespace collNotes.Views
             }
         }
 
-        private void CollectionCountTextField_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (int.TryParse(e.NewTextValue, out int intOutput))
-            {
-                if (intOutput >= 0)
-                {
-                    viewModel.CurrentCollectionCount = intOutput;
-                    CollectionCountTextField.HasError = false;
-                }
-                else
-                {
-                    CollectionCountTextField.HasError = true;
-                    CollectionCountTextField.ErrorText = "Input should be positive";
-                }
-            }
-            else
-            {
-                CollectionCountTextField.HasError = true;
-                CollectionCountTextField.ErrorText = "Input should be numeric";
-            }
-        }
-
         private async void ColorTheme_ChoiceSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)

@@ -5,8 +5,8 @@ namespace collNotes.Settings
     public static class CollNotesSettings
     {
         public const string CollectionCountKey = "collection_count";
-        public const int CollectionCountDefault = 0;
-        public const string CollectionCountStringDefault = "0";
+        public const int CollectionCountDefault = 1;
+        public const string CollectionCountStringDefault = "1";
         public const string PrimaryCollectorKey = "primary_collector";
 
         public const string ExportFormatKey = "export_format";

@@ -68,18 +68,15 @@ namespace collNotes.Services
 
         public async Task<bool> DeleteAllAsync()
         {
-            return await Task.Run(() =>
+            if (Context.Trips.Any())
             {
-                if (Context.Trips.Count() > 0)
+                Context.Trips.ForEach<Trip>(async trip =>
                 {
-                    Context.Trips.ForEach<Trip>(async trip =>
-                    {
-                        await DeleteAsync(trip);
-                    });
-                    return true;
-                }
-                return false;
-            });
+                    await DeleteAsync(trip);
+                });
+                return true;
+            }
+            return false;
         }
 
         public async Task<IEnumerable<Trip>> GetAllAsync()
