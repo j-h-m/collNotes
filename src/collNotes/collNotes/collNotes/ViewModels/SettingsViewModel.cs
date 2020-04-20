@@ -55,7 +55,7 @@ namespace collNotes.ViewModels
 
                 int parseResult = 0;
                 CurrentCollectionCount = int.TryParse(value, out parseResult) ?
-                    parseResult : 1;
+                    parseResult : CollNotesSettings.CollectionCountDefault;
             }
         }
         private string _SelectedExportFormat;
@@ -237,9 +237,8 @@ namespace collNotes.ViewModels
 
                 SelectedAutoCompleteType = (autoCompleteTypeSetting is null) ?
                     CollNotesSettings.AutoCompleteDefault : autoCompleteTypeSetting.SettingValue;
-                CurrentCollectionCount = (collectionCountSetting is null) ?
-                    CollNotesSettings.CollectionCountDefault : Convert.ToInt32(collectionCountSetting.SettingValue);
-                CurrentCollectionCountString = CurrentCollectionCount.ToString();
+                CurrentCollectionCountString = (collectionCountSetting is null) ?
+                    CollNotesSettings.CollectionCountStringDefault : collectionCountSetting.SettingValue;
                 SelectedColorTheme = (colorThemeSetting is null) ?
                     CollNotesSettings.ColorThemeDefault : colorThemeSetting.SettingValue;
                 SelectedExportFormat = (exportFormatSetting is null) ?

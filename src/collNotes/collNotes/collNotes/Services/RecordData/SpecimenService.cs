@@ -65,18 +65,16 @@ namespace collNotes.Services
             if (Context.Specimen.Any())
             {
                 int maxSpecimenNumber = await Context.Specimen.MaxAsync(s => s.SpecimenNumber);
-                if (settingsViewModel.CurrentCollectionCount > maxSpecimenNumber)
-                {
-                    return settingsViewModel.CurrentCollectionCount;
-                }
-                else
-                {
-                    return maxSpecimenNumber + 1;
-                }
+                
+                return (settingsViewModel.CurrentCollectionCount > maxSpecimenNumber) ?
+                    settingsViewModel.CurrentCollectionCount :
+                    maxSpecimenNumber + 1;
             }
             else
             {
-                return 1;
+                return settingsViewModel.CurrentCollectionCount > 0 ?
+                   settingsViewModel.CurrentCollectionCount : 
+                   CollNotesSettings.CollectionCountDefault;
             }
         }
 
