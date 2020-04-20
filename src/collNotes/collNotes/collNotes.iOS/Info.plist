@@ -44,5 +44,7 @@
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleVersion</key>
 	<string>2.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.0.4</string>
 </dict>
 </plist>
