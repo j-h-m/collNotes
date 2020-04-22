@@ -66,7 +66,7 @@ namespace collNotes.Services
             return false;
         }
 
-        public async Task<bool> DeleteAllAsync()
+        public bool DeleteAll()
         {
             if (Context.Trips.Any())
             {

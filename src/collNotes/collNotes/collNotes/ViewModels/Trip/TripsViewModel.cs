@@ -40,9 +40,9 @@ namespace collNotes.ViewModels
 
             LoadTripsCommand = new Command(async () => await ExecuteLoadTripsCommand());
 
-            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteTrips", async (sender) =>
+            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteTrips", (sender) =>
             {
-                await tripService.DeleteAllAsync();
+                tripService.DeleteAll();
             });
         }
 
