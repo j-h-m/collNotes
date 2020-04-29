@@ -1,0 +1,2 @@
+﻿ios release fix
+ - https://devblogs.microsoft.com/xamarin/uiwebview-deprecation-xamarin-forms/
