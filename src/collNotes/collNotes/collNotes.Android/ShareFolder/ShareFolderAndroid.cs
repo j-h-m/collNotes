@@ -8,6 +8,7 @@ namespace collNotes.Droid.ShareFolder
     {
         public string GetShareFolder()
         {
+            // deprecated
             return Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).AbsolutePath + "/";
         }
     }

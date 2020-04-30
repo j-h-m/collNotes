@@ -32,7 +32,7 @@ namespace collNotes.Droid
         }
 
         // Simulates background work that happens behind the splash screen
-        async void SimulateStartup()
+        void SimulateStartup()
         {
             Console.WriteLine(TAG, "starting MainActivity.");
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
