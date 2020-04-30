@@ -1,4 +1,6 @@
-﻿using UIKit;
+﻿using System;
+using System.IO;
+using UIKit;
 
 namespace collNotes.iOS
 {
