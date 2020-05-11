@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+using Foundation;
 using UIKit;
+
+[assembly: Preserve(typeof(System.Linq.Queryable), AllMembers = true)]
 
 namespace collNotes.iOS
 {

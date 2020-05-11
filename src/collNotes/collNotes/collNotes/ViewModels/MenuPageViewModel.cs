@@ -1,6 +1,8 @@
-﻿using collNotes.Services;
+﻿using collNotes.Data.Models;
+using collNotes.Services;
 using collNotes.Services.AppTheme;
 using collNotes.Services.Settings;
+using Microsoft.AppCenter.Crashes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,13 +11,23 @@ namespace collNotes.ViewModels
 {
     public class MenuPageViewModel : BaseViewModel
     {
+        private IAppThemeService appThemeService;
+        private MenuPageService menuPageService;
+
         public MenuPageViewModel()
         {
+            menuPageService = new MenuPageService();
             ISettingService settingService = new SettingService(Context);
             IExceptionRecordService exceptionRecordService = new ExceptionRecordService(Context);
-            IAppThemeService appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
 
-            appThemeService.SetAppTheme(appThemeService.GetSavedTheme().Result).Wait();
+            var savedTheme = appThemeService.GetSavedTheme().Result;
+            var result = appThemeService.SetAppTheme(savedTheme).Result;
+        }
+
+        public List<HomeMenuItem> GetMenuItems()
+        {
+            return menuPageService.GetMenuItems();
         }
     }
 }

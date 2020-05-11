@@ -9,7 +9,7 @@ namespace collNotes.Services
     {
         private static List<HomeMenuItem> MenuItems { get; set; }
 
-        public async Task<List<HomeMenuItem>> GetMenuPagesAsync()
+        public List<HomeMenuItem> GetMenuItems()
         {
             if (MenuItems is null)
             {
@@ -25,7 +25,7 @@ namespace collNotes.Services
                 };
             }
 
-            return await Task.FromResult(MenuItems);
+            return MenuItems;
         }
 
         public async Task<bool> UpdateMenuPageAsync(MenuItemType menuItemType)

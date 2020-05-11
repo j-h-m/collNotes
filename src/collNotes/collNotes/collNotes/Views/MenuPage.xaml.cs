@@ -15,16 +15,15 @@ namespace collNotes.Views
         private MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         private List<HomeMenuItem> MenuItems;
         private MenuPageViewModel menuPageViewModel;
-        private MenuPageService menuPageService;
 
         public MenuPage()
         {
             InitializeComponent();
             menuPageViewModel = new MenuPageViewModel();
-            menuPageService = new MenuPageService();
-            MenuItems = menuPageService.GetMenuPagesAsync().Result;
+            MenuItems = menuPageViewModel.GetMenuItems();
             ListViewMenu.ItemsSource = MenuItems;
             ListViewMenu.SelectedItem = MenuItems[0];
+
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
                 if (e.SelectedItem == null)
