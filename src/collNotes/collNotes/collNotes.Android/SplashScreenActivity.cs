@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace collNotes.Droid
 {
-    [Activity(Label = "SplashScreenActivity", Theme = "@style/SplashTheme.Screen", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "collNotes", Theme = "@style/SplashTheme.Screen", MainLauncher = true, NoHistory = true)]
     public class SplashScreenActivity : Activity
     {
         static readonly string TAG = "X:" + typeof(SplashScreenActivity).Name;
