@@ -37,3 +37,31 @@ stages:
         inputs:
           path: $(Build.ArtifactStagingDirectory)/$(apkFileName)
           artifact: android-apk
+    - job: 'iOS_Build'
+      pool:
+        vmImage: 'macOS-10.14'
+      steps:
+        - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_4_0
+          displayName: 'Select Xamarin SDK version 6.4.0'
+          enabled: true
+        - task: UseDotNet@2
+          displayName: 'Use .NET Core 3.1.101'
+          inputs:
+            packageType: sdk
+            version: 3.1.101
+            installationPath: $(Agent.ToolsDirectory)/dotnet
+        - task: NuGetToolInstaller@1
+          displayName: 'Install NuGet tool'
+        - task: NuGetCommand@2
+          displayName: 'nuget restore on solution'
+          inputs:
+            restoreSolution: '**/*.sln'
+        - task: XamariniOS@2
+          displayName: 'Build iOS App'
+          inputs:
+            clean: true
+            solutionFile: '**/*.sln'
+            configuration: 'Debug'
+            packageApp: true
+            buildForSimulator: false
+            runNugetRestore: false
