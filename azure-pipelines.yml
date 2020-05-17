@@ -6,6 +6,7 @@ variables:
   collNotesRepoName: 'j-h-m/collNotes'
   MonoVersion: '5_16_0'
   xcodeRoot: '/Applications/Xcode_10.1.app'
+  apkFileName: 'com.thc.collnotes.apk'
 
 stages:
 - stage: Build_Test
@@ -34,5 +35,5 @@ stages:
       - task: PublishPipelineArtifact@1
         displayName: 'publish apk'
         inputs:
-          path: $(Build.ArtifactStagingDirectory)/*.apk
+          path: $(Build.ArtifactStagingDirectory)/$(apkFileName)
           artifact: android-apk
