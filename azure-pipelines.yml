@@ -71,7 +71,12 @@ stages:
           inputs:
             clean: true
             solutionFile: '**/*.sln'
-            configuration: 'Debug'
+            configuration: '$(buildConfiguration)'
             packageApp: true
             buildForSimulator: false
             runNugetRestore: false
+        - task: PublishPipelineArtifact@1
+          displayName: 'publish ipa'
+          inputs:
+            path: '$(Build.SourcesDirectory)/**/*.ipa'
+            artifact: ios-ipa
