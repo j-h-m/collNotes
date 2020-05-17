@@ -56,27 +56,12 @@ stages:
           displayName: 'nuget restore on solution'
           inputs:
             restoreSolution: '**/*.sln'
-        - task: InstallAppleProvisioningProfile@1
-          displayName: 'install apple provisioning profile'
-          inputs:
-            provisioningProfileLocation: 'secureFiles'
-            provProfileSecureFile: '$(provProfileSecureFile)'
-        - task: InstallAppleCertificate@2
-          displayName: 'install apple cert'
-          inputs:
-            certSecureFile: '$(certSecureFile)'
-            certPwd: '$(certPwd)'
         - task: XamariniOS@2
           displayName: 'Build iOS App'
           inputs:
             clean: true
             solutionFile: '**/*.sln'
             configuration: '$(buildConfiguration)'
-            packageApp: true
+            packageApp: false
             buildForSimulator: false
             runNugetRestore: false
-        - task: PublishPipelineArtifact@1
-          displayName: 'publish ipa'
-          inputs:
-            path: '$(Build.SourcesDirectory)/**/*.ipa'
-            artifact: ios-ipa
