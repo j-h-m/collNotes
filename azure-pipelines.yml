@@ -16,6 +16,8 @@ stages:
       steps:
       - task: NuGetToolInstaller@0
         displayName: 'install nuget tool'
+        inputs:
+          checkLatest:  true
       - task: NuGetCommand@2
         displayName: 'nuget restore on solution'
         inputs:
