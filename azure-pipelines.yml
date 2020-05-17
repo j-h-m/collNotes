@@ -10,18 +10,18 @@ variables:
 stages:
 - stage: Build_Test
   jobs:
-    - job: 'Android'
+    - job: 'Android_Build'
       pool:
-        vmImage: 'windows-latest'
+        vmImage: 'windows-2019'
       steps:
       - task: NuGetToolInstaller@0
-        displayName: 'Install NuGet tool'
+        displayName: 'install nuget tool'
       - task: NuGetCommand@2
         displayName: 'nuget restore on solution'
         inputs:
           restoreSolution: '**/*.sln'
       - task: XamarinAndroid@1
-        displayName: 'Build App'
+        displayName: 'build app'
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
