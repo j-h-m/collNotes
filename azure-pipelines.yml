@@ -65,3 +65,20 @@ stages:
             packageApp: false
             buildForSimulator: true
             runNugetRestore: false
+- stage: Release
+  jobs:
+    - job: 'Github_Release'
+      pool:
+        vmImage: 'windows-latest'
+      steps:
+      - task: DownloadPipelineArtifact@2
+        displayName: 'download apk'
+        inputs:
+          artifact: android-apk
+          path: $(Build.ArtifactStagingDirectory)
+      - task: GithubRelease@0
+        displayName: 'GitHub Release'
+        inputs:
+          gitHubConnection: github-j-h-m
+          repositoryName: j-h-m/collNotes
+          assets: $(Build.ArtifactStagingDirectory)/*.apk
