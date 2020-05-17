@@ -63,5 +63,5 @@ stages:
             solutionFile: '**/*.sln'
             configuration: '$(buildConfiguration)'
             packageApp: false
-            buildForSimulator: false
+            buildForSimulator: true
             runNugetRestore: false
