@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using collNotes.Settings;
 using collNotes.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;

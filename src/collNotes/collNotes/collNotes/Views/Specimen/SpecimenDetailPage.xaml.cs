@@ -20,21 +20,23 @@ namespace collNotes.Views
             await Navigation.PopAsync();
         }
 
-        private async void Save_Clicked(object sender, EventArgs e)
+        private async void Update_Clicked(object sender, EventArgs e)
         {
-            await viewModel.SpecimenService.UpdateAsync(viewModel.Specimen);
+            await viewModel.specimenService.UpdateAsync(viewModel.Specimen);
             await Navigation.PopAsync();
         }
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message: "Are you sure you want to delete this Specimen?",
                                     title: "Confirmation",
                                     confirmingText: "Yes",
-                                    dismissiveText: "No"));
+                                    dismissiveText: "No",
+                                    configuration: alertDialogConfig));
             if (result)
             {
-                await viewModel.SpecimenService.DeleteAsync(viewModel.Specimen);
+                await viewModel.specimenService.DeleteAsync(viewModel.Specimen);
                 await Navigation.PopAsync();
             }
         }

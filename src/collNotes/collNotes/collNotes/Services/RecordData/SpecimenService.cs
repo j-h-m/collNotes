@@ -15,12 +15,11 @@ namespace collNotes.Services
     public class SpecimenService : IServiceBase<Specimen>
     {
         private CollNotesContext Context { get; set; }
-        private SettingService SettingService { get; set; }
         private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+
         public SpecimenService(CollNotesContext collNotesContext)
         {
             Context = collNotesContext;
-            SettingService = new SettingService(collNotesContext);
         }
 
         public async Task<bool> CreateAsync(Specimen specimen)
@@ -45,7 +44,7 @@ namespace collNotes.Services
             return false;
         }
 
-        public async Task<IEnumerable<Specimen>> GetAllAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Specimen>> GetAllAsync()
         {
             return await Context.Specimen.ToListAsync();
         }
@@ -63,27 +62,43 @@ namespace collNotes.Services
 
         public async Task<int> GetNextCollectionNumber()
         {
-            int specimenCount = settingsViewModel.CurrentCollectionCount == 0 ?
-                await Context.Specimen.CountAsync() :
-                settingsViewModel.CurrentCollectionCount;
-
-            var collectionCountSetting = await SettingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
-            if (collectionCountSetting is Setting)
+            if (Context.Specimen.Any())
             {
-                collectionCountSetting.SettingValue = (specimenCount + 1).ToString();
-                await SettingService.UpdateAsync(collectionCountSetting);
+                int maxSpecimenNumber = await Context.Specimen.MaxAsync(s => s.SpecimenNumber);
+                
+                return (settingsViewModel.CurrentCollectionCount > maxSpecimenNumber) ?
+                    settingsViewModel.CurrentCollectionCount :
+                    maxSpecimenNumber + 1;
             }
             else
             {
-                await SettingService.CreateAsync(new Setting()
-                {
-                    SettingName = CollNotesSettings.CollectionCountKey,
-                    SettingValue = (specimenCount + 1).ToString(),
-                    LastSaved = DateTime.Now
-                });
+                return settingsViewModel.CurrentCollectionCount > 0 ?
+                   settingsViewModel.CurrentCollectionCount : 
+                   CollNotesSettings.CollectionCountDefault;
             }
+        }
 
-            return settingsViewModel.CurrentCollectionCount = specimenCount + 1;
+        public async Task<bool> UpdateCollectionNumber()
+        {
+            if (Context.Specimen.Any())
+            {
+                int maxSpecimenNumber = await Context.Specimen.MaxAsync(s => s.SpecimenNumber);
+                int currentCollectionCount = settingsViewModel.CurrentCollectionCount;
+
+                int specimenCount = maxSpecimenNumber > currentCollectionCount ?
+                    maxSpecimenNumber : currentCollectionCount;
+                // increment
+                specimenCount += 1;
+
+                settingsViewModel.CurrentCollectionCountString = specimenCount.ToString();
+
+                return await settingsViewModel.CreateOrUpdateSetting(CollNotesSettings.CollectionCountKey,
+                                                        specimenCount.ToString());
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<Specimen> GetByNameAsync(string name)

@@ -49,10 +49,7 @@ namespace collNotes.Views
             }
             else
             {
-                if (searchBarViewModel.AutoCompleteSource.Count > 0)
-                {
-                    SearchResult_ListView.ItemsSource = new List<string>();
-                }
+                SearchResult_ListView.ItemsSource = new List<string>();
             }
         }
 

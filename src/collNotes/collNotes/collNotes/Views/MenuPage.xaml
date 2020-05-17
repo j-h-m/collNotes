@@ -4,19 +4,31 @@
              x:Class="collNotes.Views.MenuPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              Title="Menu">
-    <StackLayout VerticalOptions="FillAndExpand">
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-            <ContentView x:Name="LogoContentView" VerticalOptions="FillAndExpand">
-                <Image Source="collnotes_logo.png" VerticalOptions="Center" HeightRequest="80" />
+
+    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" 
+                     VerticalOptions="Center">
+            <ContentView x:Name="LogoContentView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Image Source="collnotes_logo.png" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="80" />
             </ContentView>
         </StackLayout>
         <ListView x:Name="ListViewMenu"
-                  HasUnevenRows="True">
+                  BackgroundColor="{DynamicResource PageBackgroundColor}"
+                  SeparatorColor="{DynamicResource PrimaryColor}"
+                  HasUnevenRows="True"
+                  ItemSelected="ListViewMenu_ItemSelected">
+            <ListView.Header>
+                <BoxView Color="{DynamicResource PrimaryColor}"
+                                 HeightRequest="1"
+                                 WidthRequest="100" />
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10">
-                            <material:MaterialLabel Text="{Binding Title}" FontSize="20" />
+                        <Grid Padding="10" BackgroundColor="{Binding BackgroundColor}">
+                            <material:MaterialLabel Text="{Binding Title}"
+                                                    FontSize="20"
+                                                    TextColor="{DynamicResource PrimaryTextColor}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

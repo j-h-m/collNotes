@@ -16,6 +16,7 @@ namespace collNotes.Data.Models
         public string Habitat { get; set; }
         public string AssociatedTaxa { get; set; }
         public string LocationNotes { get; set; }
+        public int AssociatedTripNumber { get; set; }
         private string _AssociatedTripName;
         public string AssociatedTripName
         {

@@ -3,18 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.FieldIDSearchPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <StackLayout Orientation="Vertical">
-                <material:MaterialLabel Text="{Binding SearchBarLabel}" FontSize="Title" />
+
+                <material:MaterialLabel Text="{Binding SearchBarLabel}" FontSize="Title" 
+                                        TextColor="{DynamicResource PrimaryTextColor}"/>
                 <material:MaterialTextField x:Name="Search_TextField"
-                    Placeholder="sci names..."
-                           HorizontalOptions="Fill"
-                           VerticalOptions="CenterAndExpand"
-                           TextChanged="Search_TextChanged" />
+                                            Placeholder="sci names..."
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="CenterAndExpand"
+                                            TextChanged="Search_TextChanged" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"
+                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                            TintColor="{DynamicResource SecondaryColor}"
+                                            UnderlineColor="{DynamicResource SecondaryColor}"/>
+
                 <ListView x:Name="SearchResult_ListView" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"
-                          ItemSelected="SearchResult_ItemSelected" />
+                          ItemSelected="SearchResult_ItemSelected"
+                          BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding}"
+                                       BackgroundColor="Transparent"
+                                       TextColor="{DynamicResource PrimaryTextColor}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </material:MaterialCard>
     </ContentPage.Content>

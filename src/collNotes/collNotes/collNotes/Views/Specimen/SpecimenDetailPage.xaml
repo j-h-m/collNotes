@@ -3,32 +3,81 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.SpecimenDetailPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+        <ToolbarItem Text="Update" Clicked="Update_Clicked" />
     </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+        <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <ScrollView>
                 <StackLayout>
-                    <material:MaterialLabel Text="Specimen Name" FontSize="Medium" />
-                    <material:MaterialTextField Text="{Binding Specimen.SpecimenName}" IsEnabled="False" Placeholder="Name" />
-                    <material:MaterialLabel Text="Field Identification" FontSize="Medium" />
-                    <material:MaterialTextField Text="{Binding Specimen.FieldIdentification}" Placeholder="Field ID" />
-                    <material:MaterialLabel Text="Occurrence Notes:" FontSize="Medium" />
-                    <material:MaterialTextField Text="{Binding Specimen.OccurrenceNotes}" Placeholder="Tallest in the stand" />
-                    <material:MaterialLabel Text="Substrate" FontSize="Medium" />
-                    <material:MaterialTextField Text="{Binding Specimen.Substrate}" Placeholder="mycorrhizal with Ent." />
-                    <material:MaterialLabel Text="Life Stage" FontSize="Medium" />
-                    <material:MaterialTextField Text="{Binding Specimen.LifeStage}" Placeholder="Select Life Stage" />
-                    <material:MaterialLabel Text="Cultivated" FontSize="Medium" />
-                    <material:MaterialSwitch IsActivated="{Binding IsCultivated}" HorizontalOptions="Start" />
-                    <material:MaterialLabel Text="Indiv. Count ≥" />
-                    <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric" />
-                    <material:MaterialLabel Text="Associated Site" FontSize="Medium" />
-                    <material:MaterialTextField Text="{Binding Specimen.AssociatedSiteName}" IsEnabled="False" />
-                    <material:MaterialButton Text="Delete" Clicked="Delete_Clicked" />
+                    <material:MaterialLabel Text="Specimen Name" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.SpecimenName}" IsEnabled="False" Placeholder="Name"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialLabel Text="Field Identification" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.FieldIdentification}" Placeholder="Field ID"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialLabel Text="Occurrence Notes:" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.OccurrenceNotes}" Placeholder="Tallest in the stand"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialLabel Text="Substrate" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.Substrate}" Placeholder="mycorrhizal with Ent."
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialLabel Text="Life Stage" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.LifeStage}" Placeholder="Select Life Stage"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialLabel Text="Cultivated" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialSwitch IsActivated="{Binding Specimen.Cultivated}" HorizontalOptions="Start"
+                                             ActiveThumbColor="{DynamicResource SecondaryColorLight}" 
+                                             ActiveTrackColor="{DynamicResource PrimaryColorLight}"/>
+
+                    <material:MaterialLabel Text="Indiv. Count ≥" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.IndividualCount}" Placeholder="Est. qty. ≥" InputType="Numeric"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"
+                                                UnderlineColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialLabel Text="Associated Site" FontSize="Medium" 
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialTextField Text="{Binding Specimen.AssociatedSiteName}" IsEnabled="False"
+                                                TextColor="{DynamicResource PrimaryTextColor}"
+                                                BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+                                                TintColor="{DynamicResource SecondaryColor}"/>
+
+                    <material:MaterialButton Text="Delete" Clicked="Delete_Clicked"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                 </StackLayout>
             </ScrollView>
         </material:MaterialCard>

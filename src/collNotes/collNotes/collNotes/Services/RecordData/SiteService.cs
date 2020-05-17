@@ -47,7 +47,7 @@ namespace collNotes.Services
             return false;
         }
 
-        public async Task<IEnumerable<Site>> GetAllAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Site>> GetAllAsync()
         {
             return await Context.Sites.ToListAsync();
         }
@@ -67,6 +67,12 @@ namespace collNotes.Services
         public async Task<int> GetNextCollectionNumber()
         {
             int siteCount = await Context.Sites.CountAsync();
+            if (Context.Sites.Any())
+            {
+                int lastSiteNumber = await Context.Sites.MaxAsync(s => s.SiteNumber);
+                if (siteCount < lastSiteNumber)
+                    return lastSiteNumber + 1;
+            }
             return siteCount + 1;
         }
 

@@ -5,7 +5,8 @@ namespace collNotes.Settings
     public static class CollNotesSettings
     {
         public const string CollectionCountKey = "collection_count";
-        public const int CollectionCountDefault = 0;
+        public const int CollectionCountDefault = 1;
+        public const string CollectionCountStringDefault = "1";
         public const string PrimaryCollectorKey = "primary_collector";
 
         public const string ExportFormatKey = "export_format";
@@ -18,7 +19,7 @@ namespace collNotes.Settings
         public const string AutoCompleteDefault = "Plantae";
 
         public const string ColorThemeKey = "color_theme";
-        public const string ColorThemeDefault = "Default";
+        public const string ColorThemeDefault = "Light [Default]";
 
         public const string DeviceInfoKey = "device_info";
 
@@ -27,6 +28,8 @@ namespace collNotes.Settings
                     $"Name: {Xamarin.Essentials.DeviceInfo.Name}; " +
                     $"Platform: {Xamarin.Essentials.DeviceInfo.Platform}; " +
                     $"Version: {Xamarin.Essentials.DeviceInfo.VersionString}";
+
+        public static bool IsAppStartingUp = true;
 
         public static List<string> LifeStages = new List<string>()
         {
@@ -64,5 +67,69 @@ namespace collNotes.Settings
         };
 
         public static Dictionary<string, List<string>> AutoCompleteSource { get; set; }
+
+        public enum ColorTheme
+        {
+            Light_Default,
+            Dark,
+            ContrastLight,
+            ContrastDark
+        }
+
+        public static string GetByEnum(ColorTheme colorTheme)
+        {
+            string themeName = string.Empty;
+
+            switch (colorTheme)
+            {
+                case ColorTheme.Light_Default:
+                    themeName = ColorThemes[(int)ColorTheme.Light_Default];
+                    break;
+                case ColorTheme.Dark:
+                    themeName = ColorThemes[(int)ColorTheme.Dark];
+                    break;
+                case ColorTheme.ContrastLight:
+                    themeName = ColorThemes[(int)ColorTheme.ContrastLight];
+                    break;
+                case ColorTheme.ContrastDark:
+                    themeName = ColorThemes[(int)ColorTheme.ContrastDark];
+                    break;
+                default:
+                    break;
+            }
+
+            return themeName;
+        }
+
+        public static ColorTheme GetByThemeName(string themeName)
+        {
+            if (ColorThemes.Contains(themeName))
+            {
+                ColorTheme colorTheme;
+                switch (ColorThemes.IndexOf(themeName))
+                {
+                    case (int)ColorTheme.Light_Default:
+                        colorTheme = ColorTheme.Light_Default;
+                        break;
+                    case (int)ColorTheme.Dark:
+                        colorTheme = ColorTheme.Dark;
+                        break;
+                    case (int)ColorTheme.ContrastLight:
+                        colorTheme = ColorTheme.ContrastLight;
+                        break;
+                    case (int)ColorTheme.ContrastDark:
+                        colorTheme = ColorTheme.ContrastDark;
+                        break;
+                    default:
+                        colorTheme = ColorTheme.Light_Default;
+                        break;
+                }
+                return colorTheme;
+            }
+            else
+            {
+                return ColorTheme.Light_Default;
+            }
+        }
     }
 }

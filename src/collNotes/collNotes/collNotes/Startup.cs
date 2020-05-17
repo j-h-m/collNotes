@@ -1,4 +1,7 @@
 ﻿using collNotes.Data.Context;
+using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using collNotes.Settings;
 using collNotes.Settings.AutoComplete;
 using collNotes.ViewModels;

@@ -29,12 +29,14 @@ namespace collNotes.Views
         {
             if (string.IsNullOrEmpty(viewModel.Specimen.SpecimenName))
             {
-                await MaterialDialog.Instance.AlertAsync("A photo requires a Specimen Name");
+                var alertDialogconfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("A photo requires a Specimen Name",
+                    configuration: alertDialogconfig);
                 return;
             }
             else
             {
-                string photoAsBase64 = await viewModel.CameraService.TakePicture(viewModel.ExceptionRecordService, viewModel.Specimen.SpecimenName);
+                string photoAsBase64 = await viewModel.cameraService.TakePicture(viewModel.exceptionRecordService, viewModel.Specimen.SpecimenName);
 
                 viewModel.Specimen.PhotoAsBase64 = !string.IsNullOrEmpty(photoAsBase64) ?
                     photoAsBase64 :
@@ -49,19 +51,26 @@ namespace collNotes.Views
         /// <param name="e"></param>
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Specimen.SpecimenName))
             {
-                await MaterialDialog.Instance.AlertAsync("Error saving specimen");
+                await MaterialDialog.Instance.AlertAsync("Error saving specimen",
+                    configuration: alertDialogConfig);
                 return;
             }
             if (string.IsNullOrEmpty(viewModel.AssociatedSiteName))
             {
-                await MaterialDialog.Instance.AlertAsync("A Specimen must be associated with a Site!");
+                await MaterialDialog.Instance.AlertAsync("A Specimen must be associated with a Site!",
+                    configuration: alertDialogConfig);
                 return;
             }
 
             viewModel.Specimen.AssociatedSiteName = viewModel.AssociatedSiteName;
+
+            var associatedSite = viewModel.AssociableSites.First(s => s.SiteName == viewModel.AssociatedSiteName);
+            viewModel.Specimen.AssociatedSiteNumber = associatedSite.SiteNumber;
 
             viewModel.Specimen.LifeStage = !string.IsNullOrEmpty(viewModel.SelectedLifeStage) ?
                 viewModel.SelectedLifeStage :
@@ -75,7 +84,10 @@ namespace collNotes.Views
                 viewModel.Specimen.FieldIdentification :
                 viewModel.Specimen.SpecimenName;
 
-            await viewModel.SpecimenService.CreateAsync(viewModel.Specimen);
+            if (await viewModel.specimenService.CreateAsync(viewModel.Specimen))
+            {
+                await viewModel.specimenService.UpdateCollectionNumber();
+            }
             await Navigation.PopAsync();
         }
 

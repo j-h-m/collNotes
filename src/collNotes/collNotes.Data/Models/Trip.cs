@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace collNotes.Data.Models
@@ -31,6 +32,14 @@ namespace collNotes.Data.Models
             {
                 _TripName = value;
                 OnPropertyChanged(nameof(TripName));
+            }
+        }
+        [NotMapped]
+        public string PrimaryCollectorLabel
+        {
+            get 
+            { 
+                return !string.IsNullOrEmpty(PrimaryCollector) ? $"Primary Collector: {PrimaryCollector}" : "Primary Collector: N/A"; 
             }
         }
 

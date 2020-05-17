@@ -1,6 +1,9 @@
 ﻿using System;
 using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using Xamarin.Forms;
 
 namespace collNotes.ViewModels
@@ -8,18 +11,28 @@ namespace collNotes.ViewModels
     public class NewTripViewModel : BaseViewModel
     {
         public Trip Trip { get; set; }
-        public TripService TripService { get; set; }
         public bool IsClone { get; set; }
         private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+
+        public readonly TripService tripService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         /// <summary>
         /// Constructor for a new Trip.
         /// </summary>
         public NewTripViewModel()
         {
-            TripService = new TripService(Context);
+            tripService = new TripService(Context);
+            settingService = new SettingService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
-            int nextTripNumber = TripService.GetNextCollectionNumber().Result;
+            int nextTripNumber = tripService.GetNextCollectionNumber().Result;
 
             Trip = new Trip()
             {
@@ -39,9 +52,13 @@ namespace collNotes.ViewModels
         /// <param name="tripToClone">The trip to clone.</param>
         public NewTripViewModel(Trip tripToClone)
         {
-            TripService = new TripService(Context);
+            tripService = new TripService(Context);
+            settingService = new SettingService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
-            int nextTripNumber = TripService.GetNextCollectionNumber().Result;
+            int nextTripNumber = tripService.GetNextCollectionNumber().Result;
 
             Trip = new Trip()
             {

@@ -1,10 +1,15 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using collNotes.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.ViewModels
 {
@@ -12,15 +17,23 @@ namespace collNotes.ViewModels
     {
         public ObservableCollection<Specimen> SpecimenCollection { get; set; }
         public Command LoadSpecimenCommand { get; set; }
-        public SiteService SiteService { get; set; }
-        public SpecimenService SpecimenService { get; set; }
-        private ExceptionRecordService ExceptionRecordService { get; set; }
+        
+        public readonly SiteService siteService;
+        public readonly SpecimenService specimenService;
+
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         public SpecimenViewModel()
         {
-            SpecimenService = new SpecimenService(Context);
-            SiteService = new SiteService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
+            specimenService = new SpecimenService(Context);
+            siteService = new SiteService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             Title = "Specimen";
             SpecimenCollection = new ObservableCollection<Specimen>();
@@ -38,17 +51,19 @@ namespace collNotes.ViewModels
             try
             {
                 SpecimenCollection.Clear();
-                var specimenCollection = await SpecimenService.GetAllAsync(true);
-                foreach (var specimen in specimenCollection)
+                var specimenCollection = await specimenService.GetAllAsync();
+                specimenCollection = specimenCollection.OrderBy(specimen => specimen.AssociatedSiteNumber);
+
+                specimenCollection.ForEach(specimen =>
                 {
                     specimen.LabelString = string.IsNullOrEmpty(specimen.FieldIdentification) ?
                         specimen.SpecimenName : specimen.FieldIdentification;
                     SpecimenCollection.Add(specimen);
-                }
+                });
             }
             catch (Exception ex)
             {
-                await ExceptionRecordService.CreateExceptionRecord(ex);
+                await exceptionRecordService.CreateExceptionRecord(ex);
             }
             finally
             {

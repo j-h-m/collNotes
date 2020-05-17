@@ -8,7 +8,7 @@ namespace collNotes.Services
     {
         private const int _TIMEOUT_ = 20;
 
-        public async Task<Location> GetCurrentLocation(ExceptionRecordService exceptionRecordService)
+        public async Task<Location> GetCurrentLocation(IExceptionRecordService exceptionRecordService)
         {
             Location currentLocation = null;
 

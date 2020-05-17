@@ -1,5 +1,6 @@
 ﻿using collNotes.Data.Context;
 using collNotes.Data.Models;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,8 @@ namespace collNotes.Services
                     $"StackTrace: {exception.StackTrace}; " +
                     $"HelpLink: {exception.HelpLink}"
             };
+
+            Crashes.TrackError(exception); // track error in app center
 
             await context.ExceptionRecords.AddAsync(exceptionRecord);
             return await context.SaveChangesAsync() > 0;

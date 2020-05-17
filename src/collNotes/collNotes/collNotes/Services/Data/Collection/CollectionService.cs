@@ -16,7 +16,7 @@ namespace collNotes.Services.Data
         private readonly TripService tripService;
         private readonly SiteService siteService;
         private readonly SpecimenService specimenService;
-        private readonly ExceptionRecordService exceptionRecordService;
+        private readonly IExceptionRecordService exceptionRecordService;
 
         public CollectionService(CollNotesContext collNotesContext)
         {
@@ -113,29 +113,34 @@ namespace collNotes.Services.Data
                 if (randomSiteRecord is null)
                     throw new Exception("No Site found in records, invalid format.");
 
-                await tripService.CreateAsync(new Trip()
+                int nextTripNumber = await tripService.GetNextCollectionNumber();
+                Trip importedTrip = new Trip()
                 {
-                    TripName = randomSiteRecord.labelProject,
+                    TripName = $"Trip-{nextTripNumber}",
                     AdditionalCollectors = randomSiteRecord.associatedCollectors,
                     CollectionDate = Convert.ToDateTime(randomSiteRecord.eventDate),
                     PrimaryCollector = randomSiteRecord.recordedBy,
-                    TripNumber = await tripService.GetNextCollectionNumber()
-                });
+                    TripNumber = nextTripNumber
+                };
+
+                await tripService.CreateAsync(importedTrip);
 
                 int nextSiteNumber = await siteService.GetNextCollectionNumber();
                 int nextSpecimenNumber = await specimenService.GetNextCollectionNumber();
 
                 foreach (var record in darwinCoreRecords)
                 {
-                    int siteNumber = nextSiteNumber + sites.Count == 0 ? 1 : nextSiteNumber + sites.Count;
-                    int specimenNumber = nextSpecimenNumber + specimen.Count == 0 ? 1 : nextSpecimenNumber + specimen.Count;
+                    int siteNumber = nextSiteNumber + sites.Count == 0 ? 
+                        1 : nextSiteNumber + sites.Count;
+                    int specimenNumber = nextSpecimenNumber + specimen.Count == 0 ? 
+                        1 : nextSpecimenNumber + specimen.Count;
 
                     if (record.specimenNumber.Equals("#")) // Site Record
                     {
                         sites.Add(new Site()
                         {
                             AssociatedTaxa = record.associatedTaxa,
-                            AssociatedTripName = record.labelProject,
+                            AssociatedTripName = importedTrip.TripName,
                             CoordinateUncertaintyInMeters = record.coordinateUncertaintyInMeters,
                             Habitat = record.habitat,
                             Latitude = record.decimalLatitude,

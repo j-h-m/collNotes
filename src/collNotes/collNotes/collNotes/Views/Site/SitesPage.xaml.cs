@@ -29,18 +29,26 @@ namespace collNotes.Views
 
         private async void NewSite_Clicked(object sender, EventArgs e)
         {
-            var trips = await viewModel.TripService.GetAllAsync();
+            var trips = await viewModel.tripService.GetAllAsync();
             if (trips.Any())
+            {
                 await Navigation.PushAsync(new NewSitePage(new NewSiteViewModel()));
+            }
             else
-                await MaterialDialog.Instance.AlertAsync("Need Trips to associate with a new Site!");
+            {
+                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync("Need Trips to associate with a new Site!",
+                    configuration: alertDialogConfig);
+            }
         }
 
         private async void CloneSite_Clicked(object sender, EventArgs e)
         {
             var choices = viewModel.Sites.Select(s => s.SiteName).ToList();
+
+            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a site to clone..",
-                                                             choices: choices);
+                                                             choices: choices, configuration: confirmationDialogConfig);
 
             if (result != -1)
             {

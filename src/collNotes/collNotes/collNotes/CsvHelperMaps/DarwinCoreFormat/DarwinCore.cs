@@ -1,4 +1,5 @@
-﻿using collNotes.Data.Models;
+﻿using System;
+using collNotes.Data.Models;
 using collNotes.Services;
 using collNotes.Settings;
 
@@ -48,6 +49,11 @@ namespace collNotes.CsvHelperMaps.DarwinCoreFormat
 
         public DarwinCore(Site site, TripService tripService)
         {
+            if (site is null)
+                throw new ArgumentNullException(nameof(site));
+            if (tripService is null)
+                throw new ArgumentNullException(nameof(tripService));
+
             Trip trip = tripService.GetByNameAsync(site.AssociatedTripName).Result;
 
             recordNumber = site.SiteNumber.ToString() + "-#";

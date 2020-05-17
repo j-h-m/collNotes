@@ -6,80 +6,91 @@ variables:
   collNotesRepoName: 'j-h-m/collNotes'
   MonoVersion: '5_16_0'
   xcodeRoot: '/Applications/Xcode_10.1.app'
+  apkFileName: 'com.thc.collnotes.apk'
 
 stages:
-- stage: Build
+- stage: Build_Test
   jobs:
-  - job: 'Build_Test_and_Github_Release'
-    pool: 
-      vmImage: 'macOS-10.14'
-    steps:
-      - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_4_0
-        displayName: 'Select Xamarin SDK version 6.4.0'
-        enabled: true
-      - task: UseDotNet@2
-        displayName: 'Use .NET Core 3.1.101'
+    - job: 'Android_Build'
+      pool:
+        vmImage: 'windows-2019'
+      steps:
+      - task: NuGetToolInstaller@0
+        displayName: 'install nuget tool'
         inputs:
-          packageType: sdk
-          version: 3.1.101
-          installationPath: $(Agent.ToolsDirectory)/dotnet
-      - task: NuGetToolInstaller@1
-        displayName: 'Install NuGet tool'
+          versionSpec: '5.x'
+          checkLatest:  true
       - task: NuGetCommand@2
         displayName: 'nuget restore on solution'
         inputs:
           restoreSolution: '**/*.sln'
       - task: DotNetCoreCLI@2
-        displayName: 'dotnet test on test project'
+        displayName: 'run tests'
         inputs:
           command: test
           projects: '**/*Tests/*.csproj'
           arguments: '--configuration $(buildConfiguration)'
       - task: XamarinAndroid@1
-        displayName: 'Build Android App'
+        displayName: 'build app'
         inputs:
           clean: true
           projectFile: '**/*droid*.csproj'
           outputDirectory: '$(Build.ArtifactStagingDirectory)'
           configuration: '$(buildConfiguration)'
           createAppPackage: true
-      - task: AndroidSigning@3
-        displayName: 'sign Android build'
+      - task: PublishPipelineArtifact@1
+        displayName: 'publish apk'
         inputs:
-          apkFiles: '**/*.apk'
-          apksignerKeystoreFile: '$(apksignerKeystoreFile)'
-          apksignerKeystorePassword: '$(apksignerKeystorePassword)'
-          apksignerKeystoreAlias: '$(apksignerKeystoreAlias)'
-          apksignerKeyPassword: '$(apksignerKeyPassword)'
-      - task: InstallAppleProvisioningProfile@1
-        displayName: 'install apple provisioning profile'
+          path: $(Build.ArtifactStagingDirectory)/$(apkFileName)
+          artifact: android-apk
+    - job: 'iOS_Build'
+      pool:
+        vmImage: 'macOS-10.14'
+      steps:
+        - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_4_0
+          displayName: 'Select Xamarin SDK version 6.4.0'
+          enabled: true
+        - task: UseDotNet@2
+          displayName: 'Use .NET Core 3.1.101'
+          inputs:
+            packageType: sdk
+            version: 3.1.101
+            installationPath: $(Agent.ToolsDirectory)/dotnet
+        - task: NuGetToolInstaller@1
+          displayName: 'Install NuGet tool'
+        - task: NuGetCommand@2
+          displayName: 'nuget restore on solution'
+          inputs:
+            restoreSolution: '**/*.sln'
+        - task: DotNetCoreCLI@2
+          displayName: 'run tests'
+          inputs:
+            command: test
+            projects: '**/*Tests/*.csproj'
+            arguments: '--configuration $(buildConfiguration)'
+        - task: XamariniOS@2
+          displayName: 'Build iOS App'
+          inputs:
+            clean: true
+            solutionFile: '**/*.sln'
+            configuration: '$(buildConfiguration)'
+            packageApp: false
+            buildForSimulator: true
+            runNugetRestore: false
+- stage: Release
+  jobs:
+    - job: 'Github_Release'
+      pool:
+        vmImage: 'windows-latest'
+      steps:
+      - task: DownloadPipelineArtifact@2
+        displayName: 'download apk'
         inputs:
-          provisioningProfileLocation: 'secureFiles'
-          provProfileSecureFile: '$(provProfileSecureFile)'
-      - task: InstallAppleCertificate@2
-        displayName: 'install apple cert'
+          artifact: android-apk
+          path: $(Build.ArtifactStagingDirectory)
+      - task: GithubRelease@0
+        displayName: 'GitHub Release'
         inputs:
-          certSecureFile: '$(certSecureFile)'
-          certPwd: '$(certPwd)'
-      - task: XamariniOS@2
-        displayName: 'Build iOS App'
-        inputs:
-          clean: true
-          solutionFile: '**/*.sln'
-          configuration: '$(buildConfiguration)'
-          packageApp: true
-          buildForSimulator: false
-          runNugetRestore: false
-      - task: GitHubRelease@1
-        displayName: 'Github release ipa and apk'
-        inputs:
-          gitHubConnection: 'j-h-m'
-          repositoryName: '$(collNotesRepoName)'
-          action: 'create'
-          tag: 'v2.x'
-          tagSource: 'gitTag'
-          title: 'collNotes alpha release'
-          isPreRelease: true
-          assets: |
-              $(Build.ArtifactStagingDirectory)/*.apk
-              $(Build.SourcesDirectory)/**/*.ipa
+          gitHubConnection: github-j-h-m
+          repositoryName: j-h-m/collNotes
+          assets: $(Build.ArtifactStagingDirectory)/*.apk

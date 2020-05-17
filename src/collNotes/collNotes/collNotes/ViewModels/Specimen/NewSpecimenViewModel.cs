@@ -1,9 +1,13 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
 using collNotes.Services;
+using collNotes.Services.AppTheme;
+using collNotes.Services.Settings;
 using collNotes.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace collNotes.ViewModels
 {
@@ -14,13 +18,16 @@ namespace collNotes.ViewModels
         public string AssociatedSiteName { get; set; }
         public IEnumerable<string> LifeStages { get => CollNotesSettings.LifeStages; }
         public string SelectedLifeStage { get; set; }
-        public bool IsCultivated { get; set; }
         public bool IsClone { get; set; }
 
-        private SiteService SiteService { get; set; }
-        public SpecimenService SpecimenService { get; set; }
-        public ExceptionRecordService ExceptionRecordService { get; set; }
-        public CameraService CameraService { get; set; }
+        private readonly SiteService siteService;
+        private readonly IAppThemeService appThemeService;
+        private readonly ISettingService settingService;
+
+        public readonly SpecimenService specimenService;
+        public readonly IExceptionRecordService exceptionRecordService;
+        public readonly ICameraService cameraService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } = (text, values) =>
             values.Where(x =>
@@ -30,13 +37,16 @@ namespace collNotes.ViewModels
 
         public NewSpecimenViewModel()
         {
-            SiteService = new SiteService(Context);
-            SpecimenService = new SpecimenService(Context);
-            ExceptionRecordService = new ExceptionRecordService(Context);
-            CameraService = new CameraService();
+            siteService = new SiteService(Context);
+            specimenService = new SpecimenService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            cameraService = new CameraService();
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
-            int nextSpecimenNumber = SpecimenService.GetNextCollectionNumber().Result;
-            AssociableSites = SiteService.GetAllAsync().Result;
+            int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
+            AssociableSites = siteService.GetAllAsync().Result;
 
             Specimen = new Specimen()
             {
@@ -50,11 +60,16 @@ namespace collNotes.ViewModels
 
         public NewSpecimenViewModel(Specimen specimenToClone)
         {
-            SiteService = new SiteService(Context);
-            SpecimenService = new SpecimenService(Context);
+            siteService = new SiteService(Context);
+            specimenService = new SpecimenService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            cameraService = new CameraService();
+            settingService = new SettingService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
-            int nextSpecimenNumber = SpecimenService.GetNextCollectionNumber().Result;
-            AssociableSites = SiteService.GetAllAsync().Result;
+            int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
+            AssociableSites = siteService.GetAllAsync().Result;
 
             Specimen = new Specimen()
             {

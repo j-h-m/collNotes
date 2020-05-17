@@ -1,5 +1,6 @@
-﻿using collNotes.ViewModels;
-using System;
+﻿using System;
+using System.Linq;
+using collNotes.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -25,19 +26,22 @@ namespace collNotes.Views
 
         private async void Location_Clicked(object sender, EventArgs e)
         {
-            if (!await viewModel.PermissionsService.CheckLocationPermission())
-                await viewModel.PermissionsService.RequestLocationPermission();
+            if (!await viewModel.permissionsService.CheckLocationPermission())
+                await viewModel.permissionsService.RequestLocationPermission();
 
-            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location."))
+            var dialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location.",
+                configuration: dialogConfig))
             {
-                CurrentLocation = await viewModel.GeoLocationService.GetCurrentLocation(viewModel.ExceptionRecordService);
+                CurrentLocation = await viewModel.geoLocationService.GetCurrentLocation(viewModel.exceptionRecordService);
             }
 
 #if DEBUG
             if (DeviceInfo.DeviceType == DeviceType.Virtual &&
                 DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                // mock with home location
+                // mock with home location on iOS emulator
+                // iOS emulator does not support GPS emulation
                 CurrentLocation = new Location()
                 {
                     Latitude = 34.72247,
@@ -57,29 +61,31 @@ namespace collNotes.Views
             {
                 UpdateCurrentLocation();
 
+                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: "Touch icon to view and refine location information.",
                                             actionButtonText: "OK",
-                                            msDuration: MaterialSnackbar.DurationLong);
-            }
+                                            msDuration: MaterialSnackbar.DurationLong,
+                                            configuration: snackbarConfig);
 
-            LocationStatusChip.Text = (CurrentLocation is null) ? "Location error!" : "Location success (touch)!";
-            LocationStatusChip.TextColor = (CurrentLocation is null) ? Color.Red : Color.FromHex("#DE000000");
-            LocationStatusChip.IsVisible = true;
+                LocationStatusChip.IsVisible = true;
+            }
         }
 
         private async void TakePicture_Clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(viewModel.Site.SiteName))
             {
-                await MaterialDialog.Instance.AlertAsync("A photo requires a Site Name");
+                var alertConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                await MaterialDialog.Instance.AlertAsync(message: "A photo requires a Site Name",
+                    configuration: alertConfig);
                 return;
             }
             else
             {
-                if (!await viewModel.PermissionsService.CheckCameraPermission())
-                    await viewModel.PermissionsService.RequestCameraPermission();
+                if (!await viewModel.permissionsService.CheckCameraPermission())
+                    await viewModel.permissionsService.RequestCameraPermission();
 
-                var photoAsBase64 = await viewModel.CameraService.TakePicture(viewModel.ExceptionRecordService, viewModel.Site.SiteName);
+                var photoAsBase64 = await viewModel.cameraService.TakePicture(viewModel.exceptionRecordService, viewModel.Site.SiteName);
                 if (!string.IsNullOrEmpty(photoAsBase64))
                 {
                     viewModel.Site.PhotoAsBase64 = photoAsBase64;
@@ -89,25 +95,34 @@ namespace collNotes.Views
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            var alertConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Site.SiteName))
             {
-                await MaterialDialog.Instance.AlertAsync("Site must have a name!");
+                await MaterialDialog.Instance.AlertAsync(message: "Site must have a name!",
+                    configuration: alertConfig);
                 return;
             }
             else if (string.IsNullOrEmpty(viewModel.AssociatedTripName))
             {
-                await MaterialDialog.Instance.AlertAsync("A Site must be associated with a Trip!");
+                await MaterialDialog.Instance.AlertAsync(message: "A Site must be associated with a Trip!",
+                    configuration: alertConfig);
                 return;
             }
             else if (string.IsNullOrEmpty(viewModel.Site.Longitude) || string.IsNullOrEmpty(viewModel.Site.Latitude))
             {
-                await MaterialDialog.Instance.AlertAsync("Please set GPS location for site before saving!");
+                await MaterialDialog.Instance.AlertAsync(message: "Please set GPS location for site before saving!",
+                    configuration: alertConfig);
                 return;
             }
 
             viewModel.Site.AssociatedTripName = viewModel.AssociatedTripName;
-            await viewModel.SiteService.CreateAsync(viewModel.Site);
+
+            var associatedTrip = viewModel.AssociableTrips.First(t => t.TripName == viewModel.AssociatedTripName);
+            viewModel.Site.AssociatedTripNumber = associatedTrip.TripNumber;
+
+            await viewModel.siteService.CreateAsync(viewModel.Site);
             await Navigation.PopAsync();
         }
 
@@ -140,7 +155,9 @@ namespace collNotes.Views
             Map.Pins.Add(pin);
             Map.MapClicked += View_MapClicked;
 
-            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, "Update", "Cancel");
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, "Update", "Cancel",
+                configuration: alertDialogConfig);
             if (result == true && Map.Pins.Count == 1)
             {
                 CurrentLocation = new Location()
@@ -170,6 +187,7 @@ namespace collNotes.Views
         {
             gpsInfoCard.IsVisible = !gpsInfoCard.IsVisible;
             GetLocation_Button.IsEnabled = !GetLocation_Button.IsEnabled;
+            LocationStatusChip.Text = gpsInfoCard.IsVisible ? "Touch icon to close" : "Touch icon to open";
         }
 
         private void UpdateCurrentLocation()

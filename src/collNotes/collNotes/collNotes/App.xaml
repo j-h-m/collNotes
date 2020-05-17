@@ -5,25 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="collNotes.App">
-
     <Application.Resources>
-        <ResourceDictionary>
-            <!--Color Theme Styles-->
-            <Color x:Key="BackgroundColor">#e0e0e0</Color>
-            <Color x:Key="BackgroundLight">#ffffff</Color>
-            <Color x:Key="BackgroundDark">#aeaeae</Color>
-            <Color x:Key="PrimaryColor">#004d40</Color>
-            <Color x:Key="PrimaryLight">#39796b</Color>
-            <Color x:Key="PrimaryDark">#00251a</Color>
-            <Color x:Key="TextColor">#212121</Color>
-            <Color x:Key="TextLight">#484848</Color>
-            <Color x:Key="TextDark">#000000</Color>
-            <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="BarTextColor" Value="White" />
-            </Style>
-        </ResourceDictionary>
+        <ResourceDictionary Source="ColorThemes/Light_Default.xaml" />
+        
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor"
+                    Value="{DynamicResource NavigationBarColor}" />
+            <Setter Property="BarTextColor"
+                    Value="{DynamicResource SecondaryTextColor}" />
+        </Style>
     </Application.Resources>
 </Application>

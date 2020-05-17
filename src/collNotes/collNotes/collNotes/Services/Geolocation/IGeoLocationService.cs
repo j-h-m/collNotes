@@ -5,6 +5,6 @@ namespace collNotes.Services
 {
     public interface IGeoLocationService
     {
-        Task<Location> GetCurrentLocation(ExceptionRecordService exceptionRecordService);
+        Task<Location> GetCurrentLocation(IExceptionRecordService exceptionRecordService);
     }
 }

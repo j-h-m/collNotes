@@ -1,4 +1,7 @@
 ﻿using collNotes.Data.Models;
+using collNotes.Factories;
+using collNotes.Services;
+using collNotes.Services.AppTheme;
 using collNotes.Services.Permissions;
 using collNotes.Services.Settings;
 using collNotes.Settings;
@@ -12,8 +15,12 @@ namespace collNotes.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private SettingService SettingService { get; set; }
-        public readonly PermissionsService permissionsService;
+        private readonly ISettingService settingService;
+        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IAppThemeService appThemeService;
+
+        public readonly IPermissionsService permissionsService;
+        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
 
         #region Binding Properties
 
@@ -24,7 +31,6 @@ namespace collNotes.ViewModels
             set
             {
                 _CurrentCollectorName = value;
-                CreateOrUpdateSetting(CollNotesSettings.PrimaryCollectorKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(CurrentCollectorName));
             }
         }
@@ -34,12 +40,22 @@ namespace collNotes.ViewModels
             get { return _CurrentCollectionCount; }
             set
             {
-                if (value > 0)
-                {
-                    _CurrentCollectionCount = value;
-                    CreateOrUpdateSetting(CollNotesSettings.CollectionCountKey, value.ToString()).ConfigureAwait(false);
-                    OnPropertyChanged(nameof(CurrentCollectionCount));
-                }
+                _CurrentCollectionCount = value;
+                OnPropertyChanged(nameof(CurrentCollectionCount));
+            }
+        }
+        private string _CurrentCollectionCountString;
+        public string CurrentCollectionCountString
+        {
+            get { return _CurrentCollectionCountString ?? CollNotesSettings.CollectionCountStringDefault; }
+            set
+            {
+                _CurrentCollectionCountString = value;
+                OnPropertyChanged(nameof(CurrentCollectionCountString));
+
+                int parseResult = 0;
+                CurrentCollectionCount = int.TryParse(value, out parseResult) ?
+                    parseResult : CollNotesSettings.CollectionCountDefault;
             }
         }
         private string _SelectedExportFormat;
@@ -49,7 +65,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedExportFormat = value;
-                CreateOrUpdateSetting(CollNotesSettings.ExportFormatKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedExportFormat));
             }
         }
@@ -60,7 +75,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedExportMethod = value;
-                CreateOrUpdateSetting(CollNotesSettings.ExportMethodKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedExportMethod));
             }
         }
@@ -71,7 +85,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedAutoCompleteType = value;
-                CreateOrUpdateSetting(CollNotesSettings.AutoCompleteTypeKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedAutoCompleteType));
             }
         }
@@ -82,7 +95,6 @@ namespace collNotes.ViewModels
             set
             {
                 _SelectedColorTheme = value;
-                CreateOrUpdateSetting(CollNotesSettings.ColorThemeKey, value).ConfigureAwait(false);
                 OnPropertyChanged(nameof(SelectedColorTheme));
             }
         }
@@ -137,25 +149,30 @@ namespace collNotes.ViewModels
 
         public SettingsViewModel()
         {
-            SettingService = new SettingService(Context);
+            settingService = new SettingService(Context);
             permissionsService = new PermissionsService(Context);
+            exceptionRecordService = new ExceptionRecordService(Context);
+            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
             Title = "Settings";
 
+            SetSettingsToSavedValues().ConfigureAwait(false);
             LastSavedDateTimeString = GetLastSavedDateTimeString(GetLastSavedSettingDateTime());
         }
 
-        public async Task CreateOrUpdateSetting(string settingKey, string settingValue)
+        public async Task<bool> CreateOrUpdateSetting(string settingKey, string settingValue)
         {
-            var setting = await SettingService.GetByNameAsync(settingKey);
+            var setting = await settingService.GetByNameAsync(settingKey);
+            bool result = false;
             if (setting is Setting)
             {
                 setting.SettingValue = settingValue;
-                await SettingService.UpdateAsync(setting);
+                result = await settingService.UpdateAsync(setting);
             }
             else
             {
-                await SettingService.CreateAsync(new Setting()
+                result = await settingService.CreateAsync(new Setting()
                 {
                     SettingName = settingKey,
                     SettingValue = settingValue,
@@ -164,10 +181,12 @@ namespace collNotes.ViewModels
             }
 
             // if creating or updating auto complete type we also want to update the source
-            if (setting is Setting && setting.SettingName.Equals(CollNotesSettings.AutoCompleteTypeKey))
+            if (setting is Setting && setting.SettingName.Equals(CollNotesSettings.AutoCompleteTypeKey, StringComparison.CurrentCulture))
             {
                 CollNotesSettings.AutoCompleteSource = AutoCompleteSettings.GetAutoCompleteData(setting.SettingValue);
             }
+
+            return result;
         }
 
         public DateTime? GetLastSavedSettingDateTime()
@@ -185,15 +204,82 @@ namespace collNotes.ViewModels
                 $"{Convert.ToDateTime(lastSavedDateTime).ToShortDateString()} {Convert.ToDateTime(lastSavedDateTime).ToShortTimeString()}";
         }
 
-        public void ResetSettings()
+        public async Task ResetSettings()
         {
-            CurrentCollectionCount = 0;
+            CurrentCollectionCountString = CollNotesSettings.CollectionCountStringDefault;
             CurrentCollectorName = string.Empty;
             SelectedAutoCompleteType = CollNotesSettings.AutoCompleteDefault;
-            SelectedColorTheme = CollNotesSettings.ColorThemeDefault;
             SelectedExportFormat = CollNotesSettings.ExportFormatDefault;
             SelectedExportMethod = CollNotesSettings.ExportMethodDefault;
+            SelectedColorTheme = CollNotesSettings.ColorThemeDefault;
             LastSavedDateTimeString = GetLastSavedDateTimeString(null);
+
+            await UpdateSettings();
+        }
+
+        public async Task<bool> SaveTheme(CollNotesSettings.ColorTheme colorTheme)
+        {
+            return await appThemeService.SaveAppTheme(colorTheme);
+        }
+
+        public async Task<bool> SetSettingsToSavedValues()
+        {
+            bool result = false;
+
+            try
+            {
+                var autoCompleteTypeSetting = await settingService.GetByNameAsync(CollNotesSettings.AutoCompleteTypeKey);
+                var collectionCountSetting = await settingService.GetByNameAsync(CollNotesSettings.CollectionCountKey);
+                var colorThemeSetting = await settingService.GetByNameAsync(CollNotesSettings.ColorThemeKey);
+                var exportFormatSetting = await settingService.GetByNameAsync(CollNotesSettings.ExportFormatKey);
+                var exportMethodSetting = await settingService.GetByNameAsync(CollNotesSettings.ExportMethodKey);
+                var primaryCollectorSetting = await settingService.GetByNameAsync(CollNotesSettings.PrimaryCollectorKey);
+
+                SelectedAutoCompleteType = (autoCompleteTypeSetting is null) ?
+                    CollNotesSettings.AutoCompleteDefault : autoCompleteTypeSetting.SettingValue;
+                CurrentCollectionCountString = (collectionCountSetting is null) ?
+                    CollNotesSettings.CollectionCountStringDefault : collectionCountSetting.SettingValue;
+                SelectedColorTheme = (colorThemeSetting is null) ?
+                    CollNotesSettings.ColorThemeDefault : colorThemeSetting.SettingValue;
+                SelectedExportFormat = (exportFormatSetting is null) ?
+                    CollNotesSettings.ExportFormatDefault : exportFormatSetting.SettingValue;
+                SelectedExportMethod = (exportMethodSetting is null) ?
+                    CollNotesSettings.ExportMethodDefault : exportMethodSetting.SettingValue;
+                CurrentCollectorName = (primaryCollectorSetting is null) ?
+                    string.Empty : primaryCollectorSetting.SettingValue;
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                await exceptionRecordService.CreateExceptionRecord(ex);
+            }
+
+            return result;
+        }
+
+        public async Task<bool> UpdateSettings()
+        {
+            bool result = false;
+
+            try
+            {
+                await CreateOrUpdateSetting(CollNotesSettings.AutoCompleteTypeKey, SelectedAutoCompleteType);
+                await CreateOrUpdateSetting(CollNotesSettings.CollectionCountKey, CurrentCollectionCount.ToString());
+                await CreateOrUpdateSetting(CollNotesSettings.ColorThemeKey, SelectedColorTheme);
+                await CreateOrUpdateSetting(CollNotesSettings.ExportFormatKey, SelectedExportFormat);
+                await CreateOrUpdateSetting(CollNotesSettings.ExportMethodKey, SelectedExportMethod);
+                await CreateOrUpdateSetting(CollNotesSettings.PrimaryCollectorKey, CurrentCollectorName);
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                await exceptionRecordService.CreateExceptionRecord(ex);
+                result = false;
+            }
+
+            return result;
         }
     }
 }

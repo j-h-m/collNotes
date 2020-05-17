@@ -66,23 +66,20 @@ namespace collNotes.Services
             return false;
         }
 
-        public async Task<bool> DeleteAllAsync()
+        public bool DeleteAll()
         {
-            return await Task.Run(() =>
+            if (Context.Trips.Any())
             {
-                if (Context.Trips.Count() > 0)
+                Context.Trips.ForEach<Trip>(async trip =>
                 {
-                    Context.Trips.ForEach<Trip>(async trip =>
-                    {
-                        await DeleteAsync(trip);
-                    });
-                    return true;
-                }
-                return false;
-            });
+                    await DeleteAsync(trip);
+                });
+                return true;
+            }
+            return false;
         }
 
-        public async Task<IEnumerable<Trip>> GetAllAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Trip>> GetAllAsync()
         {
             return await Context.Trips.ToListAsync();
         }
@@ -109,6 +106,12 @@ namespace collNotes.Services
         public async Task<int> GetNextCollectionNumber()
         {
             int tripCount = await Context.Trips.CountAsync();
+            if (Context.Trips.Any())
+            {
+                int lastTripNumber = await Context.Trips.MaxAsync(t => t.TripNumber);
+                if (tripCount < lastTripNumber)
+                    return lastTripNumber + 1;
+            }
             return tripCount + 1;
         }
 

@@ -23,13 +23,13 @@ namespace collNotes.Views
 
         private async void Update_Clicked(object sender, EventArgs e)
         {
-            await viewModel.TripService.UpdateAsync(viewModel.Trip);
+            await viewModel.tripService.UpdateAsync(viewModel.Trip);
             await Navigation.PopAsync();
         }
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
-            var childItems = await viewModel.TripService.GetChildrenAsync(viewModel.Trip);
+            var childItems = await viewModel.tripService.GetChildrenAsync(viewModel.Trip);
             string siteNames = string.Join(", ", childItems.Keys.Select(s => s.SiteName).ToArray());
             string specimenNames = string.Join(", ", childItems.Values.SelectMany(listSpecimen => listSpecimen).ToList().Select(s => s.SpecimenName).ToArray());
 
@@ -44,15 +44,17 @@ namespace collNotes.Views
                     Environment.NewLine +
                     "Are you sure you wish to delete this data?";
 
+            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message,
                                     title: "Confirmation",
                                     confirmingText: "Yes",
-                                    dismissiveText: "No"));
+                                    dismissiveText: "No",
+                                    configuration: alertDialogConfig));
             if (result)
             {
-                var deleteResult = await viewModel.TripService.DeleteAsync(viewModel.Trip);
+                var deleteResult = await viewModel.tripService.DeleteAsync(viewModel.Trip);
+                await Navigation.PopAsync();
             }
-            await Navigation.PopAsync();
         }
     }
 }

@@ -3,16 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.TripsPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" Clicked="NewTrip_Clicked" />
         <ToolbarItem x:Name="CloneButton" Text="Clone" Clicked="CloneTrip_Clicked" />
     </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <ListView x:Name="TripsListView" ItemsSource="{Binding Trips}"
-                          BackgroundColor="LightGray"
+                          BackgroundColor="Transparent"
                           VerticalOptions="FillAndExpand"
                           HasUnevenRows="True"
                           RefreshCommand="{Binding LoadTripsCommand}"
@@ -29,13 +32,16 @@
                                     <material:MaterialCard CornerRadius="2" Elevation="4"
                                                            HeightRequest="50"
                                                            HorizontalOptions="FillAndExpand"
-                                                           VerticalOptions="FillAndExpand">
+                                                           VerticalOptions="FillAndExpand"
+                                                           BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
                                         <StackLayout VerticalOptions="Center">
                                             <material:MaterialLabel Text="{Binding TripName}"
-                                                   LineBreakMode="NoWrap"
-                                                   VerticalOptions="Center"
-                                                   FontSize="18" />
-                                            <material:MaterialLabel Text="{Binding PrimaryCollector, StringFormat='Primary Collector: {0}'}"
+                                                                    TextColor="{DynamicResource PrimaryTextColor}"
+                                                                    LineBreakMode="NoWrap"
+                                                                    VerticalOptions="Center"
+                                                                    FontSize="18" />
+                                            <material:MaterialLabel Text="{Binding PrimaryCollectorLabel}"
+                                                   TextColor="{DynamicResource PrimaryTextColor}"
                                                    LineBreakMode="NoWrap"
                                                    VerticalOptions="Center"
                                                    FontSize="14" />

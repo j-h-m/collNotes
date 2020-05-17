@@ -17,7 +17,7 @@ namespace collNotes.Services
 
         Task<T> GetByNameAsync(string name);
 
-        Task<IEnumerable<T>> GetAllAsync(bool forceRefresh = false);
+        Task<IEnumerable<T>> GetAllAsync();
 
         Task<int> GetNextCollectionNumber();
     }

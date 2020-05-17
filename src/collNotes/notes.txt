@@ -1,0 +1,5 @@
+﻿ios release fix
+ - https://devblogs.microsoft.com/xamarin/uiwebview-deprecation-xamarin-forms/
+
+ios entity framework extension method + linker issue
+ - https://github.com/xamarin/xamarin-macios/issues/3394

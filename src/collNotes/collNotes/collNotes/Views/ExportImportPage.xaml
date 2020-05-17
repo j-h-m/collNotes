@@ -5,27 +5,51 @@
             x:Class="collNotes.Views.ExportImportPage"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
+            BackgroundColor="{DynamicResource PageBackgroundColor}"
             Title="{Binding Title}">
-    <ContentPage x:Name="ImportContentPage" Title="Import Data" IconImageSource="import_icon.png">
+
+    <ContentPage x:Name="ImportContentPage" Title="Import Data"
+                 IconImageSource="import_icon.png"
+                 BackgroundColor="{DynamicResource PageBackgroundColor}">
         <ContentPage.Content>
-            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
+            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                 <StackLayout>
-                    <material:MaterialLabel Text="Trip" FontSize="Title" />
-                    <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked" />
-                    <material:MaterialLabel Text="Backup" FontSize="Title" />
-                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked" />
+                    <material:MaterialLabel Text="Trip" FontSize="Title"
+                                            TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+
+                    <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+                    <material:MaterialLabel Text="No internet connection available, import is disabled." IsVisible="{Binding ShowConnectionErrorMsg}" />
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>
     </ContentPage>
-    <ContentPage x:Name="ExportContentPage" Title="Export Data" IconImageSource="export_icon.png">
+
+    <ContentPage x:Name="ExportContentPage" Title="Export Data"
+                 IconImageSource="export_icon.png" 
+                 BackgroundColor="{DynamicResource PageBackgroundColor}">
         <ContentPage.Content>
-            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand">
+            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                 <StackLayout>
-                    <material:MaterialLabel Text="Trip" FontSize="Title" />
-                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked" />
-                    <material:MaterialLabel Text="Backup" FontSize="Title" />
-                    <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked" />
+                    <material:MaterialLabel Text="Trip" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+
+                    <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked"
+                                             IsEnabled="{Binding IsConnectionAvailable}"
+                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
+                    <material:MaterialLabel Text="No internet connection available, export is disabled." IsVisible="{Binding ShowConnectionErrorMsg}" />
                 </StackLayout>
             </material:MaterialCard>
         </ContentPage.Content>
