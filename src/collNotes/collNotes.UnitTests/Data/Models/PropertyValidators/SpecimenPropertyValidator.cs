@@ -28,7 +28,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "LabelString"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(Specimen), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(Specimen), propertyNames);
             // assert
             Assert.True(isValid);
         }

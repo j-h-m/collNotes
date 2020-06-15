@@ -20,7 +20,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "TripName"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(Trip), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(Trip), propertyNames);
             // assert
             Assert.True(isValid);
         }

@@ -16,7 +16,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "Title"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(HomeMenuItem), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(HomeMenuItem), propertyNames);
             // assert
             Assert.True(isValid);
         }

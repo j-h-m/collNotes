@@ -180,6 +180,15 @@ namespace collNotes.Views
             }
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var netStatus = viewModel.connectivityService.GetNetworkStatus();
+            viewModel.IsConnectionAvailable = netStatus == Services.Connectivity.ConnectivityService.ActualConnectivity.Connected;
+            viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
+        }
+
         private string GetTitle(string currentPageName)
         {
             return $"{currentPageName} Collection Data";
@@ -212,15 +221,6 @@ namespace collNotes.Views
                 });
             }
             return stream;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            var netStatus = viewModel.connectivityService.GetNetworkStatus();
-            viewModel.IsConnectionAvailable = netStatus == Services.Connectivity.ConnectivityService.ActualConnectivity.Connected;
-            viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
         }
     }
 }

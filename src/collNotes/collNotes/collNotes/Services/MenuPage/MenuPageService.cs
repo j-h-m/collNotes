@@ -1,9 +1,9 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace collNotes.Services
+namespace collNotes.Services.MenuPage
 {
     public class MenuPageService
     {

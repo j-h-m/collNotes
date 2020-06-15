@@ -27,7 +27,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "PhotoAsBase64"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(Site), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(Site), propertyNames);
             // assert
             Assert.True(isValid);
         }
