@@ -1,7 +1,8 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.DeviceServices.AppTheme;
+using collNotes.Domain.Models;
 using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Settings;
+using collNotes.Services.Data;
+using collNotes.Services.MenuPage;
 using Microsoft.AppCenter.Crashes;
 using System;
 using System.Collections.Generic;

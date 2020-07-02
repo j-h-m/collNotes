@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using collNotes.Data.Context;
+using collNotes.Ef.Context;
+using collNotes.Services.Data;
 using Xamarin.Essentials;
 
 namespace collNotes.DeviceServices.Email
@@ -31,7 +32,7 @@ namespace collNotes.DeviceServices.Email
                     To = recipients,
                     Attachments = emailAttachments
                 };
-                await Email.ComposeAsync(message);
+                await Xamarin.Essentials.Email.ComposeAsync(message);
             }
             catch (Exception ex)
             {

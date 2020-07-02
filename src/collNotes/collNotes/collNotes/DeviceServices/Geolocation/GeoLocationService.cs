@@ -1,4 +1,5 @@
-﻿using System;
+﻿using collNotes.Services.Data;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -14,7 +15,8 @@ namespace collNotes.DeviceServices.Geolocation
 
             try
             {
-                var location = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(_TIMEOUT_)));
+                var location = await Xamarin.Essentials.Geolocation.GetLocationAsync(
+                    new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(_TIMEOUT_)));
 
                 if (location != null)
                     currentLocation = location;

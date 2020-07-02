@@ -1,13 +1,16 @@
-﻿using collNotes.Data.Models;
-using collNotes.Factories;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.DeviceServices.AppTheme;
+using collNotes.DeviceServices.Camera;
+using collNotes.Domain.Models;
 using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Settings;
+using collNotes.Services.Data;
+using collNotes.Services.Data.RecordData;
 using collNotes.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace collNotes.ViewModels
 {
@@ -23,6 +26,7 @@ namespace collNotes.ViewModels
         private readonly SiteService siteService;
         private readonly IAppThemeService appThemeService;
         private readonly ISettingService settingService;
+        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         public readonly SpecimenService specimenService;
         public readonly IExceptionRecordService exceptionRecordService;
@@ -38,14 +42,14 @@ namespace collNotes.ViewModels
         public NewSpecimenViewModel()
         {
             siteService = new SiteService(Context);
-            specimenService = new SpecimenService(Context);
+            specimenService = new SpecimenService(Context, settingsViewModel);
             exceptionRecordService = new ExceptionRecordService(Context);
             cameraService = new CameraService();
             settingService = new SettingService(Context);
             appThemeService = new AppThemeService(settingService, exceptionRecordService);
             xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
-            int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
+            int nextSpecimenNumber = specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount).Result;
             AssociableSites = siteService.GetAllAsync().Result;
 
             Specimen = new Specimen()
@@ -61,14 +65,14 @@ namespace collNotes.ViewModels
         public NewSpecimenViewModel(Specimen specimenToClone)
         {
             siteService = new SiteService(Context);
-            specimenService = new SpecimenService(Context);
+            specimenService = new SpecimenService(Context, settingsViewModel);
             exceptionRecordService = new ExceptionRecordService(Context);
             cameraService = new CameraService();
             settingService = new SettingService(Context);
             appThemeService = new AppThemeService(settingService, exceptionRecordService);
             xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
 
-            int nextSpecimenNumber = specimenService.GetNextCollectionNumber().Result;
+            int nextSpecimenNumber = specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount).Result;
             AssociableSites = siteService.GetAllAsync().Result;
 
             Specimen = new Specimen()

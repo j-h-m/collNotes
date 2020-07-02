@@ -67,7 +67,8 @@ namespace collNotes.Views
                                             msDuration: MaterialSnackbar.DurationLong,
                                             configuration: snackbarConfig);
 
-                LocationStatusChip.IsVisible = true;
+                // LocationStatusChip.IsVisible = true;
+                LocationStatusButton.IsVisible = true;
             }
         }
 
@@ -187,7 +188,7 @@ namespace collNotes.Views
         {
             gpsInfoCard.IsVisible = !gpsInfoCard.IsVisible;
             GetLocation_Button.IsEnabled = !GetLocation_Button.IsEnabled;
-            LocationStatusChip.Text = gpsInfoCard.IsVisible ? "Touch icon to close" : "Touch icon to open";
+            // LocationStatusChip.Text = gpsInfoCard.IsVisible ? "Touch icon to close" : "Touch icon to open";
         }
 
         private void UpdateCurrentLocation()
@@ -201,6 +202,13 @@ namespace collNotes.Views
             altLbl.Text = $"Altitude: {CurrentLocation.Altitude.ToString()}";
             viewModel.Site.CoordinateUncertaintyInMeters = CurrentLocation.Accuracy.ToString();
             accLbl.Text = $"Accuracy: {CurrentLocation.Accuracy.ToString()}";
+        }
+
+        private void LocationStatusButton_Clicked(object sender, EventArgs e)
+        {
+            gpsInfoCard.IsVisible = !gpsInfoCard.IsVisible;
+            GetLocation_Button.IsEnabled = !GetLocation_Button.IsEnabled;
+            LocationStatusButton.Text = gpsInfoCard.IsVisible ? "Close location info" : "Open location info";
         }
     }
 }

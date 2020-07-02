@@ -1,7 +1,5 @@
-﻿using collNotes.Data.Context;
+﻿using collNotes.Ef.Context;
 using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

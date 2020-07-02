@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
+using System.Security;
 
 namespace collNotes.Droid
 {
@@ -11,6 +12,7 @@ namespace collNotes.Droid
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        [SecuritySafeCritical]
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;

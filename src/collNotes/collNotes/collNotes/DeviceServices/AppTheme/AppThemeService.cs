@@ -1,6 +1,6 @@
 ﻿using collNotes.ColorThemes;
-using collNotes.ServiceLayer.Data.ExceptionRecord;
-using collNotes.ServiceLayer.Data.Settings;
+using collNotes.Domain.Models;
+using collNotes.Services.Data;
 using collNotes.Settings;
 using System;
 using System.Collections.Generic;

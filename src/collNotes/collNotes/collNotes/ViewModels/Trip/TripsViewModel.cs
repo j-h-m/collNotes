@@ -1,8 +1,9 @@
-﻿using collNotes.Data.Models;
-using collNotes.Factories;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.DeviceServices.AppTheme;
+using collNotes.Domain.Models;
 using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Settings;
+using collNotes.Services.Data;
+using collNotes.Services.Data.RecordData;
 using collNotes.Views;
 using System;
 using System.Collections.Generic;

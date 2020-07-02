@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace collNotes.DeviceServices.ShareFile
+namespace collNotes.DeviceServices
 {
     public interface IShareFileService
     {

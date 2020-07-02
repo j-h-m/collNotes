@@ -60,12 +60,12 @@
                                                 TintColor="{DynamicResource SecondaryColor}"
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
 
-                    <material:MaterialChip x:Name="LocationStatusChip" IsVisible="False"
-                                           Text="Touch icon to open"
-                                           Padding="10"
-                                           ActionImage="map_icon.png" ActionImageTapped="LocationStatusChip_ActionImageTapped"
-                                           TextColor="{DynamicResource PrimaryTextColor}"
-                                           BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
+                    <material:MaterialButton x:Name="LocationStatusButton" IsVisible="False"
+                                                 Text="Open location info"
+                                                 Image="map_icon.png" Clicked="LocationStatusButton_Clicked"
+                                                 TextColor="{DynamicResource PrimaryTextColor}"
+                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}" />
+
                     <material:MaterialCard x:Name="gpsInfoCard" CornerRadius="2" Elevation="5" HorizontalOptions="FillAndExpand" 
                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}" IsVisible="False">
                         <StackLayout Orientation="Vertical">

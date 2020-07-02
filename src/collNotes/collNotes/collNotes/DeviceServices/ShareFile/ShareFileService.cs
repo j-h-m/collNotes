@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace collNotes.DeviceServices.ShareFile
+namespace collNotes.DeviceServices
 {
     public class ShareFileService : IShareFileService
     {

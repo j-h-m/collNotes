@@ -49,7 +49,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\collNotes.Data\collNotes.Ef.csproj" />
-    <ProjectReference Include="..\..\collNotes.ServiceLayer\collNotes.ServiceLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

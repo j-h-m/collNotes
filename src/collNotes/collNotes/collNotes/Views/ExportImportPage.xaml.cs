@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using collNotes.DeviceServices.Connectivity;
 using collNotes.Settings;
 using collNotes.ShareFolderInterface;
 using collNotes.ViewModels;
@@ -185,7 +186,7 @@ namespace collNotes.Views
             base.OnAppearing();
 
             var netStatus = viewModel.connectivityService.GetNetworkStatus();
-            viewModel.IsConnectionAvailable = netStatus == Services.Connectivity.ConnectivityService.ActualConnectivity.Connected;
+            viewModel.IsConnectionAvailable = netStatus == ConnectivityService.ActualConnectivity.Connected;
             viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
         }
 
@@ -213,7 +214,7 @@ namespace collNotes.Views
             }
             catch (Exception ex)
             {
-                await viewModel.exceptionRecordService.AddAsync(new Data.Models.ExceptionRecord()
+                await viewModel.exceptionRecordService.AddAsync(new Domain.Models.ExceptionRecord()
                 {
                     Created = DateTime.Now,
                     DeviceInfo = CollNotesSettings.DeviceInfo,

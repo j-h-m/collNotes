@@ -1,15 +1,17 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using collNotes.Data.Models;
-using collNotes.Factories;
-using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Connectivity;
+using collNotes.ColorThemes.ConfigFactory;
+using collNotes.DeviceServices.AppTheme;
+using collNotes.DeviceServices.Connectivity;
+using collNotes.DeviceServices.Email;
+using collNotes.DeviceServices.Permissions;
+using collNotes.DeviceServices;
 using collNotes.Services.Data;
-using collNotes.Services.Permissions;
-using collNotes.Services.Settings;
+using collNotes.Services.Data.RecordData;
+using collNotes.Services;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
+using collNotes.Domain.Models;
 
 namespace collNotes.ViewModels
 {

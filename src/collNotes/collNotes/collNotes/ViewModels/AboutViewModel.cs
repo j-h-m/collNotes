@@ -1,7 +1,4 @@
 ﻿using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Permissions;
-using collNotes.Services.Settings;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
