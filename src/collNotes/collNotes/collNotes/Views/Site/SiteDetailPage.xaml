@@ -73,6 +73,7 @@
                     <material:MaterialLabel Text="Associated Trip" FontSize="Medium"
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Site.AssociatedTripName}" Placeholder="Assoc. Trip Name"
+                                                IsEnabled="False"
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"

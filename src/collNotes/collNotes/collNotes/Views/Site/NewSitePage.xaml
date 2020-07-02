@@ -61,7 +61,7 @@
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
 
                     <material:MaterialButton x:Name="LocationStatusButton" IsVisible="False"
-                                                 Text="Open location info"
+                                                 Text="Toggle location info"
                                                  Image="map_icon.png" Clicked="LocationStatusButton_Clicked"
                                                  TextColor="{DynamicResource PrimaryTextColor}"
                                                  BackgroundColor="{DynamicResource SecondaryBackgroundColor}" />
