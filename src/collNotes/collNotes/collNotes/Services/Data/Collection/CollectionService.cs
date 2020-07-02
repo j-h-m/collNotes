@@ -1,6 +1,7 @@
-﻿using collNotes.CsvHelperMaps.DarwinCoreFormat;
-using collNotes.Data.Context;
-using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
+using collNotes.Ef.Context;
+using collNotes.Services.Data.RecordData;
+using collNotes.ViewModels;
 using CsvHelper;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace collNotes.Services.Data
 {
@@ -17,12 +19,13 @@ namespace collNotes.Services.Data
         private readonly SiteService siteService;
         private readonly SpecimenService specimenService;
         private readonly IExceptionRecordService exceptionRecordService;
+        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         public CollectionService(CollNotesContext collNotesContext)
         {
             tripService = new TripService(collNotesContext);
             siteService = new SiteService(collNotesContext);
-            specimenService = new SpecimenService(collNotesContext);
+            specimenService = new SpecimenService(collNotesContext, settingsViewModel);
             exceptionRecordService = new ExceptionRecordService(collNotesContext);
         }
 
@@ -126,7 +129,7 @@ namespace collNotes.Services.Data
                 await tripService.CreateAsync(importedTrip);
 
                 int nextSiteNumber = await siteService.GetNextCollectionNumber();
-                int nextSpecimenNumber = await specimenService.GetNextCollectionNumber();
+                int nextSpecimenNumber = await specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount);
 
                 foreach (var record in darwinCoreRecords)
                 {

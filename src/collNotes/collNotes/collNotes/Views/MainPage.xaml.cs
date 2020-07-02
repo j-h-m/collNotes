@@ -1,4 +1,4 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;

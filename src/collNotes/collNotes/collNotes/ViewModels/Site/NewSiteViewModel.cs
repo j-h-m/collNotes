@@ -1,9 +1,12 @@
-﻿using collNotes.Data.Models;
-using collNotes.Factories;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.DeviceServices.AppTheme;
+using collNotes.DeviceServices.Camera;
+using collNotes.DeviceServices.Geolocation;
+using collNotes.DeviceServices.Permissions;
+using collNotes.Domain.Models;
+using collNotes.Services.Data;
+using collNotes.Services.Data.RecordData;
 using collNotes.Services;
-using collNotes.Services.AppTheme;
-using collNotes.Services.Permissions;
-using collNotes.Services.Settings;
 using System;
 using System.Collections.Generic;
 

@@ -1,11 +1,13 @@
-﻿using collNotes.Data.Context;
-using collNotes.Data.Models;
-using collNotes.Services.Settings;
+﻿using collNotes.Domain.Models;
+using collNotes.Ef.Context;
+using collNotes.Services.Data.RecordData;
+using collNotes.ViewModels;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Xamarin.Forms;
 
 namespace collNotes.Services.Data
 {
@@ -16,12 +18,13 @@ namespace collNotes.Services.Data
         private readonly SpecimenService specimenService;
         private readonly ISettingService settingService;
         private readonly IExceptionRecordService exceptionRecordService;
+        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         public BackupService(CollNotesContext collNotesContext)
         {
             tripService = new TripService(collNotesContext);
             siteService = new SiteService(collNotesContext);
-            specimenService = new SpecimenService(collNotesContext);
+            specimenService = new SpecimenService(collNotesContext, settingsViewModel);
             settingService = new SettingService(collNotesContext);
             exceptionRecordService = new ExceptionRecordService(collNotesContext);
         }

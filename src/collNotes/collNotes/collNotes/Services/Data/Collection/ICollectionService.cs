@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using collNotes.Data.Models;
+using collNotes.Domain.Models;
 
 namespace collNotes.Services.Data
 {

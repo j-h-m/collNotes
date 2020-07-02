@@ -5,7 +5,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
 {
     public static class ModelClassValidator
     {
-        public static bool ClassValidator(Type t, List<string> propertyNames)
+        public static bool IsValid(Type t, List<string> propertyNames)
         {
             bool result = false;
 

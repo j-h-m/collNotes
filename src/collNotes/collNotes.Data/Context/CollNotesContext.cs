@@ -1,11 +1,11 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.IO;
 using Xamarin.Essentials;
 
-namespace collNotes.Data.Context
+namespace collNotes.Ef.Context
 {
     public class CollNotesContext : DbContext
     {

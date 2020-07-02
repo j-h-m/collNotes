@@ -45,11 +45,10 @@
 
   <ItemGroup>
     <Folder Include="Views\Specimen\" />
-    <Folder Include="Services\Settings\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\collNotes.Data\collNotes.Data.csproj" />
+    <ProjectReference Include="..\..\collNotes.Data\collNotes.Ef.csproj" />
   </ItemGroup>
 
   <ItemGroup>

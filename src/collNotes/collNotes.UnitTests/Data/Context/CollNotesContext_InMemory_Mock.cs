@@ -1,5 +1,5 @@
-﻿using collNotes.Data.Context;
-using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
+using collNotes.Ef.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

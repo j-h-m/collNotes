@@ -1,4 +1,4 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
 using System.Collections.Generic;
 using Xunit;
 
@@ -18,7 +18,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "LastSaved"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(Setting), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(Setting), propertyNames);
             // assert
             Assert.True(isValid);
         }

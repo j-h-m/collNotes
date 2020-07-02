@@ -1,4 +1,4 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
 using System.Collections.Generic;
 using Xunit;
 
@@ -18,7 +18,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "ExceptionInfo"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(ExceptionRecord), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(ExceptionRecord), propertyNames);
             // assert
             Assert.True(isValid);
         }

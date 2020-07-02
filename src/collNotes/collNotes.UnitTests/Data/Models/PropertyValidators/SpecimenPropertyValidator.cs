@@ -1,4 +1,4 @@
-﻿using collNotes.Data.Models;
+﻿using collNotes.Domain.Models;
 using System.Collections.Generic;
 using Xunit;
 
@@ -28,7 +28,7 @@ namespace collNotes.UnitTests.Data.Models.PropertyValidators
                 "LabelString"
             };
             // act
-            var isValid = ModelClassValidator.ClassValidator(typeof(Specimen), propertyNames);
+            var isValid = ModelClassValidator.IsValid(typeof(Specimen), propertyNames);
             // assert
             Assert.True(isValid);
         }
