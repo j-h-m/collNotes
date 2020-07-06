@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="2.0.7" package="com.thc.collnotes" android:installLocation="auto" android:versionCode="10">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="2.0.8" package="com.thc.collnotes" android:installLocation="auto" android:versionCode="11">
 	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
 	<application android:label="collNotes" android:icon="@drawable/icon">
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
