@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using CsvHelper.Configuration;
 
-namespace collNotes.Services.Data
+namespace collNotes.CsvHelperMaps
 {
     public sealed class DarwinCoreMap : ClassMap<DarwinCore>
     {

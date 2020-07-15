@@ -1,4 +1,6 @@
-﻿using collNotes.Domain.Models;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.Domain.Models;
+using collNotes.Services.Data.RecordData;
 using collNotes.ViewModels;
 using System;
 using System.Linq;
@@ -10,6 +12,11 @@ namespace collNotes.Views
     public partial class SpecimenPage : ContentPage
     {
         private readonly SpecimenViewModel viewModel;
+
+        private readonly SiteService siteService =
+            DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
 
         public SpecimenPage()
         {
@@ -30,14 +37,14 @@ namespace collNotes.Views
 
         private async void NewSpecimen_Clicked(object sender, EventArgs e)
         {
-            var sites = await viewModel.siteService.GetAllAsync();
+            var sites = await siteService.GetAllAsync();
             if (sites.Any())
             {
                 await Navigation.PushAsync(new NewSpecimenPage(new NewSpecimenViewModel()));
             }
             else
             {
-                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("Need Sites to associate with a new Specimen!",
                     configuration: alertDialogConfig);
             }
@@ -47,7 +54,7 @@ namespace collNotes.Views
         {
             var choices = viewModel.SpecimenCollection.Select(s => s.SpecimenName).ToList();
 
-            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+            var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a specimen to clone..",
                                                              choices: choices,
                                                              configuration: confirmationDialogConfig);

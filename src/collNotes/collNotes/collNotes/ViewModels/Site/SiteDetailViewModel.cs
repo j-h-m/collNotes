@@ -5,6 +5,7 @@ using collNotes.Services;
 using collNotes.Services.Data;
 using collNotes.Services.Data.RecordData;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace collNotes.ViewModels
 {
@@ -14,23 +15,11 @@ namespace collNotes.ViewModels
         public IEnumerable<Trip> AssociableTrips { get; set; }
         public string AssociatedTripName { get; set; }
 
-        public readonly SiteService siteService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
-
-        private readonly TripService tripService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
 
         public SiteDetailViewModel(Site site)
         {
-            tripService = new TripService(Context);
-            siteService = new SiteService(Context);
-            settingService = new SettingService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             Site = site;
             Title = Site?.SiteName;
             AssociatedTripName = Site?.AssociatedTripName;

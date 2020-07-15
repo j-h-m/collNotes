@@ -2,7 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using collNotes.ColorThemes.ConfigFactory;
 using collNotes.DeviceServices.Connectivity;
+using collNotes.Services.Data;
+using collNotes.Services.Data.RecordData;
 using collNotes.Settings;
 using collNotes.ShareFolderInterface;
 using collNotes.ViewModels;
@@ -18,9 +21,19 @@ namespace collNotes.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExportImportPage : TabbedPage
     {
-        private readonly ExportImportViewModel viewModel;
         private bool IsDeviceIosSimulator = DeviceInfo.Platform == DevicePlatform.iOS &&
                 DeviceInfo.DeviceType == DeviceType.Virtual;
+
+        private readonly ExportImportViewModel viewModel;
+
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
+        private readonly IConnectivityService connectivityService =
+            DependencyService.Get<IConnectivityService>(DependencyFetchTarget.NewInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
         public ExportImportPage()
         {
@@ -47,7 +60,7 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("Import Trip not supported on iOS Simulator",
                     configuration: alertDialogConfig);
             }
@@ -56,7 +69,7 @@ namespace collNotes.Views
                 var stream = await OpenFileDialog();
                 string message = string.Empty;
 
-                var loadingDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
                 using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip",
                     configuration: loadingDialogConfig))
                 {
@@ -70,7 +83,7 @@ namespace collNotes.Views
                     }
                 }
 
-                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
                                             msDuration: MaterialSnackbar.DurationIndefinite,
@@ -82,15 +95,15 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("Export Trip not supported on iOS Simulator",
                     configuration: alertDialogConfig);
             }
             else
             {
-                var trips = await viewModel.tripService.GetAllAsync();
+                var trips = await tripService.GetAllAsync();
 
-                var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+                var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
                 var choices = trips.Select(t => t.TripName).ToList();
                 var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip", choices,
                     configuration: confirmationDialogConfig);
@@ -109,7 +122,7 @@ namespace collNotes.Views
                         message = "Trip export failed";
                     }
 
-                    var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                    var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                     await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
                                             msDuration: MaterialSnackbar.DurationIndefinite,
@@ -122,7 +135,7 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("Import Backup not supported on iOS Simulator",
                     configuration: alertDialogConfig);
             }
@@ -131,7 +144,7 @@ namespace collNotes.Views
                 var stream = await OpenFileDialog();
                 string message = string.Empty;
 
-                var loadingDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
                 using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup",
                     configuration: loadingDialogConfig))
                 {
@@ -145,7 +158,7 @@ namespace collNotes.Views
                     }
                 }
 
-                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
                                             msDuration: MaterialSnackbar.DurationIndefinite,
@@ -157,7 +170,7 @@ namespace collNotes.Views
         {
             if (IsDeviceIosSimulator)
             {
-                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("Export Backup not supported on iOS Simulator",
                     configuration: alertDialogConfig);
             }
@@ -173,7 +186,7 @@ namespace collNotes.Views
                     message = "Backup export failed.";
                 }
 
-                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
                 await MaterialDialog.Instance.SnackbarAsync(message: message,
                                             actionButtonText: "Ok",
                                             msDuration: MaterialSnackbar.DurationIndefinite,
@@ -185,7 +198,7 @@ namespace collNotes.Views
         {
             base.OnAppearing();
 
-            var netStatus = viewModel.connectivityService.GetNetworkStatus();
+            var netStatus = connectivityService.GetNetworkStatus();
             viewModel.IsConnectionAvailable = netStatus == ConnectivityService.ActualConnectivity.Connected;
             viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
         }
@@ -214,7 +227,7 @@ namespace collNotes.Views
             }
             catch (Exception ex)
             {
-                await viewModel.exceptionRecordService.AddAsync(new Domain.Models.ExceptionRecord()
+                await exceptionRecordService.AddAsync(new Domain.Models.ExceptionRecord()
                 {
                     Created = DateTime.Now,
                     DeviceInfo = CollNotesSettings.DeviceInfo,

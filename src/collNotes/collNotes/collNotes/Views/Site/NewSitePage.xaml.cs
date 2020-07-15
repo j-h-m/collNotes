@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Linq;
+using collNotes.ColorThemes.ConfigFactory;
+using collNotes.DeviceServices.Camera;
+using collNotes.DeviceServices.Geolocation;
+using collNotes.DeviceServices.Permissions;
 using collNotes.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using XF.Material.Forms.UI.Dialogs;
+using static collNotes.DeviceServices.Permissions.PermissionsService;
 
 namespace collNotes.Views
 {
@@ -14,6 +19,13 @@ namespace collNotes.Views
         private Location CurrentLocation { get; set; }
         private Xamarin.Forms.Maps.Map Map { get; set; }
         private const double DEGREES = 0.01;
+
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
+        private readonly IGeoLocationService geoLocationService =
+            DependencyService.Get<IGeoLocationService>(DependencyFetchTarget.NewInstance);
+        private readonly ICameraService cameraService =
+            DependencyService.Get<ICameraService>(DependencyFetchTarget.NewInstance);
 
         public NewSitePage(NewSiteViewModel viewModel)
         {
@@ -26,48 +38,52 @@ namespace collNotes.Views
 
         private async void Location_Clicked(object sender, EventArgs e)
         {
-            if (!await viewModel.permissionsService.CheckLocationPermission())
-                await viewModel.permissionsService.RequestLocationPermission();
-
-            var dialogConfig = await viewModel.xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
-            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location.",
-                configuration: dialogConfig))
+            if (await viewModel.CheckOrRequestPermission(PermissionName.Location))
             {
-                CurrentLocation = await viewModel.geoLocationService.GetCurrentLocation(viewModel.exceptionRecordService);
-            }
+                var dialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Getting your location.",
+                    configuration: dialogConfig))
+                {
+                    CurrentLocation = await geoLocationService.GetCurrentLocation();
+                }
 
 #if DEBUG
-            if (DeviceInfo.DeviceType == DeviceType.Virtual &&
-                DeviceInfo.Platform == DevicePlatform.iOS)
-            {
-                // mock with home location on iOS emulator
-                // iOS emulator does not support GPS emulation
-                CurrentLocation = new Location()
+                if (DeviceInfo.DeviceType == DeviceType.Virtual &&
+                    DeviceInfo.Platform == DevicePlatform.iOS)
                 {
-                    Latitude = 34.72247,
-                    Longitude = -85.28398666,
-                    Altitude = 0,
-                    Accuracy = 20
-                };
-            }
+                    // mock with home location on iOS emulator
+                    // iOS emulator does not support GPS emulation
+                    CurrentLocation = new Location()
+                    {
+                        Latitude = 34.72247,
+                        Longitude = -85.28398666,
+                        Altitude = 0,
+                        Accuracy = 20
+                    };
+                }
 #endif
 
-            if (CurrentLocation is null)
-            {
-                // location was not determined for some reason
-                await MaterialDialog.Instance.AlertAsync("Your current location wasn't found, is GPS enabled on your device?");
+                if (CurrentLocation is null)
+                {
+                    // location was not determined for some reason
+                    await MaterialDialog.Instance.AlertAsync("Your current location wasn't found, is GPS enabled on your device?");
+                }
+                else
+                {
+                    UpdateCurrentLocation();
+
+                    var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                    await MaterialDialog.Instance.SnackbarAsync(message: "Touch icon to view and refine location information.",
+                                                actionButtonText: "OK",
+                                                msDuration: MaterialSnackbar.DurationLong,
+                                                configuration: snackbarConfig);
+
+                    LocationStatusButton.IsVisible = true;
+                }
             }
             else
             {
-                UpdateCurrentLocation();
-
-                var snackbarConfig = await viewModel.xfMaterialColorConfigFactory.GetSnackbarConfiguration();
-                await MaterialDialog.Instance.SnackbarAsync(message: "Touch icon to view and refine location information.",
-                                            actionButtonText: "OK",
-                                            msDuration: MaterialSnackbar.DurationLong,
-                                            configuration: snackbarConfig);
-
-                LocationStatusButton.IsVisible = true;
+                // going to need permission!
             }
         }
 
@@ -75,27 +91,31 @@ namespace collNotes.Views
         {
             if (string.IsNullOrEmpty(viewModel.Site.SiteName))
             {
-                var alertConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync(message: "A photo requires a Site Name",
                     configuration: alertConfig);
                 return;
             }
             else
             {
-                if (!await viewModel.permissionsService.CheckCameraPermission())
-                    await viewModel.permissionsService.RequestCameraPermission();
-
-                var photoAsBase64 = await viewModel.cameraService.TakePicture(viewModel.exceptionRecordService, viewModel.Site.SiteName);
-                if (!string.IsNullOrEmpty(photoAsBase64))
+                if (await viewModel.CheckOrRequestPermission(PermissionName.Camera))
                 {
-                    viewModel.Site.PhotoAsBase64 = photoAsBase64;
+                    var photoAsBase64 = await cameraService.TakePicture(viewModel.Site.SiteName);
+                    if (!string.IsNullOrEmpty(photoAsBase64))
+                    {
+                        viewModel.Site.PhotoAsBase64 = photoAsBase64;
+                    }
+                }
+                else
+                {
+                    // going to need permission!
                 }
             }
         }
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            var alertConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
 
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Site.SiteName))
@@ -155,7 +175,7 @@ namespace collNotes.Views
             Map.Pins.Add(pin);
             Map.MapClicked += View_MapClicked;
 
-            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null, "Update", "Cancel",
                 configuration: alertDialogConfig);
             if (result == true && Map.Pins.Count == 1)

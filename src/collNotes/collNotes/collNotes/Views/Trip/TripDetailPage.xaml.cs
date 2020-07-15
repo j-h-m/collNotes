@@ -1,4 +1,6 @@
-﻿using collNotes.ViewModels;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.Services.Data.RecordData;
+using collNotes.ViewModels;
 using System;
 using System.Linq;
 using Xamarin.Forms;
@@ -9,6 +11,11 @@ namespace collNotes.Views
     public partial class TripDetailPage : ContentPage
     {
         private readonly TripDetailViewModel viewModel;
+
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
 
         public TripDetailPage(TripDetailViewModel viewModel)
         {
@@ -23,13 +30,13 @@ namespace collNotes.Views
 
         private async void Update_Clicked(object sender, EventArgs e)
         {
-            await viewModel.tripService.UpdateAsync(viewModel.Trip);
+            await tripService.UpdateAsync(viewModel.Trip);
             await Navigation.PopAsync();
         }
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
-            var childItems = await viewModel.tripService.GetChildrenAsync(viewModel.Trip);
+            var childItems = await tripService.GetChildrenAsync(viewModel.Trip);
             string siteNames = string.Join(", ", childItems.Keys.Select(s => s.SiteName).ToArray());
             string specimenNames = string.Join(", ", childItems.Values.SelectMany(listSpecimen => listSpecimen).ToList().Select(s => s.SpecimenName).ToArray());
 
@@ -44,7 +51,7 @@ namespace collNotes.Views
                     Environment.NewLine +
                     "Are you sure you wish to delete this data?";
 
-            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message,
                                     title: "Confirmation",
                                     confirmingText: "Yes",
@@ -52,7 +59,7 @@ namespace collNotes.Views
                                     configuration: alertDialogConfig));
             if (result)
             {
-                var deleteResult = await viewModel.tripService.DeleteAsync(viewModel.Trip);
+                var deleteResult = await tripService.DeleteAsync(viewModel.Trip);
                 await Navigation.PopAsync();
             }
         }

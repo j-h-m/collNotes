@@ -21,21 +21,13 @@ namespace collNotes.ViewModels
         public ObservableCollection<Trip> Trips { get; set; }
         public Command LoadTripsCommand { get; set; }
 
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-
-        public readonly TripService tripService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
         public TripsViewModel()
         {
-            tripService = new TripService(Context);
-            settingService = new SettingService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             Title = "Trips";
             Trips = new ObservableCollection<Trip>();
 

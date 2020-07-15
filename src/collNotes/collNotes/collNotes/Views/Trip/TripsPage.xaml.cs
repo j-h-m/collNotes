@@ -1,4 +1,5 @@
-﻿using collNotes.Domain.Models;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.Domain.Models;
 using collNotes.ViewModels;
 using System;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace collNotes.Views
     public partial class TripsPage : ContentPage
     {
         private readonly TripsViewModel viewModel;
+
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
 
         public TripsPage()
         {
@@ -37,7 +41,7 @@ namespace collNotes.Views
         {
             var choices = viewModel.Trips.Select(t => t.TripName).ToList();
 
-            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+            var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a trip to clone..",
                                                                 choices: choices, configuration: confirmationDialogConfig);
 

@@ -12,24 +12,11 @@ namespace collNotes.ViewModels
     {
         public Specimen Specimen { get; set; }
 
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
-
-        public readonly SiteService siteService;
-        public readonly SpecimenService specimenService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         public SpecimenDetailViewModel(Specimen specimen = null)
         {
-            specimenService = new SpecimenService(Context, settingsViewModel);
-            siteService = new SiteService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            settingService = new SettingService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             Title = specimen?.SpecimenName;
             Specimen = specimen;
         }

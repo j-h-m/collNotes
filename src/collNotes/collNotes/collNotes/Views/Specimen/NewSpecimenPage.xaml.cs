@@ -1,4 +1,6 @@
-﻿using collNotes.Domain.Models;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.DeviceServices.Camera;
+using collNotes.Domain.Models;
 using collNotes.ViewModels;
 using System;
 using System.Linq;
@@ -10,8 +12,14 @@ namespace collNotes.Views
     public partial class NewSpecimenPage : ContentPage
     {
         public Site SelectedSite { get; set; }
-        private readonly NewSpecimenViewModel viewModel;
+
         private FieldIDSearchPage FieldIDSearchPage { get; set; }
+        private readonly NewSpecimenViewModel viewModel;
+        
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
+        private readonly ICameraService cameraService =
+            DependencyService.Get<ICameraService>(DependencyFetchTarget.NewInstance);
 
         public NewSpecimenPage(NewSpecimenViewModel viewModel)
         {
@@ -29,14 +37,14 @@ namespace collNotes.Views
         {
             if (string.IsNullOrEmpty(viewModel.Specimen.SpecimenName))
             {
-                var alertDialogconfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogconfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("A photo requires a Specimen Name",
                     configuration: alertDialogconfig);
                 return;
             }
             else
             {
-                string photoAsBase64 = await viewModel.cameraService.TakePicture(viewModel.exceptionRecordService, viewModel.Specimen.SpecimenName);
+                string photoAsBase64 = await cameraService.TakePicture(viewModel.Specimen.SpecimenName);
 
                 viewModel.Specimen.PhotoAsBase64 = !string.IsNullOrEmpty(photoAsBase64) ?
                     photoAsBase64 :
@@ -51,7 +59,7 @@ namespace collNotes.Views
         /// <param name="e"></param>
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
 
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Specimen.SpecimenName))

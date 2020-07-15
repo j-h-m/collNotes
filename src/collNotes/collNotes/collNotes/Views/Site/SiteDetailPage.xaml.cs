@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using collNotes.ColorThemes.ConfigFactory;
+using collNotes.Services.Data.RecordData;
 using collNotes.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -18,6 +20,11 @@ namespace collNotes.Views
         private const double PopupMapHeight = 300.0;
         private const double PopupMapWidth = 300.0;
         private const double DEGREES = 0.01;
+
+        private readonly SiteService siteService =
+            DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
 
         public SiteDetailPage(SiteDetailViewModel viewModel)
         {
@@ -46,13 +53,13 @@ namespace collNotes.Views
 
         private async void Update_Clicked(object sender, EventArgs e)
         {
-            await viewModel.siteService.UpdateAsync(viewModel.Site);
+            await siteService.UpdateAsync(viewModel.Site);
             await Navigation.PopAsync();
         }
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
-            var childItems = await viewModel.siteService.GetChildrenAsync(viewModel.Site);
+            var childItems = await siteService.GetChildrenAsync(viewModel.Site);
             string specimenNames = string.Join(", ", childItems.Select(s => s.SpecimenName).ToArray());
 
             string message = "Are you sure you want to delete this Site? This will delete all associated Specimen.";
@@ -62,7 +69,7 @@ namespace collNotes.Views
                     Environment.NewLine +
                     $"Specimen: {specimenNames}.";
 
-            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             bool result = Convert.ToBoolean(await MaterialDialog.Instance.ConfirmAsync(message,
                                     title: "Confirm",
                                     confirmingText: "Yes",
@@ -70,7 +77,7 @@ namespace collNotes.Views
                                     configuration: alertDialogConfig));
             if (result)
             {
-                await viewModel.siteService.DeleteAsync(viewModel.Site);
+                await siteService.DeleteAsync(viewModel.Site);
                 await Navigation.PopAsync();
             }
         }
@@ -99,7 +106,7 @@ namespace collNotes.Views
             Map.Pins.Add(pin);
             Map.MapClicked += View_MapClicked;
 
-            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
             var result = await MaterialDialog.Instance.ShowCustomContentAsync(Map, "Change Location", null,
                 "Update", "Cancel",
                 configuration: alertDialogConfig);

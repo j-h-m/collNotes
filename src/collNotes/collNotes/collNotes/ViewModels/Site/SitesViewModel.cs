@@ -18,23 +18,13 @@ namespace collNotes.ViewModels
         public ObservableCollection<Site> Sites { get; set; }
         public Command LoadSitesCommand { get; set; }
 
-        public readonly SiteService siteService;
-        public readonly TripService tripService;
-
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        private readonly SiteService siteService =
+            DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
         public SitesViewModel()
         {
-            siteService = new SiteService(Context);
-            tripService = new TripService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            settingService = new SettingService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             Title = "Sites";
             Sites = new ObservableCollection<Site>();
 

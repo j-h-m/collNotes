@@ -1,102 +1,133 @@
 ﻿using collNotes.Ef.Context;
 using collNotes.Services.Data;
+using Plugin.Media.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace collNotes.DeviceServices.Permissions
 {
     public class PermissionsService : IPermissionsService
     {
-        private IExceptionRecordService exceptionRecordService;
+        private IExceptionRecordService exceptionRecordService = 
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
-        public PermissionsService(CollNotesContext collNotesContext)
+        public enum PermissionName
         {
-            exceptionRecordService = new ExceptionRecordService(collNotesContext);
+            Storage,
+            Location,
+            Camera,
+            Photos,
+            MediaLib
         }
 
-        public async Task<bool> CheckStoragePermission()
+        public PermissionsService() { }
+
+        /// <summary>
+        /// Checks permission status.
+        /// Returns true if granted.
+        /// </summary>
+        /// <param name="permissionName"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckPermission(PermissionName permissionName)
         {
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
-            return storageStatus == PermissionStatus.Granted;
+            PermissionStatus status;
+
+            if (permissionName == PermissionName.Camera)
+            {
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
+            }
+            else if (permissionName == PermissionName.Location)
+            {
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>();
+            }
+            else if (permissionName == PermissionName.MediaLib)
+            {
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync<MediaLibraryPermission>();
+            }
+            else if (permissionName == PermissionName.Photos)
+            {
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync<PhotosPermission>();
+            }
+            else if (permissionName == PermissionName.Storage)
+            {
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
+            }
+            else { status = PermissionStatus.Unknown; }
+
+            return status == PermissionStatus.Granted;
         }
 
-        public async Task<bool> RequestStoragePermission()
+        /// <summary>
+        /// Requests permission from user if not already granted.
+        /// Returns result of permission request.
+        /// </summary>
+        /// <param name="permissionName"></param>
+        /// <returns></returns>
+        public async Task<bool> RequestPermission(PermissionName permissionName)
         {
-            var requestResults = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-            return requestResults.HasFlag(PermissionStatus.Denied) ||
-                        requestResults.HasFlag(PermissionStatus.Disabled) ||
-                        requestResults.HasFlag(PermissionStatus.Restricted) ||
-                        requestResults.HasFlag(PermissionStatus.Unknown);
+            if (await CheckPermission(permissionName)) // permission status granted
+            {
+                return true;
+            }
+
+            PermissionStatus status;
+
+            if (permissionName == PermissionName.Camera)
+            {
+                status = await CrossPermissions.Current.RequestPermissionAsync<CameraPermission>();
+            }
+            else if (permissionName == PermissionName.Location)
+            {
+                status = await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
+            }
+            else if (permissionName == PermissionName.MediaLib)
+            {
+                status = await CrossPermissions.Current.RequestPermissionAsync<MediaLibraryPermission>();
+            }
+            else if (permissionName == PermissionName.Photos)
+            {
+                status = await CrossPermissions.Current.RequestPermissionAsync<PhotosPermission>();
+            }
+            else if (permissionName == PermissionName.Storage)
+            {
+                status = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
+            }
+            else
+            {
+                status = PermissionStatus.Unknown;
+            }
+
+            return status == PermissionStatus.Granted;
         }
 
-        public async Task<bool> CheckLocationPermission()
+        /// <summary>
+        /// Request all permissions in PermissionName Enum.
+        /// Returns dictionary with PermissionName and check/request result value {PermissionName, bool}.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<PermissionName, bool>> RequestAllPermissionsAsync()
         {
-            var locationStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>();
-            return locationStatus == PermissionStatus.Granted;
-        }
+            Dictionary<PermissionName, bool> resultDict = new Dictionary<PermissionName, bool>();
 
-        public async Task<bool> RequestLocationPermission()
-        {
-            var requestResults = await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
-            return requestResults.HasFlag(PermissionStatus.Denied) ||
-                        requestResults.HasFlag(PermissionStatus.Disabled) ||
-                        requestResults.HasFlag(PermissionStatus.Restricted) ||
-                        requestResults.HasFlag(PermissionStatus.Unknown);
-        }
-
-        public async Task<bool> CheckCameraPermission()
-        {
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
-            return cameraStatus == PermissionStatus.Granted;
-        }
-
-        public async Task<bool> RequestCameraPermission()
-        {
-            var requestResults = await CrossPermissions.Current.RequestPermissionAsync<CameraPermission>();
-            return requestResults.HasFlag(PermissionStatus.Denied) ||
-                        requestResults.HasFlag(PermissionStatus.Disabled) ||
-                        requestResults.HasFlag(PermissionStatus.Restricted) ||
-                        requestResults.HasFlag(PermissionStatus.Unknown);
-        }
-
-        public async Task RequestAllPermissionsAsync()
-        {
             try
             {
-                var locationStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>();
-                var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
-                var photosStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<PhotosPermission>();
-                var mediaLibStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<MediaLibraryPermission>();
-                var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
-
-                if (locationStatus != PermissionStatus.Granted)
+                foreach (var pn in Enum.GetValues(typeof(PermissionName)).Cast<PermissionName>())
                 {
-                    await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
-                }
-                if (cameraStatus != PermissionStatus.Granted)
-                {
-                    await CrossPermissions.Current.RequestPermissionAsync<CameraPermission>();
-                }
-                if (photosStatus != PermissionStatus.Granted) 
-                {
-                    await CrossPermissions.Current.RequestPermissionAsync<PhotosPermission>();
-                }
-                if (mediaLibStatus != PermissionStatus.Granted)
-                {
-                    await CrossPermissions.Current.RequestPermissionAsync<MediaLibraryPermission>();
-                }
-                if (storageStatus != PermissionStatus.Granted)
-                {
-                    await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
+                    var result = await RequestPermission(pn);
+                    resultDict.Add(pn, result);
                 }
             }
             catch (Exception ex)
             {
                 await exceptionRecordService.CreateExceptionRecord(ex);
             }
+
+            return resultDict;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using collNotes.Domain.Models;
+﻿using collNotes.CsvHelperMaps;
+using collNotes.Domain.Models;
 using collNotes.Ef.Context;
 using collNotes.Services.Data.RecordData;
 using collNotes.ViewModels;
@@ -15,19 +16,18 @@ namespace collNotes.Services.Data
 {
     public class CollectionService : ICollectionService
     {
-        private readonly TripService tripService;
-        private readonly SiteService siteService;
-        private readonly SpecimenService specimenService;
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
+        private readonly SiteService siteService =
+            DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
+        private readonly SpecimenService specimenService =
+            DependencyService.Get<SpecimenService>(DependencyFetchTarget.NewInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
-        public CollectionService(CollNotesContext collNotesContext)
-        {
-            tripService = new TripService(collNotesContext);
-            siteService = new SiteService(collNotesContext);
-            specimenService = new SpecimenService(collNotesContext, settingsViewModel);
-            exceptionRecordService = new ExceptionRecordService(collNotesContext);
-        }
+        public CollectionService() { }
 
         public async Task<bool> ExportCollectionData(Trip trip, string exportPath)
         {

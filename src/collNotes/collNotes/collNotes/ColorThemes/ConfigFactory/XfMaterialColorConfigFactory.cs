@@ -1,6 +1,7 @@
 ﻿using collNotes.ColorThemes;
 using collNotes.DeviceServices.AppTheme;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs.Configurations;
 using static collNotes.Settings.CollNotesSettings;
 
@@ -8,12 +9,10 @@ namespace collNotes.ColorThemes.ConfigFactory
 {
     public class XfMaterialColorConfigFactory
     {
-        private readonly IAppThemeService appThemeService;
+        private readonly IAppThemeService appThemeService =
+            DependencyService.Get<IAppThemeService>(DependencyFetchTarget.NewInstance);
 
-        public XfMaterialColorConfigFactory(IAppThemeService appThemeService)
-        {
-            this.appThemeService = appThemeService;
-        }
+        public XfMaterialColorConfigFactory() { }
 
         public async Task<MaterialAlertDialogConfiguration> GetAlertDialogConfiguration()
         {

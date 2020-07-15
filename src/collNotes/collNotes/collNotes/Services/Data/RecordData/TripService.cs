@@ -4,18 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace collNotes.Services.Data.RecordData
 {
     public class TripService : IServiceBase<Trip>
     {
-        private CollNotesContext Context { get; set; }
+        private CollNotesContext Context =
+            DependencyService.Get<CollNotesContext>(DependencyFetchTarget.GlobalInstance);
 
-        public TripService(CollNotesContext collNotesContext)
-        {
-            Context = collNotesContext;
-        }
+        public TripService() { }
 
         public async Task<bool> CreateAsync(Trip trip)
         {

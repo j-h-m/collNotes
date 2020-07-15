@@ -11,7 +11,8 @@ namespace collNotes.ViewModels
         public Dictionary<string, List<string>> AutoCompleteDict { get; set; }
         public string SelectedFieldID { get; set; }
         public string SearchBarLabel { get; set; }
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         public SearchBarViewModel()
         {

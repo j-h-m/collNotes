@@ -7,6 +7,8 @@ namespace collNotes.Services.MenuPage
 {
     public class MenuPageService
     {
+        public MenuPageService() { }
+
         private static List<HomeMenuItem> MenuItems { get; set; }
 
         public List<HomeMenuItem> GetMenuItems()

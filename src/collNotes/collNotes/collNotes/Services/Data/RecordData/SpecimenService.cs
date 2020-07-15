@@ -1,26 +1,25 @@
 ﻿using collNotes.Domain.Models;
 using collNotes.Ef.Context;
+using collNotes.Settings;
 using collNotes.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace collNotes.Services.Data.RecordData
 {
     public class SpecimenService : IServiceBase<Specimen>
     {
-        private CollNotesContext Context { get; set; }
-        private SettingsViewModel settingsViewModel { get; set; }
-        private const string CollectionCountKey = "collection_count";
+        private CollNotesContext Context =
+            DependencyService.Get<CollNotesContext>(DependencyFetchTarget.GlobalInstance);
 
-        public SpecimenService(CollNotesContext collNotesContext,
-            SettingsViewModel settingsViewModel)
-        {
-            Context = collNotesContext;
-            this.settingsViewModel = settingsViewModel;
-        }
+        private readonly SettingsViewModel settingsViewModel =
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        
+        public SpecimenService() { }
 
         public async Task<bool> CreateAsync(Specimen specimen)
         {
@@ -90,7 +89,7 @@ namespace collNotes.Services.Data.RecordData
 
                 settingsViewModel.CurrentCollectionCountString = specimenCount.ToString();
 
-                return await settingsViewModel.CreateOrUpdateSetting(CollectionCountKey,
+                return await settingsViewModel.CreateOrUpdateSetting(CollNotesSettings.CollectionCountKey,
                                                         specimenCount.ToString());
             }
             else

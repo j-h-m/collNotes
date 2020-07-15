@@ -14,14 +14,13 @@ namespace collNotes.DeviceServices.AppTheme
 {
     public class AppThemeService : IAppThemeService
     {
-        private ISettingService settingService;
-        private IExceptionRecordService exceptionRecordService;
-        public AppThemeService(ISettingService settingService,
-            IExceptionRecordService exceptionRecordService)
-        {
-            this.settingService = settingService;
-            this.exceptionRecordService = exceptionRecordService;
-        }
+        private ISettingService settingService = 
+            DependencyService.Get<ISettingService>(DependencyFetchTarget.NewInstance);
+        
+        private IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+
+        public AppThemeService() { }
 
         public async Task<ColorTheme> GetSavedTheme()
         {

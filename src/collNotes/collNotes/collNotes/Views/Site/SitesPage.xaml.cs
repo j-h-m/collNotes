@@ -1,4 +1,6 @@
-﻿using collNotes.Domain.Models;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.Domain.Models;
+using collNotes.Services.Data.RecordData;
 using collNotes.ViewModels;
 using System;
 using System.Linq;
@@ -10,6 +12,12 @@ namespace collNotes.Views
     public partial class SitesPage : ContentPage
     {
         private readonly SitesViewModel viewModel;
+
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
+
         public SitesPage()
         {
             InitializeComponent();
@@ -29,14 +37,14 @@ namespace collNotes.Views
 
         private async void NewSite_Clicked(object sender, EventArgs e)
         {
-            var trips = await viewModel.tripService.GetAllAsync();
+            var trips = await tripService.GetAllAsync();
             if (trips.Any())
             {
                 await Navigation.PushAsync(new NewSitePage(new NewSiteViewModel()));
             }
             else
             {
-                var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
                 await MaterialDialog.Instance.AlertAsync("Need Trips to associate with a new Site!",
                     configuration: alertDialogConfig);
             }
@@ -46,7 +54,7 @@ namespace collNotes.Views
         {
             var choices = viewModel.Sites.Select(s => s.SiteName).ToList();
 
-            var confirmationDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+            var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
             var result = await MaterialDialog.Instance.SelectChoiceAsync(title: "Select a site to clone..",
                                                              choices: choices, configuration: confirmationDialogConfig);
 

@@ -13,21 +13,20 @@ namespace collNotes.Services.Data
 {
     public class BackupService : IBackupService
     {
-        private readonly TripService tripService;
-        private readonly SiteService siteService;
-        private readonly SpecimenService specimenService;
-        private readonly ISettingService settingService;
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly TripService tripService = 
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
+        private readonly SiteService siteService =
+            DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
+        private readonly SpecimenService specimenService =
+            DependencyService.Get<SpecimenService>(DependencyFetchTarget.NewInstance);
+        private readonly ISettingService settingService =
+            DependencyService.Get<ISettingService>(DependencyFetchTarget.NewInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+        private readonly SettingsViewModel settingsViewModel =
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
-        public BackupService(CollNotesContext collNotesContext)
-        {
-            tripService = new TripService(collNotesContext);
-            siteService = new SiteService(collNotesContext);
-            specimenService = new SpecimenService(collNotesContext, settingsViewModel);
-            settingService = new SettingService(collNotesContext);
-            exceptionRecordService = new ExceptionRecordService(collNotesContext);
-        }
+        public BackupService() { }
 
         public async Task<bool> ExportBackup(string exportFilePath)
         {

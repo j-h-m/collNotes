@@ -4,17 +4,16 @@ using System.Threading.Tasks;
 using collNotes.Ef.Context;
 using collNotes.Services.Data;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace collNotes.DeviceServices.Email
 {
     public class EmailService : IEmailService
     {
-        private readonly IExceptionRecordService exceptionRecordService;
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
-        public EmailService(CollNotesContext context)
-        {
-            this.exceptionRecordService = new ExceptionRecordService(context);
-        }
+        public EmailService() { }
 
         public async Task SendEmail(string subject, string body, List<string> recipients, string filepath)
         {

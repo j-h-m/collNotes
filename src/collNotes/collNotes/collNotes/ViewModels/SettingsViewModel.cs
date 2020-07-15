@@ -10,17 +10,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
+using collNotes.Ef.Context;
 
 namespace collNotes.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly ISettingService settingService;
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly IAppThemeService appThemeService;
-
-        public readonly IPermissionsService permissionsService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        private readonly CollNotesContext Context =
+            DependencyService.Get<CollNotesContext>(DependencyFetchTarget.GlobalInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+        private readonly ISettingService settingService =
+            DependencyService.Get<ISettingService>(DependencyFetchTarget.NewInstance);
+        private readonly IAppThemeService appThemeService =
+            DependencyService.Get<IAppThemeService>(DependencyFetchTarget.NewInstance);
 
         #region Binding Properties
 
@@ -149,12 +153,6 @@ namespace collNotes.ViewModels
 
         public SettingsViewModel()
         {
-            settingService = new SettingService(Context);
-            permissionsService = new PermissionsService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             Title = "Settings";
 
             SetSettingsToSavedValues().ConfigureAwait(false);

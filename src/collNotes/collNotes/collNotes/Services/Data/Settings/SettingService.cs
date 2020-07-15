@@ -4,17 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace collNotes.Services.Data
 {
     public class SettingService : ISettingService
     {
-        private CollNotesContext Context { get; set; }
+        private CollNotesContext Context =
+            DependencyService.Get<CollNotesContext>(DependencyFetchTarget.GlobalInstance);
 
-        public SettingService(CollNotesContext collNotesContext)
-        {
-            Context = collNotesContext;
-        }
+        public SettingService() { }
 
         public async Task<bool> CreateAsync(Setting setting)
         {

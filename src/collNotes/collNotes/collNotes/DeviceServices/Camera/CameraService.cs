@@ -3,13 +3,19 @@ using Plugin.Media;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace collNotes.DeviceServices.Camera
 {
     public class CameraService : ICameraService
     {
-        public async Task<string> TakePicture(IExceptionRecordService exceptionRecordService, string photoName)
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+
+        public CameraService() { }
+
+        public async Task<string> TakePicture(string photoName)
         {
             string photoAsBase64 = string.Empty;
             try
@@ -37,6 +43,7 @@ namespace collNotes.DeviceServices.Camera
             {
                 await exceptionRecordService.CreateExceptionRecord(ex);
             }
+
             return photoAsBase64;
         }
     }

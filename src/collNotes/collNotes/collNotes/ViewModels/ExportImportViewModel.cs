@@ -12,24 +12,24 @@ using collNotes.Services;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 using collNotes.Domain.Models;
+using static collNotes.DeviceServices.Permissions.PermissionsService;
 
 namespace collNotes.ViewModels
 {
     public class ExportImportViewModel : BaseViewModel
     {
-        private readonly IBackupService backupService;
-        private readonly ICollectionService collectionService;
-        private readonly IEmailService emailService;
-        private readonly IShareFileService shareFileService;
-        private readonly IPermissionsService permissionsService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
-
-        public readonly TripService tripService;
-        public readonly IExceptionRecordService exceptionRecordService;
-        public readonly IConnectivityService connectivityService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly ICollectionService collectionService =
+            DependencyService.Get<ICollectionService>(DependencyFetchTarget.NewInstance);
+        private readonly IBackupService backupService =
+            DependencyService.Get<IBackupService>(DependencyFetchTarget.NewInstance);
+        private readonly IEmailService emailService =
+            DependencyService.Get<IEmailService>(DependencyFetchTarget.NewInstance);
+        private readonly IShareFileService shareFileService =
+            DependencyService.Get<IShareFileService>(DependencyFetchTarget.NewInstance);
+        private readonly IPermissionsService permissionsService =
+            DependencyService.Get<IPermissionsService>(DependencyFetchTarget.NewInstance);
 
         private readonly string exportMethod;
 
@@ -56,18 +56,6 @@ namespace collNotes.ViewModels
 
         public ExportImportViewModel()
         {
-            backupService = new BackupService(Context);
-            collectionService = new CollectionService(Context);
-            emailService = new EmailService(Context);
-            tripService = new TripService(Context);
-            shareFileService = new ShareFileService();
-            permissionsService = new PermissionsService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            connectivityService = new ConnectivityService();
-            settingService = new SettingService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             exportMethod = settingsViewModel.SelectedExportMethod;
         }
 
@@ -80,11 +68,12 @@ namespace collNotes.ViewModels
         {
             if (await CheckOrRequestStoragePermission())
             {
-                bool result = await this.collectionService.ExportCollectionData(trip, exportPath);
-                if (result)
+                if (await this.collectionService.ExportCollectionData(trip, exportPath))
+                {
                     await ShareOrEmail(exportPath, trip.TripName);
+                }
 
-                return result;
+                return true;
             }
             else { return false; }
         }
@@ -98,11 +87,12 @@ namespace collNotes.ViewModels
         {
             if (await CheckOrRequestStoragePermission())
             {
-                bool result = await this.backupService.ExportBackup(exportPath);
-                if (result)
+                if (await this.backupService.ExportBackup(exportPath))
+                {
                     await ShareOrEmail(exportPath, "Backup");
+                }
 
-                return result;
+                return true;
             }
             else { return false; }
         }
@@ -124,18 +114,20 @@ namespace collNotes.ViewModels
             }
         }
 
+        /// <summary>
+        /// if storage permission is granted returns true.
+        /// if not granted, returns result of permission request.
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> CheckOrRequestStoragePermission()
         {
             bool result;
-            if (!(result = await this.permissionsService.CheckStoragePermission()))
+
+            if (!(result = await this.permissionsService.CheckPermission(PermissionName.Storage)))
             {
-                if (!(result = await this.permissionsService.RequestStoragePermission()))
-                {
-                    var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
-                    await MaterialDialog.Instance.AlertAsync("Storage permission is required for data export",
-                        configuration: alertDialogConfig);
-                }
+                result = await this.permissionsService.RequestPermission(PermissionName.Storage);
             }
+
             return result;
         }
     }

@@ -1,4 +1,6 @@
-﻿using collNotes.Settings;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.Services.Data.RecordData;
+using collNotes.Settings;
 using collNotes.ViewModels;
 using System;
 using Xamarin.Forms;
@@ -9,7 +11,12 @@ namespace collNotes.Views
     public partial class NewTripPage : ContentPage
     {
         private readonly NewTripViewModel viewModel;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
 
         public NewTripPage(NewTripViewModel viewModel)
         {
@@ -24,7 +31,7 @@ namespace collNotes.Views
         /// <param name="e"></param>
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            var alertDialogConfig = await viewModel.xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
 
             // ensure all necessary data is recorded
             if (string.IsNullOrEmpty(viewModel.Trip.TripName))
@@ -35,7 +42,7 @@ namespace collNotes.Views
             }
             else
             {
-                await viewModel.tripService.CreateAsync(viewModel.Trip);
+                await tripService.CreateAsync(viewModel.Trip);
 
                 // if no primary collector name has been set offer to set it to the current one
                 if (string.IsNullOrEmpty(settingsViewModel.CurrentCollectorName))

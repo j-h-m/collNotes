@@ -6,6 +6,6 @@ namespace collNotes.DeviceServices.Geolocation
 {
     public interface IGeoLocationService
     {
-        Task<Location> GetCurrentLocation(IExceptionRecordService exceptionRecordService);
+        Task<Location> GetCurrentLocation();
     }
 }

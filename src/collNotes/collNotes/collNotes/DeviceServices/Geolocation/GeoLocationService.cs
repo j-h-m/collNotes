@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace collNotes.DeviceServices.Geolocation
 {
@@ -9,7 +10,10 @@ namespace collNotes.DeviceServices.Geolocation
     {
         private const int _TIMEOUT_ = 20;
 
-        public async Task<Location> GetCurrentLocation(IExceptionRecordService exceptionRecordService)
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+
+        public async Task<Location> GetCurrentLocation()
         {
             Location currentLocation = null;
 

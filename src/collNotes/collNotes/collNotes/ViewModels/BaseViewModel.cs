@@ -1,16 +1,20 @@
-﻿using collNotes.Ef.Context;
+﻿using collNotes.DeviceServices.Permissions;
+using collNotes.Ef.Context;
 using collNotes.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using static collNotes.DeviceServices.Permissions.PermissionsService;
 
 namespace collNotes.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public CollNotesContext Context = DependencyService.Get<CollNotesContext>();
+        private readonly IPermissionsService permissionsService =
+            DependencyService.Get<IPermissionsService>(DependencyFetchTarget.NewInstance);
 
         private bool isBusy = false;
         public bool IsBusy
@@ -24,6 +28,20 @@ namespace collNotes.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        /// <summary>
+        /// Checks permission status, if granted returns true.
+        /// If not granted, requests permission and returns request result.
+        /// </summary>
+        /// <param name="permissionName"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckOrRequestPermission(PermissionName permissionName)
+        {
+            return await permissionsService.CheckPermission(permissionName) ?
+                true : await permissionsService.RequestPermission(permissionName) ?
+                true : false;
+                
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

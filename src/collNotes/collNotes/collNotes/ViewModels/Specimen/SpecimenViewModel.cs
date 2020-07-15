@@ -19,24 +19,15 @@ namespace collNotes.ViewModels
         public ObservableCollection<Specimen> SpecimenCollection { get; set; }
         public Command LoadSpecimenCommand { get; set; }
         
-        public readonly SiteService siteService;
-        public readonly SpecimenService specimenService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
-
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly SpecimenService specimenService =
+            DependencyService.Get<SpecimenService>(DependencyFetchTarget.NewInstance);
+        private readonly IExceptionRecordService exceptionRecordService =
+            DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
         public SpecimenViewModel()
         {
-            specimenService = new SpecimenService(Context, settingsViewModel);
-            siteService = new SiteService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            settingService = new SettingService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             Title = "Specimen";
             SpecimenCollection = new ObservableCollection<Specimen>();
 

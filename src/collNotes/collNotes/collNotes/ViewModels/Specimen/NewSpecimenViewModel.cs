@@ -23,32 +23,20 @@ namespace collNotes.ViewModels
         public string SelectedLifeStage { get; set; }
         public bool IsClone { get; set; }
 
-        private readonly SiteService siteService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly SiteService siteService =
+            DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
+        public readonly SpecimenService specimenService =
+            DependencyService.Get<SpecimenService>(DependencyFetchTarget.NewInstance);
 
-        public readonly SpecimenService specimenService;
-        public readonly IExceptionRecordService exceptionRecordService;
-        public readonly ICameraService cameraService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
-
-        public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } = (text, values) =>
-            values.Where(x =>
-                x.StartsWith(text, StringComparison.CurrentCulture)).
-            OrderBy(x => x).
-            ToList();
+        public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } = 
+            (text, values) => values.Where(x => x.StartsWith(text, StringComparison.CurrentCulture))
+            .OrderBy(x => x)
+            .ToList();
 
         public NewSpecimenViewModel()
         {
-            siteService = new SiteService(Context);
-            specimenService = new SpecimenService(Context, settingsViewModel);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            cameraService = new CameraService();
-            settingService = new SettingService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             int nextSpecimenNumber = specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount).Result;
             AssociableSites = siteService.GetAllAsync().Result;
 
@@ -64,14 +52,6 @@ namespace collNotes.ViewModels
 
         public NewSpecimenViewModel(Specimen specimenToClone)
         {
-            siteService = new SiteService(Context);
-            specimenService = new SpecimenService(Context, settingsViewModel);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            cameraService = new CameraService();
-            settingService = new SettingService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             int nextSpecimenNumber = specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount).Result;
             AssociableSites = siteService.GetAllAsync().Result;
 

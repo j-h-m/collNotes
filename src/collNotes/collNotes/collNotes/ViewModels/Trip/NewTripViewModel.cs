@@ -13,26 +13,17 @@ namespace collNotes.ViewModels
     {
         public Trip Trip { get; set; }
         public bool IsClone { get; set; }
-        private readonly SettingsViewModel settingsViewModel = DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
         
-        private readonly IExceptionRecordService exceptionRecordService;
-        private readonly IAppThemeService appThemeService;
-        private readonly ISettingService settingService;
-
-        public readonly TripService tripService;
-        public readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory;
+        private readonly SettingsViewModel settingsViewModel = 
+            DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
+        private readonly TripService tripService =
+            DependencyService.Get<TripService>(DependencyFetchTarget.NewInstance);
 
         /// <summary>
         /// Constructor for a new Trip.
         /// </summary>
         public NewTripViewModel()
         {
-            tripService = new TripService(Context);
-            settingService = new SettingService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             int nextTripNumber = tripService.GetNextCollectionNumber().Result;
 
             Trip = new Trip()
@@ -53,12 +44,6 @@ namespace collNotes.ViewModels
         /// <param name="tripToClone">The trip to clone.</param>
         public NewTripViewModel(Trip tripToClone)
         {
-            tripService = new TripService(Context);
-            settingService = new SettingService(Context);
-            exceptionRecordService = new ExceptionRecordService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
-            xfMaterialColorConfigFactory = new XfMaterialColorConfigFactory(appThemeService);
-
             int nextTripNumber = tripService.GetNextCollectionNumber().Result;
 
             Trip = new Trip()

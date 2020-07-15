@@ -18,9 +18,9 @@ namespace collNotes.ViewModels
         public MenuPageViewModel()
         {
             menuPageService = new MenuPageService();
-            ISettingService settingService = new SettingService(Context);
-            IExceptionRecordService exceptionRecordService = new ExceptionRecordService(Context);
-            appThemeService = new AppThemeService(settingService, exceptionRecordService);
+            ISettingService settingService = new SettingService();
+            IExceptionRecordService exceptionRecordService = new ExceptionRecordService();
+            appThemeService = new AppThemeService();
 
             var savedTheme = appThemeService.GetSavedTheme().Result;
             var result = appThemeService.SetAppTheme(savedTheme).Result;

@@ -3,7 +3,7 @@ using collNotes.Domain.Models;
 using collNotes.Services.Data.RecordData;
 using collNotes.Settings;
 
-namespace collNotes.Services.Data
+namespace collNotes.CsvHelperMaps
 {
     public class DarwinCore
     {

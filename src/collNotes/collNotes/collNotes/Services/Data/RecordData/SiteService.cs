@@ -1,20 +1,20 @@
 ﻿using collNotes.Domain.Models;
 using collNotes.Ef.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace collNotes.Services.Data.RecordData
 {
     public class SiteService : IServiceBase<Site>
     {
-        private CollNotesContext Context { get; set; }
+        private CollNotesContext Context =
+            DependencyService.Get<CollNotesContext>(DependencyFetchTarget.GlobalInstance);
 
-        public SiteService(CollNotesContext collNotesContext)
-        {
-            Context = collNotesContext;
-        }
+        public SiteService() { }
 
         public async Task<bool> CreateAsync(Site site)
         {
