@@ -158,6 +158,9 @@ namespace collNotes.ViewModels
         {
             Title = "Settings";
 
+            SetSettingsToSavedValues().ConfigureAwait(false);
+            LastSavedDateTimeString = GetLastSavedDateTimeString(GetLastSavedSettingDateTime());
+
             MessagingCenter.Subscribe<SettingsPage>(this, "DeleteImportRecords", (sender) =>
             {
                 importRecordService.DeleteAll();
