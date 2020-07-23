@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using collNotes.ColorThemes.ConfigFactory;
 using collNotes.DeviceServices.AppTheme;
 using collNotes.Domain.Models;
@@ -57,6 +58,18 @@ namespace collNotes.ViewModels
 
             Title = Trip.TripName;
             IsClone = true;
+        }
+
+        public async Task<bool> IsDuplicateTripName(string name)
+        {
+            if (await tripService.GetByNameAsync(name) is Trip)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using collNotes.Ef.Context;
+using collNotes.Views;
 
 namespace collNotes.ViewModels
 {
@@ -25,6 +26,8 @@ namespace collNotes.ViewModels
             DependencyService.Get<ISettingService>(DependencyFetchTarget.NewInstance);
         private readonly IAppThemeService appThemeService =
             DependencyService.Get<IAppThemeService>(DependencyFetchTarget.NewInstance);
+        private readonly I_ImportRecordService importRecordService =
+            DependencyService.Get<I_ImportRecordService>(DependencyFetchTarget.NewInstance);
 
         #region Binding Properties
 
@@ -155,8 +158,20 @@ namespace collNotes.ViewModels
         {
             Title = "Settings";
 
-            SetSettingsToSavedValues().ConfigureAwait(false);
-            LastSavedDateTimeString = GetLastSavedDateTimeString(GetLastSavedSettingDateTime());
+            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteImportRecords", (sender) =>
+            {
+                importRecordService.DeleteAll();
+            });
+
+            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteSettings", async (sender) =>
+            {
+                await settingService.DeleteAllAsync();
+            });
+
+            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteExceptionRecords", async (sender) =>
+            {
+                await exceptionRecordService.DeleteAllAsync();
+            });
         }
 
         public async Task<bool> CreateOrUpdateSetting(string settingKey, string settingValue)

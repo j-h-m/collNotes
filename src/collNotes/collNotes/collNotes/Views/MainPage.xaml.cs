@@ -14,6 +14,11 @@ namespace collNotes.Views
             InitializeComponent();
             MasterBehavior = MasterBehavior.Popover;
             MenuPages.Add((int)MenuItemType.About, (NavigationPage)Detail);
+
+            MessagingCenter.Subscribe<AboutPage>(this, "OpenMenu", (sender) =>
+            {
+                this.IsPresented = !this.IsPresented;
+            });
         }
 
         public async Task NavigateFromMenu(int id)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.Services.Data.RecordData
 {
@@ -43,6 +44,19 @@ namespace collNotes.Services.Data.RecordData
                 Context.Sites.Remove(site);
 
                 return await Context.SaveChangesAsync() > 0;
+            }
+            return false;
+        }
+
+        public bool DeleteAll()
+        {
+            if (Context.Sites.Any())
+            {
+                Context.Sites.ForEach<Site>(async site =>
+                {
+                    await DeleteAsync(site);
+                });
+                return true;
             }
             return false;
         }

@@ -40,6 +40,12 @@ namespace collNotes.Views
                     configuration: alertDialogConfig);
                 return;
             }
+            else if (await viewModel.IsDuplicateTripName(viewModel.Trip.TripName))
+            {
+                await MaterialDialog.Instance.AlertAsync("Duplicate Trip name.",
+                    configuration: alertDialogConfig);
+                return;
+            }
             else
             {
                 await tripService.CreateAsync(viewModel.Trip);

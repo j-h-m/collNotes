@@ -70,7 +70,7 @@ namespace collNotes.ViewModels
             {
                 if (await this.collectionService.ExportCollectionData(trip, exportPath))
                 {
-                    await ShareOrEmail(exportPath, trip.TripName);
+                    await ShareOrEmail(exportPath, $"{trip.TripName}.csv");
                 }
 
                 return true;
@@ -89,7 +89,7 @@ namespace collNotes.ViewModels
             {
                 if (await this.backupService.ExportBackup(exportPath))
                 {
-                    await ShareOrEmail(exportPath, "Backup");
+                    await ShareOrEmail(exportPath, "Backup.xml");
                 }
 
                 return true;

@@ -12,5 +12,7 @@ namespace collNotes.Services.Data
         Task<IEnumerable<ExceptionRecord>> GetAllAsync();
 
         Task<bool> AddAsync(ExceptionRecord exceptionRecord);
+
+        Task<bool> DeleteAllAsync();
     }
 }

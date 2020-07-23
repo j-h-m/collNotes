@@ -4,6 +4,7 @@ using collNotes.Domain.Models;
 using collNotes.Services;
 using collNotes.Services.Data;
 using collNotes.Services.Data.RecordData;
+using collNotes.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -29,6 +30,11 @@ namespace collNotes.ViewModels
             Sites = new ObservableCollection<Site>();
 
             LoadSitesCommand = new Command(async () => await ExecuteLoadSitesCommand());
+
+            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteSites", (sender) =>
+            {
+                siteService.DeleteAll();
+            });
         }
 
         private async Task ExecuteLoadSitesCommand()

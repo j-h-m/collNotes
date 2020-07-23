@@ -31,6 +31,7 @@ namespace collNotes.Ef.Context
         public DbSet<Specimen> Specimen { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<ExceptionRecord> ExceptionRecords { get; set; }
+        public DbSet<ImportRecord> ImportRecords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using collNotes.ColorThemes.ConfigFactory;
 using collNotes.DeviceServices.Connectivity;
+using collNotes.Domain.Models;
 using collNotes.Services.Data;
 using collNotes.Services.Data.RecordData;
 using collNotes.Settings;
@@ -34,6 +36,8 @@ namespace collNotes.Views
             DependencyService.Get<IConnectivityService>(DependencyFetchTarget.NewInstance);
         private readonly IExceptionRecordService exceptionRecordService =
             DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
+        private readonly I_ImportRecordService importRecordService =
+            DependencyService.Get<I_ImportRecordService>(DependencyFetchTarget.NewInstance);
 
         public ExportImportPage()
         {
@@ -69,17 +73,32 @@ namespace collNotes.Views
                 var stream = await OpenFileDialog();
                 string message = string.Empty;
 
-                var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
-                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip",
-                    configuration: loadingDialogConfig))
+                if (await importRecordService.HasFileBeenImported(stream.Item2))
                 {
-                    if (await viewModel.ImportTrip(stream))
+                    message = "This file has already been imported!";
+                }
+                else
+                {
+                    var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                    using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Trip",
+                        configuration: loadingDialogConfig))
                     {
-                        message = "Trip imported successfully.";
-                    }
-                    else
-                    {
-                        message = "Trip import failed.";
+                        if (await viewModel.ImportTrip(stream.Item1))
+                        {
+                            // log trip import
+                            await importRecordService.AddAsync(new ImportRecord()
+                            {
+                                Created = DateTime.Now,
+                                FileName = stream.Item2
+                            });
+
+                            message = "Trip imported successfully.";
+                        }
+                        else
+                        {
+                            message = stream.Item1 is null ?
+                                "No Trip file selected." : "Trip import failed.";
+                        }
                     }
                 }
 
@@ -103,30 +122,39 @@ namespace collNotes.Views
             {
                 var trips = await tripService.GetAllAsync();
 
-                var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
-                var choices = trips.Select(t => t.TripName).ToList();
-                var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip", choices,
-                    configuration: confirmationDialogConfig);
-                
-                string message = string.Empty;
-
-                if (result != -1)
+                if (trips.Any())
                 {
-                    var selectedTrip = trips.ToArray()[result];
-                    if (await viewModel.ExportTrip(selectedTrip, GetFilePath(selectedTrip.TripName + ".csv")))
-                    {
-                        message = "Trip exported successfully";
-                    }
-                    else
-                    {
-                        message = "Trip export failed";
-                    }
+                    var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
+                    var choices = trips.Select(t => t.TripName).ToList();
+                    var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip", choices,
+                        configuration: confirmationDialogConfig);
 
-                    var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
-                    await MaterialDialog.Instance.SnackbarAsync(message: message,
-                                            actionButtonText: "Ok",
-                                            msDuration: MaterialSnackbar.DurationIndefinite,
-                                            configuration: snackbarConfig);
+                    string message = string.Empty;
+
+                    if (result != -1)
+                    {
+                        var selectedTrip = trips.ToArray()[result];
+                        if (await viewModel.ExportTrip(selectedTrip, GetFilePath(selectedTrip.TripName + ".csv")))
+                        {
+                            message = "Trip exported successfully";
+                        }
+                        else
+                        {
+                            message = "Trip export failed";
+                        }
+
+                        var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                        await MaterialDialog.Instance.SnackbarAsync(message: message,
+                                                actionButtonText: "Ok",
+                                                msDuration: MaterialSnackbar.DurationIndefinite,
+                                                configuration: snackbarConfig);
+                    }
+                }
+                else
+                {
+                    var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+                    await MaterialDialog.Instance.AlertAsync("No Trips to export!",
+                        configuration: alertDialogConfig);
                 }
             }
         }
@@ -144,17 +172,32 @@ namespace collNotes.Views
                 var stream = await OpenFileDialog();
                 string message = string.Empty;
 
-                var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
-                using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup",
-                    configuration: loadingDialogConfig))
+                if (await importRecordService.HasFileBeenImported(stream.Item2))
                 {
-                    if (await viewModel.ImportBackup(stream))
+                    message = "This file has already been imported!";
+                }
+                else
+                {
+                    var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
+                    using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Attempting to import Backup",
+                        configuration: loadingDialogConfig))
                     {
-                        message = "Backup imported successfully.";
-                    }
-                    else
-                    {
-                        message = "Backup import failed.";
+                        if (await viewModel.ImportBackup(stream.Item1))
+                        {
+                            // log backup import
+                            await importRecordService.AddAsync(new ImportRecord()
+                            {
+                                Created = DateTime.Now,
+                                FileName = stream.Item2
+                            });
+
+                            message = "Backup imported successfully.";
+                        }
+                        else
+                        {
+                            message = stream.Item1 is null ?
+                                    "No Backup file selected." : "Backup import failed.";
+                        }
                     }
                 }
 
@@ -214,16 +257,13 @@ namespace collNotes.Views
             return Path.Combine(filePath, fileName);
         }
 
-        private async Task<Stream> OpenFileDialog()
+        private async Task<(Stream, string)> OpenFileDialog()
         {
             FileData fileData = await CrossFilePicker.Current.PickFile();
             Stream stream = null;
             try
             {
                 stream = fileData.GetStream();
-                string path = fileData?.FilePath ?? string.Empty;
-                if (fileData is { })
-                    fileData.Dispose();
             }
             catch (Exception ex)
             {
@@ -234,7 +274,7 @@ namespace collNotes.Views
                     ExceptionInfo = ex.Message
                 });
             }
-            return stream;
+            return (stream, fileData?.FileName);
         }
     }
 }

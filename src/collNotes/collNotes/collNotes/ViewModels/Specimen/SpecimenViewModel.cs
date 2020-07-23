@@ -32,6 +32,11 @@ namespace collNotes.ViewModels
             SpecimenCollection = new ObservableCollection<Specimen>();
 
             LoadSpecimenCommand = new Command(async () => await ExecuteLoadSpecimenCommand());
+
+            MessagingCenter.Subscribe<SettingsPage>(this, "DeleteSpecimen", (sender) =>
+            {
+                specimenService.DeleteAll();
+            });
         }
 
         private async Task ExecuteLoadSpecimenCommand()

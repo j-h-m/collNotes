@@ -15,6 +15,10 @@
         <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
             <ScrollView>
                 <StackLayout>
+                    <material:MaterialLabel Text="{Binding Site.SiteNumber, StringFormat='Site Number: {0}'}"
+                                            TextColor="{DynamicResource PrimaryTextColor}" 
+                                            HorizontalOptions="End" FontSize="Medium" />
+
                     <material:MaterialLabel Text="Site Name" FontSize="Medium"
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Site.SiteName}" IsEnabled="False" Placeholder="Site 1"

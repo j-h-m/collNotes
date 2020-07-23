@@ -120,10 +120,10 @@ namespace collNotes.Services.Data
                 Trip importedTrip = new Trip()
                 {
                     TripName = $"Trip-{nextTripNumber}",
+                    TripNumber = nextTripNumber,
                     AdditionalCollectors = randomSiteRecord.associatedCollectors,
                     CollectionDate = Convert.ToDateTime(randomSiteRecord.eventDate),
-                    PrimaryCollector = randomSiteRecord.recordedBy,
-                    TripNumber = nextTripNumber
+                    PrimaryCollector = randomSiteRecord.recordedBy
                 };
 
                 await tripService.CreateAsync(importedTrip);
@@ -134,7 +134,7 @@ namespace collNotes.Services.Data
                 foreach (var record in darwinCoreRecords)
                 {
                     int siteNumber = nextSiteNumber + sites.Count == 0 ? 
-                        1 : nextSiteNumber + sites.Count;
+                        1 : nextSiteNumber;
                     int specimenNumber = nextSpecimenNumber + specimen.Count == 0 ? 
                         1 : nextSpecimenNumber + specimen.Count;
 
@@ -144,6 +144,7 @@ namespace collNotes.Services.Data
                         {
                             AssociatedTaxa = record.associatedTaxa,
                             AssociatedTripName = importedTrip.TripName,
+                            AssociatedTripNumber = importedTrip.TripNumber,
                             CoordinateUncertaintyInMeters = record.coordinateUncertaintyInMeters,
                             Habitat = record.habitat,
                             Latitude = record.decimalLatitude,

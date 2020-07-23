@@ -39,11 +39,20 @@
                                                                     LineBreakMode="NoWrap"
                                                                     VerticalOptions="Center"
                                                                     FontSize="18" />
-                                            <material:MaterialLabel Text="{Binding AssociatedTripName, StringFormat='Associated Trip: {0}'}"
+                                            <StackLayout Orientation="Horizontal">
+                                                <material:MaterialLabel Text="{Binding SiteNumber, StringFormat='Site Number: {0}'}"
                                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                                     LineBreakMode="NoWrap"
                                                                     VerticalOptions="Center"
+                                                                    HorizontalOptions="StartAndExpand"
                                                                     FontSize="14" />
+                                                <material:MaterialLabel Text="{Binding AssociatedTripName, StringFormat='Associated Trip: {0}'}"
+                                                                    TextColor="{DynamicResource PrimaryTextColor}"
+                                                                    LineBreakMode="NoWrap"
+                                                                    VerticalOptions="Center"
+                                                                    HorizontalOptions="End"
+                                                                    FontSize="14" />
+                                            </StackLayout>
                                         </StackLayout>
                                     </material:MaterialCard>
                                 </StackLayout>

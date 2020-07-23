@@ -25,6 +25,14 @@ namespace collNotes.Views
             BindingContext = viewModel;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            viewModel.SetSettingsToSavedValues().ConfigureAwait(false);
+            viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTimeString(viewModel.GetLastSavedSettingDateTime());
+        }
+
         private async void Save_Clicked(object sender, EventArgs e)
         {
             var loadingDialogConfig = await xfMaterialColorConfigFactory.GetLoadingDialogConfiguration();
@@ -62,7 +70,12 @@ namespace collNotes.Views
                     configuration: loadingDialogConfig))
                 {
                     await viewModel.ResetSettings();
-                    MessagingCenter.Send<SettingsPage>(this, "DeleteTrips"); // deleted parent causes related children to be deleted
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteTrips");
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteSites");
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteSpecimen");
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteImportRecords");
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteSettings");
+                    MessagingCenter.Send<SettingsPage>(this, "DeleteExceptionRecords");
                 }
 
                 var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();

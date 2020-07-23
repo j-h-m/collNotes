@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.Services.Data.RecordData
 {
@@ -39,6 +40,19 @@ namespace collNotes.Services.Data.RecordData
             {
                 Context.Specimen.Remove(specimen);
                 return await Context.SaveChangesAsync() > 0;
+            }
+            return false;
+        }
+
+        public bool DeleteAll()
+        {
+            if (Context.Specimen.Any())
+            {
+                Context.Specimen.ForEach<Specimen>(async specimen =>
+                {
+                    await DeleteAsync(specimen);
+                });
+                return true;
             }
             return false;
         }

@@ -20,5 +20,10 @@ namespace collNotes.Views
                 Aspect.AspectFit :
                 Aspect.AspectFill;
         }
+
+        private void GetStarted_Clicked(object sender, System.EventArgs e)
+        {
+            MessagingCenter.Send<AboutPage>(this, "OpenMenu");
+        }
     }
 }

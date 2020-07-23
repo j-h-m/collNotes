@@ -2,6 +2,7 @@
 using collNotes.Ef.Context;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -48,6 +49,16 @@ namespace collNotes.Services.Data
         {
             await Context.ExceptionRecords.AddAsync(exceptionRecord);
             return await Context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeleteAllAsync()
+        {
+            if (Context.ExceptionRecords.Any())
+            {
+                Context.ExceptionRecords.RemoveRange(Context.ExceptionRecords);
+                return await Context.SaveChangesAsync() > 0;
+            }
+            return false;
         }
     }
 }

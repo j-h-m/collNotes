@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace collNotes.Services.Data
 {
@@ -81,52 +82,64 @@ namespace collNotes.Services.Data
                 // write all objects to database
                 backup.Trips.ForEach(async t =>
                 {
+                    int nextTripNumber = await tripService.GetNextCollectionNumber();
+                    string nextTripName = $"Trip-{nextTripNumber}";
+
                     await tripService.CreateAsync(new Trip()
                     {
                         AdditionalCollectors = t.AdditionalCollectors,
                         CollectionDate = t.CollectionDate,
                         PrimaryCollector = t.PrimaryCollector,
-                        TripName = t.TripName,
-                        TripNumber = t.TripNumber
+                        TripName = nextTripName,
+                        TripNumber = nextTripNumber
                     });
-                });
 
-                backup.Sites.ForEach(async s =>
-                {
-                    await siteService.CreateAsync(new Site()
+                    // match on saved number
+                    // create object with generated number
+                    backup.Sites.Where(x => x.AssociatedTripNumber == t.TripNumber).ForEach(async s =>
                     {
-                        AssociatedTaxa = s.AssociatedTaxa,
-                        AssociatedTripName = s.AssociatedTripName,
-                        CoordinateUncertaintyInMeters = s.CoordinateUncertaintyInMeters,
-                        Habitat = s.Habitat,
-                        Latitude = s.Latitude,
-                        Locality = s.Locality,
-                        LocationNotes = s.LocationNotes,
-                        Longitude = s.Longitude,
-                        MinimumElevationInMeters = s.MinimumElevationInMeters,
-                        PhotoAsBase64 = s.PhotoAsBase64,
-                        SiteName = s.SiteName,
-                        SiteNumber = s.SiteNumber
-                    });
-                });
+                        int nextSiteNumber = await siteService.GetNextCollectionNumber();
+                        string nextSiteName = $"{nextSiteNumber}-#";
 
-                backup.Specimen.ForEach(async s =>
-                {
-                    await specimenService.CreateAsync(new Specimen() 
-                    { 
-                        AdditionalInfo = s.AdditionalInfo,
-                        AssociatedSiteName = s.AssociatedSiteName,
-                        AssociatedSiteNumber = s.AssociatedSiteNumber,
-                        Cultivated = s.Cultivated,
-                        FieldIdentification = s.FieldIdentification,
-                        IndividualCount = s.IndividualCount,
-                        LabelString = s.LabelString,
-                        LifeStage = s.LifeStage,
-                        OccurrenceNotes = s.OccurrenceNotes,
-                        PhotoAsBase64 = s.PhotoAsBase64,
-                        SpecimenName = s.SpecimenName,
-                        SpecimenNumber = s.SpecimenNumber,
-                        Substrate = s.Substrate
+                        await siteService.CreateAsync(new Site()
+                        {
+                            AssociatedTaxa = s.AssociatedTaxa,
+                            AssociatedTripName = nextTripName,
+                            AssociatedTripNumber = nextTripNumber,
+                            CoordinateUncertaintyInMeters = s.CoordinateUncertaintyInMeters,
+                            Habitat = s.Habitat,
+                            Latitude = s.Latitude,
+                            Locality = s.Locality,
+                            LocationNotes = s.LocationNotes,
+                            Longitude = s.Longitude,
+                            MinimumElevationInMeters = s.MinimumElevationInMeters,
+                            PhotoAsBase64 = s.PhotoAsBase64,
+                            SiteName = nextSiteName,
+                            SiteNumber = nextSiteNumber
+                        });
+
+                        backup.Specimen.Where(x => x.AssociatedSiteNumber == s.SiteNumber).ForEach(async s =>
+                        {
+                            int nextSpecimenNumber = await specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount);
+                            string nextSpecimenName = $"{nextSiteNumber}-{nextSpecimenNumber}";
+
+                            await specimenService.CreateAsync(new Specimen()
+                            {
+                                AdditionalInfo = s.AdditionalInfo,
+                                AssociatedSiteName = nextSiteName,
+                                AssociatedSiteNumber = nextSiteNumber,
+                                Cultivated = s.Cultivated,
+                                FieldIdentification = s.FieldIdentification,
+                                IndividualCount = s.IndividualCount,
+                                LabelString = s.LabelString,
+                                LifeStage = s.LifeStage,
+                                OccurrenceNotes = s.OccurrenceNotes,
+                                PhotoAsBase64 = s.PhotoAsBase64,
+                                SpecimenName = nextSpecimenName,
+                                SpecimenNumber = nextSpecimenNumber,
+                                Substrate = s.Substrate
+                            });
+                        });
                     });
                 });
 

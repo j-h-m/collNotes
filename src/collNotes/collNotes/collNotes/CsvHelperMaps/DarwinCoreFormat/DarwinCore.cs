@@ -73,13 +73,13 @@ namespace collNotes.CsvHelperMaps
             substrate = "";
             associatedTaxa = site.AssociatedTaxa;
             eventDate = trip.CollectionDate.ToString("yyyy-MM-dd");
-            establishmentMeans = CollNotesSettings.DeviceInfo;
+            establishmentMeans = "";
             genericcolumn1 = "";
             decimalLatitude = site.Latitude;
             decimalLongitude = site.Longitude;
             coordinateUncertaintyInMeters = site.CoordinateUncertaintyInMeters;
             minimumElevationInMeters = site.MinimumElevationInMeters;
-            georeferenceProtocol = "";
+            georeferenceProtocol = CollNotesSettings.DeviceInfo;
             photoB64 = site.PhotoAsBase64;
         }
 

@@ -48,6 +48,7 @@ namespace collNotes
             DependencyService.Register<TripService>();
             DependencyService.Register<ISettingService, SettingService>();
             DependencyService.Register<IExceptionRecordService, ExceptionRecordService>();
+            DependencyService.Register<I_ImportRecordService, ImportRecordService>();
 
             // Data Operation Services
             DependencyService.Register<IBackupService, BackupService>();

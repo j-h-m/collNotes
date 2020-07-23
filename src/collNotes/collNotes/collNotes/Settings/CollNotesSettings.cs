@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace collNotes.Settings
 {
@@ -28,7 +29,7 @@ namespace collNotes.Settings
                     $"Name: {Xamarin.Essentials.DeviceInfo.Name}; " +
                     $"Platform: {Xamarin.Essentials.DeviceInfo.Platform}; " +
                     $"Version: {Xamarin.Essentials.DeviceInfo.VersionString}";
-
+        
         public static bool IsAppStartingUp = true;
 
         public static List<string> LifeStages = new List<string>()
