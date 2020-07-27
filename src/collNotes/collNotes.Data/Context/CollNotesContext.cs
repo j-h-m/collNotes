@@ -33,6 +33,16 @@ namespace collNotes.Ef.Context
         public DbSet<ExceptionRecord> ExceptionRecords { get; set; }
         public DbSet<ImportRecord> ImportRecords { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Trip>();
+            modelBuilder.Entity<Site>();
+            modelBuilder.Entity<Specimen>();
+            modelBuilder.Entity<Setting>();
+            modelBuilder.Entity<ExceptionRecord>();
+            modelBuilder.Entity<ImportRecord>();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Filename={SqliteFilePath}");
