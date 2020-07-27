@@ -50,7 +50,9 @@ namespace collNotes.ViewModels
             {
                 SpecimenCollection.Clear();
                 var specimenCollection = await specimenService.GetAllAsync();
-                specimenCollection = specimenCollection.OrderBy(specimen => specimen.AssociatedSiteNumber);
+                specimenCollection = specimenCollection
+                    .OrderBy(specimen => specimen.AssociatedSiteNumber)
+                    .ThenBy(specimen => specimen.SpecimenNumber);
 
                 specimenCollection.ForEach(specimen =>
                 {

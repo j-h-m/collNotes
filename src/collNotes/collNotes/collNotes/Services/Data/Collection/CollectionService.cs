@@ -131,15 +131,16 @@ namespace collNotes.Services.Data
                 int nextSiteNumber = await siteService.GetNextCollectionNumber();
                 int nextSpecimenNumber = await specimenService.GetNextCollectionNumber(settingsViewModel.CurrentCollectionCount);
 
+                int siteNumber = 0;
+                int specimenNumber = 0;
+
                 foreach (var record in darwinCoreRecords)
                 {
-                    int siteNumber = nextSiteNumber + sites.Count == 0 ? 
-                        1 : nextSiteNumber;
-                    int specimenNumber = nextSpecimenNumber + specimen.Count == 0 ? 
-                        1 : nextSpecimenNumber + specimen.Count;
-
                     if (record.specimenNumber.Equals("#")) // Site Record
                     {
+                        siteNumber = nextSiteNumber + sites.Count == 0 ?
+                            1 : nextSiteNumber + sites.Count;
+
                         sites.Add(new Site()
                         {
                             AssociatedTaxa = record.associatedTaxa,
@@ -159,10 +160,13 @@ namespace collNotes.Services.Data
                     }
                     else // Specimen Record
                     {
+                        specimenNumber = nextSpecimenNumber + specimen.Count == 0 ?
+                            1 : nextSpecimenNumber + specimen.Count;
+
                         specimen.Add(new Specimen()
                         {
                             AdditionalInfo = record.genericcolumn2,
-                            AssociatedSiteName = $"Site-{siteNumber}",
+                            AssociatedSiteName = $"{siteNumber}-#",
                             AssociatedSiteNumber = siteNumber,
                             Cultivated = record.establishmentMeans.Equals("cultivated"),
                             FieldIdentification = record.genericcolumn1,

@@ -48,7 +48,9 @@ namespace collNotes.ViewModels
             {
                 Sites.Clear();
                 var sites = await siteService.GetAllAsync();
-                sites = sites.OrderBy(site => site.AssociatedTripNumber);
+                sites = sites
+                    .OrderBy(site => site.AssociatedTripNumber)
+                    .ThenBy(site => site.SiteNumber);
 
                 sites.ForEach(site => Sites.Add(site));
             }
