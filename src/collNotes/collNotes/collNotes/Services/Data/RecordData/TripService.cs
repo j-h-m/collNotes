@@ -102,6 +102,26 @@ namespace collNotes.Services.Data.RecordData
             }
         }
 
+        public async Task<bool> UpdateAsync(Trip trip, string originalTripName)
+        {
+            if (trip is { })
+            {
+                Context.Trips.Update(trip);
+                var assocSites = Context.Sites.Where(s => s.AssociatedTripName == originalTripName);
+                foreach (Site item in assocSites)
+                {
+                    item.AssociatedTripName = trip.TripName;
+                }
+
+                Context.Sites.UpdateRange(assocSites);
+                return await Context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<int> GetNextCollectionNumber(int currentCollectionCount = 0)
         {
             int tripCount = await Context.Trips.CountAsync();

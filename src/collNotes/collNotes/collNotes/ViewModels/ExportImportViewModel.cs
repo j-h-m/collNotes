@@ -18,7 +18,7 @@ namespace collNotes.ViewModels
 {
     public class ExportImportViewModel : BaseViewModel
     {
-        private readonly SettingsViewModel settingsViewModel = 
+        private readonly SettingsViewModel settingsViewModel =
             DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
         private readonly ICollectionService collectionService =
             DependencyService.Get<ICollectionService>(DependencyFetchTarget.NewInstance);
@@ -35,9 +35,9 @@ namespace collNotes.ViewModels
 
         private bool _IsConnectionAvailable;
         public bool IsConnectionAvailable
-        { 
+        {
             get { return _IsConnectionAvailable; }
-            set 
+            set
             {
                 _IsConnectionAvailable = value;
                 OnPropertyChanged(nameof(IsConnectionAvailable));
@@ -66,16 +66,19 @@ namespace collNotes.ViewModels
 
         public async Task<bool> ExportTrip(Trip trip, string exportPath)
         {
+            bool result = false;
+
             if (await CheckOrRequestStoragePermission())
             {
                 if (await this.collectionService.ExportCollectionData(trip, exportPath))
                 {
                     await ShareOrEmail(exportPath, $"{trip.TripName}.csv");
+                    result = true;
                 }
 
-                return true;
             }
-            else { return false; }
+
+            return result;
         }
 
         public async Task<bool> ImportBackup(Stream stream)
@@ -99,10 +102,16 @@ namespace collNotes.ViewModels
 
         private async Task ShareOrEmail(string exportPath, string title)
         {
+            // email doesn't work for some devices
             if (exportMethod.Equals("Email"))
             {
-                await this.emailService.SendEmail($"collNotes Export - {title}",
+                var result = await this.emailService.SendEmail($"collNotes Export - {title}",
                     "Edit body and add recipients", null, exportPath);
+                if (result == EmailService.Result.NotSupported) // email is not supported
+                {
+                    // try share
+                    await this.shareFileService.ShareFile(exportPath, $"collNotes Export - {title}");
+                }
             }
             else if (exportMethod.Equals("Multi-Option Share"))
             {

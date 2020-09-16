@@ -16,7 +16,7 @@ namespace collNotes.ViewModels
         private readonly IPermissionsService permissionsService =
             DependencyService.Get<IPermissionsService>(DependencyFetchTarget.NewInstance);
 
-        private bool isBusy = false;
+        private bool isBusy;
         public bool IsBusy
         {
             get { return isBusy; }
@@ -41,11 +41,11 @@ namespace collNotes.ViewModels
             return await permissionsService.CheckPermission(permissionName) ?
                 true : await permissionsService.RequestPermission(permissionName) ?
                 true : false;
-                
+
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
+            [CallerMemberName] string propertyName = "",
             Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))

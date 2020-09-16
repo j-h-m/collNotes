@@ -53,10 +53,10 @@ namespace collNotes.ColorThemes.ConfigFactory
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
                 {
-                    BackgroundColor = Light_Default.PageBackgroundColor,
-                    MessageTextColor = Light_Default.PrimaryTextColor,
-                    TitleTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.SecondaryColor
+                    BackgroundColor = LightDefault.PageBackgroundColor,
+                    MessageTextColor = LightDefault.PrimaryTextColor,
+                    TitleTextColor = LightDefault.PrimaryTextColor,
+                    TintColor = LightDefault.SecondaryColor
                 };
             }
 
@@ -99,9 +99,9 @@ namespace collNotes.ColorThemes.ConfigFactory
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
                 {
-                    BackgroundColor = Light_Default.PageBackgroundColor,
-                    MessageTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.SecondaryColor
+                    BackgroundColor = LightDefault.PageBackgroundColor,
+                    MessageTextColor = LightDefault.PrimaryTextColor,
+                    TintColor = LightDefault.SecondaryColor
                 };
             }
 
@@ -144,9 +144,9 @@ namespace collNotes.ColorThemes.ConfigFactory
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
                 {
-                    BackgroundColor = Light_Default.PageBackgroundColor,
-                    MessageTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.SecondaryColor
+                    BackgroundColor = LightDefault.PageBackgroundColor,
+                    MessageTextColor = LightDefault.PrimaryTextColor,
+                    TintColor = LightDefault.SecondaryColor
                 };
             }
 
@@ -198,12 +198,12 @@ namespace collNotes.ColorThemes.ConfigFactory
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
                 {
-                    BackgroundColor = Light_Default.PageBackgroundColor,
-                    TextColor = Light_Default.PrimaryTextColor,
-                    TitleTextColor = Light_Default.PrimaryTextColor,
-                    TintColor = Light_Default.SecondaryColor,
-                    ControlSelectedColor = Light_Default.SecondaryColor,
-                    ControlUnselectedColor = Light_Default.SecondaryColorDark
+                    BackgroundColor = LightDefault.PageBackgroundColor,
+                    TextColor = LightDefault.PrimaryTextColor,
+                    TitleTextColor = LightDefault.PrimaryTextColor,
+                    TintColor = LightDefault.SecondaryColor,
+                    ControlSelectedColor = LightDefault.SecondaryColor,
+                    ControlUnselectedColor = LightDefault.SecondaryColorDark
                 };
             }
 

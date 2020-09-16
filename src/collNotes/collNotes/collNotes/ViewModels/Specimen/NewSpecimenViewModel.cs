@@ -23,14 +23,14 @@ namespace collNotes.ViewModels
         public string SelectedLifeStage { get; set; }
         public bool IsClone { get; set; }
 
-        private readonly SettingsViewModel settingsViewModel = 
+        private readonly SettingsViewModel settingsViewModel =
             DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
         private readonly SiteService siteService =
             DependencyService.Get<SiteService>(DependencyFetchTarget.NewInstance);
-        public readonly SpecimenService specimenService =
+        private readonly SpecimenService specimenService =
             DependencyService.Get<SpecimenService>(DependencyFetchTarget.NewInstance);
 
-        public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } = 
+        public Func<string, ICollection<string>, ICollection<string>> SortingAlgorithm { get; } =
             (text, values) => values.Where(x => x.StartsWith(text, StringComparison.CurrentCulture))
             .OrderBy(x => x)
             .ToList();
@@ -72,6 +72,16 @@ namespace collNotes.ViewModels
 
             Title = Specimen.SpecimenName;
             IsClone = true;
+        }
+
+        public async Task<bool> Create(Specimen specimen)
+        {
+            return await specimenService.CreateAsync(specimen);
+        }
+
+        public async Task<bool> UpdateCollectionNumber()
+        {
+            return await specimenService.UpdateCollectionNumber();
         }
     }
 }

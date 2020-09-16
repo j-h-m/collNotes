@@ -5,12 +5,12 @@
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Update" Clicked="Update_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <material:MaterialCard CornerRadius="2" Elevation="1"
                                HorizontalOptions="FillAndExpand" 
@@ -19,13 +19,13 @@
                 <StackLayout>
                     <material:MaterialLabel Text="Trip Name" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Trip.TripName}" 
-                                                IsEnabled="False" Placeholder="Trip 1" 
+                                                Placeholder="Trip 1" 
                                                 InputType="Text" 
                                                 TextColor="{DynamicResource PrimaryTextColor}"
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Primary Collector" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialTextField Text="{Binding Trip.PrimaryCollector}" 
                                                 Placeholder="Carl Linnaeus" 
@@ -43,12 +43,12 @@
                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                                 TintColor="{DynamicResource SecondaryColor}"
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
-                    
+
                     <material:MaterialLabel Text="Collection Date:" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <DatePicker Date="{Binding Trip.CollectionDate}" 
                                 TextColor="{DynamicResource PrimaryTextColor}"
                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}"/>
-                    
+
                     <material:MaterialButton Text="Delete"
                                              Clicked="Delete_Clicked" 
                                              BackgroundColor="{DynamicResource SecondaryColor}"

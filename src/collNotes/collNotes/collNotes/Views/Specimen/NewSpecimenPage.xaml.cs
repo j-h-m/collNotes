@@ -15,7 +15,7 @@ namespace collNotes.Views
 
         private FieldIDSearchPage FieldIDSearchPage { get; set; }
         private readonly NewSpecimenViewModel viewModel;
-        
+
         private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
             DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
         private readonly ICameraService cameraService =
@@ -92,9 +92,9 @@ namespace collNotes.Views
                 viewModel.Specimen.FieldIdentification :
                 viewModel.Specimen.SpecimenName;
 
-            if (await viewModel.specimenService.CreateAsync(viewModel.Specimen))
+            if (await viewModel.Create(viewModel.Specimen))
             {
-                await viewModel.specimenService.UpdateCollectionNumber();
+                await viewModel.UpdateCollectionNumber();
             }
             await Navigation.PopAsync();
         }

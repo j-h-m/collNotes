@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace collNotes.Services.Data
 {
-    public class ImportRecordService : I_ImportRecordService
+    public class ImportRecordService : IImportRecordService
     {
         private readonly CollNotesContext Context =
             DependencyService.Get<CollNotesContext>(DependencyFetchTarget.GlobalInstance);
@@ -22,7 +22,7 @@ namespace collNotes.Services.Data
             return await Context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> HasFileBeenImported (string fileName)
+        public async Task<bool> HasFileBeenImported(string fileName)
         {
             return await Context.ImportRecords.FirstOrDefaultAsync(x => x.FileName.Equals(fileName)) is ImportRecord;
         }

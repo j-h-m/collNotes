@@ -24,12 +24,12 @@ namespace collNotes.Settings
 
         public const string DeviceInfoKey = "device_info";
 
-        public static string DeviceInfo = $"Manufacturer: {Xamarin.Essentials.DeviceInfo.Manufacturer}; " +
+        public static readonly string DeviceInfo = $"Manufacturer: {Xamarin.Essentials.DeviceInfo.Manufacturer}; " +
                     $"Model: {Xamarin.Essentials.DeviceInfo.Model}; " +
                     $"Name: {Xamarin.Essentials.DeviceInfo.Name}; " +
                     $"Platform: {Xamarin.Essentials.DeviceInfo.Platform}; " +
                     $"Version: {Xamarin.Essentials.DeviceInfo.VersionString}";
-        
+
         public static bool IsAppStartingUp = true;
 
         public static List<string> LifeStages = new List<string>()
@@ -71,7 +71,7 @@ namespace collNotes.Settings
 
         public enum ColorTheme
         {
-            Light_Default,
+            LightDefault,
             Dark,
             ContrastLight,
             ContrastDark
@@ -83,8 +83,8 @@ namespace collNotes.Settings
 
             switch (colorTheme)
             {
-                case ColorTheme.Light_Default:
-                    themeName = ColorThemes[(int)ColorTheme.Light_Default];
+                case ColorTheme.LightDefault:
+                    themeName = ColorThemes[(int)ColorTheme.LightDefault];
                     break;
                 case ColorTheme.Dark:
                     themeName = ColorThemes[(int)ColorTheme.Dark];
@@ -109,8 +109,8 @@ namespace collNotes.Settings
                 ColorTheme colorTheme;
                 switch (ColorThemes.IndexOf(themeName))
                 {
-                    case (int)ColorTheme.Light_Default:
-                        colorTheme = ColorTheme.Light_Default;
+                    case (int)ColorTheme.LightDefault:
+                        colorTheme = ColorTheme.LightDefault;
                         break;
                     case (int)ColorTheme.Dark:
                         colorTheme = ColorTheme.Dark;
@@ -122,14 +122,14 @@ namespace collNotes.Settings
                         colorTheme = ColorTheme.ContrastDark;
                         break;
                     default:
-                        colorTheme = ColorTheme.Light_Default;
+                        colorTheme = ColorTheme.LightDefault;
                         break;
                 }
                 return colorTheme;
             }
             else
             {
-                return ColorTheme.Light_Default;
+                return ColorTheme.LightDefault;
             }
         }
     }

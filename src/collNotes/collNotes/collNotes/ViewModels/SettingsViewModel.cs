@@ -26,8 +26,8 @@ namespace collNotes.ViewModels
             DependencyService.Get<ISettingService>(DependencyFetchTarget.NewInstance);
         private readonly IAppThemeService appThemeService =
             DependencyService.Get<IAppThemeService>(DependencyFetchTarget.NewInstance);
-        private readonly I_ImportRecordService importRecordService =
-            DependencyService.Get<I_ImportRecordService>(DependencyFetchTarget.NewInstance);
+        private readonly IImportRecordService importRecordService =
+            DependencyService.Get<IImportRecordService>(DependencyFetchTarget.NewInstance);
 
         #region Binding Properties
 
@@ -159,7 +159,7 @@ namespace collNotes.ViewModels
             Title = "Settings";
 
             SetSettingsToSavedValues().ConfigureAwait(false);
-            LastSavedDateTimeString = GetLastSavedDateTimeString(GetLastSavedSettingDateTime());
+            LastSavedDateTimeString = GetLastSavedDateTime(GetLastSavedSettingDateTime());
 
             MessagingCenter.Subscribe<SettingsPage>(this, "DeleteImportRecords", (sender) =>
             {
@@ -207,13 +207,13 @@ namespace collNotes.ViewModels
 
         public DateTime? GetLastSavedSettingDateTime()
         {
-            if (Context.Settings.Count() > 0)
+            if (Context.Settings.Any())
                 return Context.Settings.Max(s => s.LastSaved);
             else
                 return null;
         }
 
-        public string GetLastSavedDateTimeString(DateTime? lastSavedDateTime)
+        public string GetLastSavedDateTime(DateTime? lastSavedDateTime)
         {
             return (lastSavedDateTime is null) ?
                 "Never" :
@@ -228,7 +228,7 @@ namespace collNotes.ViewModels
             SelectedExportFormat = CollNotesSettings.ExportFormatDefault;
             SelectedExportMethod = CollNotesSettings.ExportMethodDefault;
             SelectedColorTheme = CollNotesSettings.ColorThemeDefault;
-            LastSavedDateTimeString = GetLastSavedDateTimeString(null);
+            LastSavedDateTimeString = GetLastSavedDateTime(null);
 
             await UpdateSettings();
         }

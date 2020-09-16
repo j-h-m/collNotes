@@ -30,7 +30,7 @@ namespace collNotes.Views
 
         private async void Update_Clicked(object sender, EventArgs e)
         {
-            await tripService.UpdateAsync(viewModel.Trip);
+            await tripService.UpdateAsync(viewModel.Trip, viewModel.originalTripName);
             await Navigation.PopAsync();
         }
 

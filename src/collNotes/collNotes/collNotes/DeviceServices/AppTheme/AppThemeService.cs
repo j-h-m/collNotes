@@ -14,9 +14,9 @@ namespace collNotes.DeviceServices.AppTheme
 {
     public class AppThemeService : IAppThemeService
     {
-        private ISettingService settingService = 
+        private ISettingService settingService =
             DependencyService.Get<ISettingService>(DependencyFetchTarget.NewInstance);
-        
+
         private IExceptionRecordService exceptionRecordService =
             DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
@@ -28,7 +28,7 @@ namespace collNotes.DeviceServices.AppTheme
 
             if (themeSetting is null)
             {
-                return ColorTheme.Light_Default;
+                return ColorTheme.LightDefault;
             }
             else
             {
@@ -93,16 +93,16 @@ namespace collNotes.DeviceServices.AppTheme
                         case ColorTheme.ContrastLight:
                             mergedDictionaries.Add(new ContrastLight());
                             break;
-                        case ColorTheme.Light_Default:
+                        case ColorTheme.LightDefault:
                         default:
-                            mergedDictionaries.Add(new Light_Default());
+                            mergedDictionaries.Add(new LightDefault());
                             break;
                     }
 
                     result = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result = false;
                 await this.exceptionRecordService.CreateExceptionRecord(ex);

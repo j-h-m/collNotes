@@ -10,7 +10,7 @@ namespace collNotes.Views
 {
     public partial class SettingsPage : ContentPage
     {
-        private readonly SettingsViewModel viewModel = 
+        private readonly SettingsViewModel viewModel =
             DependencyService.Get<SettingsViewModel>(DependencyFetchTarget.GlobalInstance);
 
         private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
@@ -30,7 +30,7 @@ namespace collNotes.Views
             base.OnAppearing();
 
             viewModel.SetSettingsToSavedValues().ConfigureAwait(false);
-            viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTimeString(viewModel.GetLastSavedSettingDateTime());
+            viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTime(viewModel.GetLastSavedSettingDateTime());
         }
 
         private async void Save_Clicked(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace collNotes.Views
             using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Saving settings...",
                 configuration: loadingDialogConfig))
             {
-                viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTimeString(viewModel.GetLastSavedSettingDateTime());
+                viewModel.LastSavedDateTimeString = viewModel.GetLastSavedDateTime(viewModel.GetLastSavedSettingDateTime());
                 await viewModel.UpdateSettings();
             }
 

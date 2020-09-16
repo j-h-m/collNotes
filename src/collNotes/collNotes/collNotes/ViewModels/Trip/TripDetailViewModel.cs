@@ -12,10 +12,12 @@ namespace collNotes.ViewModels
     {
         public Trip Trip { get; set; }
 
+        public string originalTripName { get; set; }
+
         public TripDetailViewModel(Trip trip)
         {
             Trip = trip;
-            Title = Trip?.TripName;
+            Title = originalTripName = Trip?.TripName;
         }
     }
 }

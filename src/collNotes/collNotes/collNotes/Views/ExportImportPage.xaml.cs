@@ -36,8 +36,8 @@ namespace collNotes.Views
             DependencyService.Get<IConnectivityService>(DependencyFetchTarget.NewInstance);
         private readonly IExceptionRecordService exceptionRecordService =
             DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
-        private readonly I_ImportRecordService importRecordService =
-            DependencyService.Get<I_ImportRecordService>(DependencyFetchTarget.NewInstance);
+        private readonly IImportRecordService importRecordService =
+            DependencyService.Get<IImportRecordService>(DependencyFetchTarget.NewInstance);
 
         public ExportImportPage()
         {

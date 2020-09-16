@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace collNotes.Services.Data
 {
-    public interface I_ImportRecordService
+    public interface IImportRecordService
     {
         Task<bool> AddAsync(ImportRecord importRecord);
         Task<bool> HasFileBeenImported(string fileName);
