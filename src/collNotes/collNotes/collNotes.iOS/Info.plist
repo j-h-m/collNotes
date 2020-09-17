@@ -43,10 +43,10 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.9</string>
+	<string>2.1.10</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleVersion</key>
-	<string>16.0</string>
+	<string>17.0</string>
 </dict>
 </plist>

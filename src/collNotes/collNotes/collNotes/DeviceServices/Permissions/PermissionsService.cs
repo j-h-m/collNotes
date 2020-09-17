@@ -13,7 +13,7 @@ namespace collNotes.DeviceServices.Permissions
 {
     public class PermissionsService : IPermissionsService
     {
-        private IExceptionRecordService exceptionRecordService = 
+        private IExceptionRecordService exceptionRecordService =
             DependencyService.Get<IExceptionRecordService>(DependencyFetchTarget.NewInstance);
 
         public enum PermissionName
@@ -118,8 +118,12 @@ namespace collNotes.DeviceServices.Permissions
             {
                 foreach (var pn in Enum.GetValues(typeof(PermissionName)).Cast<PermissionName>())
                 {
-                    var result = await RequestPermission(pn);
-                    resultDict.Add(pn, result);
+                    if (Device.RuntimePlatform != Device.iOS ||
+                        pn != PermissionName.MediaLib)
+                    {
+                        var result = await RequestPermission(pn);
+                        resultDict.Add(pn, result);
+                    }
                 }
             }
             catch (Exception ex)
