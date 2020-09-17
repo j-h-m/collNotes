@@ -47,8 +47,8 @@ stages:
       pool:
         vmImage: 'macOS-10.14'
       steps:
-        - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_6_0
-          displayName: 'Select Xamarin SDK version 6.6.0'
+        - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_12_0
+          displayName: 'Select Xamarin SDK version 6.12.0'
           enabled: true
         - task: UseDotNet@2
           displayName: 'Use .NET Core 3.1.101'
