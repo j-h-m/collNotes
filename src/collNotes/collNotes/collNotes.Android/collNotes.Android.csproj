@@ -45,7 +45,6 @@
         <WarningLevel>4</WarningLevel>
         <AndroidManagedSymbols>true</AndroidManagedSymbols>
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-        <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
         <RunCodeAnalysis>true</RunCodeAnalysis>
         <AndroidLinkTool>r8</AndroidLinkTool>
         <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
