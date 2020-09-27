@@ -11,6 +11,8 @@ collNotes sister app [collBook](https://github.com/CapPow/collBook).
 
 The main purpose of collNotes is to export data in a format digestible by [collBook](https://github.com/CapPow/collBook). It is decentralized, so each user has their own data store on their phone that no other knows about. The default export data format is Darwin Core, and the export file type is CSV. If you have a request for another format or file type, I would be happy to add either! Feel free to make requests or suggestions in [Issues](https://github.com/j-h-m/collNotes/issues) or [Email](mailto:programmingisfunjacmot@gmail.com) me directly.
 
+Thanks to [zularizal](https://github.com/zularizal) for the icons!
+
 ## [Citing collNotes & collBook](#Citation)
 
 Please cite collNotes and collBook using our paper in *Applications in Plant Sciences*:
