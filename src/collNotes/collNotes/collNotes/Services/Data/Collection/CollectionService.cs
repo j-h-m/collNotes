@@ -38,7 +38,8 @@ namespace collNotes.Services.Data
                 using (var streamWriter = new StreamWriter(exportPath))
                 using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.CurrentCulture))
                 {
-                    csvWriter.Configuration.RegisterClassMap<DarwinCoreMap>();
+                    // csvWriter.Configuration.RegisterClassMap<DarwinCoreMap>(); --- broken after nuget upgrade
+                    csvWriter.Context.RegisterClassMap<DarwinCoreMap>();
                     csvWriter.WriteHeader<DarwinCore>();
                     csvWriter.NextRecord();
 
@@ -84,7 +85,8 @@ namespace collNotes.Services.Data
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, CultureInfo.CurrentCulture))
                 {
-                    csv.Configuration.RegisterClassMap<DarwinCoreMap>();
+                    // csv.Configuration.RegisterClassMap<DarwinCoreMap>(); --- broken after nuget upgrade
+                    csv.Context.RegisterClassMap<DarwinCoreMap>();
 
                     var records = csv.GetRecords<DarwinCore>().ToList();
 

@@ -11,8 +11,8 @@ using collNotes.Services.Data.RecordData;
 using collNotes.Settings;
 using collNotes.ShareFolderInterface;
 using collNotes.ViewModels;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
+/*using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;*/
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -259,11 +259,20 @@ namespace collNotes.Views
 
         private async Task<(Stream, string)> OpenFileDialog()
         {
-            FileData fileData = await CrossFilePicker.Current.PickFile();
             Stream stream = null;
+            string fileName = string.Empty;
             try
             {
-                stream = fileData.GetStream();
+                PickOptions options = new PickOptions()
+                {
+                    PickerTitle = "Please select a CSV file"
+                };
+                var res = await FilePicker.PickAsync(options);
+                if (res != null)
+                {
+                    fileName = res.FileName;
+                    stream = await res.OpenReadAsync();
+                }
             }
             catch (Exception ex)
             {
@@ -274,7 +283,7 @@ namespace collNotes.Views
                     ExceptionInfo = ex.Message
                 });
             }
-            return (stream, fileData?.FileName);
+            return (stream, fileName);
         }
     }
 }
