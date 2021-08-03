@@ -11,10 +11,12 @@ namespace collNotes.Views
 {
     public partial class MenuPage : ContentPage
     {
+        [Obsolete]
         private MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         private List<HomeMenuItem> MenuItems;
         private MenuPageViewModel menuPageViewModel;
 
+        [Obsolete]
         public MenuPage()
         {
             InitializeComponent();

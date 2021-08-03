@@ -4,17 +4,30 @@ using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
+using System;
 using System.Security;
 
 namespace collNotes.Droid
 {
     [Activity(Label = "collNotes", Icon = "@drawable/icon", Theme = "@style/MainTheme", 
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+#pragma warning disable CS3009 // Base type is not CLS-compliant
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+#pragma warning restore CS3009 // Base type is not CLS-compliant
     {
         [SecuritySafeCritical]
+        [Obsolete]
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         protected override void OnCreate(Bundle savedInstanceState)
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
+            if (savedInstanceState is null)
+            {
+                throw new ArgumentNullException(nameof(savedInstanceState));
+            }
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -28,8 +41,15 @@ namespace collNotes.Droid
             LoadApplication(new App());
         }
 
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
+            if (grantResults is null)
+            {
+                throw new ArgumentNullException(nameof(grantResults));
+            }
+
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }

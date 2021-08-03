@@ -5,6 +5,7 @@ using Xamarin.Forms;
 
 namespace collNotes.Views
 {
+    [System.Obsolete] // will eventuall have to migrate to FlyoutPage, not doing until MasterDetailPage is actually broken and not deprecated
     public partial class MainPage : MasterDetailPage
     {
         private Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();

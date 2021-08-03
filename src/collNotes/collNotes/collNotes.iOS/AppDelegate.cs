@@ -16,7 +16,10 @@ namespace collNotes.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
+        [System.Obsolete]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
         {
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
