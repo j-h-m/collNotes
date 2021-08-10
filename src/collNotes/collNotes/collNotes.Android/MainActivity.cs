@@ -15,12 +15,8 @@ namespace collNotes.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 #pragma warning restore CS3009 // Base type is not CLS-compliant
     {
-        [SecuritySafeCritical]
-        [Obsolete]
 #pragma warning disable CS3001 // Argument type is not CLS-compliant
-#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         protected override void OnCreate(Bundle savedInstanceState)
-#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 #pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             if (savedInstanceState is null)

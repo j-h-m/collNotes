@@ -44,7 +44,8 @@ namespace collNotes.Droid
         void SimulateStartup()
         {
             Console.WriteLine(TAG, "starting MainActivity.");
-            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            Intent intent = new Intent(Application.Context, typeof(MainActivity));
+            StartActivity(intent);
         }
     }
 }

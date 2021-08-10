@@ -9,13 +9,13 @@ namespace collNotes
 {
     public partial class App : Application
     {
-        [Obsolete]
         public App()
         {
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
             Startup.Init();
             MainPage = new MainPage();
+            //MainPage = new AppShell();
         }
 
         protected override void OnStart()
