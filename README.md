@@ -1,5 +1,7 @@
 [![Build Status](https://dev.azure.com/FooBarLLC/collNotes/_apis/build/status/j-h-m.collNotes?branchName=master)](https://dev.azure.com/FooBarLLC/collNotes/_build/latest?definitionId=4&branchName=master)
 
+https://appadvice.com/app/collnotes/1455049130
+
 <h1 align=center>
 <img src="data/assets/logo-collnotes//horizontal.png" width=40%>
 </h1>
