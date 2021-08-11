@@ -6,7 +6,7 @@ stages:
 - stage: Build
   jobs:
     - job: 'Android'
-    steps:
+      steps:
       - task: NuGetToolInstaller@1
 
       - task: NuGetCommand@2
@@ -20,10 +20,10 @@ stages:
           configuration: '$(buildConfiguration)'
           msbuildVersionOption: '16.0'
     - job: 'iOS'
-    steps:
-    - task: XamariniOS@2
-      inputs:
-        solutionFile: '**/*iOS.csproj'
-        configuration: '$(buildConfiguration)'
-        packageApp: false
-        buildForSimulator: true
+      steps:
+      - task: XamariniOS@2
+        inputs:
+          solutionFile: '**/*iOS.csproj'
+          configuration: '$(buildConfiguration)'
+          packageApp: false
+          buildForSimulator: true
