@@ -24,6 +24,9 @@ stages:
 
     - job: 'iOS'
       steps:
+      # https://docs.microsoft.com/azure/devops/pipelines/ecosystems/xamarin
+      pool:
+        vmImage: 'macOS-10.15' # For Windows, use 'windows-2019'
       # To manually select a Xamarin SDK version on the Hosted macOS agent, enable this script with the SDK version you want to target
       # https://go.microsoft.com/fwlink/?linkid=871629
       - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_4_1 
