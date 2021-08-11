@@ -1,64 +1,29 @@
-trigger:
-- master
-- develop
 variables:
   buildConfiguration: 'Release'
-  collNotesRepoName: 'j-h-m/collNotes'
-  MonoVersion: '5_16_0'
-  xcodeRoot: '/Applications/Xcode_10.1.app'
-  apkFileName: 'com.thc.collnotes.apk'
+  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
 stages:
 - stage: Build
   jobs:
     - job: 'Android'
-      pool:
-        vmImage: 'windows-latest'
-      steps:
-      - task: NuGetToolInstaller@0
-        displayName: 'install nuget tool'
-        inputs:
-          versionSpec: '5.x'
-          checkLatest:  true
+    steps:
+      - task: NuGetToolInstaller@1
+
       - task: NuGetCommand@2
-        displayName: 'nuget restore on solution'
         inputs:
           restoreSolution: '**/*.sln'
+
       - task: XamarinAndroid@1
-        displayName: 'build app'
         inputs:
-          clean: true
-          projectFile: '**/*droid*.csproj'
-          outputDirectory: '$(Build.ArtifactStagingDirectory)'
+          projectFile: '**/*Droid*.csproj'
+          outputDirectory: '$(outputDirectory)'
           configuration: '$(buildConfiguration)'
-          createAppPackage: true
-      - task: PublishPipelineArtifact@1
-        displayName: 'publish apk'
-        inputs:
-          path: $(Build.ArtifactStagingDirectory)/$(apkFileName)
-          artifact: android-apk
+          msbuildVersionOption: '16.0'
     - job: 'iOS'
-      pool:
-        vmImage: 'macOS-latest'
-      steps:
-        - task: UseDotNet@2
-          displayName: 'Use .NET Core 3.1.101'
-          inputs:
-            packageType: sdk
-            version: 3.1.101
-            installationPath: $(Agent.ToolsDirectory)/dotnet
-        - task: NuGetToolInstaller@1
-          displayName: 'Install NuGet tool'
-        - task: NuGetCommand@2
-          displayName: 'nuget restore on solution'
-          inputs:
-            restoreSolution: '**/*.sln'
-        - task: XamariniOS@2
-          displayName: 'Build iOS App'
-          inputs:
-            clean: true
-            solutionFile: '**/*.sln'
-            configuration: '$(buildConfiguration)'
-            packageApp: false
-            buildForSimulator: true
-            runNugetRestore: false
+    steps:
+    - task: XamariniOS@2
+      inputs:
+        solutionFile: '**/*iOS.csproj'
+        configuration: '$(buildConfiguration)'
+        packageApp: false
+        buildForSimulator: true
