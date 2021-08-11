@@ -47,12 +47,6 @@
                     Command="{Binding OpenWebCommand}"
                     BackgroundColor="{DynamicResource SecondaryColor}"
                     TextColor="{DynamicResource SecondaryTextColor}"/>
-                <material:MaterialButton
-                    Margin="0,0,0,0"
-                    Text="Get Started"
-                    Clicked="GetStarted_Clicked"
-                    BackgroundColor="{DynamicResource SecondaryColor}"
-                    TextColor="{DynamicResource SecondaryTextColor}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

@@ -15,12 +15,6 @@ namespace collNotes
             Routing.RegisterRoute(nameof(ExportImportPage), typeof(ExportImportPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(CollectPage), typeof(CollectPage));
-
-
-            MessagingCenter.Subscribe<AboutPage>(this, "OpenTrips", (sender) =>
-            {
-                
-            });
         }
     }
 }

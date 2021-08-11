@@ -5,15 +5,18 @@
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New" Clicked="NewSite_Clicked" />
-        <ToolbarItem x:Name="CloneButton" Text="Clone" Clicked="CloneSite_Clicked" />
-    </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <material:MaterialButton Text="New" Clicked="NewSite_Clicked" 
+                            HorizontalOptions="Center" Padding="5"
+                            CornerRadius="3"/>
+                    <material:MaterialButton x:Name="CloneButton" Text="Clone" Clicked="CloneSite_Clicked" 
+                            HorizontalOptions="Center" Padding="5"
+                            CornerRadius="3"/>
+                </StackLayout>
                 <ListView x:Name="SitesListView" ItemsSource="{Binding Sites}"
                           BackgroundColor="Transparent"
                           VerticalOptions="FillAndExpand"

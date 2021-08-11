@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="collNotes.Views.SpecimenPage"
+             x:Class="collNotes.Views.TripsPage"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New" Clicked="NewSpecimen_Clicked" />
-        <ToolbarItem x:Name="CloneButton" Text="Clone" Clicked="CloneSpecimen_Clicked" />
-    </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <ListView x:Name="SpecimenListView" ItemsSource="{Binding SpecimenCollection}"
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <material:MaterialButton Text="New" Clicked="NewTrip_Clicked" 
+                            HorizontalOptions="Center" Padding="5"
+                            CornerRadius="3"/>
+                    <material:MaterialButton x:Name="CloneButton" Text="Clone" Clicked="CloneTrip_Clicked" 
+                            HorizontalOptions="Center" Padding="5"
+                            CornerRadius="3"/>
+                </StackLayout>
+                <ListView x:Name="TripsListView" ItemsSource="{Binding Trips}"
                           BackgroundColor="Transparent"
                           VerticalOptions="FillAndExpand"
                           HasUnevenRows="True"
-                          RefreshCommand="{Binding LoadSpecimenCommand}"
+                          RefreshCommand="{Binding LoadTripsCommand}"
                           IsPullToRefreshEnabled="False"
                           IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                           CachingStrategy="RecycleElement"
-                          ItemSelected="OnSpecimenSelected">
+                          ItemSelected="OnTripSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Padding="5,5"
-                                             HorizontalOptions="FillAndExpand"
-                                             VerticalOptions="CenterAndExpand">
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="CenterAndExpand">
                                     <material:MaterialCard CornerRadius="2" Elevation="4"
-                                                           HeightRequest="50" HorizontalOptions="FillAndExpand"
+                                                           HeightRequest="50"
+                                                           HorizontalOptions="FillAndExpand"
                                                            VerticalOptions="FillAndExpand"
                                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
                                         <StackLayout VerticalOptions="Center">
-                                            <material:MaterialLabel Text="{Binding LabelString}"
+                                            <material:MaterialLabel Text="{Binding TripName}"
                                                                     TextColor="{DynamicResource PrimaryTextColor}"
                                                                     LineBreakMode="NoWrap"
                                                                     VerticalOptions="Center"
                                                                     FontSize="18" />
-                                            <material:MaterialLabel Text="{Binding SpecimenName, StringFormat='Site-Specimen: {0}'}"
-                                                                    TextColor="{DynamicResource PrimaryTextColor}"
-                                                                    LineBreakMode="NoWrap"
-                                                                    VerticalOptions="Center"
-                                                                    FontSize="14" />
+                                            <material:MaterialLabel Text="{Binding PrimaryCollectorLabel}"
+                                                   TextColor="{DynamicResource PrimaryTextColor}"
+                                                   LineBreakMode="NoWrap"
+                                                   VerticalOptions="Center"
+                                                   FontSize="14" />
                                         </StackLayout>
                                     </material:MaterialCard>
                                 </StackLayout>

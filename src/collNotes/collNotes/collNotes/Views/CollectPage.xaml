@@ -2,11 +2,13 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="collNotes.Views.CollectPage"
-             xmlns:local="clr-namespace:collNotes.Views"
+             xmlns:collectpages="clr-namespace:collNotes.Views;assembly=collNotes"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              android:TabbedPage.ToolbarPlacement="Top">
-    <!--Pages can be added as references or inline-->
-    <local:TripsPage />
-    <local:SitesPage />
-    <local:SpecimenPage />
+    <TabbedPage.Title>Manage Collections</TabbedPage.Title>
+    <TabbedPage.Children>
+        <collectpages:TripsPage />
+        <collectpages:SitesPage />
+        <collectpages:SpecimenPage />
+    </TabbedPage.Children>
 </TabbedPage>

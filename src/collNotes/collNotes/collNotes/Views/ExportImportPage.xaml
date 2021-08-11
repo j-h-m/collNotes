@@ -4,7 +4,7 @@
             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
             x:Class="collNotes.Views.ExportImportPage"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-            android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.ToolbarPlacement="Top"
             BackgroundColor="{DynamicResource PageBackgroundColor}"
             Title="{Binding Title}">
 
