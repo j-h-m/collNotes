@@ -164,11 +164,14 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="XF.Material">
+      <Version>1.7.8</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\collNotes\collNotes.csproj">
-      <Project>{770B8763-F3FC-4B99-8691-F6C1535A5AE6}</Project>
+      <Project>{F89E06D9-2EDF-43F4-B6E5-1B047EBE5C12}</Project>
       <Name>collNotes</Name>
     </ProjectReference>
   </ItemGroup>

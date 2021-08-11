@@ -18,16 +18,19 @@
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="E:\Github\collNotes\src\collNotes\collNotes.Data\collNotes.Ef.csproj" />
-    <ProjectReference Include="E:\Github\collNotes\src\collNotes\collNotes.Domain\collNotes.Domain.csproj" />
+    <PackageReference Include="XF.Material" Version="1.7.8" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Views\CollectPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="XF.Material" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\collNotes.Domain\collNotes.Domain.csproj" />
+    <ProjectReference Include="..\..\collNotes.Data\collNotes.Ef.csproj" />
   </ItemGroup>
 </Project>
