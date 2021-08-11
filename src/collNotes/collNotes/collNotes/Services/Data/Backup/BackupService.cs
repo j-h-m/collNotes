@@ -1,5 +1,4 @@
 ﻿using collNotes.Domain.Models;
-using collNotes.Ef.Context;
 using collNotes.Services.Data.RecordData;
 using collNotes.ViewModels;
 using System;

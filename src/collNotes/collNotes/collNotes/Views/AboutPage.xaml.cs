@@ -23,7 +23,7 @@ namespace collNotes.Views
 
         private void GetStarted_Clicked(object sender, System.EventArgs e)
         {
-            MessagingCenter.Send<AboutPage>(this, "OpenMenu");
+            MessagingCenter.Send<AboutPage>(this, "OpenTrips");
         }
     }
 }

@@ -1,16 +1,16 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+
 using Foundation;
 using UIKit;
-
-[assembly: Preserve(typeof(System.Linq.Queryable), AllMembers = true)]
 
 namespace collNotes.iOS
 {
     public class Application
     {
         // This is the main entry point of the application.
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
             // if you want to use a different Application Delegate class from "AppDelegate"
             // you can specify it here.

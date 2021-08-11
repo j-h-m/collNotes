@@ -60,20 +60,3 @@ namespace collNotes
         }
     }
 }
-
-/*
-new specimen page
-
-the search button should have a better indicator of opening another page
- - it appears now that clicking it should allow you to search the string in field id
-
- - either carry the text over (does not currently do this)
- -or eliminate it entirely for a new drop- down if possible
-
-
-export / import page
-   - test all functionality
-
-*/
-
-

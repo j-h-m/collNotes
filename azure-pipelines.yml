@@ -9,11 +9,11 @@ variables:
   apkFileName: 'com.thc.collnotes.apk'
 
 stages:
-- stage: Build_Test
+- stage: Build
   jobs:
-    - job: 'Android_Build'
+    - job: 'Android'
       pool:
-        vmImage: 'windows-2019'
+        vmImage: 'windows-latest'
       steps:
       - task: NuGetToolInstaller@0
         displayName: 'install nuget tool'
@@ -24,12 +24,6 @@ stages:
         displayName: 'nuget restore on solution'
         inputs:
           restoreSolution: '**/*.sln'
-      - task: DotNetCoreCLI@2
-        displayName: 'run tests'
-        inputs:
-          command: test
-          projects: '**/*Tests/*.csproj'
-          arguments: '--configuration $(buildConfiguration)'
       - task: XamarinAndroid@1
         displayName: 'build app'
         inputs:
@@ -43,7 +37,7 @@ stages:
         inputs:
           path: $(Build.ArtifactStagingDirectory)/$(apkFileName)
           artifact: android-apk
-    - job: 'iOS_Build'
+    - job: 'iOS'
       pool:
         vmImage: 'macOS-latest'
       steps:
@@ -59,12 +53,6 @@ stages:
           displayName: 'nuget restore on solution'
           inputs:
             restoreSolution: '**/*.sln'
-        - task: DotNetCoreCLI@2
-          displayName: 'run tests'
-          inputs:
-            command: test
-            projects: '**/*Tests/*.csproj'
-            arguments: '--configuration $(buildConfiguration)'
         - task: XamariniOS@2
           displayName: 'Build iOS App'
           inputs:
@@ -74,20 +62,3 @@ stages:
             packageApp: false
             buildForSimulator: true
             runNugetRestore: false
-- stage: Release
-  jobs:
-    - job: 'Github_Release'
-      pool:
-        vmImage: 'windows-latest'
-      steps:
-      - task: DownloadPipelineArtifact@2
-        displayName: 'download apk'
-        inputs:
-          artifact: android-apk
-          path: $(Build.ArtifactStagingDirectory)
-      - task: GithubRelease@0
-        displayName: 'GitHub Release'
-        inputs:
-          gitHubConnection: github-j-h-m
-          repositoryName: j-h-m/collNotes
-          assets: $(Build.ArtifactStagingDirectory)/*.apk
