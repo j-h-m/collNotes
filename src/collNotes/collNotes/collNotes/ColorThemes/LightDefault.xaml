@@ -4,7 +4,6 @@
                     x:Class="collNotes.ColorThemes.LightDefault">
     <Color x:Key="PageBackgroundColor">White</Color>
     <Color x:Key="SecondaryBackgroundColor">WhiteSmoke</Color>
-    <Color x:Key="NavigationBarColor">#388e3c</Color>
 
     <Color x:Key="PrimaryColor">#388e3c</Color>
     <Color x:Key="SecondaryColor">#388a8e</Color>

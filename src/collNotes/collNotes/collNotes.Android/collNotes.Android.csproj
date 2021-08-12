@@ -159,7 +159,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\vertical_reduced.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\export_icon.png" />
   </ItemGroup>

@@ -6,6 +6,7 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Top"
             BackgroundColor="{DynamicResource PageBackgroundColor}"
+            BarBackgroundColor="{DynamicResource SecondaryColor}"
             Title="{Binding Title}">
 
     <ContentPage x:Name="ExportContentPage" Title="Export Data"
@@ -17,13 +18,13 @@
                     <material:MaterialLabel Text="Trip" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked"
                                              IsEnabled="{Binding IsConnectionAvailable}"
-                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
 
                     <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Export" Clicked="ExportBackup_Clicked"
                                              IsEnabled="{Binding IsConnectionAvailable}"
-                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
                     <material:MaterialLabel Text="No internet connection available, export is disabled." IsVisible="{Binding ShowConnectionErrorMsg}" />
                 </StackLayout>
@@ -41,13 +42,13 @@
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Import" Clicked="ImportTrip_Clicked"
                                              IsEnabled="{Binding IsConnectionAvailable}"
-                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
 
                     <material:MaterialLabel Text="Backup" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Import" Clicked="ImportBackup_Clicked"
                                              IsEnabled="{Binding IsConnectionAvailable}"
-                                             BackgroundColor="{DynamicResource PrimaryColor}"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
                                              TextColor="{DynamicResource SecondaryTextColor}"/>
                     <material:MaterialLabel Text="No internet connection available, import is disabled." IsVisible="{Binding ShowConnectionErrorMsg}" />
                 </StackLayout>

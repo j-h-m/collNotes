@@ -4,7 +4,6 @@
                     x:Class="collNotes.ColorThemes.ContrastDark">
     <Color x:Key="PageBackgroundColor">#616161</Color>
     <Color x:Key="SecondaryBackgroundColor">#373737</Color>
-    <Color x:Key="NavigationBarColor">#6002EE</Color>
 
     <Color x:Key="PrimaryColor">#6002EE</Color>
     <Color x:Key="SecondaryColor">#d602ee</Color>

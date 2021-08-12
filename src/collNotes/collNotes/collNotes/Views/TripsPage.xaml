@@ -12,10 +12,14 @@
                 <StackLayout Orientation="Horizontal" Padding="5">
                     <material:MaterialButton Text="New" Clicked="NewTrip_Clicked" 
                             HorizontalOptions="Center" Padding="5"
-                            CornerRadius="3"/>
+                            CornerRadius="3"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                     <material:MaterialButton x:Name="CloneButton" Text="Clone" Clicked="CloneTrip_Clicked" 
                             HorizontalOptions="Center" Padding="5"
-                            CornerRadius="3"/>
+                            CornerRadius="3"
+                                             BackgroundColor="{DynamicResource SecondaryColor}"
+                                             TextColor="{DynamicResource SecondaryTextColor}"/>
                 </StackLayout>
                 <ListView x:Name="TripsListView" ItemsSource="{Binding Trips}"
                           BackgroundColor="Transparent"

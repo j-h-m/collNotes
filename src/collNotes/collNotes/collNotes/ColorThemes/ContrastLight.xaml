@@ -4,7 +4,6 @@
                     x:Class="collNotes.ColorThemes.ContrastLight">
     <Color x:Key="PageBackgroundColor">White</Color>
     <Color x:Key="SecondaryBackgroundColor">WhiteSmoke</Color>
-    <Color x:Key="NavigationBarColor">#6002EE</Color>
 
     <Color x:Key="PrimaryColor">#6002EE</Color>
     <Color x:Key="SecondaryColor">#d602ee</Color>
