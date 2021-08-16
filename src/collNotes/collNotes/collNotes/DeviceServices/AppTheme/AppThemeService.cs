@@ -84,12 +84,12 @@ namespace collNotes.DeviceServices.AppTheme
 
                     switch (colorTheme)
                     {
-                        case ColorTheme.Dark:
-                            mergedDictionaries.Add(new Dark());
+                        /*case ColorTheme.Dark:
+                           mergedDictionaries.Add(new Dark());
                             break;
                         case ColorTheme.ContrastDark:
                             mergedDictionaries.Add(new ContrastDark());
-                            break;
+                            break;*/
                         case ColorTheme.ContrastLight:
                             mergedDictionaries.Add(new ContrastLight());
                             break;

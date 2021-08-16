@@ -132,10 +132,7 @@ namespace collNotes.ViewModels
         {
             bool result;
 
-            if (!(result = await this.permissionsService.CheckPermission(PermissionName.Storage)))
-            {
-                result = await this.permissionsService.RequestPermission(PermissionName.Storage);
-            }
+            result = await this.permissionsService.RequestPermission(PermissionName.Storage);
 
             return result;
         }

@@ -19,7 +19,7 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialAlertDialogConfiguration materialAlertDialogConfiguration;
 
-            if (currentTheme == ColorTheme.ContrastDark)
+            /*if (currentTheme == ColorTheme.ContrastDark)
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
                 {
@@ -28,8 +28,8 @@ namespace collNotes.ColorThemes.ConfigFactory
                     TitleTextColor = ContrastDark.PrimaryTextColor,
                     TintColor = ContrastDark.SecondaryColor
                 };
-            }
-            else if (currentTheme == ColorTheme.ContrastLight)
+            }*/
+            if (currentTheme == ColorTheme.ContrastLight)
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
                 {
@@ -39,7 +39,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     TintColor = ContrastLight.SecondaryColor
                 };
             }
-            else if (currentTheme == ColorTheme.Dark)
+            /*else if (currentTheme == ColorTheme.Dark)
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
                 {
@@ -48,7 +48,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     TitleTextColor = Dark.PrimaryTextColor,
                     TintColor = Dark.SecondaryColor
                 };
-            }
+            }*/
             else // use default
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
@@ -68,7 +68,7 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialSnackbarConfiguration materialSnackbarConfiguration;
 
-            if (currentTheme == ColorTheme.ContrastDark)
+            /*if (currentTheme == ColorTheme.ContrastDark)
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
                 {
@@ -76,8 +76,8 @@ namespace collNotes.ColorThemes.ConfigFactory
                     MessageTextColor = ContrastDark.PrimaryTextColor,
                     TintColor = ContrastDark.SecondaryColor
                 };
-            }
-            else if (currentTheme == ColorTheme.ContrastLight)
+            }*/
+            if (currentTheme == ColorTheme.ContrastLight)
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
                 {
@@ -86,7 +86,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     TintColor = ContrastLight.SecondaryColor
                 };
             }
-            else if (currentTheme == ColorTheme.Dark)
+            /*else if (currentTheme == ColorTheme.Dark)
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
                 {
@@ -94,7 +94,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     MessageTextColor = Dark.PrimaryTextColor,
                     TintColor = Dark.SecondaryColor
                 };
-            }
+            }*/
             else // use default
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
@@ -113,7 +113,7 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialLoadingDialogConfiguration materialLoadingDialogConfiguration;
 
-            if (currentTheme == ColorTheme.ContrastDark)
+            /*if (currentTheme == ColorTheme.ContrastDark)
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
                 {
@@ -121,8 +121,8 @@ namespace collNotes.ColorThemes.ConfigFactory
                     MessageTextColor = ContrastDark.PrimaryTextColor,
                     TintColor = ContrastDark.SecondaryColor
                 };
-            }
-            else if (currentTheme == ColorTheme.ContrastLight)
+            }*/
+            if (currentTheme == ColorTheme.ContrastLight)
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
                 {
@@ -131,7 +131,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     TintColor = ContrastLight.SecondaryColor
                 };
             }
-            else if (currentTheme == ColorTheme.Dark)
+            /*else if (currentTheme == ColorTheme.Dark)
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
                 {
@@ -139,7 +139,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     MessageTextColor = Dark.PrimaryTextColor,
                     TintColor = Dark.SecondaryColor
                 };
-            }
+            }*/
             else // use default
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
@@ -158,7 +158,7 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialConfirmationDialogConfiguration materialConfirmationDialogConfiguration;
 
-            if (currentTheme == ColorTheme.ContrastDark)
+            /*if (currentTheme == ColorTheme.ContrastDark)
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
                 {
@@ -169,8 +169,8 @@ namespace collNotes.ColorThemes.ConfigFactory
                     ControlSelectedColor = ContrastDark.SecondaryColor,
                     ControlUnselectedColor = ContrastDark.SecondaryColorDark
                 };
-            }
-            else if (currentTheme == ColorTheme.ContrastLight)
+            }*/
+            if (currentTheme == ColorTheme.ContrastLight)
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
                 {
@@ -182,7 +182,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     ControlUnselectedColor = ContrastLight.SecondaryColorDark
                 };
             }
-            else if (currentTheme == ColorTheme.Dark)
+            /*else if (currentTheme == ColorTheme.Dark)
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
                 {
@@ -193,7 +193,7 @@ namespace collNotes.ColorThemes.ConfigFactory
                     ControlSelectedColor = Dark.SecondaryColor,
                     ControlUnselectedColor = Dark.SecondaryColorDark
                 };
-            }
+            }*/
             else // use default
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()

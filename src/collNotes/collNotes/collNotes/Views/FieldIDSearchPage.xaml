@@ -36,6 +36,8 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <material:MaterialButton Text="Save ID" Clicked="SaveID_Clicked" />
+                <material:MaterialButton Text="Done" Clicked="Done_Clicked" />
             </StackLayout>
         </material:MaterialCard>
     </ContentPage.Content>

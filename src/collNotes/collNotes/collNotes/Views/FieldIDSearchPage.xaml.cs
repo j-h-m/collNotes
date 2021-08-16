@@ -1,16 +1,22 @@
-﻿using collNotes.ViewModels;
+﻿using collNotes.ColorThemes.ConfigFactory;
+using collNotes.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace collNotes.Views
 {
     public partial class FieldIDSearchPage : ContentPage, INotifyPropertyChanged
     {
         private readonly SearchBarViewModel searchBarViewModel;
+
+        private readonly XfMaterialColorConfigFactory xfMaterialColorConfigFactory =
+            DependencyService.Get<XfMaterialColorConfigFactory>(DependencyFetchTarget.NewInstance);
         public string SelectedFieldID { get; set; }
 
         public FieldIDSearchPage()
@@ -55,7 +61,21 @@ namespace collNotes.Views
 
         private void SearchResult_ItemSelected(object sender, EventArgs e)
         {
-            SelectedFieldID = Search_TextField.Text = SearchResult_ListView.SelectedItem?.ToString();
+            Search_TextField.Text = SearchResult_ListView.SelectedItem?.ToString();
+        }
+
+        private async void SaveID_Clicked(object sender, EventArgs e)
+        {
+            var alertDialogConfig = await xfMaterialColorConfigFactory.GetAlertDialogConfiguration();
+
+            SelectedFieldID = SearchResult_ListView.SelectedItem?.ToString();
+            await MaterialDialog.Instance.AlertAsync($"Saved {SelectedFieldID} as Field ID!",
+                    configuration: alertDialogConfig);
+        }
+
+        private async void Done_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
         }
     }
 }

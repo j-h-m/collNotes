@@ -27,7 +27,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="EmbeddedResources\fungi_ref.txt" />
+    <None Remove="EmbeddedResources\plantae_ref.txt" />
     <None Remove="XF.Material" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedResources\fungi_ref.txt" />
+    <EmbeddedResource Include="EmbeddedResources\plantae_ref.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\collNotes.Domain\collNotes.Domain.csproj" />

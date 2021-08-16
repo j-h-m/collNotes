@@ -131,7 +131,7 @@ namespace collNotes.Views
         /// <param name="e"></param>
         private async void SearchFieldIDButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(FieldIDSearchPage);
+            await Navigation.PushModalAsync(FieldIDSearchPage);
         }
 
         protected override void OnAppearing()

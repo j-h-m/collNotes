@@ -21,12 +21,16 @@ namespace collNotes
 {
     public static class Startup
     {
+        // Initialize all things needed at startup here
         public static void Init()
         {
+            // PCL for SQLITE
             if (Device.RuntimePlatform.Equals(Device.iOS))
             {
                 SQLitePCL.Batteries.Init();
             }
+
+            // Register all dependency services
             // Ef Context
             DependencyService.Register<CollNotesContext>();
 

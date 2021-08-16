@@ -83,7 +83,7 @@ namespace collNotes.DeviceServices.Permissions
             }
             else if (permissionName == PermissionName.Location)
             {
-                status = await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
+                status = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();
             }
             else if (permissionName == PermissionName.MediaLib)
             {

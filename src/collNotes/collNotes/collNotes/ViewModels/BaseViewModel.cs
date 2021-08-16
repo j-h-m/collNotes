@@ -38,9 +38,7 @@ namespace collNotes.ViewModels
         /// <returns></returns>
         public async Task<bool> CheckOrRequestPermission(PermissionName permissionName)
         {
-            return await permissionsService.CheckPermission(permissionName) ?
-                true : await permissionsService.RequestPermission(permissionName) ?
-                true : false;
+            return await permissionsService.RequestPermission(permissionName);
 
         }
 
