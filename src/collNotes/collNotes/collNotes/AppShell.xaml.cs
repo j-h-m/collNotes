@@ -1,4 +1,5 @@
-﻿using collNotes.ViewModels;
+﻿using collNotes.DeviceServices.Permissions;
+using collNotes.ViewModels;
 using collNotes.Views;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ namespace collNotes
     public partial class AppShell : Xamarin.Forms.Shell
     {
         private AppShellViewModel viewModel;
+
+        private readonly IPermissionsService permissionsService =
+            DependencyService.Get<IPermissionsService>(DependencyFetchTarget.NewInstance);
 
         public AppShell()
         {
@@ -21,6 +25,8 @@ namespace collNotes
 
             viewModel = new AppShellViewModel();
             viewModel.AppThemeInit();
+
+            var result = permissionsService.RequestAllPermissionsAsync().Result;
         }
     }
 }
