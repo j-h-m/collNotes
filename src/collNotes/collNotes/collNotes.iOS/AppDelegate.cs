@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Naxam.Controls.Platform.iOS;
 using UIKit;
 
 namespace collNotes.iOS
@@ -26,6 +27,7 @@ namespace collNotes.iOS
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             XF.Material.iOS.Material.Init();
+            TopTabbedRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

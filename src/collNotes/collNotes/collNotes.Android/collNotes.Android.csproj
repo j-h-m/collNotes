@@ -95,6 +95,9 @@
     <PackageReference Include="XF.Material">
       <Version>1.7.8</Version>
     </PackageReference>
+    <PackageReference Include="Naxam.TopTabbedPage.Forms">
+      <Version>0.0.3.5</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

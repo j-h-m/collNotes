@@ -10,8 +10,6 @@ namespace collNotes.ViewModels
     public class AppShellViewModel: BaseViewModel
     {
         private IAppThemeService appThemeService;
-        private readonly IPermissionsService permissionsService =
-            DependencyService.Get<IPermissionsService>(DependencyFetchTarget.NewInstance);
 
         public AppShellViewModel()
         {
@@ -23,8 +21,6 @@ namespace collNotes.ViewModels
         {
             var savedTheme = appThemeService.GetSavedTheme().Result;
             var appThemeResult = appThemeService.SetAppTheme(savedTheme).Result;
-            var permissionsResult= permissionsService.RequestAllPermissionsAsync().Result;
-
         }
     }
 }

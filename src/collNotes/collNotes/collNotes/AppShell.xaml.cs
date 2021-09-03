@@ -26,7 +26,7 @@ namespace collNotes
             viewModel = new AppShellViewModel();
             viewModel.AppThemeInit();
 
-            var result = permissionsService.RequestAllPermissionsAsync().Result;
+            // var result = permissionsService.RequestAllPermissionsAsync().Result;
         }
     }
 }

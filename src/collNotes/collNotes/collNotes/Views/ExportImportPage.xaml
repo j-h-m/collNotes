@@ -13,7 +13,7 @@
                  IconImageSource="export_icon.png" 
                  BackgroundColor="{DynamicResource PageBackgroundColor}">
         <ContentPage.Content>
-            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+            <material:MaterialCard CornerRadius="2" Elevation="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                 <StackLayout>
                     <material:MaterialLabel Text="Trip" FontSize="Title" TextColor="{DynamicResource PrimaryTextColor}"/>
                     <material:MaterialButton Text="Export" Clicked="ExportTrip_Clicked"
@@ -36,7 +36,7 @@
                  IconImageSource="import_icon.png"
                  BackgroundColor="{DynamicResource PageBackgroundColor}">
         <ContentPage.Content>
-            <material:MaterialCard CornerRadius="2" Elevation="1" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+            <material:MaterialCard CornerRadius="2" Elevation="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                 <StackLayout>
                     <material:MaterialLabel Text="Trip" FontSize="Title"
                                             TextColor="{DynamicResource PrimaryTextColor}"/>
