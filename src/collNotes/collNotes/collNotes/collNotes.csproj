@@ -40,7 +40,4 @@
     <ProjectReference Include="..\..\collNotes.Domain\collNotes.Domain.csproj" />
     <ProjectReference Include="..\..\collNotes.Data\collNotes.Ef.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Icons\" />
-  </ItemGroup>
 </Project>

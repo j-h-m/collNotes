@@ -15,7 +15,8 @@ namespace collNotes.ViewModels
         {
             Title = "About";
 
-            OpenWebCommand = new Command(() => Launcher.OpenAsync(new Uri("https://github.com/j-h-m/collNotes/wiki")));
+            OpenWebCommand = new Command(() => 
+                Launcher.OpenAsync(new Uri("https://github.com/j-h-m/collNotes/wiki")));
         }
     }
 }
