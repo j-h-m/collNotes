@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:collNotes.Views"
+       xmlns:icons="clr-namespace:FontAwesome.Solid;assembly=FontAwesome.Solid"
        Title="collNotes"
        x:Class="collNotes.AppShell">
 
@@ -29,10 +30,45 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Collect" Route="CollectPage" ContentTemplate="{DataTemplate local:CollectPage}" />
-        <ShellContent Title="Share" Route="ExportImportPage" ContentTemplate="{DataTemplate local:ExportImportPage}" />
-        <ShellContent Title="Settings" Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}" />
+        <ShellContent Title="About"
+                      Route="AboutPage" 
+                      ContentTemplate="{DataTemplate local:AboutPage}">
+            <ShellContent.Icon>
+                <icons:IconSource Icon="InfoCircle"
+                                  Size="Default"
+                                  Color="{DynamicResource SecondaryTextColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Collect"
+                      Route="CollectPage" 
+                      ContentTemplate="{DataTemplate local:CollectPage}">
+            <ShellContent.Icon>
+                <icons:IconSource Icon="Leaf"
+                                  Size="Default"
+                                  Color="{DynamicResource SecondaryTextColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Share"
+                      Route="ExportImportPage" 
+                      ContentTemplate="{DataTemplate local:ExportImportPage}">
+            <ShellContent.Icon>
+                <icons:IconSource Icon="ShareSquare"
+                                  Size="Default"
+                                  Color="{DynamicResource SecondaryTextColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Settings"
+                      Route="SettingsPage" 
+                      ContentTemplate="{DataTemplate local:SettingsPage}">
+            <ShellContent.Icon>
+                <icons:IconSource Icon="SlidersH"
+                                  Size="Default"
+                                  Color="{DynamicResource SecondaryTextColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
     </TabBar>
 
 </Shell>

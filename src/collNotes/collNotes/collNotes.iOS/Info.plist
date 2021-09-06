@@ -31,7 +31,7 @@
 	<key>CFBundleName</key>
 	<string>collNotes</string>
 	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets</string>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>collNotes uses location to get GPS location information for your recorded Sites.</string>
 	<key>NSCameraUsageDescription</key>
@@ -43,7 +43,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.10</string>
+	<string>3.0.0</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleVersion</key>

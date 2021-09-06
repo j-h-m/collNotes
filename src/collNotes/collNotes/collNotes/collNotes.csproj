@@ -17,7 +17,8 @@
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />  
+    <PackageReference Include="Xamarin.Forms.FontAwesome.Solid" Version="1.0.0" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
   </ItemGroup>
 
@@ -38,5 +39,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\collNotes.Domain\collNotes.Domain.csproj" />
     <ProjectReference Include="..\..\collNotes.Data\collNotes.Ef.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons\" />
   </ItemGroup>
 </Project>
