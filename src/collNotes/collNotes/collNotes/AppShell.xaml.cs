@@ -11,9 +11,6 @@ namespace collNotes
     {
         private AppShellViewModel viewModel;
 
-        private readonly IPermissionsService permissionsService =
-            DependencyService.Get<IPermissionsService>(DependencyFetchTarget.NewInstance);
-
         public AppShell()
         {
             InitializeComponent();
@@ -25,8 +22,6 @@ namespace collNotes
 
             viewModel = new AppShellViewModel();
             viewModel.AppThemeInit();
-
-            // var result = permissionsService.RequestAllPermissionsAsync().Result;
         }
     }
 }

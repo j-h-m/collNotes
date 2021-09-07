@@ -36,7 +36,7 @@
                                 <StackLayout Padding="5,5"
                                      HorizontalOptions="FillAndExpand"
                                      VerticalOptions="CenterAndExpand">
-                                    <material:MaterialCard CornerRadius="2" Elevation="4"
+                                    <material:MaterialCard CornerRadius="2" Elevation="8"
                                                            HeightRequest="50"
                                                            HorizontalOptions="FillAndExpand"
                                                            VerticalOptions="FillAndExpand"

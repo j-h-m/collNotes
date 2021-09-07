@@ -19,44 +19,24 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialAlertDialogConfiguration materialAlertDialogConfiguration;
 
-            /*if (currentTheme == ColorTheme.ContrastDark)
+            if (currentTheme == ColorTheme.HighContrast)
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
                 {
-                    BackgroundColor = ContrastDark.PageBackgroundColor,
-                    MessageTextColor = ContrastDark.PrimaryTextColor,
-                    TitleTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.SecondaryColor
-                };
-            }*/
-            if (currentTheme == ColorTheme.ContrastLight)
-            {
-                materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
-                {
-                    BackgroundColor = ContrastLight.PageBackgroundColor,
-                    MessageTextColor = ContrastLight.PrimaryTextColor,
-                    TitleTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.SecondaryColor
+                    BackgroundColor = HighContrast.PageBackgroundColor,
+                    MessageTextColor = HighContrast.PrimaryTextColor,
+                    TitleTextColor = HighContrast.PrimaryTextColor,
+                    TintColor = HighContrast.SecondaryColor
                 };
             }
-            /*else if (currentTheme == ColorTheme.Dark)
-            {
-                materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
-                {
-                    BackgroundColor = Dark.PageBackgroundColor,
-                    MessageTextColor = Dark.PrimaryTextColor,
-                    TitleTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.SecondaryColor
-                };
-            }*/
             else // use default
             {
                 materialAlertDialogConfiguration = new MaterialAlertDialogConfiguration()
                 {
-                    BackgroundColor = LightDefault.PageBackgroundColor,
-                    MessageTextColor = LightDefault.PrimaryTextColor,
-                    TitleTextColor = LightDefault.PrimaryTextColor,
-                    TintColor = LightDefault.SecondaryColor
+                    BackgroundColor = Light.PageBackgroundColor,
+                    MessageTextColor = Light.PrimaryTextColor,
+                    TitleTextColor = Light.PrimaryTextColor,
+                    TintColor = Light.SecondaryColor
                 };
             }
 
@@ -68,40 +48,22 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialSnackbarConfiguration materialSnackbarConfiguration;
 
-            /*if (currentTheme == ColorTheme.ContrastDark)
+            if (currentTheme == ColorTheme.HighContrast)
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
                 {
-                    BackgroundColor = ContrastDark.PageBackgroundColor,
-                    MessageTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.SecondaryColor
-                };
-            }*/
-            if (currentTheme == ColorTheme.ContrastLight)
-            {
-                materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
-                {
-                    BackgroundColor = ContrastLight.PageBackgroundColor,
-                    MessageTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.SecondaryColor
+                    BackgroundColor = HighContrast.PageBackgroundColor,
+                    MessageTextColor = HighContrast.PrimaryTextColor,
+                    TintColor = HighContrast.SecondaryColor
                 };
             }
-            /*else if (currentTheme == ColorTheme.Dark)
-            {
-                materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
-                {
-                    BackgroundColor = Dark.PageBackgroundColor,
-                    MessageTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.SecondaryColor
-                };
-            }*/
             else // use default
             {
                 materialSnackbarConfiguration = new MaterialSnackbarConfiguration()
                 {
-                    BackgroundColor = LightDefault.PageBackgroundColor,
-                    MessageTextColor = LightDefault.PrimaryTextColor,
-                    TintColor = LightDefault.SecondaryColor
+                    BackgroundColor = Light.PageBackgroundColor,
+                    MessageTextColor = Light.PrimaryTextColor,
+                    TintColor = Light.SecondaryColor
                 };
             }
 
@@ -113,40 +75,22 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialLoadingDialogConfiguration materialLoadingDialogConfiguration;
 
-            /*if (currentTheme == ColorTheme.ContrastDark)
+            if (currentTheme == ColorTheme.HighContrast)
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
                 {
-                    BackgroundColor = ContrastDark.PageBackgroundColor,
-                    MessageTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.SecondaryColor
-                };
-            }*/
-            if (currentTheme == ColorTheme.ContrastLight)
-            {
-                materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
-                {
-                    BackgroundColor = ContrastLight.PageBackgroundColor,
-                    MessageTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.SecondaryColor
+                    BackgroundColor = HighContrast.PageBackgroundColor,
+                    MessageTextColor = HighContrast.PrimaryTextColor,
+                    TintColor = HighContrast.SecondaryColor
                 };
             }
-            /*else if (currentTheme == ColorTheme.Dark)
-            {
-                materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
-                {
-                    BackgroundColor = Dark.PageBackgroundColor,
-                    MessageTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.SecondaryColor
-                };
-            }*/
             else // use default
             {
                 materialLoadingDialogConfiguration = new MaterialLoadingDialogConfiguration()
                 {
-                    BackgroundColor = LightDefault.PageBackgroundColor,
-                    MessageTextColor = LightDefault.PrimaryTextColor,
-                    TintColor = LightDefault.SecondaryColor
+                    BackgroundColor = Light.PageBackgroundColor,
+                    MessageTextColor = Light.PrimaryTextColor,
+                    TintColor = Light.SecondaryColor
                 };
             }
 
@@ -158,52 +102,28 @@ namespace collNotes.ColorThemes.ConfigFactory
             var currentTheme = await appThemeService.GetSavedTheme();
             MaterialConfirmationDialogConfiguration materialConfirmationDialogConfiguration;
 
-            /*if (currentTheme == ColorTheme.ContrastDark)
+            if (currentTheme == ColorTheme.HighContrast)
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
                 {
-                    BackgroundColor = ContrastDark.PageBackgroundColor,
-                    TextColor = ContrastDark.PrimaryTextColor,
-                    TitleTextColor = ContrastDark.PrimaryTextColor,
-                    TintColor = ContrastDark.SecondaryColor,
-                    ControlSelectedColor = ContrastDark.SecondaryColor,
-                    ControlUnselectedColor = ContrastDark.SecondaryColorDark
-                };
-            }*/
-            if (currentTheme == ColorTheme.ContrastLight)
-            {
-                materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
-                {
-                    BackgroundColor = ContrastLight.PageBackgroundColor,
-                    TextColor = ContrastLight.PrimaryTextColor,
-                    TitleTextColor = ContrastLight.PrimaryTextColor,
-                    TintColor = ContrastLight.SecondaryColor,
-                    ControlSelectedColor = ContrastLight.SecondaryColor,
-                    ControlUnselectedColor = ContrastLight.SecondaryColorDark
+                    BackgroundColor = HighContrast.PageBackgroundColor,
+                    TextColor = HighContrast.PrimaryTextColor,
+                    TitleTextColor = HighContrast.PrimaryTextColor,
+                    TintColor = HighContrast.SecondaryColor,
+                    ControlSelectedColor = HighContrast.SecondaryColor,
+                    ControlUnselectedColor = HighContrast.SecondaryColorDark
                 };
             }
-            /*else if (currentTheme == ColorTheme.Dark)
-            {
-                materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
-                {
-                    BackgroundColor = Dark.PageBackgroundColor,
-                    TextColor = Dark.PrimaryTextColor,
-                    TitleTextColor = Dark.PrimaryTextColor,
-                    TintColor = Dark.SecondaryColor,
-                    ControlSelectedColor = Dark.SecondaryColor,
-                    ControlUnselectedColor = Dark.SecondaryColorDark
-                };
-            }*/
             else // use default
             {
                 materialConfirmationDialogConfiguration = new MaterialConfirmationDialogConfiguration()
                 {
-                    BackgroundColor = LightDefault.PageBackgroundColor,
-                    TextColor = LightDefault.PrimaryTextColor,
-                    TitleTextColor = LightDefault.PrimaryTextColor,
-                    TintColor = LightDefault.SecondaryColor,
-                    ControlSelectedColor = LightDefault.SecondaryColor,
-                    ControlUnselectedColor = LightDefault.SecondaryColorDark
+                    BackgroundColor = Light.PageBackgroundColor,
+                    TextColor = Light.PrimaryTextColor,
+                    TitleTextColor = Light.PrimaryTextColor,
+                    TintColor = Light.SecondaryColor,
+                    ControlSelectedColor = Light.SecondaryColor,
+                    ControlUnselectedColor = Light.SecondaryColorDark
                 };
             }
 

@@ -61,20 +61,16 @@ namespace collNotes.Settings
 
         public static List<string> ColorThemes = new List<string>()
         {
-            "Light [Default]",
-            //"Dark",
-            "High Contrast Light"
-            //"High Contrast Dark"
+            "Light",
+            "High Contrast"
         };
 
         public static Dictionary<string, List<string>> AutoCompleteSource { get; set; }
 
         public enum ColorTheme
         {
-            LightDefault,
-            //Dark,
-            ContrastLight
-            //ContrastDark
+            Light,
+            HighContrast
         }
 
         public static string GetByEnum(ColorTheme colorTheme)
@@ -83,18 +79,12 @@ namespace collNotes.Settings
 
             switch (colorTheme)
             {
-                case ColorTheme.LightDefault:
-                    themeName = ColorThemes[(int)ColorTheme.LightDefault];
+                case ColorTheme.Light:
+                    themeName = ColorThemes[(int)ColorTheme.Light];
                     break;
-                /*case ColorTheme.Dark:
-                    themeName = ColorThemes[(int)ColorTheme.Dark];
-                    break;*/
-                case ColorTheme.ContrastLight:
-                    themeName = ColorThemes[(int)ColorTheme.ContrastLight];
+                case ColorTheme.HighContrast:
+                    themeName = ColorThemes[(int)ColorTheme.HighContrast];
                     break;
-                /*case ColorTheme.ContrastDark:
-                    themeName = ColorThemes[(int)ColorTheme.ContrastDark];
-                    break;*/
                 default:
                     break;
             }
@@ -109,27 +99,21 @@ namespace collNotes.Settings
                 ColorTheme colorTheme;
                 switch (ColorThemes.IndexOf(themeName))
                 {
-                    case (int)ColorTheme.LightDefault:
-                        colorTheme = ColorTheme.LightDefault;
+                    case (int)ColorTheme.Light:
+                        colorTheme = ColorTheme.Light;
                         break;
-                    /*case (int)ColorTheme.Dark:
-                        colorTheme = ColorTheme.Dark;
-                        break;*/
-                    case (int)ColorTheme.ContrastLight:
-                        colorTheme = ColorTheme.ContrastLight;
+                    case (int)ColorTheme.HighContrast:
+                        colorTheme = ColorTheme.HighContrast;
                         break;
-                    /*case (int)ColorTheme.ContrastDark:
-                        colorTheme = ColorTheme.ContrastDark;
-                        break;*/
                     default:
-                        colorTheme = ColorTheme.LightDefault;
+                        colorTheme = ColorTheme.Light;
                         break;
                 }
                 return colorTheme;
             }
             else
             {
-                return ColorTheme.LightDefault;
+                return ColorTheme.Light;
             }
         }
     }

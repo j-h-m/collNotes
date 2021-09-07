@@ -235,7 +235,10 @@ namespace collNotes.ViewModels
 
         public async Task<bool> SaveTheme(CollNotesSettings.ColorTheme colorTheme)
         {
-            return await appThemeService.SaveAppTheme(colorTheme);
+            bool setResult = await appThemeService.SetAppTheme(colorTheme);
+            bool saveResult = await appThemeService.SaveAppTheme(colorTheme);
+
+            return setResult & saveResult;
         }
 
         public async Task<bool> SetSettingsToSavedValues()

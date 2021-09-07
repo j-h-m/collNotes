@@ -28,7 +28,7 @@ namespace collNotes.DeviceServices.AppTheme
 
             if (themeSetting is null)
             {
-                return ColorTheme.LightDefault;
+                return ColorTheme.Light;
             }
             else
             {
@@ -84,18 +84,14 @@ namespace collNotes.DeviceServices.AppTheme
 
                     switch (colorTheme)
                     {
-                        /*case ColorTheme.Dark:
-                           mergedDictionaries.Add(new Dark());
+                        case ColorTheme.Light:
+                           mergedDictionaries.Add(new Light());
                             break;
-                        case ColorTheme.ContrastDark:
-                            mergedDictionaries.Add(new ContrastDark());
-                            break;*/
-                        case ColorTheme.ContrastLight:
-                            mergedDictionaries.Add(new ContrastLight());
+                        case ColorTheme.HighContrast:
+                            mergedDictionaries.Add(new HighContrast());
                             break;
-                        case ColorTheme.LightDefault:
                         default:
-                            mergedDictionaries.Add(new LightDefault());
+                            mergedDictionaries.Add(new Light());
                             break;
                     }
 

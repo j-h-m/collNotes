@@ -3,6 +3,7 @@ using collNotes.DeviceServices.Permissions;
 using collNotes.Settings;
 using collNotes.ViewModels;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -94,7 +95,7 @@ namespace collNotes.Views
                 await viewModel.SaveTheme(selectedTheme);
 
                 var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
-                await MaterialDialog.Instance.SnackbarAsync(message: $"Set theme to {e.SelectedItem}. Restart app to load theme.",
+                await MaterialDialog.Instance.SnackbarAsync(message: $"Set theme to {e.SelectedItem}.",
                                             actionButtonText: "Ok",
                                             msDuration: MaterialSnackbar.DurationIndefinite,
                                             configuration: snackbarConfig);

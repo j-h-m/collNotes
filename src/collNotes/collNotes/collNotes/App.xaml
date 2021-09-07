@@ -6,7 +6,7 @@
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
-        <ResourceDictionary Source="ColorThemes/LightDefault.xaml" />
+        <ResourceDictionary Source="ColorThemes/Light.xaml" />
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor"
                     Value="{DynamicResource PrimaryColor}" />

@@ -40,4 +40,12 @@
     <ProjectReference Include="..\..\collNotes.Domain\collNotes.Domain.csproj" />
     <ProjectReference Include="..\..\collNotes.Data\collNotes.Ef.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ColorThemes\HighContrast.xaml.cs">
+      <DependentUpon>HighContrast.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="ColorThemes\Light.xaml.cs">
+      <DependentUpon>Light.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@
     -->
 
     <Shell.Resources>
-        <ResourceDictionary Source="ColorThemes/LightDefault.xaml" />
+        <ResourceDictionary Source="ColorThemes/Light.xaml" />
         <Style x:Key="BaseStyle" TargetType="Element">
             <Setter Property="Shell.BackgroundColor" Value="{DynamicResource PrimaryColor}" />
             <Setter Property="Shell.ForegroundColor" Value="{DynamicResource SecondaryTextColor}" />

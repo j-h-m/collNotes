@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace collNotes.ColorThemes
 {
-    public partial class ContrastLight : ResourceDictionary
+    public partial class HighContrast : ResourceDictionary
     {
         public static readonly Color PageBackgroundColor = Color.White;
         public static readonly Color SecondaryBackgroundColor = Color.WhiteSmoke;
@@ -22,7 +22,7 @@ namespace collNotes.ColorThemes
         public static readonly Color SecondaryColorLight = Color.FromHex("ff5bff");
         public static readonly Color SecondaryColorDark = Color.FromHex("a000bb");
 
-        public ContrastLight()
+        public HighContrast()
         {
             InitializeComponent();
         }
