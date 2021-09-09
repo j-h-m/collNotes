@@ -40,9 +40,29 @@
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent Title="Collect"
-                      Route="CollectPage" 
-                      ContentTemplate="{DataTemplate local:CollectPage}">
+        <ShellContent Title="Trips"
+                      Route="TripPage" 
+                      ContentTemplate="{DataTemplate local:TripsPage}">
+            <ShellContent.Icon>
+                <icons:IconSource Icon="Suitcase"
+                                  Size="Default"
+                                  Color="{DynamicResource SecondaryTextColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Sites"
+                      Route="SitesPage" 
+                      ContentTemplate="{DataTemplate local:SitesPage}">
+            <ShellContent.Icon>
+                <icons:IconSource Icon="Walking"
+                                  Size="Default"
+                                  Color="{DynamicResource SecondaryTextColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Specimen"
+                      Route="SpecimenPage" 
+                      ContentTemplate="{DataTemplate local:SpecimenPage}">
             <ShellContent.Icon>
                 <icons:IconSource Icon="Leaf"
                                   Size="Default"

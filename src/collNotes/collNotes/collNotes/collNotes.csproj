@@ -21,12 +21,6 @@
     <PackageReference Include="Xamarin.Forms.FontAwesome.Solid" Version="1.0.0" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\CollectPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
   <ItemGroup>
     <None Remove="EmbeddedResources\fungi_ref.txt" />
     <None Remove="EmbeddedResources\plantae_ref.txt" />
