@@ -13,6 +13,9 @@ using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 using collNotes.Domain.Models;
 using static collNotes.DeviceServices.Permissions.PermissionsService;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
 namespace collNotes.ViewModels
 {
@@ -52,6 +55,38 @@ namespace collNotes.ViewModels
                 _ShowConnectionErrorMsg = value;
                 OnPropertyChanged(nameof(ShowConnectionErrorMsg));
             }
+        }
+
+        private string _SelectedDirection = "Export";
+        public string SelectedDirection
+        {
+            get { return _SelectedDirection; }
+            set
+            {
+                _SelectedDirection = value;
+                OnPropertyChanged(nameof(SelectedDirection));
+            }
+        }
+
+        private string _SelectedType = "Trip";
+        public string SelectedType
+        {
+            get { return _SelectedType; }
+            set
+            {
+                _SelectedType = value;
+                OnPropertyChanged(nameof(SelectedType));
+            }
+        }
+
+        public IEnumerable<string> Directions
+        {
+            get { return new List<string>() { "Export", "Import" }; }
+        }
+
+        public IEnumerable<string> Types
+        {
+            get { return new List<string>() { "Backup", "Trip" }; }
         }
 
         public ExportImportViewModel()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using collNotes.ColorThemes.ConfigFactory;
 using collNotes.DeviceServices.Connectivity;
@@ -11,8 +10,6 @@ using collNotes.Services.Data.RecordData;
 using collNotes.Settings;
 using collNotes.ShareFolderInterface;
 using collNotes.ViewModels;
-/*using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;*/
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,7 +18,7 @@ using XF.Material.Forms.UI.Dialogs;
 namespace collNotes.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ExportImportPage : TabbedPage
+    public partial class ExportImportPage : ContentPage
     {
         private bool IsDeviceIosSimulator = DeviceInfo.Platform == DevicePlatform.iOS &&
                 DeviceInfo.DeviceType == DeviceType.Virtual;
@@ -42,25 +39,18 @@ namespace collNotes.Views
         public ExportImportPage()
         {
             InitializeComponent();
-            BindingContext = this.viewModel = new ExportImportViewModel();
-
-            Title = GetTitle(string.Empty);
-
-            CurrentPageChanged += ExportImportPage_CurrentPageChanged;
+            BindingContext = viewModel = new ExportImportViewModel();
         }
-
-        private void ExportImportPage_CurrentPageChanged(object sender, System.EventArgs e)
+        protected override void OnAppearing()
         {
-            var tabbedPage = (TabbedPage)sender;
+            base.OnAppearing();
 
-            if (tabbedPage.CurrentPage == ImportContentPage)
-                Title = GetTitle("Import");
-
-            if (tabbedPage.CurrentPage == ExportContentPage)
-                Title = GetTitle("Export");
+            var netStatus = connectivityService.GetNetworkStatus();
+            viewModel.IsConnectionAvailable = netStatus == ConnectivityService.ActualConnectivity.Connected;
+            viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
         }
 
-        private async void ImportTrip_Clicked(object sender, System.EventArgs e)
+        private async void ImportTrip()
         {
             if (IsDeviceIosSimulator)
             {
@@ -110,7 +100,7 @@ namespace collNotes.Views
             }
         }
 
-        private async void ExportTrip_Clicked(object sender, System.EventArgs e)
+        private async void ExportTrip()
         {
             if (IsDeviceIosSimulator)
             {
@@ -159,7 +149,7 @@ namespace collNotes.Views
             }
         }
 
-        private async void ImportBackup_Clicked(object sender, System.EventArgs e)
+        private async void ImportBackup()
         {
             if (IsDeviceIosSimulator)
             {
@@ -209,7 +199,7 @@ namespace collNotes.Views
             }
         }
 
-        private async void ExportBackup_Clicked(object sender, System.EventArgs e)
+        private async void ExportBackup()
         {
             if (IsDeviceIosSimulator)
             {
@@ -237,18 +227,31 @@ namespace collNotes.Views
             }
         }
 
-        protected override void OnAppearing()
+        private void Submit_Clicked(object sender, EventArgs e)
         {
-            base.OnAppearing();
+            if (viewModel.SelectedDirection.Equals("Export"))
+            {
+                if (viewModel.SelectedType.Equals("Backup"))
+                {
+                    ExportBackup();
+                }
+                else if (viewModel.SelectedType.Equals("Trip"))
+                {
+                    ExportTrip();
+                }
+            }
 
-            var netStatus = connectivityService.GetNetworkStatus();
-            viewModel.IsConnectionAvailable = netStatus == ConnectivityService.ActualConnectivity.Connected;
-            viewModel.ShowConnectionErrorMsg = !viewModel.IsConnectionAvailable;
-        }
-
-        private string GetTitle(string currentPageName)
-        {
-            return $"{currentPageName} Collection Data";
+            if (viewModel.SelectedDirection.Equals("Import"))
+            {
+                if (viewModel.SelectedType.Equals("Backup"))
+                {
+                    ImportBackup();
+                }
+                else if (viewModel.SelectedType.Equals("Trip"))
+                {
+                    ImportTrip();
+                }
+            }
         }
 
         private string GetFilePath(string fileName)

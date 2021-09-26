@@ -83,7 +83,7 @@ namespace collNotes.Views
                                                 msDuration: MaterialSnackbar.DurationLong,
                                                 configuration: snackbarConfig);
 
-                    // LocationStatusButton.IsVisible = true;
+                    LocationStatusButton.IsVisible = true;
                 }
             }
             else
@@ -219,6 +219,13 @@ namespace collNotes.Views
             altLbl.Text = $"Altitude: {CurrentLocation.Altitude.ToString()}";
             viewModel.Site.CoordinateUncertaintyInMeters = CurrentLocation.Accuracy.ToString();
             accLbl.Text = $"Accuracy: {CurrentLocation.Accuracy.ToString()}";
+
+            CheckLocation_Button.IsEnabled = true;
+        }
+        private void LocationStatusButton_Clicked(object sender, EventArgs e)
+        {
+            gpsInfoCard.IsVisible = !gpsInfoCard.IsVisible;
+            GetLocation_Button.IsEnabled = !GetLocation_Button.IsEnabled;
         }
     }
 }

@@ -64,6 +64,12 @@
                                                 TintColor="{DynamicResource SecondaryColor}"
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
 
+                    <material:MaterialButton x:Name="LocationStatusButton" IsVisible="False"
+                                                 Text="Toggle location info"
+                                                 Image="map_icon.png" Clicked="LocationStatusButton_Clicked"
+                                                 TextColor="{DynamicResource PrimaryTextColor}"
+                                                 BackgroundColor="{DynamicResource SecondaryBackgroundColor}" />
+                    
                     <material:MaterialCard x:Name="gpsInfoCard" CornerRadius="2" Elevation="5"
                                            HorizontalOptions="CenterAndExpand" 
                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
@@ -74,7 +80,7 @@
                             <material:MaterialLabel x:Name="latLbl" FontSize="Body" TextColor="{DynamicResource PrimaryTextColor}"/>
                             <material:MaterialLabel x:Name="altLbl" FontSize="Body" TextColor="{DynamicResource PrimaryTextColor}"/>
                             <material:MaterialLabel x:Name="accLbl" FontSize="Body" TextColor="{DynamicResource PrimaryTextColor}"/>
-                            <material:MaterialButton Text="Check and Refine Location" Clicked="CheckLocation_Clicked"
+                            <material:MaterialButton x:Name="CheckLocation_Button" Text="Check and Refine Location" Clicked="CheckLocation_Clicked" IsEnabled="False"
                                                      BackgroundColor="{DynamicResource SecondaryColor}"
                                                      TextColor="{DynamicResource SecondaryTextColor}"/>
                         </StackLayout>
