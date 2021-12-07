@@ -64,12 +64,13 @@
                                                 TintColor="{DynamicResource SecondaryColor}"
                                                 UnderlineColor="{DynamicResource SecondaryColor}"/>
 
+                    <!--
                     <material:MaterialButton x:Name="LocationStatusButton" IsVisible="False"
                                                  Text="Toggle location info"
                                                  Image="map_icon.png" Clicked="LocationStatusButton_Clicked"
                                                  TextColor="{DynamicResource PrimaryTextColor}"
                                                  BackgroundColor="{DynamicResource SecondaryBackgroundColor}" />
-                    
+                    -->
                     <material:MaterialCard x:Name="gpsInfoCard" CornerRadius="2" Elevation="5"
                                            HorizontalOptions="CenterAndExpand" 
                                            BackgroundColor="{DynamicResource SecondaryBackgroundColor}">

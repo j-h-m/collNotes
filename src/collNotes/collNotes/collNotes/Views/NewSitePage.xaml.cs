@@ -77,13 +77,16 @@ namespace collNotes.Views
                 {
                     UpdateCurrentLocation();
 
-                    var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
-                    await MaterialDialog.Instance.SnackbarAsync(message: "Touch icon to view and refine location information.",
+                    // var snackbarConfig = await xfMaterialColorConfigFactory.GetSnackbarConfiguration();
+                    
+                    /*
+                     await MaterialDialog.Instance.SnackbarAsync(message: "Use button to view and refine location information.",
                                                 actionButtonText: "OK",
                                                 msDuration: MaterialSnackbar.DurationLong,
                                                 configuration: snackbarConfig);
+                    */
 
-                    LocationStatusButton.IsVisible = true;
+                    // LocationStatusButton.IsVisible = true;
                 }
             }
             else
@@ -222,10 +225,12 @@ namespace collNotes.Views
 
             CheckLocation_Button.IsEnabled = true;
         }
+        /*
         private void LocationStatusButton_Clicked(object sender, EventArgs e)
         {
             gpsInfoCard.IsVisible = !gpsInfoCard.IsVisible;
             GetLocation_Button.IsEnabled = !GetLocation_Button.IsEnabled;
-        }
+        } 
+        */
     }
 }
