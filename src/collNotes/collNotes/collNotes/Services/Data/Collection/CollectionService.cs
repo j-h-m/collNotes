@@ -29,7 +29,7 @@ namespace collNotes.Services.Data
 
         public CollectionService() { }
 
-        public async Task<bool> ExportCollectionData(Trip trip, string exportPath)
+        public async Task<bool> ExportCollectionData(List<Trip> trips, string exportPath)
         {
             bool result = false;
 
@@ -43,25 +43,28 @@ namespace collNotes.Services.Data
                     csvWriter.WriteHeader<DarwinCore>();
                     csvWriter.NextRecord();
 
-                    var sites = await siteService.GetAllAsync();
-                    sites = sites.Where(s => s.AssociatedTripName == trip.TripName).ToList();
-
-                    // write Site
-                    foreach (var si in sites)
+                    foreach (var trip in trips)
                     {
-                        DarwinCore convSite = new DarwinCore(si, tripService);
-                        csvWriter.WriteRecord<DarwinCore>(convSite);
-                        csvWriter.NextRecord();
+                        var sites = await siteService.GetAllAsync();
+                        sites = sites.Where(s => s.AssociatedTripName == trip.TripName).ToList();
 
-                        var specimen = await specimenService.GetAllAsync();
-                        specimen = specimen.Where(s => s.AssociatedSiteName == si.SiteName);
-
-                        // write Specimen
-                        foreach (var sp in specimen)
+                        // write Site
+                        foreach (var si in sites)
                         {
-                            DarwinCore convSpec = new DarwinCore(sp, tripService, siteService);
-                            csvWriter.WriteRecord<DarwinCore>(convSpec);
+                            DarwinCore convSite = new DarwinCore(si, tripService);
+                            csvWriter.WriteRecord<DarwinCore>(convSite);
                             csvWriter.NextRecord();
+
+                            var specimen = await specimenService.GetAllAsync();
+                            specimen = specimen.Where(s => s.AssociatedSiteName == si.SiteName);
+
+                            // write Specimen
+                            foreach (var sp in specimen)
+                            {
+                                DarwinCore convSpec = new DarwinCore(sp, tripService, siteService);
+                                csvWriter.WriteRecord<DarwinCore>(convSpec);
+                                csvWriter.NextRecord();
+                            }
                         }
                     }
                 }

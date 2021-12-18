@@ -70,7 +70,7 @@ namespace collNotes.Views
                 using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Resetting all data and settings",
                     configuration: loadingDialogConfig))
                 {
-                    await viewModel.ResetSettings();
+                    // await viewModel.ResetSettings();
                     MessagingCenter.Send<SettingsPage>(this, "DeleteTrips");
                     MessagingCenter.Send<SettingsPage>(this, "DeleteSites");
                     MessagingCenter.Send<SettingsPage>(this, "DeleteSpecimen");

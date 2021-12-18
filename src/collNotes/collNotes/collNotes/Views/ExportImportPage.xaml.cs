@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -116,6 +117,7 @@ namespace collNotes.Views
                 {
                     var confirmationDialogConfig = await xfMaterialColorConfigFactory.GetConfirmationDialogConfiguration();
                     var choices = trips.Select(t => t.TripName).ToList();
+                    choices.Add("Export All");
                     var result = await MaterialDialog.Instance.SelectChoiceAsync("Select a trip", choices,
                         configuration: confirmationDialogConfig);
 
@@ -123,8 +125,19 @@ namespace collNotes.Views
 
                     if (result != -1)
                     {
-                        var selectedTrip = trips.ToArray()[result];
-                        if (await viewModel.ExportTrip(selectedTrip, GetFilePath(selectedTrip.TripName + ".csv")))
+                        var selectedChoice = choices[result];
+                        List<Trip> selectedTrips = new List<Trip>();
+                        if (selectedChoice.Equals("Export All"))
+                        {
+                            selectedTrips = trips.ToList();
+                        }
+                        else
+                        {
+                            selectedTrips = trips.Where(t => t.TripName.Equals(selectedChoice)).ToList();
+                        }
+                        // var selectedTrip = trips.ToArray()[result];
+
+                        if (await viewModel.ExportTrip(selectedTrips, GetFilePath("Export.csv")))
                         {
                             message = "Trip exported successfully";
                         }

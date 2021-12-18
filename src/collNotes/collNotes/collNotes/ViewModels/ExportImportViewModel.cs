@@ -99,15 +99,15 @@ namespace collNotes.ViewModels
             return await this.collectionService.ImportCollectionData(stream);
         }
 
-        public async Task<bool> ExportTrip(Trip trip, string exportPath)
+        public async Task<bool> ExportTrip(List<Trip> trips, string exportPath)
         {
             bool result = false;
 
             if (await CheckOrRequestStoragePermission())
             {
-                if (await this.collectionService.ExportCollectionData(trip, exportPath))
+                if (await this.collectionService.ExportCollectionData(trips, exportPath))
                 {
-                    await ShareOrEmail(exportPath, $"{trip.TripName}.csv");
+                    await ShareOrEmail(exportPath, $"Export.csv");
                     result = true;
                 }
 
